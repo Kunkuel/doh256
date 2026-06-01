@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Tests – Dr Clarence Da Cruz</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2336;
+    --border: #2a3050;
+    --accent-blue: #4f8ef7;
+    --accent-green: #3ecf8e;
+    --accent-amber: #f5a623;
+    --accent-red: #f76f6f;
+    --accent-purple: #a78bfa;
+    --text: #e8ecf4;
+    --text-muted: #8892a4;
+    --text-dim: #5a6478;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .lecture-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: var(--accent-blue);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+
+  /* SECTION HEADERS */
+  .section {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .label-blue { background: rgba(79,142,247,0.15); color: var(--accent-blue); }
+  .label-green { background: rgba(62,207,142,0.15); color: var(--accent-green); }
+  .label-amber { background: rgba(245,166,35,0.15); color: var(--accent-amber); }
+  .label-red { background: rgba(247,111,111,0.15); color: var(--accent-red); }
+  .label-purple { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--text);
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-title .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-blue { background: var(--accent-blue); }
+  .dot-green { background: var(--accent-green); }
+  .dot-amber { background: var(--accent-amber); }
+  .dot-red { background: var(--accent-red); }
+  .dot-purple { background: var(--accent-purple); }
+
+  .card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  /* BIL TABLE (Benefits / Indications / Limitations) */
+  .bil {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 0.7rem;
+  }
+
+  .bil-col {
+    background: var(--surface2);
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .bil-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+  .bil-head.ind { color: var(--accent-blue); }
+  .bil-head.ben { color: var(--accent-green); }
+  .bil-head.lim { color: var(--accent-red); }
+
+  .bil-col p {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* DIAGNOSIS TABLE */
+  .diag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .diag-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+  }
+
+  .diag-cell h4 {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--accent-blue);
+  }
+
+  .diag-cell ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .diag-cell ul li {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding: 0.15rem 0;
+    padding-left: 0.9rem;
+    position: relative;
+  }
+
+  .diag-cell ul li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-dim);
+    font-size: 0.7rem;
+  }
+
+  /* CASE BOXES */
+  .case-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--accent-amber);
+  }
+
+  .case-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-amber);
+    margin-bottom: 0.5rem;
+  }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.3rem;
+    align-items: start;
+  }
+
+  .case-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding-top: 0.05rem;
+  }
+
+  .case-val {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+  }
+
+  .case-val strong {
+    color: var(--accent-green);
+    font-weight: 500;
+  }
+
+  .case-val em {
+    color: var(--accent-blue);
+    font-style: normal;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: rgba(247,111,111,0.08);
+    border: 1px solid rgba(247,111,111,0.25);
+    border-radius: 6px;
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    color: var(--accent-red);
+    margin-bottom: 1rem;
+  }
+
+  .callout-info {
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.2);
+    color: var(--accent-blue);
+  }
+
+  /* ICCMS TABLE */
+  .iccms-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .iccms-table th {
+    background: var(--surface2);
+    color: var(--accent-green);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .iccms-table td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  .iccms-table tr:last-child td { border-bottom: none; }
+
+  .iccms-table td:first-child {
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+  /* RESULTS TABLE */
+  .results-wrap {
+    margin-top: 0.9rem;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .results-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--accent-purple);
+    margin-bottom: 0.5rem;
+  }
+
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .results-table th {
+    background: rgba(167,139,250,0.1);
+    color: var(--accent-purple);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.4rem 0.7rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .results-table td {
+    padding: 0.4rem 0.7rem;
+    border-bottom: 1px solid rgba(42,48,80,0.6);
+    color: var(--text-muted);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .results-table tr:last-child td { border-bottom: none; }
+
+  .results-table td:first-child {
+    color: var(--text);
+    font-weight: 400;
+    white-space: nowrap;
+    min-width: 160px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-family: 'DM Mono', monospace;
+    padding: 0.1rem 0.45rem;
+    border-radius: 3px;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+  }
+  .tag-normal { background: rgba(62,207,142,0.15); color: var(--accent-green); }
+  .tag-rev { background: rgba(79,142,247,0.15); color: var(--accent-blue); }
+  .tag-irrev { background: rgba(245,166,35,0.2); color: var(--accent-amber); }
+  .tag-nec { background: rgba(247,111,111,0.15); color: var(--accent-red); }
+  .tag-perio { background: rgba(167,139,250,0.15); color: var(--accent-purple); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="lecture-tag">DOH 256 · Special Tests</div>
+    <h1>Special Tests in Dentistry</h1>
+    <p class="subtitle">Dr Clarence Da Cruz · Charles Sturt University · School of Dentistry and Medical Sciences</p>
+  </header>
+
+  <!-- OVERVIEW -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-blue">Overview</span>
+      <h2 class="section-title">Diagnosis Determines Treatment</h2>
+    </div>
+
+    <div class="callout callout-info">
+      Diagnosis is like a jigsaw puzzle — no single finding is sufficient. The clinician must systematically gather history, clinical findings, radiographs, and special test results to form a "probable" diagnosis before any irreversible treatment is rendered.
+    </div>
+
+    <div class="diag-grid">
+      <div class="diag-cell">
+        <h4>Classification Systems Used</h4>
+        <ul>
+          <li>Restorative → ICCMS 2014</li>
+          <li>Endodontic → AAE 2013</li>
+          <li>Periodontal → World Workshop 2017</li>
+        </ul>
+      </div>
+      <div class="diag-cell">
+        <h4>Key Principle</h4>
+        <ul>
+          <li>No diagnosis = no irreversible treatment</li>
+          <li>Inconclusive findings → reassess or refer</li>
+          <li>History + exam + imaging + pulp tests → confirm diagnosis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CARIES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-green">Restorative</span>
+      <h2 class="section-title">ICCMS Caries Classification</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Visual (Clinical) Categories</div>
+      <table class="iccms-table">
+        <thead>
+          <tr><th>Category</th><th>ICDAS Code</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Sound</td><td>0</td><td>No visible caries; developmental defects, stains, erosion recorded as sound</td></tr>
+          <tr><td>Initial</td><td>1–2</td><td>First/distinct visual change in enamel (white/brown spot); no surface breakdown or dentin shadowing</td></tr>
+          <tr><td>Moderate</td><td>3–4</td><td>White/brown spot with localised enamel breakdown (code 3) OR underlying dentin shadow (code 4)</td></tr>
+          <tr><td>Extensive</td><td>5–6</td><td>Distinct cavity with visible dentin; WHO probe confirms extension into dentin</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Radiographic (ICDAS/ICCMS) Categories</div>
+      <table class="iccms-table">
+        <thead>
+          <tr><th>Code</th><th>Stage</th><th>Location</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>R₀</td><td>Sound</td><td>No radiolucency</td></tr>
+          <tr><td>RA1</td><td>Initial</td><td>Outer ½ enamel</td></tr>
+          <tr><td>RA2</td><td>Initial</td><td>Inner ½ enamel ± EDJ</td></tr>
+          <tr><td>RA3</td><td>Initial</td><td>Outer 1/3 dentin</td></tr>
+          <tr><td>RB4</td><td>Moderate</td><td>Middle 1/3 dentin</td></tr>
+          <tr><td>RC5</td><td>Extensive</td><td>Inner 1/3 dentin, clinically cavitated</td></tr>
+          <tr><td>RC6</td><td>Extensive</td><td>Into pulp, clinically cavitated</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Final ICCMS Diagnosis = Stage + Activity Status</div>
+      <p style="font-size:0.83rem; color: var(--text-muted);">Combine the combined category (Sound / Initial / Moderate / Extensive) with activity status (Active or Inactive) to produce the final diagnosis per lesion. e.g. <strong style="color:var(--accent-amber)">Moderate Active</strong>, <strong style="color:var(--accent-amber)">Initial Inactive</strong>.</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- ENDODONTIC DIAGNOSES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-amber">Endodontic</span>
+      <h2 class="section-title">AAE Diagnosis Classifications (2013)</h2>
+    </div>
+
+    <div class="diag-grid">
+      <div class="diag-cell">
+        <h4>Pulpal Diagnoses</h4>
+        <ul>
+          <li>Normal pulp</li>
+          <li>Reversible pulpitis</li>
+          <li>Symptomatic irreversible pulpitis</li>
+          <li>Asymptomatic irreversible pulpitis</li>
+          <li>Pulp necrosis</li>
+          <li>Previously treated</li>
+          <li>Previously initiated therapy</li>
+        </ul>
+      </div>
+      <div class="diag-cell">
+        <h4>Apical Diagnoses</h4>
+        <ul>
+          <li>Normal apical tissues</li>
+          <li>Symptomatic apical periodontitis</li>
+          <li>Asymptomatic apical periodontitis</li>
+          <li>Chronic apical abscess</li>
+          <li>Acute apical abscess</li>
+          <li>Condensing osteitis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SPECIAL TESTS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-blue">Special Tests</span>
+      <h2 class="section-title">Diagnostic Tests — Restorative</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Diagnostic Imaging (2D Radiographs — Bitewing, Periapical, OPG)</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Caries, recurrent caries, bone loss, subgingival calculus, periapical tissues, impacted teeth, bony abnormalities</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Quick, cost-effective, widely available, low radiation</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>2D only, limited resolution, ionising radiation; follow ALADA principle</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-blue"></span>Transillumination</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Cracks, fractures, caries; assessing enamel translucency</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Non-invasive, simple, quick</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Superficial only; may miss deep/small cracks; operator-dependent</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-amber">Special Tests</span>
+      <h2 class="section-title">Diagnostic Tests — Endodontic (Pulp Vitality)</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Thermal Tests (Cold: Endofrost / CO₂; Heat)</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Assess pulp vitality; diagnose pulpitis or necrosis</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Simple, quick, inexpensive</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Subjective; false positives/negatives; may cause discomfort</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>No response <span class="tag tag-nec">Necrosis?</span></td><td>Suggests pulp necrosis or heavily calcified/calcific metamorphosis. Correlate with EPT and radiographs.</td></tr>
+            <tr><td>Mild, brief response <span class="tag tag-normal">Normal</span></td><td>Normal pulp response — pain on stimulus, resolves quickly (&lt;1–2 sec after removal).</td></tr>
+            <tr><td>Exaggerated, no lingering <span class="tag tag-rev">Reversible</span></td><td>Hyper-responsive but pain subsides promptly → reversible pulpitis. Pulp can recover if cause removed.</td></tr>
+            <tr><td>Pain lingers &gt;a few seconds <span class="tag tag-irrev">Irreversible</span></td><td>Lingering pain after removal of stimulus (typically &gt;5–10 sec) → symptomatic irreversible pulpitis. Pulp cannot recover.</td></tr>
+            <tr><td>Heat relieves pain <span class="tag tag-nec">Necrosis?</span></td><td>Relief from heat or cold-induced pain relieved by heat suggests liquefactive necrosis / late-stage SIP with gas production.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Electric Pulp Test (EPT)</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Pulp vitality in teeth with ambiguous symptoms</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Non-invasive, quick, easy</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Subjective; false positives/negatives; may cause discomfort</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>Responds at low current <span class="tag tag-normal">Normal / Vital</span></td><td>Pulp is vital. Normal threshold varies — always compare to a contralateral control tooth.</td></tr>
+            <tr><td>Responds at high current</td><td>Elevated threshold may suggest partial pulp degeneration or calcification; correlate clinically.</td></tr>
+            <tr><td>No response <span class="tag tag-nec">Necrosis?</span></td><td>Suggests pulp necrosis. Note: EPT tests nerve fibres only — does not confirm blood supply. False negatives possible in recently traumatised teeth, calcified canals, or immature teeth.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>Test Cavity</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Pulp vitality when all other tests are inconclusive</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Direct pulp response; useful for heavily restored teeth</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Invasive, irreversible, causes discomfort — last resort</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>Pain on drilling <span class="tag tag-normal">Vital</span></td><td>Patient reports sensation/pain when cutting through dentin without anaesthetic → pulp is vital.</td></tr>
+            <tr><td>No pain on drilling <span class="tag tag-nec">Necrosis?</span></td><td>Absence of sensation during cavity preparation → suggests pulp necrosis. Proceed with RCT planning.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-purple"></span>Laser Doppler Flowmetry</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Ambiguous symptoms or post-trauma; evaluates blood flow</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Non-invasive, objective, quantitative data</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Expensive, technique-sensitive, limited availability</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>Detectable blood flow <span class="tag tag-normal">Vital</span></td><td>Pulp vasculature is intact → tooth is vital. Particularly useful post-trauma when nerve fibres may be temporarily stunned (false negative on EPT/thermal).</td></tr>
+            <tr><td>No detectable blood flow <span class="tag tag-nec">Necrosis?</span></td><td>Absent pulpal circulation → pulp necrosis likely. Most objective non-invasive vitality test available.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-amber">Special Tests</span>
+      <h2 class="section-title">Diagnostic Tests — Periapical Assessment</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Percussion Test</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Periodontal/endodontic problems — abscesses, inflammation</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Simple, quick, non-invasive</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Subjective; may cause discomfort; not conclusive alone</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>No pain <span class="tag tag-normal">Normal</span></td><td>Normal apical/periodontal tissues — no significant periapical inflammation.</td></tr>
+            <tr><td>Mild tenderness</td><td>May indicate early periapical inflammation or periodontal disease. Correlate with other findings.</td></tr>
+            <tr><td>Pain to percussion <span class="tag tag-irrev">SAP / Abscess</span></td><td>Suggests symptomatic apical periodontitis or periodontal abscess — inflammatory exudate in periapical/periodontal space. Common in irreversible pulpitis progressing apically or pulp necrosis.</td></tr>
+            <tr><td>Dull/flat sound on tapping</td><td>May suggest ankylosis (useful in paediatric/traumatology contexts).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Palpation</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Inflammation, swelling, or tenderness in periapical/periodontal tissues</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Simple, quick, non-invasive</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Subjective; may cause discomfort; not conclusive alone</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>No tenderness <span class="tag tag-normal">Normal</span></td><td>No significant periapical or soft tissue pathology at that site.</td></tr>
+            <tr><td>Tenderness / pain <span class="tag tag-irrev">Periapical pathology</span></td><td>Suggests periapical abscess, cellulitis, or significant apical periodontitis with cortical bone involvement or perforation.</td></tr>
+            <tr><td>Fluctuant swelling <span class="tag tag-nec">Abscess</span></td><td>Fluctuance indicates a localised abscess with pus — requires drainage. Distinguish from firm/indurated swelling (cellulitis).</td></tr>
+            <tr><td>Firm/indurated swelling</td><td>Suggests cellulitis — diffuse spread of infection without localisation. More serious; may require systemic antibiotics.</td></tr>
+            <tr><td>Sinus tract (stoma) palpated</td><td>Associated with chronic apical abscess — tracks infection to surface. Trace with gutta-percha to identify source tooth.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-amber"></span>Biting Test (Tooth Sleuth / FracFinder)</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Fractures, occlusal interferences, periodontal issues causing bite pain</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Simple, quick, non-invasive</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Subjective; may cause discomfort; not conclusive alone</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>No pain <span class="tag tag-normal">Normal</span></td><td>No significant fracture, periapical inflammation, or occlusal issue at that cusp/site.</td></tr>
+            <tr><td>Pain on biting down <span class="tag tag-irrev">SAP / Fracture?</span></td><td>May indicate symptomatic apical periodontitis (periapical inflammation), a cracked cusp, or periodontal involvement. Test each cusp individually to localise the site.</td></tr>
+            <tr><td>Sharp pain on release <span class="tag tag-irrev">Cracked tooth</span></td><td>Classic "cracked tooth syndrome" — pain on release (rebound) is highly suggestive of a crack. The flex and rebound of the crack stimulates pulp/periodontal fibres.</td></tr>
+            <tr><td>Pain isolates to one cusp</td><td>Confirms location of crack — guides treatment decision (restoration, cuspal coverage, or RCT if pulp involved).</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PERIODONTAL -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-green">Periodontic</span>
+      <h2 class="section-title">Periodontal Examination Tests</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Periodontal Probing</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Diagnose and monitor periodontal disease; assess treatment response</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Simple, inexpensive, widely used</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Operator-dependent; discomfort; measurement variability</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>≤3 mm, no BOP <span class="tag tag-normal">Healthy</span></td><td>Periodontal health on an intact or reduced periodontium.</td></tr>
+            <tr><td>≤3 mm + BOP <span class="tag tag-rev">Gingivitis</span></td><td>Gingivitis — inflammation without bone loss. Reversible with plaque control.</td></tr>
+            <tr><td>4–5 mm PD <span class="tag tag-irrev">Stage I–II</span></td><td>Mild–moderate periodontitis depending on CAL and radiographic bone loss. Stage I/II.</td></tr>
+            <tr><td>≥6 mm PD <span class="tag tag-nec">Stage III–IV</span></td><td>Advanced periodontitis. Stage III (≥5 mm CAL, extending to middle/apical third root) or Stage IV (tooth loss complexity factors).</td></tr>
+            <tr><td>Localised deep pocket at single site</td><td>Consider periodontic-endodontic lesion, root fracture, or isolated bony defect. Correlate with periapical radiograph.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Bleeding on Probing (BOP)</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Assess gingival health; BOP has high negative predictive value</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Easy to perform; correlates with disease activity</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Influenced by probing force and gingival irritation</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation</div>
+        <table class="results-table">
+          <thead><tr><th>Result</th><th>Interpretation</th></tr></thead>
+          <tbody>
+            <tr><td>No bleeding <span class="tag tag-normal">Healthy</span></td><td>High negative predictive value — absence of BOP reliably indicates a site is stable and non-inflamed.</td></tr>
+            <tr><td>Bleeding present <span class="tag tag-rev">Inflamed</span></td><td>Indicates gingival inflammation at that site. Low positive predictive value — not all bleeding sites will progress, but requires monitoring and oral hygiene intervention.</td></tr>
+            <tr><td>Generalised BOP (&gt;10% sites)</td><td>Consistent with gingivitis or active periodontitis. Use as a treatment response marker — reducing BOP % confirms improving plaque control.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-green"></span>Furcation Involvement Assessment</div>
+      <div class="bil">
+        <div class="bil-col"><div class="bil-head ind">Indications</div><p>Diagnose and stage periodontal disease in multi-rooted teeth</p></div>
+        <div class="bil-col"><div class="bil-head ben">Benefits</div><p>Guides treatment planning; helps predict tooth prognosis</p></div>
+        <div class="bil-col"><div class="bil-head lim">Limitations</div><p>Operator-dependent; access limitations; measurement variability</p></div>
+      </div>
+      <div class="results-wrap">
+        <div class="results-label">Result Interpretation (Hamp, Nyman &amp; Lindhe Classification)</div>
+        <table class="results-table">
+          <thead><tr><th>Class</th><th>Finding &amp; Significance</th></tr></thead>
+          <tbody>
+            <tr><td>Class I <span class="tag tag-rev">Early</span></td><td>Probe penetrates furcation &lt;3 mm horizontally. Bone loss present but furcation not through-and-through. Generally good prognosis with nonsurgical therapy.</td></tr>
+            <tr><td>Class II <span class="tag tag-irrev">Moderate</span></td><td>Probe penetrates ≥3 mm but does not pass through. Cul-de-sac defect. Prognosis more guarded; may require surgical intervention or regenerative therapy.</td></tr>
+            <tr><td>Class III <span class="tag tag-nec">Advanced</span></td><td>Probe passes completely through furcation (through-and-through). Bone loss is complete in furcation area. Poor prognosis; extraction often considered. Contributes to Stage III/IV periodontitis complexity.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CASE EXAMPLES -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-purple">Cases</span>
+      <h2 class="section-title">Clinical Case Examples</h2>
+    </div>
+
+    <div class="case-box">
+      <div class="case-number">Case 01 · Mandibular Right First Molar</div>
+      <div class="case-row"><span class="case-key">Hx</span><span class="case-val">Hypersensitive to cold/sweets for months → symptoms have now <em>subsided</em></span></div>
+      <div class="case-row"><span class="case-key">Signs</span><span class="case-val">No response to thermal testing; tenderness to biting; pain to percussion; diffuse radiopacities around root apices</span></div>
+      <div class="case-row"><span class="case-key">Diagnosis</span><span class="case-val"><strong>Pulp necrosis + Symptomatic apical periodontitis with condensing osteitis</strong></span></div>
+      <div class="case-row"><span class="case-key">TP</span><span class="case-val">Non-surgical RCT → build-up → crown. Condensing osteitis expected to partially/fully regress post-treatment.</span></div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-number">Case 02 · Maxillary Right Second Molar (Full Gold Crown)</div>
+      <div class="case-row"><span class="case-key">Hx</span><span class="case-val">Post-crown sensitivity to hot/cold → now <em>spontaneous</em> discomfort</span></div>
+      <div class="case-row"><span class="case-key">Signs</span><span class="case-val">Endo-Ice® pain with 12 sec lingering; percussion and palpation normal; no radiographic osseous changes</span></div>
+      <div class="case-row"><span class="case-key">Diagnosis</span><span class="case-val"><strong>Symptomatic irreversible pulpitis + Normal apical tissues</strong></span></div>
+      <div class="case-row"><span class="case-key">TP</span><span class="case-val">Non-surgical RCT → permanent restoration. Adjacent premolar also diagnosed SIP + SAP (pain to percussion, cold lingering 8 sec) → RCT also required.</span></div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-number">Case 03 · Maxillary Left First Molar (Occlusal-Mesial Caries)</div>
+      <div class="case-row"><span class="case-key">Hx</span><span class="case-val">Sensitivity to sweets and cold liquids</span></div>
+      <div class="case-row"><span class="case-key">Signs</span><span class="case-val">No discomfort to biting/percussion; <em>hyper-responsive</em> to Endo-Ice® with <em>no lingering pain</em></span></div>
+      <div class="case-row"><span class="case-key">Diagnosis</span><span class="case-val"><strong>Reversible pulpitis + Normal apical tissues</strong></span></div>
+      <div class="case-row"><span class="case-key">TP</span><span class="case-val">Excavate caries → permanent restoration. If pulp exposed → non-surgical RCT + crown.</span></div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- KEY CLINICAL PEARLS -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-label label-red">Pearls</span>
+      <h2 class="section-title">Key Clinical Pearls</h2>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>Thermal Test Interpretation</div>
+      <table class="iccms-table">
+        <thead><tr><th>Response</th><th>Likely Diagnosis</th></tr></thead>
+        <tbody>
+          <tr><td>No response</td><td>Pulp necrosis (or heavily calcified canal)</td></tr>
+          <tr><td>Hyper-responsive, no lingering</td><td>Reversible pulpitis</td></tr>
+          <tr><td>Pain + lingering (&gt;few seconds)</td><td>Symptomatic irreversible pulpitis</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>BOP Negative Predictive Value</div>
+      <p>Absence of BOP is a reliable indicator of periodontal health/stability — the high negative predictive value means no bleeding ≈ no active disease at that site.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="dot dot-red"></span>ALADA Principle</div>
+      <p>Radiographic exposure should be <strong style="color:var(--text)">As Low As Diagnostically Achievable</strong> — prescribe the minimum number and type of radiographs justified by clinical need.</p>
+    </div>
+  </div>
+
+</div>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

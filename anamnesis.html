@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 256 – Anamnesis Flashcards</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
+  h1 { font-size: 1.4rem; color: #a78bfa; margin-bottom: 4px; text-align: center; }
+  .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .progress-bar-bg { width: 100%; max-width: 640px; height: 6px; background: #2d2d4e; border-radius: 99px; margin-bottom: 8px; }
+  .progress-bar { height: 6px; background: #7c3aed; border-radius: 99px; transition: width 0.4s; }
+  .counter { font-size: 0.8rem; color: #888; margin-bottom: 20px; text-align: right; width: 100%; max-width: 640px; }
+  .card-container { width: 100%; max-width: 640px; perspective: 1200px; }
+  .card { width: 100%; min-height: 240px; position: relative; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(.4,0,.2,1); cursor: pointer; border-radius: 16px; }
+  .card.flipped { transform: rotateY(180deg); }
+  .face { position: absolute; width: 100%; min-height: 240px; border-radius: 16px; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 28px 28px; text-align: center; }
+  .front { background: linear-gradient(135deg, #312e81, #1e1b4b); border: 1px solid #4c1d95; }
+  .back { background: linear-gradient(135deg, #1e3a5f, #0f172a); border: 1px solid #1d4ed8; transform: rotateY(180deg); }
+  .label { font-size: 0.7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+  .front .label { color: #c4b5fd; }
+  .back .label { color: #93c5fd; }
+  .question { font-size: 1.15rem; font-weight: 600; color: #f3f0ff; line-height: 1.5; }
+  .answer { font-size: 1rem; color: #bfdbfe; line-height: 1.65; }
+  .answer ul { text-align: left; margin-top: 8px; padding-left: 18px; }
+  .answer li { margin-bottom: 4px; }
+  .hint { font-size: 0.75rem; color: #6b7280; margin-top: 14px; }
+  .controls { display: flex; gap: 12px; margin-top: 20px; width: 100%; max-width: 640px; }
+  .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity .2s, transform .1s; }
+  .btn:active { transform: scale(0.97); }
+  .btn-prev { background: #374151; color: #d1d5db; }
+  .btn-flip { background: #5b21b6; color: #fff; }
+  .btn-next { background: #374151; color: #d1d5db; }
+  .deck-badge { display: inline-block; background: #4c1d95; color: #c4b5fd; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; letter-spacing: .08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="deck-badge">Deck 1 of 3</div>
+<h1>DOH 256 – Anamnesis</h1>
+<p class="subtitle">Click card to reveal answer · Use buttons to navigate</p>
+<div class="progress-bar-bg"><div class="progress-bar" id="pbar"></div></div>
+<div class="counter" id="counter"></div>
+<div class="card-container">
+  <div class="card" id="card" onclick="flipCard()">
+    <div class="face front">
+      <div class="label">Question</div>
+      <div class="question" id="q"></div>
+      <div class="hint">Tap to reveal answer</div>
+    </div>
+    <div class="face back">
+      <div class="label">Answer</div>
+      <div class="answer" id="a"></div>
+    </div>
+  </div>
+</div>
+<div class="controls">
+  <button class="btn btn-prev" onclick="navigate(-1)">← Prev</button>
+  <button class="btn btn-flip" onclick="flipCard()">Flip</button>
+  <button class="btn btn-next" onclick="navigate(1)">Next →</button>
+</div>
+
+<script>
+const cards = [
+  { q: "What is anamnesis?", a: "The recollection of past experiences or innate knowledge. Derived from the Greek for 'remembrance'. In medicine it refers to a patient's case history." },
+  { q: "List 4 contexts where the word 'anamnesis' is used.", a: "<ul><li><b>Medicine:</b> patient case history</li><li><b>Philosophy (Plato):</b> recalling innate knowledge</li><li><b>Theology:</b> making past sacrifices present (Eucharist)</li><li><b>Literature:</b> a vivid recollection</li></ul>" },
+  { q: "What is the diagnostic process flow?", a: "Symptoms → History → Exam → Diagnostic Sieve → Provisional Dx → Tests → Test hypothesis → Final Diagnosis" },
+  { q: "What is the 1st Law of Diagnosis?", a: "Listen to your patients." },
+  { q: "What is the 2nd Law of Diagnosis?", a: "When you hear hoof beats, think horses not zebras — common things are common for a reason." },
+  { q: "What is the 3rd Law of Diagnosis?", a: "A patient will have as many things wrong with them as they please." },
+  { q: "What does RFA stand for and what does it mean?", a: "<b>Reason for Attending</b> (aka chief complaint). What triggered the patient to come to the dentist? What are they trying to achieve?" },
+  { q: "List the 6 components of a full anamnesis / patient history.", a: "<ul><li>RFA (chief complaint)</li><li>History of presenting complaint</li><li>Social History</li><li>Dietary History</li><li>Medical History</li><li>Dental History</li></ul>" },
+  { q: "What does SOCRATES stand for in pain history?", a: "Site · Onset · Character · Radiation · Associations · Time course · Exacerbating/relieving factors · Severity" },
+  { q: "What key questions make up a dietary history?", a: "<ul><li>Types of foods frequently eaten</li><li>Between-meal snacking</li><li>Food avoidance patterns</li><li>Family/work influences on diet</li><li>Does diet impact the RFA?</li></ul>" },
+  { q: "What does the medical history component of an anamnesis cover?", a: "<ul><li>Previous illnesses</li><li>Surgical treatments</li><li>Current medications (prescription, OTC, supplements)</li><li>How these may tie into the current problem</li></ul>" },
+  { q: "What does social history help determine in an anamnesis?", a: "It helps build rapport, identifies whether family/work circumstances impact the RFA, and informs management decisions." },
+  { q: "What are the key elements of a dental history?", a: "<ul><li>Frequency of dental visits (and reasons)</li><li>Previous dental treatments and experiences</li><li>Home care habits (frequency, tools)</li><li>Patient expectations (realistic & achievable?)</li></ul>" },
+  { q: "What is meant by a patient's 'dental IQ'?", a: "An informal assessment of the patient's knowledge, attitude, and experiences with dentistry, determined through their dental history." },
+  { q: "Why is 'History of the presenting complaint' important?", a: "It reveals what happened, how it impacts the patient's comfort/function/life, what the patient thinks the problem is, and what they feel they need." },
+  { q: "What 3 questions guide the history of the presenting complaint?", a: "<ul><li>What happened?</li><li>How does this impact comfort/function/life?</li><li>What do they feel they need? What do they think the problem is?</li></ul>" },
+];
+
+let current = 0, flipped = false;
+const cardEl = document.getElementById('card');
+const qEl = document.getElementById('q');
+const aEl = document.getElementById('a');
+const pbar = document.getElementById('pbar');
+const counter = document.getElementById('counter');
+
+function render() {
+  if (flipped) { cardEl.classList.remove('flipped'); flipped = false; }
+  setTimeout(() => {
+    qEl.innerHTML = cards[current].q;
+    aEl.innerHTML = cards[current].a;
+    pbar.style.width = ((current + 1) / cards.length * 100) + '%';
+    counter.textContent = `Card ${current + 1} of ${cards.length}`;
+  }, flipped ? 300 : 0);
+}
+
+function flipCard() {
+  flipped = !flipped;
+  cardEl.classList.toggle('flipped', flipped);
+}
+
+function navigate(dir) {
+  current = (current + dir + cards.length) % cards.length;
+  flipped = false;
+  cardEl.classList.remove('flipped');
+  setTimeout(() => { qEl.innerHTML = cards[current].q; aEl.innerHTML = cards[current].a; pbar.style.width = ((current + 1) / cards.length * 100) + '%'; counter.textContent = `Card ${current + 1} of ${cards.length}`; }, 100);
+}
+
+render();
+</script>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

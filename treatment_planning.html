@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DOH 256 – Treatment Planning (Complete Notes)</title>
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --card: #ffffff;
+      --primary: #1e4d7b;
+      --primary-light: #2e6da4;
+      --accent: #e8f0f9;
+      --highlight: #fff8e1;
+      --warn: #fdecea;
+      --green: #e8f5e9;
+      --purple: #f3e5f5;
+      --border: #d0dce8;
+      --text: #1a1a2e;
+      --muted: #5a6a7a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      padding: 2rem 1rem 4rem;
+    }
+    .page-header {
+      background: linear-gradient(135deg, #1e4d7b 0%, #2e6da4 100%);
+      color: white;
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      max-width: 960px;
+      margin-left: auto; margin-right: auto;
+    }
+    .page-header h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .page-header p { font-size: 0.92rem; opacity: 0.85; }
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 960px;
+      margin-left: auto; margin-right: auto;
+    }
+    .toc h3 { font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 0.6rem; }
+    .toc ol { padding-left: 1.3rem; column-count: 2; column-gap: 2rem; }
+    @media(max-width:580px){ .toc ol { column-count: 1; } }
+    .toc li { font-size: 0.88rem; margin-bottom: 0.2rem; }
+    .toc a { color: var(--primary-light); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+    }
+    .card-title {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 1.1rem; padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .card-title .num {
+      background: var(--primary); color: white; border-radius: 50%;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.82rem; font-weight: 700; flex-shrink: 0;
+    }
+    .card-title h2 { font-size: 1.2rem; color: var(--primary); font-weight: 700; }
+    h3 { font-size: 1rem; color: #1a3350; margin: 1.2rem 0 0.5rem; font-weight: 700; }
+    p { font-size: 0.94rem; margin-bottom: 0.5rem; }
+    ul, ol { padding-left: 1.4rem; margin-bottom: 0.6rem; }
+    li { font-size: 0.93rem; margin-bottom: 0.25rem; }
+    .callout {
+      border-radius: 8px; padding: 0.85rem 1.1rem; margin: 0.85rem 0; font-size: 0.92rem;
+    }
+    .callout .callout-title { font-weight: 700; display: block; margin-bottom: 0.3rem; }
+    .callout.yellow { background: var(--highlight); border-left: 4px solid #f9a825; }
+    .callout.blue   { background: var(--accent);    border-left: 4px solid var(--primary); }
+    .callout.red    { background: var(--warn);       border-left: 4px solid #c62828; }
+    .callout.green  { background: var(--green);      border-left: 4px solid #2e7d32; }
+    .callout.purple { background: var(--purple);     border-left: 4px solid #6a1b9a; }
+    .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0.85rem 0; }
+    .flow-pill {
+      background: var(--primary); color: white; border-radius: 20px;
+      padding: 0.3rem 0.9rem; font-size: 0.82rem; font-weight: 600; white-space: nowrap;
+    }
+    .flow-arrow { color: var(--muted); font-size: 1rem; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-top: 0.75rem; }
+    @media(max-width:600px){ .grid2 { grid-template-columns: 1fr; } }
+    .g-item { background: var(--accent); border-radius: 8px; padding: 0.65rem 0.9rem; font-size: 0.9rem; }
+    .g-item strong { color: var(--primary); }
+    .tbl-wrap { overflow-x: auto; margin-top: 0.75rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th { background: var(--primary); color: white; padding: 0.55rem 0.8rem; text-align: left; font-weight: 600; }
+    td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:nth-child(even) td { background: var(--accent); }
+    .asa-i   td:first-child { border-left: 4px solid #2e7d32; }
+    .asa-ii  td:first-child { border-left: 4px solid #1565c0; }
+    .asa-iii td:first-child { border-left: 4px solid #e65100; }
+    .asa-iv  td:first-child { border-left: 4px solid #b71c1c; }
+    .bp-ok   td:first-child { border-left: 4px solid #2e7d32; }
+    .bp-low  td:first-child { border-left: 4px solid #558b2f; }
+    .bp-mid  td:first-child { border-left: 4px solid #f57f17; }
+    .bp-high td:first-child { border-left: 4px solid #e65100; }
+    .bp-sev  td:first-child { border-left: 4px solid #b71c1c; }
+    .risk-none   td:last-child { color: #2e7d32; font-weight: 700; }
+    .risk-low    td:last-child { color: #1565c0; font-weight: 700; }
+    .risk-medium td:last-child { color: #e65100; font-weight: 700; }
+    .risk-high   td:last-child { color: #b71c1c; font-weight: 700; }
+    .phase-strip {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; margin: 1rem 0;
+    }
+    @media(max-width:600px){ .phase-strip { grid-template-columns: 1fr 1fr; } }
+    .ph { border-radius: 8px; padding: 0.75rem 0.6rem; text-align: center; font-size: 0.82rem; font-weight: 700; line-height: 1.4; }
+    .ph1 { background: #dbeafe; color: #1e3a5f; }
+    .ph2 { background: #fee2e2; color: #7f1d1d; }
+    .ph3 { background: #d1fae5; color: #064e3b; }
+    .ph4 { background: #ede9fe; color: #3b0764; }
+    .ph5 { background: #fef3c7; color: #78350f; }
+    .csu-box {
+      background: #e8f4ff; border: 1.5px solid #2e6da4; border-radius: 8px;
+      padding: 0.85rem 1.1rem; margin-top: 0.85rem; font-size: 0.91rem;
+    }
+    .csu-box .csu-title {
+      font-weight: 700; color: var(--primary); display: block; margin-bottom: 0.3rem;
+      font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .phase-label {
+      display: inline-block; border-radius: 4px; padding: 0.1rem 0.5rem;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .pl-green  { background: #d1fae5; color: #064e3b; }
+    .pl-purple { background: #ede9fe; color: #3b0764; }
+    .pl-gold   { background: #fef3c7; color: #78350f; }
+    .section-divider {
+      border: none; border-top: 2px dashed var(--border); margin: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <h1>DOH 256 — Treatment Planning (Complete Notes)</h1>
+    <p>Dr Jake Ball &amp; Dr Clarence Da Cruz &nbsp;|&nbsp; School of Dentistry and Medical Sciences, CSU &nbsp;|&nbsp; Lectures 1–3</p>
+  </div>
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Principles &amp; Key Rule</a></li>
+      <li><a href="#s2">Terminology</a></li>
+      <li><a href="#s3">Information Gathering</a></li>
+      <li><a href="#s4">Problem List / SOAP</a></li>
+      <li><a href="#s5">Phases Overview</a></li>
+      <li><a href="#s6">Phase 1: Systemic Phase</a></li>
+      <li><a href="#s7">ASA Classification</a></li>
+      <li><a href="#s8">Blood Pressure Management</a></li>
+      <li><a href="#s9">Physician Consultation (CSU)</a></li>
+      <li><a href="#s10">Phase 2: Acute Phase</a></li>
+      <li><a href="#s11">Phase 3: Disease Control Phase</a></li>
+      <li><a href="#s12">Phase 4: Definitive/Reconstructive Phase</a></li>
+      <li><a href="#s13">Phase 5: Maintenance Phase</a></li>
+    </ol>
+  </div>
+
+  <div class="container">
+
+    <!-- ══ 1. PRINCIPLES ══ -->
+    <div class="card" id="s1">
+      <div class="card-title"><span class="num">1</span><h2>Principles of Treatment Planning</h2></div>
+      <p style="font-weight:600; font-size:1.05rem; color:var(--primary);">"Fail to Plan = Plan to Fail"</p>
+      <p style="margin-top:0.4rem;">The core principle is: <strong>Diagnosis dictates treatment.</strong></p>
+      <div class="callout red" style="margin-top:0.85rem;">
+        <span class="callout-title">⚠ Non-Negotiable Rule</span>
+        If you cannot establish a diagnosis, do <em>not</em> perform irreversible treatment.
+      </div>
+      <h3>How Experienced Clinicians Think</h3>
+      <p>The pathway to a diagnosis is <strong>not always linear</strong>. Experienced practitioners may move back and forth between discovering findings, evaluating their significance, and forming a diagnosis — and may begin considering treatment options before all data is gathered.</p>
+      <p><strong>Textbook resource:</strong> Stefanac &amp; Nesbit — <em>Diagnosis and Treatment Planning in Dentistry</em>, 4th Edition.</p>
+    </div>
+
+    <!-- ══ 2. TERMINOLOGY ══ -->
+    <div class="card" id="s2">
+      <div class="card-title"><span class="num">2</span><h2>Terminology</h2></div>
+      <h3>Examination Types</h3>
+      <ul>
+        <li><strong>Comprehensive exam</strong> — Required for most new patients without urgent concerns before treatment begins.</li>
+        <li><strong>Periodic exam</strong> — Performed at regular intervals, commonly during recall visits.</li>
+        <li><strong>Problem-focused / limited exam</strong> — Evaluates a specific problem: pain, swelling, broken tooth, or damaged restoration.</li>
+        <li><strong>Post-treatment assessment</strong> — Performed when a treatment plan is completed, or when significant caries or periodontal disease is controlled.</li>
+      </ul>
+      <h3>Clinical Terms</h3>
+      <ul>
+        <li><strong>Signs</strong> — Findings discovered by the dentist/clinician during examination.</li>
+        <li><strong>Symptoms</strong> — Findings revealed by the patient themselves, usually because they are causing problems.</li>
+        <li><strong>Chief complaint / Chief concern</strong> — When a symptom becomes the motivating factor for seeking dental care. Always recorded in the <em>patient's own words</em>. Provides insight into the patient's dental knowledge and perception of the problem.</li>
+      </ul>
+    </div>
+
+    <!-- ══ 3. INFORMATION GATHERING ══ -->
+    <div class="card" id="s3">
+      <div class="card-title"><span class="num">3</span><h2>Information Gathering</h2></div>
+      <p>Gathering and recording patient information often requires <strong>more time and attention</strong> than any other aspect of treatment planning. Data must be both <strong>complete</strong> and <strong>accurate</strong> — deficiencies in either will compromise the validity of the final treatment plan.</p>
+      <p>Each practitioner must develop a <strong>consistent, standardised method</strong> to gather historical information, obtain radiographs, and perform the clinical examination.</p>
+      <h3>Pathway to Reaching a Diagnosis</h3>
+      <div class="flow">
+        <span class="flow-pill">1. Patient History</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">2. Radiographic Exam</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">3. Clinical Exam</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">4. Diagnostic Aids</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Evaluate Findings</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Problem List</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Comprehensive Diagnosis</span>
+      </div>
+    </div>
+
+    <!-- ══ 4. PROBLEM LIST / SOAP ══ -->
+    <div class="card" id="s4">
+      <div class="card-title"><span class="num">4</span><h2>Significant Findings / Problem List &amp; SOAP</h2></div>
+      <ul>
+        <li>A <strong>comprehensive list</strong> of significant medical, surgical, dental, psychological, social, and sometimes familial issues currently affecting the patient.</li>
+        <li>Provides a <strong>concise overview</strong> of the patient's health status at a glance.</li>
+        <li>This list is <strong>not static</strong> — it is regularly updated to reflect the current status of each problem, including new issues and the resolution of existing ones.</li>
+        <li>Includes specific dental issues (caries risk, diagnosed caries, periodontal disease, malocclusion) alongside relevant medical conditions that could impact dental treatment.</li>
+      </ul>
+      <div class="callout blue">
+        <span class="callout-title">SOAP Framework</span>
+        <strong>S (Subjective)</strong> — Patient's chief concern in their own words, pain history, medications.<br>
+        <strong>O (Objective)</strong> — Clinical/radiographic findings, periodontal charting, vitals.<br>
+        <strong>A (Assessment)</strong> — Diagnosis list derived from S + O findings.<br>
+        <strong>P (Plan)</strong> — Documents the acute care plan, informed consent, treatment options, and patient wishes.
+      </div>
+    </div>
+
+    <!-- ══ 5. PHASES OVERVIEW ══ -->
+    <div class="card" id="s5">
+      <div class="card-title"><span class="num">5</span><h2>Phases of Treatment Planning — Overview</h2></div>
+      <div class="phase-strip">
+        <div class="ph ph1">1<br>Systemic<br>Phase</div>
+        <div class="ph ph2">2<br>Acute<br>Phase</div>
+        <div class="ph ph3">3<br>Disease<br>Control Phase</div>
+        <div class="ph ph4">4<br>Definitive<br>Phase</div>
+        <div class="ph ph5">5<br>Maintenance<br>Phase</div>
+      </div>
+      <div class="callout blue" style="margin-top:0.75rem;">
+        <span class="callout-title">Mnemonic Flow</span>
+        Assess → Diagnose → <strong>Stabilise</strong> → Relieve → Control → Restore → Maintain
+      </div>
+    </div>
+
+    <!-- ══ 6. SYSTEMIC PHASE ══ -->
+    <div class="card" id="s6">
+      <div class="card-title"><span class="num">6</span><h2>Phase 1 — Systemic Phase</h2></div>
+      <p>Before engaging in active therapy, the dentist must assess the patient's overall general health and determine what effect, if any, health conditions may have on the delivery of dental care and treatment outcomes.</p>
+      <p>Systemic issues are <strong>highly variable</strong> in their relevance. Example: a prosthetic heart valve may require antibiotic prophylaxis (refer to TGL). Conditions such as arthritis or asthma may or may not affect dental treatment depending on nature and severity.</p>
+
+      <h3>Epidemiological Context</h3>
+      <p>4.2 million older Australians (≥65 years) comprise 16% of the total population (ABS 2020). Dentists must be proficient in evaluating health history and delivering care safely for medically complex patients.</p>
+
+      <h3>Rationale for a Systemic Phase</h3>
+      <ol>
+        <li>Recognise undiagnosed systemic disease → refer to healthcare provider.</li>
+        <li>Limit or modify dental treatment based on systemic findings.</li>
+        <li>Prevent emergencies in the dental office.</li>
+        <li>Prevent serious postoperative complications.</li>
+      </ol>
+
+      <h3>Key Questions to Ask Yourself</h3>
+      <div class="grid2">
+        <div class="g-item">Do I need to <strong>modify treatment</strong> to prevent a medical emergency or other complications?</div>
+        <div class="g-item">Does the patient have any <strong>significant allergies</strong>?</div>
+        <div class="g-item">Is there a <strong>risk of medical emergency</strong> during dental treatment?</div>
+        <div class="g-item">Is there an <strong>increased risk of bleeding</strong>?</div>
+        <div class="g-item">Is there an <strong>increased risk of perioperative infection</strong>?</div>
+        <div class="g-item">Are there significant <strong>oral/systemic side effects</strong> of medications to be aware of?</div>
+        <div class="g-item">Are there any <strong>drug interactions</strong> with dentist-prescribed or administered drugs?</div>
+        <div class="g-item">Does the patient's <strong>medical condition affect their oral disease risk</strong>?</div>
+      </div>
+
+      <div class="callout yellow" style="margin-top:0.85rem;">
+        <span class="callout-title">Evaluating Systemic Health Before Treatment</span>
+        Weigh the risk of aggravating the patient's health condition by providing dental care <em>against</em> the risk of delaying treatment. Ask: Is the patient in pain or infected? Do they want comprehensive care or only a specific procedure? What are the ramifications of no treatment at this time?
+      </div>
+
+      <h3>Implementing Systemic Phase Therapy</h3>
+      <ul>
+        <li>Technically not difficult — the challenge is recognising <strong>when, why, and how</strong> to apply interventions.</li>
+        <li>Examples of direct interventions: postponing care, physician consultation, prescribing medication, chair positioning.</li>
+        <li>Examples of behavioural interventions: smoking cessation counselling, dietary modification.</li>
+        <li>Must assess the patient <strong>before, during, and after</strong> treatment and reassess at future appointments.</li>
+        <li>Regularly review and update the medical health history.</li>
+      </ul>
+    </div>
+
+    <!-- ══ 7. ASA CLASSIFICATION ══ -->
+    <div class="card" id="s7">
+      <div class="card-title"><span class="num">7</span><h2>ASA Physical Status Classification</h2></div>
+      <p>The <strong>American Society of Anesthesiologists (ASA)</strong> classification estimates patient risk status. ASA <strong>III or IV</strong> patients may require medical consultation before dental treatment proceeds.</p>
+      <p><em>Example:</em> A patient who cannot climb a flight of stairs without resting and reports chest pain on exertion should be referred to evaluate for ischaemic heart disease.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Category</th><th>Definition</th><th>Examples</th></tr>
+          <tr class="asa-i">
+            <td><strong>ASA I</strong></td>
+            <td>Normal healthy patient with no evidence of systemic disease.</td>
+            <td>—</td>
+          </tr>
+          <tr class="asa-ii">
+            <td><strong>ASA II</strong></td>
+            <td>Mild systemic disease or a significant health risk factor; can walk up a flight of stairs or two city blocks without difficulty.</td>
+            <td>Well-controlled diabetes, controlled hypertension, history of asthma, mild obesity, pregnancy, smoker, extreme dental anxiety.</td>
+          </tr>
+          <tr class="asa-iii">
+            <td><strong>ASA III</strong></td>
+            <td>Moderate to severe systemic disease that limits activity but is not incapacitating; can walk up one flight/two blocks but stops at times due to distress.</td>
+            <td>Stable angina, post-MI, poorly controlled hypertension, symptomatic respiratory disease, massive obesity.</td>
+          </tr>
+          <tr class="asa-iv">
+            <td><strong>ASA IV</strong></td>
+            <td>Severe systemic disease that is life-threatening; unable to walk a flight of stairs or two city blocks; in distress at rest.</td>
+            <td>Unstable angina, liver failure, severe congestive heart failure, end-stage renal disease.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout yellow" style="margin-top:0.85rem;">
+        <span class="callout-title">Clinical Rule</span>
+        ASA III–IV → seek medical consultation before proceeding with treatment. All verbal conversations must be documented in the patient's file.
+      </div>
+
+      <h3>Risk Categories for Selected Dental Procedures</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Dental Procedure</th><th>Risk of Systemic Complications</th></tr>
+          <tr class="risk-none"><td>Oral examination, radiographs, study models</td><td>Little to none</td></tr>
+          <tr class="risk-low"><td>Local anaesthesia, simple restorative treatment, prophylaxis, asymptomatic endodontic therapy, straightforward extractions, orthodontic treatment</td><td>Low</td></tr>
+          <tr class="risk-medium"><td>Symptomatic endodontic therapy, multiple extractions, single implant placement, deep scaling and root planing</td><td>Medium</td></tr>
+          <tr class="risk-high"><td>Extensive surgical procedures, multiple implant placement, general anaesthesia</td><td>High</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ 8. BLOOD PRESSURE ══ -->
+    <div class="card" id="s8">
+      <div class="card-title"><span class="num">8</span><h2>Blood Pressure — Dental Management Guide</h2></div>
+      <p style="font-size:0.85rem; color:var(--muted); margin-bottom:0.75rem;">Source: Little JW, Falace DA, Miller CS et al. <em>Dental Management of the Medically Compromised Patient</em>, 8th ed. Mosby, 2013.</p>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Blood Pressure (mmHg)</th><th>Dental Treatment</th><th>Follow-Up</th></tr>
+          <tr class="bp-ok"><td>≤ 120/80</td><td>Any treatment required</td><td>No physician referral necessary</td></tr>
+          <tr class="bp-low"><td>≥ 120/80 but &lt; 140/90</td><td>Any treatment required</td><td>Encourage patient to see physician</td></tr>
+          <tr class="bp-mid"><td>≥ 140/90 but &lt; 160/100</td><td>Any treatment required</td><td>Encourage patient to see physician</td></tr>
+          <tr class="bp-high"><td>≥ 160/100 but &lt; 180/110</td><td>Any required; consider intraoperative BP monitoring</td><td>Refer to physician promptly (within 1 month)</td></tr>
+          <tr class="bp-sev"><td>≥ 180/110</td><td><strong>Defer elective treatment</strong></td><td>Refer to physician as soon as possible; if symptomatic, refer <strong>immediately</strong></td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ 9. PHYSICIAN CONSULTATION ══ -->
+    <div class="card" id="s9">
+      <div class="card-title"><span class="num">9</span><h2>Physician Consultation &amp; CSU Requirements</h2></div>
+
+      <h3>Principles of Physician Consultation</h3>
+      <ul>
+        <li>The dental treatment of the patient is <strong>your responsibility</strong> as the dentist — not the physician's.</li>
+        <li>Do not expect the healthcare provider to accept responsibility for dental treatment decisions or to dictate treatment.</li>
+        <li>You are asking the physician, in light of their knowledge of the patient's condition, to <strong>assist you in deciding what level of treatment the patient can tolerate</strong>.</li>
+      </ul>
+      <div class="grid2" style="margin-top:0.75rem;">
+        <div class="g-item" style="background:#e8f5e9; border:1.5px solid #2e7d32;">
+          <strong style="color:#1b5e20;">✓ Appropriate to ask:</strong><br>
+          "Is the patient medically fit for dental treatment?" — after informing the physician of your planned treatment.
+        </div>
+        <div class="g-item" style="background:#fdecea; border:1.5px solid #c62828;">
+          <strong style="color:#7f1d1d;">✗ Not appropriate to ask:</strong><br>
+          "Is dental treatment indicated or not?" — this is the dentist's decision, not the physician's.
+        </div>
+      </div>
+      <div class="csu-box" style="margin-top:1rem;">
+        <span class="csu-title">🏥 CSU Orange Dental Clinic — Correspondence Protocol</span>
+        <ul style="font-size:0.91rem;">
+          <li>Correspondence must be a <strong>typed letter signed by both student and supervisor</strong>.</li>
+          <li>Letter is provided to reception for <strong>scanning into the patient file</strong>.</li>
+          <li>A <strong>written reply</strong> from the specialist or medical practitioner is required <strong>before treatment is allowed to proceed</strong>.</li>
+          <li>Any <strong>verbal conversation must be recorded</strong> in the patient's file.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ══ 10. ACUTE PHASE ══ -->
+    <div class="card" id="s10">
+      <div class="card-title"><span class="num">10</span><h2>Phase 2 — Acute Phase</h2></div>
+
+      <p>The acute phase incorporates diagnostic and treatment procedures aimed at <strong>solving urgent oral problems</strong>. It can range from controlling pain and swelling to replacing a broken denture tooth. All patient types may require acute care — those in active treatment, on maintenance recall, new patients, or those returning after a lengthy absence.</p>
+
+      <h3>Emergency vs. Urgency</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr>
+            <th style="background:#b71c1c;">🚨 Emergency</th>
+            <th style="background:#e65100;">⚠ Urgency</th>
+          </tr>
+          <tr>
+            <td><strong>Incapacitates the patient</strong> and has the potential to become life-threatening. Requires <em>immediate attention</em>.<br><br>Examples: severe dental pain, significant swelling/bleeding, systemic infection, facial or jaw trauma.</td>
+            <td>Does <strong>not</strong> require immediate attention — a problem the dentist or (more commonly) the patient thinks should be attended to "now" or "soon".<br><br>Examples: mild–moderate pain without active infection, asymptomatic broken teeth, lost restorations, aesthetic problems.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="callout yellow" style="margin-top:0.75rem;">
+        <span class="callout-title">Key Clinical Points</span>
+        <ul>
+          <li>Urgent problems can often be managed with <strong>palliative care</strong> (treating pain, not the underlying problem) until the patient can be scheduled.</li>
+          <li>The emergency/urgency distinction may be <strong>irrelevant to an anxious, distraught patient</strong> — manage the patient's emotional state as well as the clinical problem.</li>
+          <li>Always ensure no <strong>true emergency</strong> goes unattended.</li>
+        </ul>
+      </div>
+
+      <h3>Challenges with Acute Phase Management</h3>
+      <ul>
+        <li>Determining whether the complaint is a true emergency or an urgent problem.</li>
+        <li>Time pressure: still must complete history, limited exam, radiographs, diagnostic tests, informed consent, and execute care — all within a shorter timeframe.</li>
+        <li>Patients in pain may not be thinking rationally; they may be fearful, irritable, or demanding.</li>
+        <li>Despite this, you have an <strong>obligation to educate the patient</strong> about their overall oral condition and how the acute care fits into their broader treatment plan.</li>
+      </ul>
+
+      <h3>SOCRATES — Pain Assessment Framework</h3>
+      <div class="grid2">
+        <div class="g-item"><strong>S — Site</strong><br>Where exactly is the pain?</div>
+        <div class="g-item"><strong>O — Onset</strong><br>When did it start? Progressive or regressive?</div>
+        <div class="g-item"><strong>C — Character</strong><br>What does it feel like? Dull ache, sharp, throbbing?</div>
+        <div class="g-item"><strong>R — Radiation</strong><br>Does the pain radiate anywhere?</div>
+        <div class="g-item"><strong>A — Associations</strong><br>Any associated signs or symptoms?</div>
+        <div class="g-item"><strong>T — Time course</strong><br>Does the pain follow any pattern?</div>
+        <div class="g-item"><strong>E — Exacerbating / Relieving</strong><br>What changes the pain?</div>
+        <div class="g-item"><strong>S — Severity</strong><br>Rate 0–10.</div>
+      </div>
+
+      <h3>Acute Phase: Clinical Examination (5 Steps)</h3>
+      <ol style="margin-top:0.5rem;">
+        <li style="margin-bottom:0.6rem;"><strong>Overall physical health / constitutional signs</strong> — Rapid overall assessment of the patient's general health.</li>
+        <li style="margin-bottom:0.6rem;"><strong>Oral cancer screening</strong> — Part of the dentist's professional responsibility for all new patients, whether seeking comprehensive or limited care.</li>
+        <li style="margin-bottom:0.6rem;"><strong>Vital signs</strong> — Baseline vitals must be recorded. Take temperature if the patient appears febrile or has signs of generalised infection.</li>
+        <li style="margin-bottom:0.6rem;"><strong>Area of chief concern</strong> — Thorough review. Often leads directly to the affected tooth or site. A tentative/working diagnosis often follows simple strategic tests.</li>
+        <li style="margin-bottom:0.6rem;"><strong>Contiguous tissues</strong> — Examine adjacent or physiologically connected tissues. Examples: inflamed lymph nodes secondary to dental/periodontal infection; trismus from pericoronitis; cellulitis from necrotic pulp.</li>
+      </ol>
+
+      <div class="callout blue" style="margin-top:0.85rem;">
+        <span class="callout-title">Note on Referred Pain</span>
+        In trauma or dental infection, the opposing tooth may be symptomatic. Pain may in rare cases be referred to an adjacent or opposing tooth. When a periodontal origin is suspected, examine the periodontal health of other teeth to help confirm or rule out the diagnosis.
+      </div>
+    </div>
+
+    <!-- ══ 11. DISEASE CONTROL PHASE ══ -->
+    <div class="card" id="s11">
+      <div class="card-title"><span class="num">11</span><h2>Phase 3 — Disease Control Phase</h2></div>
+      <span class="phase-label pl-green">Dr Clarence Da Cruz</span>
+
+      <h3>Purpose</h3>
+      <ul>
+        <li>Eradicate active disease and infection</li>
+        <li>Arrest occlusal, functional, and esthetic deterioration</li>
+        <li>Control causes and risk factors for future disease</li>
+      </ul>
+
+      <div class="callout green">
+        <span class="callout-title">Benefits</span>
+        Allows the practitioner <strong>time</strong> to determine the cause of disease, assess risk factors, estimate prognosis, and evaluate treatment options before committing to definitive care. Patients with minimal oral disease — or those where disease will be removed during the definitive phase — may not require a separate disease control phase.
+      </div>
+
+      <h3>What Disease Requires Disease Control Phase Management?</h3>
+      <ul>
+        <li>Any active oral disease or infection: caries, periodontal disease, pulpal pathology</li>
+        <li>Teeth requiring stabilisation <strong>before</strong> definitive reconstruction</li>
+        <li>Risk factors such as smoking or a diet high in refined carbohydrates</li>
+      </ul>
+
+      <h3>Goals and End Points</h3>
+      <ul>
+        <li>Specific goals must be established and a definite end point set, at which time outcomes will be evaluated.</li>
+        <li>The dentist must project a clear plan: what happens <em>if</em> goals are met, and what happens <em>if</em> they are not.</li>
+        <li>Without tangible progress or positive reinforcement, the patient may become frustrated and give up.</li>
+      </ul>
+
+      <h3>Navigating the Disease Control Phase</h3>
+      <div class="flow">
+        <span class="flow-pill">Address chief concern first</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Triage by severity &amp; urgency</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Sequence by quadrant/sextant</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Integrate periodontal therapy</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-pill">Keep definitive options open (minimalist treatment)</span>
+      </div>
+
+      <h3>Assessing the Disease Control Phase</h3>
+      <p>A crucial part of this phase is the <strong>PRE and POST treatment assessment</strong>, using mostly quantifiable measures to confirm disease and infection control. Success sets the foundation for definitive treatments and influences expected outcomes.</p>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Domain</th><th>Assessment Tool / Classification</th></tr>
+          <tr><td>Comprehensive exam</td><td>Extra-oral and intra-oral</td></tr>
+          <tr><td>Caries / Odontogram</td><td>ICCMS</td></tr>
+          <tr><td>Radiographs</td><td>ICCMS</td></tr>
+          <tr><td>Periodontal probing depths</td><td>PPD — World Workshop 2017</td></tr>
+          <tr><td>Attachment loss</td><td>Clinical Attachment Loss (CAL)</td></tr>
+          <tr><td>Gingival inflammation</td><td>Bleeding on Probing (BOP)</td></tr>
+          <tr><td>Furcation &amp; mobility</td><td>Recorded at each sextant</td></tr>
+          <tr><td>Plaque control</td><td>Plaque index</td></tr>
+          <tr><td>Pulpal diagnosis</td><td>Cold test, EPT, percussion (AAE 2013)</td></tr>
+          <tr><td>Occlusion</td><td>Angle's Classification</td></tr>
+        </table>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- CARIES MANAGEMENT -->
+      <h3>Caries Management — By Risk Group</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Patient Group</th><th>Management Approach</th></tr>
+          <tr>
+            <td><strong>No active lesions + Low risk</strong></td>
+            <td>No basic caries control protocol needed. Restore affected teeth with <em>definitive</em> restorations. Routine maintenance only.</td>
+          </tr>
+          <tr>
+            <td><strong>No visible lesions + Moderate/High risk</strong></td>
+            <td>Place on basic caries control protocol. Reevaluate every 6 months. If risk increases, escalate management.</td>
+          </tr>
+          <tr>
+            <td><strong>Multiple active lesions or High risk</strong></td>
+            <td>Identify patient-specific causes (systemic disease, medications, diet, OH, fluoride exposure). Additional testing may be required (salivary output, oral pH, microbiological analysis).</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Basic Caries Control Protocol</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Intervention</th><th>Rationale</th></tr>
+          <tr><td>Oral prophylaxis (professional)</td><td>Removes plaque and calculus; makes tooth surfaces more receptive to fluoride uptake.</td></tr>
+          <tr><td>Oral hygiene instructions</td><td>Reduces plaque; lowers smooth surface caries risk.</td></tr>
+          <tr><td>Professional fluoride gel/varnish (each recall)</td><td>Remineralises tooth structure; antimicrobial; most effective at &lt;6-month intervals.</td></tr>
+          <tr><td>Dietary recommendations</td><td>Reduce sucrose/refined carb frequency; eliminates substrate for cariogenic bacteria.</td></tr>
+          <tr><td>OTC fluoride dentifrice &amp; rinse (daily)</td><td>Remineralises; replenishes intraoral fluoride reservoir; increases caries resistance.</td></tr>
+          <tr><td>Sealants on susceptible pits and fissures</td><td>Eliminates sites of infection; prevents pit/fissure caries.</td></tr>
+          <tr><td>Restore cavitated lesions (provisional or direct)</td><td>Removes carious nidus; arrests progression. <em>Note: indirect restorations not recommended at disease control stage.</em></td></tr>
+        </table>
+      </div>
+
+      <h3>Additional Caries Interventions</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Problem</th><th>Intervention</th></tr>
+          <tr><td>Decreased salivary quantity/quality</td><td>Frequent oral hydration; salivary substitutes.</td></tr>
+          <tr><td>Medication-induced xerostomia</td><td>Salivary substitutes.</td></tr>
+          <tr><td>Root or smooth surface caries risk</td><td>High-concentration fluoride varnish (22,600 ppm).</td></tr>
+          <tr><td>High fluoride need</td><td>Prescription toothpaste — e.g., Neutrafluor 5000 Plus (5,000 ppm NaF).</td></tr>
+          <tr><td>Caries risk + gum chewer</td><td>Xylitol chewing gum — stimulates salivary flow, reduces cariogenic bacteria.</td></tr>
+        </table>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- PERIODONTAL THERAPY -->
+      <h3>Periodontal Therapy — Overview</h3>
+      <p>Periodontal diseases are not a singular entity — they comprise a group of inflammatory conditions affecting the supporting soft tissues around teeth. Proper diagnosis is critical; varying modes of therapy are required depending on condition severity (World Workshop 2017).</p>
+
+      <h3>Oral Hygiene Instructions (OHI)</h3>
+      <ul>
+        <li>Educate patients on the aetiology of periodontal disease and provide tailored oral self-care instructions.</li>
+        <li>Emphasise the importance of mechanical plaque control through proper tooth-brushing techniques.</li>
+        <li>Recommend interdental cleaning methods and aids for effective plaque removal.</li>
+      </ul>
+
+      <h3>Initial Periodontal Therapy</h3>
+      <p>Management of periodontal diseases in the disease control phase is referred to as <strong>initial periodontal therapy</strong>. It includes:</p>
+      <ul>
+        <li>Oral hygiene instructions</li>
+        <li>Scaling and root debridement</li>
+        <li>Elimination of iatrogenic overhangs</li>
+        <li>Extraction of hopeless teeth (if indicated)</li>
+      </ul>
+
+      <h3>Scaling and Root Debridement</h3>
+      <ul>
+        <li><strong>Debridement</strong> — instrumentation to disrupt and remove microbial biofilms.</li>
+        <li><strong>Scaling</strong> — instrumentation to remove mineralised deposits (calculus).</li>
+        <li><strong>Root planing</strong> — no longer a primary goal; historically aimed to remove "contaminated" cementum/dentine (Keiser, 1994). Over-instrumentation may cause more harm than good.</li>
+      </ul>
+      <p>Combined with oral hygiene, professional scaling and root debridement reduces probing depths and decreases gingival inflammation.</p>
+
+      <div class="callout yellow">
+        <span class="callout-title">Evidence: We Perform Debridement, NOT Root Planing</span>
+        <ul style="margin-top:0.4rem;">
+          <li><strong>Waerhaug (1956)</strong> — Rough root surfaces accumulate more calculus and plaque than smooth surfaces.</li>
+          <li><strong>Rosenberg &amp; Ash (1974)</strong> — Increased surface roughness had no correlation with increasing plaque accumulation or gingival inflammation.</li>
+          <li><strong>Nakib et al. (1982)</strong> — Endotoxin adheres superficially to root surface without penetration; weakly bound and removable with light brushing. No justification for aggressive cementum removal.</li>
+          <li><strong>Nyman et al. (1988)</strong> — Excellent healing outcomes for surgical debridement both with and without cementum removal.</li>
+        </ul>
+        <strong>Core Principle:</strong> Objective is biofilm and calculus disruption, not extensive cementum removal.
+      </div>
+
+      <h3>Extraction of Hopeless Teeth</h3>
+      <p>Remove teeth with advanced periodontal disease, severe caries, or in preparation for prosthodontic appliances. When in doubt, seek confirmation from a periodontist. Refer to <strong>McGuire and Nunn 1996</strong> for periodontal prognosis criteria:</p>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Prognosis</th><th>Criteria</th></tr>
+          <tr><td><strong>Good</strong></td><td>Control of etiologic factors; adequate periodontal support; relatively easy to maintain by patient and clinician.</td></tr>
+          <tr><td><strong>Fair</strong></td><td>~25% attachment loss and/or Class I furcation. Maintainable with good patient compliance.</td></tr>
+          <tr><td><strong>Poor</strong></td><td>50% attachment loss with Class II furcations. Maintainable but with difficulty.</td></tr>
+          <tr><td><strong>Questionable</strong></td><td>&gt;50% attachment loss; poor crown-to-root ratio; Class II furcations not easily accessible; Class III furcations; mobility ≥2+.</td></tr>
+          <tr><td><strong>Hopeless</strong></td><td>Inadequate attachment to maintain the tooth. Extraction performed or suggested.</td></tr>
+        </table>
+      </div>
+
+      <h3>Elimination of Iatrogenic Restorations</h3>
+      <p>Manage large carious lesions and defective restorations interfering with plaque removal (e.g., overhanging margins that harbour biofilm and prevent adequate debridement).</p>
+
+      <h3>Periodontal Reevaluation</h3>
+      <p>Periodontal reevaluation is crucial to assess treatment effectiveness. Elements include: patient health status, gingival condition, PPD measurements, BOP, plaque index, mobility, furcation, mucogingival status, occlusal factors, summary of patient response, additional treatment needs, and determination of maintenance recall intervals.</p>
+
+      <hr class="section-divider">
+
+      <h3>Making the Transition to the Definitive Phase</h3>
+      <div class="callout blue">
+        <span class="callout-title">Criteria Before Progressing</span>
+        After the comprehensive reevaluation / post-treatment assessment, the dentist determines whether to continue disease control therapy or progress to the definitive phase. Reconstruction should not be undertaken until the disease control phase has been successfully completed. Photographs and study casts are important planning records at this transition point.
+      </div>
+    </div>
+
+    <!-- ══ 12. DEFINITIVE PHASE ══ -->
+    <div class="card" id="s12">
+      <div class="card-title"><span class="num">12</span><h2>Phase 4 — Definitive / Reconstructive Phase</h2></div>
+      <span class="phase-label pl-purple">Dr Clarence Da Cruz</span>
+      <p style="margin-top:0.6rem;">Goal: achieve the best possible oral health state within the context of the patient's desires, abilities, and resources.</p>
+
+      <h3>Components</h3>
+      <ul>
+        <li>Periodontal therapy (surgical)</li>
+        <li>Orthodontic treatment</li>
+        <li>Restoration of individual teeth</li>
+        <li>Elective (non-acute) endodontic treatment</li>
+        <li>Extractions and pre-prosthetic surgery</li>
+        <li>Replacement of missing teeth</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- PERIODONTAL SURGERY -->
+      <h3>Periodontal Surgery</h3>
+      <p>Periodontal surgery involves flap reflection to gain visual access to root surfaces and alveolar bone. After reflection, the dentist removes granulation tissue and performs scaling; gingival and osseous tissue heights and contours may be altered to reduce probing depths.</p>
+      <p><strong>Indications:</strong></p>
+      <ul>
+        <li>Residual probing depths <strong>≥ 6 mm</strong> after non-surgical therapy.</li>
+        <li>Recurrent periodontal inflammation associated with probing depths of 4–5 mm and/or furcation-involved teeth.</li>
+        <li>Correction of gingival overgrowth, mucogingival defects, high frenal attachments, and other esthetic/architectural problems.</li>
+      </ul>
+
+      <h3>Periodontal Regeneration Therapy</h3>
+      <p>Uses bone grafts, barrier membranes, and biological agents to regenerate previously lost alveolar bone, PDL, and cementum.</p>
+      <ul>
+        <li>Best outcomes: deep <strong>3-wall infrabony periodontal defects</strong>.</li>
+        <li>Regeneration is also possible in select furcation and recession defects.</li>
+        <li>Complications are similar to those of periodontal flap surgery. Biomaterial placement increases cost and treatment time.</li>
+      </ul>
+
+      <hr class="section-divider">
+
+      <!-- ORTHODONTICS -->
+      <h3>Orthodontic Treatment</h3>
+      <p>Indications are frequently <strong>esthetic</strong>, with benefits in dentofacial appearance and psychosocial health as primary outcomes. Functional indications also exist for patients of all ages:</p>
+      <ul>
+        <li><strong>Growing patients:</strong> Interceptive care may prevent adverse effects of impacted teeth (particularly impacted cuspids).</li>
+        <li><strong>Younger patients:</strong> Growth modification or maxillary expansion may optimise skeletal and occlusal relationships (e.g., correcting crossbite with functional shift).</li>
+      </ul>
+      <p>Unless the general dentist has had considerable additional training, it is prudent to enlist an orthodontist. Types of orthodontic treatment:</p>
+      <ul>
+        <li>Comprehensive Orthodontics</li>
+        <li>Limited Orthodontic Tooth Movement</li>
+        <li>Orthognathic Surgery</li>
+      </ul>
+      <div class="callout blue">
+        <span class="callout-title">Common Orthodontic Presentations</span>
+        Angle Class I, II, III Malocclusion; Impacted Maxillary Canines; Anterior Open Bite.
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- RESTORING INDIVIDUAL TEETH -->
+      <h3>Restoring Individual Teeth</h3>
+      <p>Single tooth restorations replace tooth structure lost because of caries, fracture, abrasion, attrition, abfraction, erosion, or a combination of these conditions. They may also improve appearance, establish normal contours, or close proximal contacts.</p>
+      <div class="grid2" style="margin-top:0.75rem;">
+        <div class="g-item">
+          <strong>Intracoronal restorations</strong><br>
+          Preparations within the confines of the tooth. Examples: amalgam, composite resin, ceramic inlay.
+        </div>
+        <div class="g-item">
+          <strong>Extracoronal restorations</strong><br>
+          Encompass most or all of the coronal surface. Examples: gold/ceramic onlay, full cast crown, PFM crown, all-ceramic crown.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ENDODONTIC TREATMENT -->
+      <h3>Elective (Non-Acute) Endodontic Treatment</h3>
+      <div class="grid2" style="margin-top:0.5rem;">
+        <div class="g-item" style="background:#fee2e2;">
+          <strong style="color:#7f1d1d;">Acute/Disease Control Phase</strong><br>
+          Pulp extirpation or RCT for teeth with pulpal/periapical disease — to halt progression or prevent acute problems from developing.
+        </div>
+        <div class="g-item" style="background:#ede9fe;">
+          <strong style="color:#3b0764;">Definitive Phase</strong><br>
+          Conventional RCT, endodontic retreatment, apical microsurgery.
+        </div>
+      </div>
+      <p style="margin-top:0.6rem;">Elective endodontics may also be considered for teeth that will be devitalised during overdenture construction or for supra-erupted teeth requiring occlusal plane alteration.</p>
+
+      <h3>When to Refer to an Endodontist</h3>
+      <div class="grid2">
+        <div class="g-item">Difficult patient management</div>
+        <div class="g-item">Complex medical history / short appointments</div>
+        <div class="g-item">Significant pulp calcification</div>
+        <div class="g-item">Root dilaceration</div>
+        <div class="g-item">Maxillary premolars with 3 canals</div>
+        <div class="g-item">Mandibular premolars with split canal</div>
+        <div class="g-item">Access through a crown</div>
+        <div class="g-item">Molar RCT, retreatment, apical microsurgery</div>
+        <div class="g-item">Congenital anomalies</div>
+        <div class="g-item">Root resorption (cervical, inflammatory, internal)</div>
+        <div class="g-item">Immature teeth (open apex)</div>
+        <div class="g-item">Caries with significant marginal periodontitis and questionable prognosis</div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- EXTRACTIONS -->
+      <h3>Professional Considerations — Extractions in the Definitive Phase</h3>
+      <p>Most definitive phase dental procedures are <strong>elective</strong> and extractions are <strong>irreversible</strong>. Before extracting, consider:</p>
+      <ul>
+        <li>Does the tooth have a favourable periodontal prognosis? Can the prognosis be improved with surgical/non-surgical treatment?</li>
+        <li>Is the patient capable of maintaining the tooth in a healthy state?</li>
+        <li>Is the tooth restorable? What procedures are needed (crown lengthening, RCT, foundation, crown)?</li>
+        <li>Would retaining the tooth jeopardise surrounding teeth or act as an inadequate abutment for prostheses?</li>
+        <li>Has the patient been given sufficient information for informed consent — risks, benefits, costs, prognosis, expected outcomes with and without treatment?</li>
+        <li>Can the extraction be done safely and predictably in the general office, or does it require specialist referral?</li>
+      </ul>
+      <div class="callout red">
+        <span class="callout-title">Informed Consent</span>
+        Taking time to have an open, impartial dialogue with the patient — listening, responding to concerns, sharing honestly and compassionately about short- and long-term consequences — is essential for establishing informed consent and is the essence of person-centred care.
+      </div>
+
+      <h3>Pre-Prosthetic Surgery</h3>
+      <p>Surgical procedures may be necessary or beneficial before fabrication of dental prostheses. Common preprosthetic procedures include:</p>
+      <ul>
+        <li>Removing soft tissue or bone that will interfere with denture fabrication, insertion, or function</li>
+        <li>Site/ridge preservation following extraction</li>
+        <li>Implant placement</li>
+      </ul>
+      <p>All patients who could potentially benefit from the surgery should be presented with the option. Patients receiving fixed or removable prostheses should have healthy and supportive soft and hard tissues underlying the prosthesis.</p>
+
+      <hr class="section-divider">
+
+      <!-- REPLACEMENT OF MISSING TEETH -->
+      <h3>Replacement of Missing Teeth</h3>
+      <p>Common reasons for tooth loss: congenital agenesis, extensive caries, advanced periodontal disease, catastrophic fracture. Traditional modalities (removable and fixed dental prostheses) are supplemented by implant-retained and supported options.</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Scenario</th><th>Options</th></tr>
+          <tr>
+            <td><strong>Single tooth</strong></td>
+            <td>Implant-retained crown; Fixed dental prosthesis (3-unit bridge); Removable partial denture (acrylic or cobalt chrome); No replacement</td>
+          </tr>
+          <tr>
+            <td><strong>Multiple teeth</strong></td>
+            <td>Implant-retained prostheses (multi-unit, fixed or removable); Fixed dental prosthesis (bridge); Removable partial denture; No replacement</td>
+          </tr>
+          <tr>
+            <td><strong>Edentulous patient</strong></td>
+            <td>Complete dentures (removable); Implant-retained fixed (bridge); Implant-retained removable (overdenture)</td>
+          </tr>
+        </table>
+      </div>
+      <p>At the conclusion of the definitive phase, the patient's care moves to the maintenance phase.</p>
+    </div>
+
+    <!-- ══ 13. MAINTENANCE PHASE ══ -->
+    <div class="card" id="s13">
+      <div class="card-title"><span class="num">13</span><h2>Phase 5 — Maintenance Phase</h2></div>
+      <span class="phase-label pl-gold">Dr Clarence Da Cruz</span>
+
+      <h3>Rationale</h3>
+      <p>The primary purpose of the maintenance phase is to ensure <strong>long-term oral health, optimum function, and favourable esthetics</strong>. Continuing systemic issues can be managed; disease control measures can be reevaluated and strengthened; restorations and prostheses can be repaired, cleaned, polished, recontoured, or relined as needed. Success or failure of previous treatment must be reassessed and any necessary additional treatment planned.</p>
+
+      <h3>Main Elements of Maintenance Phase</h3>
+      <ul>
+        <li>General medical health</li>
+        <li>Oral health screening</li>
+        <li>Oral hygiene practices</li>
+        <li>Periodontal evaluation</li>
+        <li>Restoration, prostheses, and caries risk assessment</li>
+        <li>Implant maintenance</li>
+        <li>Endodontic re-evaluation</li>
+        <li>Orthodontic assessment</li>
+        <li>Preventive measures</li>
+        <li>Establish appropriate personalised recall intervals</li>
+      </ul>
+
+      <div class="callout green">
+        <span class="callout-title">Post-Treatment Assessment</span>
+        A structured appointment at the conclusion of the disease control phase and at the conclusion of the entire plan of care. Evaluates patient response, determines new treatment needs, and develops a specific future care plan.
+      </div>
+
+      <h3>General Health Condition and Medical Risk</h3>
+      <p>Specify all items from the systemic phase requiring follow-up, reevaluation, or intervention as part of perpetual care. Examples: physician consultation for chronic life-threatening disease, premedication for infective endocarditis, reevaluation of hypertension, treatment modification for immunocompromising conditions.</p>
+
+      <h3>Oral Health Condition and Risk Assessment</h3>
+      <p>Patients who have been at elevated risk of oral cancer, caries, periodontal disease, or occlusal trauma will need careful assessment of their risk status and determination of whether intervention is warranted.</p>
+
+      <h3>Patient Concerns</h3>
+      <p>The maintenance phase plan must include a reevaluation of the patient's original and current concerns, desires, and treatment objectives. This reaffirms that the dental team places a high priority on addressing those concerns at the appropriate time.</p>
+
+      <h3>Oral Self-Care and Preventive Trajectory</h3>
+      <p>Optimal oral health is achieved through a partnership of professional maintenance and oral self-care. An essential element is biofilm control. Homecare instructions should be based on dentition status, restoration history, periodontal/caries risk, and anticipated patient adherence.</p>
+
+      <h3>Caries Control (Maintenance)</h3>
+      <p>A continuation of the caries control plan from the disease control phase. For patients at elevated risk, the maintenance phase should include reassessment of risk, careful examination of incipient/suspicious lesions, detailed review of caries management interventions, and examination for new caries lesions.</p>
+
+      <h3>Periodontal Condition and Stability</h3>
+      <div class="tbl-wrap">
+        <table>
+          <tr><th>Patient Type</th><th>Recall Interval</th><th>Reference</th></tr>
+          <tr><td>Gingivitis</td><td>Every 6–12 months (oral prophylaxis)</td><td>—</td></tr>
+          <tr><td>Periodontitis (adequate plaque control)</td><td>Every 3–6 months</td><td>Lindhe &amp; Nyman, 1975</td></tr>
+          <tr><td>Periodontitis (inadequate plaque control)</td><td>Every 2–3 months</td><td>Ramfjord et al., 1982</td></tr>
+          <tr><td>Active caries (moderate/high risk)</td><td>Every 2–4 months</td><td>—</td></tr>
+          <tr><td>No active disease, low risk</td><td>Every 6–12 months</td><td>—</td></tr>
+        </table>
+      </div>
+      <div class="callout blue" style="margin-top:0.75rem;">
+        <span class="callout-title">Risk-Based Tool</span>
+        Bern Periodontal Risk Assessment (PRA) tool (Lang &amp; Tonetti, 2003) — personalises maintenance intervals based on individual risk factors. Available at: <em>www.perio-tools.com/pra/en/</em>
+      </div>
+
+      <h3>Condition of Restorations, Prostheses, and Implants</h3>
+      <ul>
+        <li>A restoration may be judged "not ideal" but <strong>"clinically acceptable"</strong> if there is no imminent harm in leaving it (e.g., ditched amalgams, stained composites, chipped porcelain). May be polished or recontoured.</li>
+        <li>When a patient defers treatment, the issue must be included in the maintenance phase and revisited at future visits.</li>
+        <li>Implants must be reevaluated for stability and the presence of peri-mucositis or peri-implantitis.</li>
+      </ul>
+
+      <h3>Radiographic Assessment (Maintenance)</h3>
+      <ul>
+        <li>New periapical radiographs recommended for teeth with extra-coronal or large direct-fill restorations after the definitive phase.</li>
+        <li>Teeth with selective caries removal close to the pulp: slated for reevaluation and updated radiographs.</li>
+        <li>Asymptomatic radiographic lesions previously chosen for observation: must be identified for radiographic follow-up.</li>
+        <li>Prior active caries history: bite-wing radiographs every 2 years; more frequent with increased caries activity.</li>
+      </ul>
+
+      <h3>Caries Risk Recall Indicators</h3>
+      <p>Elevated risk indicators requiring more frequent recalls: poor compliance with previous recommendations, elevated plaque score, dry mouth, aciduric or high-fermentable-carbohydrate diet, immune compromise, or debilitated general health. (Clarkson et al., 2009; Jenson et al., 2007)</p>
+
+      <h3>Elective Treatment in Maintenance</h3>
+      <p>The maintenance phase is the ideal time to revisit treatments the patient was previously unwilling or unprepared to commit to — e.g., fixed or removable partial dentures, implants, orthodontic treatment.</p>
+
+      <div class="callout yellow">
+        <span class="callout-title">Evidence — Axelsson et al. (2004): 30-Year Plaque Control Study</span>
+        Maintenance visits: every 2 months in years 1–2, then every 3–12 months in years 3–30. Participants received individualised OHI. Over 30 years, subjects significantly increased the number of intact tooth surfaces, demonstrating that a structured maintenance and plaque control programme substantially reduces tooth mortality, caries, and periodontal disease over the long term.
+      </div>
+    </div>
+
+  </div><!-- /container -->
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical History for Dentists — DOH 256</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --accent: #e05c3a;
+    --accent2: #f0a070;
+    --accent3: #4fd1c5;
+    --accent4: #fbbf24;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --text-dim: #484f58;
+    --red: #ff6b6b;
+    --green: #56d364;
+    --blue: #79c0ff;
+    --purple: #d2a8ff;
+    --yellow: #f0c66a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.7;
+  }
+
+  /* STICKY NAV */
+  .sidenav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 24px 0;
+    z-index: 100;
+  }
+
+  .sidenav-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    padding: 0 20px 16px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+  }
+
+  .nav-item {
+    display: block;
+    padding: 7px 20px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+  }
+
+  .nav-item:hover {
+    color: var(--text);
+    background: var(--surface2);
+    border-left-color: var(--accent);
+  }
+
+  .nav-item.active {
+    color: var(--accent2);
+    border-left-color: var(--accent);
+    background: rgba(224, 92, 58, 0.08);
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 240px;
+    padding: 48px 56px 80px;
+    max-width: 960px;
+  }
+
+  /* HEADER */
+  .hero {
+    margin-bottom: 56px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .course-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--accent3);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.8rem;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+
+  .hero-meta {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .hero-meta span::before {
+    content: '·';
+    margin-right: 8px;
+    color: var(--accent);
+  }
+
+  /* SECTIONS */
+  .section {
+    margin-bottom: 60px;
+    scroll-margin-top: 24px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    min-width: 28px;
+  }
+
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.55rem;
+    color: var(--text);
+  }
+
+  /* SUBSECTIONS */
+  .subsection {
+    margin-bottom: 32px;
+  }
+
+  .sub-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 12px;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--accent); }
+
+  .card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+
+  .card p, .card li {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-left: 3px solid;
+    font-size: 0.9rem;
+  }
+
+  .callout.red { background: rgba(255,107,107,0.07); border-color: var(--red); }
+  .callout.blue { background: rgba(121,192,255,0.07); border-color: var(--blue); }
+  .callout.green { background: rgba(86,211,100,0.07); border-color: var(--green); }
+  .callout.yellow { background: rgba(240,198,106,0.07); border-color: var(--yellow); }
+  .callout.purple { background: rgba(210,168,255,0.07); border-color: var(--purple); }
+  .callout.teal { background: rgba(79,209,197,0.07); border-color: var(--accent3); }
+
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .callout.red .callout-label { color: var(--red); }
+  .callout.blue .callout-label { color: var(--blue); }
+  .callout.green .callout-label { color: var(--green); }
+  .callout.yellow .callout-label { color: var(--yellow); }
+  .callout.purple .callout-label { color: var(--purple); }
+  .callout.teal .callout-label { color: var(--accent3); }
+
+  /* TABLES */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin: 16px 0;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--accent3);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+    vertical-align: top;
+  }
+
+  tr:hover td { background: var(--surface2); }
+
+  td:first-child { color: var(--text); font-weight: 500; }
+
+  /* NUMBERED STEPS */
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* PILL TAGS */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 10px;
+    border-radius: 99px;
+    border: 1px solid;
+    letter-spacing: 0.05em;
+  }
+
+  .tag.red { color: var(--red); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.05); }
+  .tag.blue { color: var(--blue); border-color: rgba(121,192,255,0.3); background: rgba(121,192,255,0.05); }
+  .tag.green { color: var(--green); border-color: rgba(86,211,100,0.3); background: rgba(86,211,100,0.05); }
+  .tag.yellow { color: var(--yellow); border-color: rgba(240,198,106,0.3); background: rgba(240,198,106,0.05); }
+  .tag.teal { color: var(--accent3); border-color: rgba(79,209,197,0.3); background: rgba(79,209,197,0.05); }
+  .tag.orange { color: var(--accent2); border-color: rgba(240,160,112,0.3); background: rgba(240,160,112,0.05); }
+
+  /* ACRONYM BOX */
+  .acronym-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 16px 0;
+  }
+
+  .acronym-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .acronym-row:last-child { border-bottom: none; }
+
+  .acronym-letter {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    min-width: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(224,92,58,0.06);
+    border-right: 1px solid var(--border);
+  }
+
+  .acronym-content {
+    padding: 14px 18px;
+    flex: 1;
+  }
+
+  .acronym-word {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--accent2);
+    margin-bottom: 2px;
+  }
+
+  .acronym-desc {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+  }
+
+  /* HIGHLIGHT */
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--accent2); font-style: italic; }
+  code {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82em;
+    background: var(--surface2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--accent3);
+    border: 1px solid var(--border);
+  }
+
+  p { margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem; }
+
+  ul, ol { padding-left: 20px; margin-bottom: 10px; }
+  li { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidenav { display: none; }
+    .main { margin-left: 0; padding: 32px 24px; }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  /* ANIMATION */
+  .section { animation: fadeUp 0.4s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDE NAV -->
+<nav class="sidenav">
+  <div class="sidenav-title">DOH 256 · Dr Kang</div>
+  <a class="nav-item" href="#why">1. Why Take a Medical History</a>
+  <a class="nav-item" href="#how">2. How to Take a Medical History</a>
+  <a class="nav-item" href="#structure">3. Patient History Structure</a>
+  <a class="nav-item" href="#allergies">4. Allergies & ADRs</a>
+  <a class="nav-item" href="#medications">5. Medications</a>
+  <a class="nav-item" href="#supplements">6. Supplements & Hospitalisations</a>
+  <a class="nav-item" href="#cvd">7. Cardiovascular Disease</a>
+  <a class="nav-item" href="#ie">8. Infective Endocarditis</a>
+  <a class="nav-item" href="#haematology">9. Haematology & Bleeding</a>
+  <a class="nav-item" href="#respiratory">10. Respiratory</a>
+  <a class="nav-item" href="#cns">11. CNS / Epilepsy</a>
+  <a class="nav-item" href="#endocrine">12. Endocrine / Diabetes</a>
+  <a class="nav-item" href="#msk">13. Musculoskeletal & MRONJ</a>
+  <a class="nav-item" href="#infectious">14. Infectious Disease</a>
+  <a class="nav-item" href="#gi">15. GI & Hepatic</a>
+  <a class="nav-item" href="#cancer">16. Cancer & Social History</a>
+  <a class="nav-item" href="#isbar">17. ISBAR Communication</a>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <div class="hero">
+    <div class="course-badge">DOH 256 · Charles Sturt University</div>
+    <h1>Medical History <em>for Dentists</em></h1>
+    <div class="hero-meta">
+      <span>Dr Michelle Kang</span>
+      <span>Oral Medicine Specialist</span>
+      <span>BDS (Otago), DClinDent (Oral Med), MRACDS</span>
+    </div>
+    <div style="margin-top:20px;">
+      <div class="callout teal">
+        <div class="callout-label">Core Principle</div>
+        Think of the <strong>4 critical processes</strong> for <em>every organ system</em> when reviewing a patient's medical history: <strong>haemostasis → wound healing → circulation → respiration</strong>. Apply this to extractions (the most invasive routine dental procedure).
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. WHY -->
+  <section class="section" id="why">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Why Take a Medical History?</h2>
+    </div>
+
+    <p>The most invasive thing we regularly do in dentistry is a <strong>dental extraction</strong> — it creates a hole in bone. After an extraction, 4 things <em>must</em> happen for safe recovery:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Process 1</div>
+        <div class="card-title">Stop Bleeding</div>
+        <p>Haemostasis — the clot must form to prevent haemorrhage</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Process 2</div>
+        <div class="card-title">Wound Healing</div>
+        <p>Tissue must be able to repair; compromised in diabetes, immune disorders, etc.</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Process 3</div>
+        <div class="card-title">Blood Goes 'Around and Around'</div>
+        <p>Circulation — adequate perfusion to deliver healing factors to the site</p>
+      </div>
+      <div class="card">
+        <div class="card-label">Process 4</div>
+        <div class="card-title">Air Goes 'In and Out'</div>
+        <p>Respiration — especially under sedation or in patients with respiratory disease</p>
+      </div>
+    </div>
+
+    <div class="callout yellow">
+      <div class="callout-label">Also Consider</div>
+      Oral manifestations of systemic disease · Medico-legal documentation · Building patient rapport
+    </div>
+  </section>
+
+  <!-- 2. HOW -->
+  <section class="section" id="how">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">How to Take a Medical History</h2>
+    </div>
+
+    <p>Different clinicians may approach the history differently, but it must always be:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Comprehensive</div>
+        <p>Cover all body systems — don't assume a condition is irrelevant</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Systematic</div>
+        <p>Use headings/checklists so nothing is missed. Headings also act as a 'cue' for patients</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Reproducible</div>
+        <p>Another clinician should be able to replicate and reach the same conclusions</p>
+      </div>
+    </div>
+
+    <div class="callout blue">
+      <div class="callout-label">Practical Tip</div>
+      Record both <strong>YES and NO</strong> for each system. Recording negatives confirms conditions have been actively excluded, not overlooked. The form headings also serve as memory cues for patients who may not volunteer information unprompted.
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Systems to Screen (Checkbox Form)</div>
+      <div class="tags">
+        <span class="tag red">Cardiovascular</span>
+        <span class="tag red">Rheumatic Fever</span>
+        <span class="tag red">Hypertension</span>
+        <span class="tag yellow">Haematological Disorder</span>
+        <span class="tag blue">Respiratory</span>
+        <span class="tag purple">CNS</span>
+        <span class="tag orange">Endocrine</span>
+        <span class="tag green">Infectious Disease</span>
+        <span class="tag orange">Musculoskeletal</span>
+        <span class="tag teal">Immune Disorder</span>
+        <span class="tag green">Gastrointestinal</span>
+        <span class="tag green">Uro-genital</span>
+        <span class="tag yellow">Hepatic</span>
+        <span class="tag red">Cancer</span>
+        <span class="tag blue">Pregnancy</span>
+        <span class="tag teal">Smoking / Alcohol / Drugs</span>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Patient Observation on Entry</div>
+      <p>Before asking a single question, observe:</p>
+      <ul>
+        <li><strong>Gait</strong> — how they walk</li>
+        <li><strong>Frailty</strong> — overall fragility/wellness</li>
+        <li><strong>Mobility</strong> — use of aids, assistive devices</li>
+        <li><strong>Who accompanied them</strong> — carer, parent, family</li>
+        <li><strong>Mode of transport</strong> — car, public, community transport (relevant for sedation discharge planning)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. STRUCTURE -->
+  <section class="section" id="structure">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Patient History Structure</h2>
+    </div>
+
+    <p>A full patient history consists of five components:</p>
+    <ol class="steps">
+      <li><strong>Reason for Visit/Attendance (RFV / RFA)</strong> — also called Chief Complaint (CC). Why is the patient here? What are their expectations?</li>
+      <li><strong>History of Presenting Complaint (HPC)</strong> — expand on the CC. Use structured pain assessment tools.</li>
+      <li><strong>Medical History (MHx)</strong> — systematic review of all body systems.</li>
+      <li><strong>Dental History (DHx)</strong> — previous dental experiences, attitudes, last visit, past treatment.</li>
+      <li><strong>Social History (SHx)</strong> — smoking, alcohol, recreational drugs, occupation, lifestyle.</li>
+    </ol>
+
+    <div class="subsection">
+      <div class="sub-title">SOCRATES — Pain History Framework (HPC)</div>
+      <div class="acronym-box">
+        <div class="acronym-row">
+          <div class="acronym-letter">S</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Site</div>
+            <div class="acronym-desc">Where exactly is the pain?</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">O</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Onset</div>
+            <div class="acronym-desc">What were they doing when it started?</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">C</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Character</div>
+            <div class="acronym-desc">What does the pain feel like? (sharp, dull, throbbing)</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">R</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Radiates</div>
+            <div class="acronym-desc">Does the pain go anywhere else?</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">A</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Associated Symptoms</div>
+            <div class="acronym-desc">e.g. nausea, vomiting, swelling</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">T</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Time / Duration</div>
+            <div class="acronym-desc">How long have they had it? Constant or intermittent?</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">E</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Exacerbating / Relieving Factors</div>
+            <div class="acronym-desc">What makes it better or worse?</div>
+          </div>
+        </div>
+        <div class="acronym-row">
+          <div class="acronym-letter">S</div>
+          <div class="acronym-content">
+            <div class="acronym-word">Severity</div>
+            <div class="acronym-desc">Pain score (e.g. 0–10 VAS)</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout teal" style="margin-top:0;">
+        <div class="callout-label">Classic Quote</div>
+        <em>"Just listen to your patient, he is telling you the diagnosis."</em> — Professor William Osler
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. ALLERGIES -->
+  <section class="section" id="allergies">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Allergies & Adverse Drug Reactions (ADRs)</h2>
+    </div>
+
+    <p>When documenting allergies, always record both: <strong>(1) name of drug</strong> and <strong>(2) type of reaction</strong>.</p>
+    <p><em>e.g. Codeine → constipation &nbsp;|&nbsp; Latex → anaphylaxis</em></p>
+
+    <div class="callout red">
+      <div class="callout-label">Reference</div>
+      Read the 'Allergies' section in <strong>Oral and Dental Therapeutic Guidelines v4 (2025)</strong>, p236–239 for management of allergic reactions in dental practice.
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Type A vs Type B ADRs</div>
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Description</th><th>Frequency</th><th>Examples</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Type A</td>
+            <td>Predictable — based on known pharmacological actions of the drug</td>
+            <td>85–90% of all ADRs</td>
+            <td>Overdose, side effects, secondary effects, drug interactions</td>
+          </tr>
+          <tr>
+            <td>Type B</td>
+            <td>Hypersensitivity reactions — signs differ from pharmacological action</td>
+            <td>10–15% of all ADRs</td>
+            <td>Intolerance, allergy, idiosyncrasy</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Type B Subtypes</div>
+      <table>
+        <thead>
+          <tr><th>Subtype</th><th>Mechanism</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Intolerance</td>
+            <td>Side effect at subtherapeutic doses; not immune-mediated</td>
+            <td>Tinnitus after a single aspirin tablet</td>
+          </tr>
+          <tr>
+            <td>Allergy (immunologic)</td>
+            <td>Immune-mediated hypersensitivity (Gell & Coombs Types I–IV)</td>
+            <td>Anaphylaxis from amoxicillin</td>
+          </tr>
+          <tr>
+            <td>Idiosyncrasy</td>
+            <td>Drug effect not attributable to known pharmacologic properties; not immune-mediated</td>
+            <td>G6PD deficiency: haemolytic anaemia after Dapsone</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Gell & Coombs Allergy Classification (Type I–IV)</div>
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Name</th><th>Mechanism</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Type I</td><td>IgE-Mediated (Immediate)</td><td>IgE → mast cell degranulation → histamine release → anaphylaxis</td></tr>
+          <tr><td>Type II</td><td>IgG-Mediated Cytotoxic</td><td>IgG/IgM antibodies target cell surface antigens → complement activation</td></tr>
+          <tr><td>Type III</td><td>Immune Complex-Mediated</td><td>Free-floating immune complexes → complement activation → neutrophil recruitment</td></tr>
+          <tr><td>Type IV</td><td>Cell-Mediated (Delayed)</td><td>Sensitised Th1 cells → cytokines → macrophage activation (delayed 48–72h)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5. MEDICATIONS -->
+  <section class="section" id="medications">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Medications</h2>
+    </div>
+
+    <div class="callout yellow">
+      <div class="callout-label">Key Rule</div>
+      Always document the <strong>drug name (active ingredient)</strong>, not the brand name. If unknown, look it up in <strong>MIMS</strong> or the <strong>Australian Medical Handbook</strong>.
+    </div>
+
+    <p>Record <strong>dosage and frequency</strong> — e.g. warfarin 5mg daily. Always cross-check medications against reported medical conditions (patients may 'forget' to mention conditions but the medication reveals them).</p>
+
+    <div class="subsection">
+      <div class="sub-title">Drug Name vs Brand Name</div>
+      <table>
+        <thead><tr><th>Term</th><th>Definition</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Active ingredient (drug name)</td><td>The chemical name of the compound that makes the medicine work</td><td>Paracetamol</td></tr>
+          <tr><td>Brand name</td><td>Commercially assigned name by the pharmaceutical company</td><td>Panadol, Tylenol</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">MRONJ — Critical Medication Alert</div>
+      <div class="callout red">
+        <div class="callout-label">⚠ High Risk</div>
+        <strong>Antiresorptive drugs</strong> (bisphosphonates, denosumab/Prolia) cause <strong>Medication-Related Osteonecrosis of the Jaws (MRONJ)</strong>. Always ask about a history of these drugs before any invasive dental procedure.
+        <ul style="margin-top:8px;">
+          <li>Example: 6-monthly denosumab (Prolia) injections for osteoporosis — patient may not link this to dentistry</li>
+          <li>MRONJ risk persists even after stopping the drug</li>
+        </ul>
+      </div>
+      <table>
+        <thead><tr><th>Stage</th><th>Features</th></tr></thead>
+        <tbody>
+          <tr><td>Stage 0</td><td>No necrotic bone visible; non-specific symptoms (pain, loosening)</td></tr>
+          <tr><td>Stage 1</td><td>Exposed/necrotic bone, asymptomatic, no infection</td></tr>
+          <tr><td>Stage 2</td><td>Exposed/necrotic bone + infection (pain, erythema, ± pus)</td></tr>
+          <tr><td>Stage 3</td><td>Stage 2 + pathological fracture / extraoral fistula / OAC / osteolysis to inferior border</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6. SUPPLEMENTS & HOSPITALISATIONS -->
+  <section class="section" id="supplements">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Supplements & Hospitalisations</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Dietary Supplements</div>
+      <p>Natural products used to supplement the diet (vitamins, minerals, amino acids, enzymes, plant extracts, algae, fungi). Key points:</p>
+      <ul>
+        <li>Manufacturers are <strong>not required</strong> to submit safety/effectiveness documentation to the Australian Register of Therapeutic Goods (ARTG)</li>
+        <li>Many potential harms: adverse effects, <strong>drug interactions</strong></li>
+        <li>Must be recorded in the medical history — patients often do not volunteer this information</li>
+      </ul>
+      <p style="margin-top:8px;"><em>Read: Moses, G. (2021). The safety of commonly used vitamins and minerals. Australian Prescriber, 44(4), 119.</em></p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Hospitalisations</div>
+      <p><em>"Is my patient medically well?"</em></p>
+      <ul>
+        <li><strong>Recent/recurrent hospital admissions</strong> — any precautions after discharge? (e.g. recent MI → can I perform dental treatment?)</li>
+        <li><strong>Any procedures?</strong> — Surgery: any complications? (bleeding, healing, circulation, respiratory)</li>
+      </ul>
+      <div class="callout blue">
+        <div class="callout-label">Reference</div>
+        For post-hospitalisation dental considerations, refer to <strong>Oral and Dental Therapeutic Guidelines v4 (2025)</strong>.
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CVD -->
+  <section class="section" id="cvd">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Cardiovascular Disease (CVD)</h2>
+    </div>
+
+    <p>CVD affects more than 4 million Australians and causes 1 in 4 deaths. Kills approximately 118 people per day — one person every 12 minutes.</p>
+
+    <div class="subsection">
+      <div class="sub-title">Risk Factors</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-label">Behavioural</div>
+          <div class="card-title">Modifiable Lifestyle</div>
+          <ul>
+            <li>Unhealthy diet</li>
+            <li>Physical inactivity</li>
+            <li>Tobacco use</li>
+            <li>Excessive alcohol use</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-label">Intermediate Effects</div>
+          <div class="card-title">Physiological Findings</div>
+          <ul>
+            <li>Hypertension</li>
+            <li>Raised blood glucose</li>
+            <li>Raised blood lipids</li>
+            <li>Obesity</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-label">Outcomes</div>
+          <div class="card-title">Major Adverse Events</div>
+          <ul>
+            <li>Myocardial infarction</li>
+            <li>Heart failure</li>
+            <li>Stroke</li>
+            <li>Atrial fibrillation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Coronary Ischaemic Syndromes</div>
+      <p>Includes: stable angina and acute coronary syndromes (STEMI, NSTEMI).</p>
+      <p><strong>Typical symptoms of acute coronary syndrome:</strong></p>
+      <ul>
+        <li>Crushing/heavy central chest pain → may radiate to arms, neck, back, jaw</li>
+        <li>Shortness of breath</li>
+        <li>Nausea</li>
+        <li>Sweating</li>
+      </ul>
+      <div class="callout red">
+        <div class="callout-label">⚠ Important</div>
+        Some patients may present with <strong>no pain</strong> — especially older patients, females, and those with diabetes.
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Dental Deferrals After Cardiac Events</div>
+      <table>
+        <thead><tr><th>Period</th><th>Risk</th><th>Management</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Within 12 months of MI / stent / CABG / TAVI</td>
+            <td>Increased risk of major adverse cardiac event (incl. sudden death)</td>
+            <td>Defer elective treatment for 6 months; emergency pain/infection → treat; consider specialist advice</td>
+          </tr>
+          <tr>
+            <td>Check antithrombotic use</td>
+            <td>Bleeding risk from antiplatelet / anticoagulant therapy</td>
+            <td>See haematology section — do not stop without consulting managing clinician</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout blue">
+        <div class="callout-label">Reference</div>
+        Read: 'Dental considerations for patients with a medical condition' in <strong>Oral and Dental Therapeutic Guidelines v4 (2025)</strong>.
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Hypertension & Dental Practice</div>
+      <ul>
+        <li>Stress of dental treatment can further elevate BP</li>
+        <li>Major risk outcomes: atrial fibrillation, stroke, MI, end-stage kidney disease</li>
+        <li>Dental appointment stress → potential hypertensive crisis in uncontrolled patients</li>
+        <li>Measure BP at the start of appointments for at-risk patients</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8. IE -->
+  <section class="section" id="ie">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Infective Endocarditis (IE)</h2>
+    </div>
+
+    <p>Infection of the endocardium — most commonly involving heart valves and intracardiac foreign bodies (e.g. prosthetic valves). Results in infected vegetations (microbial colonisation/invasion). <strong>In-hospital mortality: 15–20%.</strong></p>
+
+    <div class="callout red">
+      <div class="callout-label">Australian Incidence</div>
+      5 cases per 100,000 person-years. High morbidity and mortality despite treatment.
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Antibiotic Prophylaxis</div>
+      <p>Antibiotic prophylaxis against IE is recommended only for a <strong>restricted group</strong> of patients (Antibiotic Expert Groups). No RCT has established definitive benefit, but guidelines continue prophylaxis in high-risk cases.</p>
+      <p><strong>Cardiac conditions requiring prophylaxis:</strong></p>
+      <ul>
+        <li>Prosthetic cardiac valve (including transcatheter-implanted/homograft)</li>
+        <li>Prosthetic material used for cardiac valve repair (annuloplasty rings and chords)</li>
+        <li>Previous infective endocarditis</li>
+        <li>Ventricular assist devices</li>
+        <li>Congenital heart disease — <em>only if</em> unrepaired cyanotic defects (incl. palliative shunts/conduits) OR repaired defects with residual defects at/adjacent to prosthetic patch (which inhibit endothelialisation)</li>
+        <li>Rheumatic heart disease</li>
+      </ul>
+      <p><strong>Dental procedures requiring prophylaxis (for above patients):</strong></p>
+      <ul>
+        <li>Procedures involving manipulation of <em>gingival or periapical tissue</em> or perforation of the oral mucosa</li>
+        <li>Extractions, implant placement, biopsy, soft tissue/bone removal, scaling (supra- and subgingival debridement), replanting avulsed teeth</li>
+      </ul>
+      <div class="callout blue">
+        <div class="callout-label">Reference</div>
+        Read: 'Prevention of infective endocarditis' within 'Antibiotic prophylaxis for dental procedures' in <strong>Oral and Dental Therapeutic Guidelines v4 (2025)</strong>.
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. HAEMATOLOGY -->
+  <section class="section" id="haematology">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Haematology & Bleeding Disorders</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Haemostasis — 3 Phases</div>
+      <ol class="steps">
+        <li><strong>Vasoconstriction</strong> — initial response to vessel injury; reduces blood flow</li>
+        <li><strong>Platelet plug formation</strong> — platelets adhere, activate, and aggregate at the injury site</li>
+        <li><strong>Fibrin mesh formation</strong> — coagulation cascade produces fibrin to stabilise the platelet plug</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Antithrombotic Drug Classes</div>
+      <table>
+        <thead><tr><th>Class</th><th>Examples</th><th>Mechanism</th></tr></thead>
+        <tbody>
+          <tr><td>Oral anticoagulants (DOACs)</td><td>Apixaban, Dabigatran, Rivaroxaban</td><td>Factor Xa or thrombin inhibition</td></tr>
+          <tr><td>Oral anticoagulants (vitamin K antagonists)</td><td>Warfarin</td><td>Inhibits vitamin K–dependent coagulation factors (II, VII, IX, X)</td></tr>
+          <tr><td>Injectable anticoagulants</td><td>Heparin, Enoxaparin</td><td>Antithrombin activation → inhibits thrombin and Xa</td></tr>
+          <tr><td>Antiplatelet drugs</td><td>Aspirin, Clopidogrel, Ticagrelor</td><td>Inhibit platelet activation/aggregation</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout red">
+      <div class="callout-label">Key Principle</div>
+      The consequences of a <strong>thromboembolic event</strong> are usually <em>more significant</em> than dental bleeding. Do not interrupt antithrombotic therapy without consulting the managing clinician.
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Risk Assessment — 4 Factors</div>
+      <ol class="steps">
+        <li>Properties of the antithrombotic drug (half-life, reversibility)</li>
+        <li>Patient-related bleeding risk factors (e.g. renal/hepatic impairment, age, other drugs)</li>
+        <li>Procedure-related bleeding risk (extraction > simple scaling)</li>
+        <li>Likely clinical effect if bleeding or thrombosis occurs</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Identifying a Potential Bleeder</div>
+      <ol class="steps">
+        <li>Comprehensive history (medications, family history, previous bleeding)</li>
+        <li>Comprehensive examination</li>
+        <li>Screening laboratory tests (INR, platelet count, APTT)</li>
+        <li>Observation of excessive bleeding after a procedure</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 10. RESPIRATORY -->
+  <section class="section" id="respiratory">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Respiratory System — Asthma</h2>
+    </div>
+
+    <p>Asthma is a common chronic heterogeneous condition involving dysfunction of airway epithelium, smooth muscle, immune cells, and neuronal elements → airflow obstruction.</p>
+
+    <div class="subsection">
+      <div class="sub-title">Airflow Obstruction Mechanisms</div>
+      <ul>
+        <li>Bronchial smooth muscle spasm (bronchoconstriction)</li>
+        <li>Inflammation of bronchial mucosa</li>
+        <li>Mucus hypersecretion</li>
+        <li>Sputum plugging</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Types of Asthma Triggers</div>
+      <div class="card-grid">
+        <div class="card"><div class="card-title">Extrinsic</div><p>Allergic/atopic — e.g. dust mites, pollen, pet dander</p></div>
+        <div class="card"><div class="card-title">Intrinsic</div><p>Idiosyncratic, non-allergic — e.g. cold air, exercise</p></div>
+        <div class="card"><div class="card-title">Drug-Induced</div><p>NSAIDs (aspirin, ibuprofen), beta-blockers</p></div>
+        <div class="card"><div class="card-title">Exercise-Induced</div><p>Triggered by physical exertion, especially cold/dry air</p></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Dental Considerations for Asthma Patients</div>
+      <ul>
+        <li>Take thorough history: precipitating factors, medications used, frequency/severity of attacks</li>
+        <li>Risk assessment: is asthma controlled? When was last hospital admission?</li>
+        <li>Instruct patient to <strong>bring their inhaler</strong> to every appointment</li>
+        <li>Avoid precipitating odorants (e.g. acrylics, glutaraldehyde) and drugs (NSAIDs if aspirin-sensitive)</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 11. CNS -->
+  <section class="section" id="cns">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">CNS — Epilepsy</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Critical History Points for Epilepsy</div>
+      <ul>
+        <li>Type of seizures</li>
+        <li>Frequency of seizures</li>
+        <li>Duration per episode</li>
+        <li>Whether under GP/neurologist care</li>
+        <li>Any warning signs (aura) before an episode</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Seizure in the Dental Chair — Management Steps</div>
+      <ol class="steps">
+        <li>Stop treatment immediately; move dental instruments away from the patient</li>
+        <li>Assist patient to the floor safely</li>
+        <li>Maintain the airway</li>
+        <li>Call 000</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 12. ENDOCRINE -->
+  <section class="section" id="endocrine">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2 class="section-title">Endocrine System — Diabetes</h2>
+    </div>
+
+    <p>A group of metabolic diseases characterised by <strong>hyperglycaemia</strong> due to an inability to produce and/or use insulin, leading to metabolic and vascular complications.</p>
+
+    <div class="subsection">
+      <div class="sub-title">Goals of Diabetes Therapy</div>
+      <ul>
+        <li>Eliminate symptoms of hyperglycaemia</li>
+        <li>Reduce/eliminate long-term vascular complications (retinopathy, nephropathy, neuropathy, cardiovascular)</li>
+        <li>Allow the patient to achieve a normal lifestyle</li>
+      </ul>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Dental History Points for Diabetic Patients</div>
+      <ul>
+        <li>Type of diabetes (Type 1 vs 2) and medications (insulin, metformin, etc.)</li>
+        <li>Managed by GP or endocrinologist?</li>
+        <li>Controlled or unstable? Last HbA1c?</li>
+        <li>Frequency of blood sugar monitoring</li>
+        <li>Know how to manage <strong>hypoglycaemia</strong> — have glucose available</li>
+      </ul>
+      <div class="callout yellow">
+        <div class="callout-label">Dental Relevance</div>
+        Uncontrolled diabetes → impaired wound healing, increased infection risk, periodontal disease progression. Poorly controlled diabetes is associated with more severe periodontitis.
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. MSK -->
+  <section class="section" id="msk">
+    <div class="section-header">
+      <span class="section-num">13</span>
+      <h2 class="section-title">Musculoskeletal — Osteoporosis & MRONJ</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Osteoporosis</div>
+      <p>Low bone mass and deterioration of bone tissue → increased fracture risk. Caused by: <strong>increased osteoclast activity + decreased osteoblast formation</strong>.</p>
+      <table>
+        <thead><tr><th>Type</th><th>Cause</th></tr></thead>
+        <tbody>
+          <tr><td>Primary</td><td>Normal ageing; post-menopausal (oestrogen loss)</td></tr>
+          <tr><td>Secondary</td><td>Medical conditions/medications (hyperparathyroidism, long-term corticosteroids)</td></tr>
+          <tr><td>Idiopathic</td><td>Unknown aetiology</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">MRONJ Definition & Criteria</div>
+      <p>All 3 criteria must be present for MRONJ diagnosis:</p>
+      <ol class="steps">
+        <li>Current or previous antiresorptive or antiangiogenic therapy</li>
+        <li>Exposed bone (or bone that can be probed through a fistula) in the maxillofacial region persisting for <strong>&gt;8 weeks</strong></li>
+        <li>No history of radiation to the jaws and no obvious metastatic disease to the jaws</li>
+      </ol>
+      <p><strong>Common causative drugs:</strong> Bisphosphonates (e.g. alendronate, zoledronic acid) and <strong>Denosumab (Prolia)</strong>.</p>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Joint Replacements</div>
+      <p>Whether antibiotic prophylaxis is indicated requires <strong>individual risk assessment</strong>. Consult the relevant section of Therapeutic Guidelines.</p>
+    </div>
+  </section>
+
+  <!-- 14. INFECTIOUS -->
+  <section class="section" id="infectious">
+    <div class="section-header">
+      <span class="section-num">14</span>
+      <h2 class="section-title">Infectious Disease</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Hepatitis</div>
+      <p>Inflammation of the liver from infectious or non-infectious causes. Can be acute or chronic (&gt;6 months).</p>
+      <table>
+        <thead><tr><th>Type</th><th>Transmission</th><th>Chronicity</th></tr></thead>
+        <tbody>
+          <tr><td>Hepatitis A</td><td>Faecal-oral</td><td>Acute only</td></tr>
+          <tr><td>Hepatitis B</td><td>Blood/body fluids/sexual</td><td>Can become chronic</td></tr>
+          <tr><td>Hepatitis C</td><td>Blood (IV drug use, needlestick)</td><td>Often chronic</td></tr>
+          <tr><td>Hepatitis D</td><td>Co-infection with Hep B</td><td>Chronic (if Hep B chronic)</td></tr>
+          <tr><td>Hepatitis E</td><td>Faecal-oral</td><td>Acute only</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">HIV / Tuberculosis</div>
+      <ul>
+        <li>TB: may require infection control precautions; anti-TB drugs have significant interactions</li>
+        <li>HIV: immunosuppression → increased opportunistic oral infections (candidiasis, hairy leukoplakia, periodontal disease); antiretroviral drug interactions</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 15. GI & HEPATIC -->
+  <section class="section" id="gi">
+    <div class="section-header">
+      <span class="section-num">15</span>
+      <h2 class="section-title">GI & Hepatic System</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">GORD (Gastro-Oesophageal Reflux Disease)</div>
+      <p>Affects 10–20% of the developed world. Features: heartburn, regurgitation of food/acid, laryngopharyngeal reflux.</p>
+      <div class="callout yellow">
+        <div class="callout-label">Dental Significance</div>
+        Regurgitation of gastric acid into the oral cavity causes <strong>dental erosion</strong> — particularly on palatal surfaces of upper teeth. Must be factored into preventive and restorative treatment planning.
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Liver Disease — Key Functions Relevant to Dentistry</div>
+      <ul>
+        <li>Synthesis of <strong>all coagulation factors</strong> → haemostasis risk</li>
+        <li>Synthesis of albumin → drug transport/protein binding</li>
+        <li>Major site of <strong>drug metabolism</strong> → LA and analgesic dosing concerns</li>
+        <li>Immunological function (80–90% of innate immune proteins)</li>
+      </ul>
+      <div class="callout red">
+        <div class="callout-label">End-Stage Liver Disease</div>
+        Risk of <strong>excessive bleeding</strong> (reduced coagulation factors, thrombocytopenia). May need vitamin K, platelet transfusion, or fresh frozen plasma before dental procedures.
+      </div>
+      <p>Common dental drugs that need caution in liver disease: <code>local anaesthetics</code> · <code>paracetamol</code> · <code>ibuprofen</code> · <code>antibiotics</code> — dose reduction or avoidance may be needed.</p>
+    </div>
+  </section>
+
+  <!-- 16. CANCER -->
+  <section class="section" id="cancer">
+    <div class="section-header">
+      <span class="section-num">16</span>
+      <h2 class="section-title">Cancer & Social History</h2>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Carcinogenesis — 3 Stages</div>
+      <ol class="steps">
+        <li><strong>Initiation</strong> — unrepaired DNA damage completes cell division → initiated daughter cells</li>
+        <li><strong>Promotion</strong> — clonal expansion of initiated cells (influenced by hormones, growth factors, promotors)</li>
+        <li><strong>Progression</strong> — development of malignant subclones; some become invasive and metastatic</li>
+      </ol>
+    </div>
+
+    <div class="subsection">
+      <div class="sub-title">Social History — Quantifying Risk</div>
+      <table>
+        <thead><tr><th>Habit</th><th>How to Quantify</th><th>Relevance</th></tr></thead>
+        <tbody>
+          <tr><td>Smoking</td><td>Pack years = (cigarettes/day ÷ 20) × years smoked</td><td>Major oral cancer risk factor; wound healing impairment; periodontal disease</td></tr>
+          <tr><td>Alcohol</td><td>Standard drinks per day/week</td><td>Oral cancer risk (especially combined with smoking); liver disease; drug interactions</td></tr>
+          <tr><td>Recreational drugs</td><td>Type, route, frequency</td><td>Drug interactions; xerostomia; bruxism (methamphetamine); infection risk (IV use)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 17. ISBAR -->
+  <section class="section" id="isbar">
+    <div class="section-header">
+      <span class="section-num">17</span>
+      <h2 class="section-title">ISBAR Communication Framework</h2>
+    </div>
+
+    <p>Used to communicate about a patient's condition clearly and safely — especially in urgent referrals or escalations.</p>
+
+    <div class="acronym-box">
+      <div class="acronym-row">
+        <div class="acronym-letter">I</div>
+        <div class="acronym-content">
+          <div class="acronym-word">Identify</div>
+          <div class="acronym-desc">Identify yourself (name, position, location) and who you are talking to. Identify patient name, age, sex, and location.</div>
+        </div>
+      </div>
+      <div class="acronym-row">
+        <div class="acronym-letter">S</div>
+        <div class="acronym-content">
+          <div class="acronym-word">Situation</div>
+          <div class="acronym-desc">State the purpose: "The reason I am calling is…" If urgent, say so — e.g. "This is urgent because the patient is unstable with a BP of 90."</div>
+        </div>
+      </div>
+      <div class="acronym-row">
+        <div class="acronym-letter">B</div>
+        <div class="acronym-content">
+          <div class="acronym-word">Background</div>
+          <div class="acronym-desc">Tell the story — current problem, relevant history, examination findings, test results, current management.</div>
+        </div>
+      </div>
+      <div class="acronym-row">
+        <div class="acronym-letter">A</div>
+        <div class="acronym-content">
+          <div class="acronym-word">Assessment</div>
+          <div class="acronym-desc">State what you think is going on — e.g. "The patient seems to be deteriorating, I think they may be bleeding."</div>
+        </div>
+      </div>
+      <div class="acronym-row">
+        <div class="acronym-letter">R</div>
+        <div class="acronym-content">
+          <div class="acronym-word">Request</div>
+          <div class="acronym-desc">State your request — e.g. "I need help urgently, are you able to come?" or "I'd like your opinion on the most appropriate next step."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout teal" style="margin-top:24px;">
+      <div class="callout-label">Take Home Messages</div>
+      <ol style="margin-top:6px; padding-left:16px;">
+        <li>Think of the <strong>4 critical processes</strong> (haemostasis · wound healing · circulation · respiration) for <em>every organ system</em> in the medical history.</li>
+        <li>Ensure your medical history is <strong>Comprehensive · Systematic · Reproducible</strong>.</li>
+        <li>Always document <strong>drug name (active ingredient) + dosage + frequency</strong>; cross-check with stated conditions.</li>
+        <li>Record both YES and NO for each system to confirm exclusion.</li>
+        <li>Consider antiresorptive drug history every time before any invasive procedure — MRONJ risk.</li>
+      </ol>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // Highlight active nav item on scroll
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

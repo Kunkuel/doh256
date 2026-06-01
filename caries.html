@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caries or Not — Study Notes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2333;
+    --border: #2a3045;
+    --accent: #e05a5a;
+    --accent2: #f0a050;
+    --accent3: #5ab4e0;
+    --accent4: #6bc98a;
+    --text: #dde3f0;
+    --text-muted: #7a869e;
+    --text-dim: #4a5568;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    padding: 2rem 1rem 4rem;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .header {
+    border-left: 4px solid var(--accent);
+    padding: 1rem 0 1rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .header .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .header p {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.3rem 1.5rem;
+  }
+  .toc-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    grid-column: 1 / -1;
+  }
+  .toc a {
+    color: var(--accent3);
+    text-decoration: none;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.15rem 0;
+  }
+  .toc a:hover { color: #fff; }
+  .toc a::before { content: '→'; color: var(--text-dim); font-size: 11px; }
+
+  /* Section */
+  .section {
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .section-header {
+    background: var(--surface2);
+    padding: 0.9rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    min-width: 28px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #fff;
+    flex: 1;
+  }
+  .section-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .badge-red { background: rgba(224,90,90,0.15); color: var(--accent); border: 1px solid rgba(224,90,90,0.3); }
+  .badge-blue { background: rgba(90,180,224,0.12); color: var(--accent3); border: 1px solid rgba(90,180,224,0.25); }
+  .badge-green { background: rgba(107,201,138,0.12); color: var(--accent4); border: 1px solid rgba(107,201,138,0.25); }
+  .badge-orange { background: rgba(240,160,80,0.12); color: var(--accent2); border: 1px solid rgba(240,160,80,0.25); }
+
+  .section-body {
+    background: var(--surface);
+    padding: 1.25rem 1.5rem;
+  }
+
+  /* Cards grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.9rem 1rem;
+  }
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .card ul { padding-left: 1.1rem; }
+  .card li { font-size: 13.5px; line-height: 1.65; color: var(--text); margin-bottom: 0.15rem; }
+  .card li::marker { color: var(--text-dim); }
+
+  /* Highlight boxes */
+  .highlight {
+    border-left: 3px solid;
+    padding: 0.75rem 1rem;
+    border-radius: 0 6px 6px 0;
+    margin: 0.75rem 0;
+    font-size: 13.5px;
+  }
+  .hl-red { border-color: var(--accent); background: rgba(224,90,90,0.07); }
+  .hl-blue { border-color: var(--accent3); background: rgba(90,180,224,0.07); }
+  .hl-green { border-color: var(--accent4); background: rgba(107,201,138,0.07); }
+  .hl-orange { border-color: var(--accent2); background: rgba(240,160,80,0.07); }
+  .hl-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .hl-red .hl-title { color: var(--accent); }
+  .hl-blue .hl-title { color: var(--accent3); }
+  .hl-green .hl-title { color: var(--accent4); }
+  .hl-orange .hl-title { color: var(--accent2); }
+
+  /* Myth/Fact pairs */
+  .myth-fact { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+  @media(max-width:600px){ .myth-fact { grid-template-columns: 1fr; } }
+  .myth-box, .fact-box {
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    font-size: 13.5px;
+  }
+  .myth-box { background: rgba(224,90,90,0.08); border: 1px solid rgba(224,90,90,0.25); }
+  .fact-box { background: rgba(107,201,138,0.08); border: 1px solid rgba(107,201,138,0.25); }
+  .myth-box strong { color: var(--accent); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+  .fact-box strong { color: var(--accent4); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 0.75rem 0; }
+  th { background: var(--bg); color: var(--text-muted); font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .col-label { color: var(--accent3); font-weight: 600; white-space: nowrap; }
+
+  /* Zone pills */
+  .zone-list { display: flex; flex-direction: column; gap: 0.45rem; }
+  .zone-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.55rem 0.85rem;
+    font-size: 13.5px;
+  }
+  .zone-num {
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    background: var(--surface2); border-radius: 4px;
+    padding: 1px 7px; color: var(--accent3); white-space: nowrap; margin-top: 1px;
+  }
+
+  /* Two-col */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0.75rem 0; }
+  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
+
+  /* Inline tag */
+  .tag-pill {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; padding: 1px 7px; border-radius: 4px;
+    margin-right: 0.35rem; margin-bottom: 0.2rem;
+  }
+  .tp-red { background: rgba(224,90,90,0.15); color: var(--accent); }
+  .tp-blue { background: rgba(90,180,224,0.12); color: var(--accent3); }
+  .tp-green { background: rgba(107,201,138,0.12); color: var(--accent4); }
+  .tp-orange { background: rgba(240,160,80,0.12); color: var(--accent2); }
+
+  /* Divider */
+  .sub-title {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--text-muted); letter-spacing: 0.12em;
+    text-transform: uppercase; margin: 1.1rem 0 0.6rem;
+    padding-bottom: 0.35rem; border-bottom: 1px solid var(--border);
+  }
+
+  p.note { font-size: 13px; color: var(--text-muted); margin: 0.4rem 0; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="tag">CSU · BDSc · Cariology</div>
+    <h1>Caries or Not?</h1>
+    <p>Caries detection, diagnosis, classification, and tooth discolouration — study notes</p>
+  </div>
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <a href="#s1">Detection Methods</a>
+    <a href="#s2">Caries Diagnosis</a>
+    <a href="#s3">Caries Classification</a>
+    <a href="#s4">Smooth Surface Caries</a>
+    <a href="#s5">Pit & Fissure Caries</a>
+    <a href="#s6">Root Caries</a>
+    <a href="#s7">Acute vs Chronic</a>
+    <a href="#s8">Arrested & Recurrent</a>
+    <a href="#s9">Tooth Discolouration</a>
+    <a href="#s10">Myths & Facts</a>
+  </div>
+
+  <!-- Section 1: Detection Methods -->
+  <div class="section" id="s1">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <span class="section-title">Caries Detection Methods</span>
+      <span class="section-badge badge-blue">Clinical</span>
+    </div>
+    <div class="section-body">
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Visual Methods</div>
+          <ul>
+            <li>Detect white spots, demineralisation, discolouration, cavitations</li>
+            <li>Magnification loupes helpful</li>
+            <li>Correct use of mirror + light reflection</li>
+            <li>Temporary elective tooth separation may be used</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Tactile Methods</div>
+          <ul>
+            <li>Use <em>non-sharp</em> instrument or dental floss</li>
+            <li>Sharp instruments → can damage incipient lesion or cause fracture</li>
+            <li>Correct path of placement + minimum force</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Radiographs</div>
+          <ul>
+            <li>Essential in diagnosis</li>
+            <li><strong>Bitewings</strong> → proximal/interproximal caries screening</li>
+            <li>Cannot detect early subsurface demineralisation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Adjuncts</div>
+          <ul>
+            <li>Caries detection dyes (enamel & dentin)</li>
+            <li>Trans-illumination (FOTI)</li>
+            <li>Electronic caries detection devices</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight hl-orange">
+        <div class="hl-title">⚠ Caries Detection Dyes — Caution</div>
+        Dyes stain the <em>organic matrix of less-mineralised dentine</em>, not bacteria. They also stain the EDJ of caries-free teeth. Removing all dye-stained dentine may sacrifice remineralisable tissue — contrary to Minimal Intervention Dentistry (MID).
+      </div>
+
+      <div class="sub-title">Prerequisites for Clinical Caries Detection</div>
+      <div class="card-grid">
+        <div class="card">
+          <ul>
+            <li>Good lighting</li>
+            <li>Clean tooth — free of mature plaque and debris</li>
+            <li>Sharp eye + correct instruments</li>
+            <li>Both <strong>wet</strong> and <strong>dry</strong> tooth assessment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Caries Diagnosis -->
+  <div class="section" id="s2">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <span class="section-title">Caries Diagnosis</span>
+      <span class="section-badge badge-red">Conceptual</span>
+    </div>
+    <div class="section-body">
+      <div class="highlight hl-blue">
+        <div class="hl-title">Definition</div>
+        Diagnosis is an art and science — synthesis of scientific knowledge, clinical experience, intuition, and common sense.
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">What caries diagnosis involves</div>
+          <ul>
+            <li>Deciding if a lesion is <strong>active</strong>, progressing (rapidly/slowly), or already <strong>arrested</strong></li>
+            <li>Determining the <strong>extent</strong> of the caries</li>
+            <li>Informing suitable, individualised interventions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Why diagnosis matters</div>
+          <ul>
+            <li>Forms the basis for treatment decisions</li>
+            <li>Helps inform the patient</li>
+            <li>Advises health service planners about disease prevalence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-title">Classification Dimensions</div>
+      <p class="note">Caries can be classified by: <span class="tag-pill tp-blue">Site</span><span class="tag-pill tp-blue">Progression</span><span class="tag-pill tp-blue">Extent</span><span class="tag-pill tp-blue">No. of surfaces</span><span class="tag-pill tp-blue">Tissues involved</span></p>
+    </div>
+  </div>
+
+  <!-- Section 3: Myths & Facts -->
+  <div class="section" id="s10">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <span class="section-title">Myths &amp; Facts</span>
+      <span class="section-badge badge-orange">Key Concepts</span>
+    </div>
+    <div class="section-body">
+      <div class="myth-fact">
+        <div class="myth-box"><strong>Myth</strong>Caries diagnosis should be based on detection of cavities.</div>
+        <div class="fact-box"><strong>Fact</strong>Caries is a transmissible bacterial infection and multifactorial disease. Diagnosis = recognising environmental changes, not just noting cavities.</div>
+      </div>
+      <div class="myth-fact">
+        <div class="myth-box"><strong>Myth</strong>Restoring the cavity is effective treatment of dental caries.</div>
+        <div class="fact-box"><strong>Fact</strong>Treatment requires behaviour modification and/or chemical changes to correct changes in the oral environment.</div>
+      </div>
+      <div class="myth-fact">
+        <div class="myth-box"><strong>Myth</strong>One treatment regime applies to all individuals.</div>
+        <div class="fact-box"><strong>Fact</strong>Every individual has a unique oral environment; treatment must be specific to the conditions in that patient's mouth.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Smooth Surface Caries -->
+  <div class="section" id="s4">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <span class="section-title">Smooth Surface Caries</span>
+      <span class="section-badge badge-green">Lesion Types</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent4)">Non-Cavitated (White Spot)</div>
+          <ul>
+            <li>Earliest clinically visible enamel caries sign</li>
+            <li>Located where plaque accumulates</li>
+            <li>Chalky/matt surface when dried (not glossy)</li>
+            <li>Demineralisation may extend to dentine — but enamel intact</li>
+            <li>White = increased enamel porosity; may turn brown (stain absorption)</li>
+            <li>Best identified after drying</li>
+            <li>DDx: fluorosis, hypomineralisation, hypoplasia</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Cavitated</div>
+          <ul>
+            <li>Visual breakdown of tooth surface</li>
+            <li>Active cavity → soft walls and floors</li>
+          </ul>
+          <div class="card-title" style="color:var(--accent); margin-top:0.8rem">Dentine involvement zones</div>
+          <ul>
+            <li><strong>Infected dentine (outer):</strong> soft, yellow-brown, cheesy; necrotic; superficial demineralised layer</li>
+            <li><strong>Affected dentine (inner):</strong> darker, leathery/hard; deep demineralised zone; may have sclerotic/reactionary dentine</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="sub-title">Incipient Lesion — 4 Zones (from deep to surface)</div>
+      <div class="zone-list">
+        <div class="zone-item"><span class="zone-num">1</span><div><strong>Translucent zone</strong> — deepest; porosity ~1%</div></div>
+        <div class="zone-item"><span class="zone-num">2</span><div><strong>Dark zone</strong> — porosity 2–4%</div></div>
+        <div class="zone-item"><span class="zone-num">3</span><div><strong>Body of lesion</strong> — largest zone; porosity ~25%</div></div>
+        <div class="zone-item"><span class="zone-num">4</span><div><strong>Surface zone</strong> — relatively intact; greater remineralisation at surface</div></div>
+      </div>
+
+      <div class="sub-title">Approximal (Proximal) Caries</div>
+      <div class="highlight hl-red">
+        <div class="hl-title">⚠ Warning</div>
+        Approximal lesions are hard to see clinically. Usually discovered late — once progressed into dentine, visible as a pinkish-grey shadow through the marginal ridge (clean, dry tooth). Radiography (bitewings) is critical. Heavy-handed probing can <em>cause</em> cavitation.
+      </div>
+      <ul style="padding-left:1.2rem; font-size:13.5px; margin-top:0.5rem;">
+        <li>Root surface approximal lesions need good gingival health to diagnose visually</li>
+        <li>Cavitated proximal lesions are likely active — plaque removal from cavity is difficult</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 5: Pit & Fissure Caries -->
+  <div class="section" id="s5">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <span class="section-title">Pit &amp; Fissure Caries</span>
+      <span class="section-badge badge-green">Lesion Types</span>
+    </div>
+    <div class="section-body">
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent4)">Non-Cavitated</div>
+          <ul>
+            <li><strong>Active:</strong> white, matt surface</li>
+            <li><strong>Inactive:</strong> brown</li>
+            <li>Dry tooth: chalkiness extends outside fissure system</li>
+            <li>Wet tooth: shadow → caries into underlying dentine</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Cavitated</div>
+          <ul>
+            <li>Micro-cavities ± greyish discolouration</li>
+            <li>Easily missed on visual exam alone</li>
+            <li>Radiographic evaluation essential — safety net</li>
+            <li>Main cause: patient unable to clean plaque from cavity</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight hl-blue">
+        <div class="hl-title">Clinical tip</div>
+        Examine pits/fissures on a clean, plaque-free surface. Use visual, tactile, and radiographic examination together.
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Root Caries -->
+  <div class="section" id="s6">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <span class="section-title">Root Caries</span>
+      <span class="section-badge badge-green">Lesion Types</span>
+    </div>
+    <div class="section-body">
+      <table>
+        <tr><th></th><th>Active</th><th>Arrested</th></tr>
+        <tr><td class="col-label">Colour</td><td>Yellow/lighter</td><td>Dark brown/black</td></tr>
+        <tr><td class="col-label">Texture</td><td>Soft to probe</td><td>Firm/hard</td></tr>
+        <tr><td class="col-label">Plaque</td><td>Always underlying plaque</td><td>Clean, can be polished</td></tr>
+        <tr><td class="col-label">Margin</td><td colspan="2">Less well-defined margins; changes in root colour + contour</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 7: Acute vs Chronic -->
+  <div class="section" id="s7">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <span class="section-title">Acute vs Chronic Caries</span>
+      <span class="section-badge badge-orange">Progression</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Acute</div>
+          <ul>
+            <li>Rapid process</li>
+            <li>Lighter in colour</li>
+            <li>Often associated with pulp involvement/inflammation</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent2)">Chronic</div>
+          <ul>
+            <li>Long-standing, slower process</li>
+            <li>Darker in colour</li>
+            <li>Pain may not be a feature — protective mechanisms of dentine/pulp</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8: Arrested & Recurrent -->
+  <div class="section" id="s8">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <span class="section-title">Arrested &amp; Recurrent Caries</span>
+      <span class="section-badge badge-orange">Progression</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent4)">Arrested (Remineralised)</div>
+          <ul>
+            <li>Clinically intact but discoloured — brown or black spots</li>
+            <li>Colour change from trapped organic debris and metallic ions within enamel</li>
+            <li>Hard, non-progressive</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Recurrent (Secondary)</div>
+          <ul>
+            <li>Softness at a <strong>defective restoration margin</strong></li>
+            <li>Periodontal probe tip enters defect without resistance</li>
+            <li>Discoloured margin + small marginal ditch = record as defective filling / recurrent carious area</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 9: Tooth Discolouration -->
+  <div class="section" id="s9">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <span class="section-title">Tooth Discolouration</span>
+      <span class="section-badge badge-red">DDx</span>
+    </div>
+    <div class="section-body">
+
+      <div class="highlight hl-blue">
+        <div class="hl-title">Colour Terminology</div>
+        <strong>Hue</strong> — the colour family (red, blue, green) · <strong>Value</strong> — lightness/darkness on a black-to-white scale · <strong>Chroma</strong> — colour saturation/intensity · <strong>Metamerism</strong> — same tooth appears different colour under different light sources
+      </div>
+
+      <div class="sub-title">Classification of Discolouration</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title" style="color:var(--accent)">Intrinsic</div>
+          <ul>
+            <li>Structural change in hard tissue composition/thickness</li>
+            <li>Chromogenic material <em>within</em> enamel or dentine</li>
+            <li>During odontogenesis or after eruption</li>
+          </ul>
+          <div style="margin-top:0.6rem; font-size:12.5px; color:var(--text-muted);">Examples:</div>
+          <ul style="font-size:12.5px;">
+            <li>Amelogenesis / Dentinogenesis imperfecta</li>
+            <li>Tetracycline staining</li>
+            <li>Fluorosis</li>
+            <li>Enamel hypoplasia</li>
+            <li>Pulpal haemorrhagic products</li>
+            <li>Root resorption · Ageing</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent3)">Extrinsic</div>
+          <ul>
+            <li>Outside tooth — on surface or in acquired pellicle</li>
+            <li><strong>Metallic:</strong> iron (black), copper (green), potassium permanganate (violet-black), silver nitrate (grey), stannous fluoride (golden-brown)</li>
+            <li><strong>Non-metallic:</strong> dietary, beverages, tobacco, mouthrinses (chlorhexidine = brown stain)</li>
+            <li>Chromogenic bacteria (green/orange = poor OH; black/brown = good OH)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title" style="color:var(--accent2)">Internalised</div>
+          <ul>
+            <li>Extrinsic stain incorporated <em>within</em> tooth after development</li>
+            <li>Occurs in enamel defects or porous exposed dentine</li>
+            <li>Routes: developmental defects, tooth wear, gingival recession, dental caries, restorative materials</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="highlight hl-orange">
+        <div class="hl-title">Ageing changes</div>
+        Teeth darken with age — secondary dentine deposition, extrinsic stain incorporation, and enamel wear exposing darker underlying dentine.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:2rem; padding:1rem 1.5rem; border:1px solid var(--border); border-radius:8px; font-size:12px; color:var(--text-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+    <span>CSU Bachelor of Dental Science · Cariology lecture notes</span>
+    <span>Key refs: Kidd — Essentials of Dental Caries 3e · Mount &amp; Hume 2e · Int Dent J 2012 · Aust Dent J 2002</span>
+  </div>
+
+</div>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

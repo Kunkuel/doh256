@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DOH 256 — Study Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <title>DOH 256 — Dental Clinical Practice Study Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg: #0a0c12;
@@ -25,8 +25,12 @@
       --purple-dim: #1a0e2e;
       --teal: #2dd4bf;
       --teal-dim: #061e1a;
+      --pink: #f472b6;
+      --pink-dim: #200d18;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -35,325 +39,494 @@
       min-height: 100vh;
     }
 
-    /* HEADER */
-    .header {
-      padding: 2.5rem 2rem 2rem;
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0a0c12 0%, #0d1525 50%, #0a1220 100%);
       border-bottom: 1px solid var(--border);
-      max-width: 860px;
-      margin: 0 auto;
+      padding: 3.5rem 1.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
     }
-    .header-top {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, #4a9eff0a 0%, transparent 70%);
+      pointer-events: none;
     }
-    .title-block h1 {
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #3dd68c08 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--blue-dim); border: 1px solid #4a9eff44;
+      color: var(--blue); padding: 4px 12px; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; font-family: 'DM Mono', monospace;
+      margin-bottom: 1.2rem;
+    }
+    .hero-badge::before { content: '●'; font-size: 0.5rem; }
+    .hero h1 {
       font-family: 'Syne', sans-serif;
-      font-size: 1.8rem; font-weight: 800;
-      color: var(--text); line-height: 1.1;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #e2e5f0 0%, #4a9eff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .title-block p {
-      color: var(--muted); font-size: 0.85rem; margin-top: 0.3rem;
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 580px;
+      margin-bottom: 1.8rem;
+    }
+    .hero-stats {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .stat {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+    }
+    .stat-num { color: var(--blue); font-weight: 700; font-size: 1.1rem; display: block; }
+    .stat-label { color: var(--muted); font-size: 0.72rem; }
+
+    /* ── SEARCH ── */
+    .search-bar {
+      max-width: 900px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
     }
     .search-wrap {
-      position: relative; width: 100%; max-width: 320px;
+      position: relative;
     }
     .search-icon {
-      position: absolute; left: 12px; top: 50%;
-      transform: translateY(-50%); color: var(--muted); pointer-events: none;
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); font-size: 1rem; pointer-events: none;
     }
     #search {
       width: 100%;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text);
-      font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
-      padding: 0.6rem 1rem 0.6rem 2.4rem; outline: none;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      padding: 0.75rem 1rem 0.75rem 2.8rem;
+      outline: none;
       transition: border-color 0.2s;
     }
     #search:focus { border-color: var(--blue); }
     #search::placeholder { color: var(--muted); }
 
-    /* MAIN */
-    .main { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem; }
+    /* ── MAIN GRID ── */
+    .main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 
-    /* FOLDER SECTION */
-    .folder {
-      margin-bottom: 2.5rem;
-    }
-    .folder-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 0.9rem;
-      padding-bottom: 0.6rem;
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
       border-bottom: 1px solid var(--border);
     }
-    .folder-icon {
-      font-size: 1rem;
-      width: 28px; height: 28px;
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .folder-name {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-    .folder-count {
-      margin-left: auto;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--border);
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
     }
 
-    /* FILE LIST */
-    .file-list {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .file-item {
-      display: flex; align-items: center; gap: 12px;
+    .card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      padding: 1.25rem;
       text-decoration: none;
       color: inherit;
-      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: all 0.2s;
       position: relative;
+      overflow: hidden;
     }
-    .file-item:hover {
-      border-color: var(--item-accent, #4a9eff);
-      background: var(--surface2);
-      padding-left: 1.2rem;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, #4a9eff);
+      opacity: 0;
+      transition: opacity 0.2s;
     }
-    .file-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--item-accent, #4a9eff);
+    .card:hover {
+      border-color: var(--card-accent, #4a9eff);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px #0004;
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      background: var(--card-accent-dim, #0d1f3a);
+      border: 1px solid var(--card-accent-border, #4a9eff33);
       flex-shrink: 0;
-      opacity: 0.7;
     }
-    .file-item:hover .file-dot { opacity: 1; }
-    .file-name {
-      font-size: 0.9rem;
-      font-weight: 600;
+    .card-title {
+      font-weight: 700;
+      font-size: 0.95rem;
       color: var(--text);
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.5;
       flex: 1;
     }
-    .file-desc {
-      font-size: 0.78rem;
-      color: var(--muted);
-      flex: 2;
-    }
-    .file-tag {
+    .card-meta {
       font-family: 'DM Mono', monospace;
-      font-size: 0.65rem;
-      padding: 2px 7px;
+      font-size: 0.7rem;
+      color: var(--card-accent, #4a9eff);
+      display: flex; align-items: center; gap: 6px;
+      margin-top: 0.2rem;
+    }
+    .card-meta::before { content: '→'; }
+
+    /* Type badges */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
       border-radius: 4px;
-      border: 1px solid;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-family: 'DM Mono', monospace;
+    }
+    .badge-notes { background: #4a9eff18; color: var(--blue); border: 1px solid #4a9eff33; }
+    .badge-slides { background: #b57bee18; color: var(--purple); border: 1px solid #b57bee33; }
+    .badge-cases { background: #3dd68c18; color: var(--green); border: 1px solid #3dd68c33; }
+    .badge-ref { background: #ffb34718; color: var(--amber); border: 1px solid #ffb34733; }
+    .badge-exam { background: #ff6b6b18; color: var(--red); border: 1px solid #ff6b6b33; }
+
+    /* OSCE quick-ref strip */
+    .osce-strip {
+      background: linear-gradient(135deg, #0d1f3a, #0d1525);
+      border: 1px solid #4a9eff33;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .osce-strip h3 {
+      color: var(--blue);
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .step-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-family: 'DM Mono', monospace;
+      color: var(--text);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .step-num {
+      background: var(--blue);
+      color: #000;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
       flex-shrink: 0;
     }
 
-    /* hidden by search */
-    .file-item.hidden { display: none; }
-    .folder.all-hidden .file-list { display: none; }
-    .folder.all-hidden .folder-header { opacity: 0.3; }
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-family: 'DM Mono', monospace;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Search hide */
+    .card.hidden { display: none; }
 
     @media (max-width: 600px) {
-      .header { padding: 1.5rem 1rem 1.2rem; }
-      .main { padding: 1.5rem 1rem 4rem; }
-      .file-desc { display: none; }
-      .header-top { flex-direction: column; }
-      .search-wrap { max-width: 100%; }
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 0.8rem; }
     }
   </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
-    <div class="title-block">
-      <h1>DOH 256</h1>
-      <p>Foundations of Dental Clinical Practice 2 · CSU · 2026</p>
-    </div>
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search" placeholder="Search…">
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">DOH 256 · CSU · 2026</div>
+    <h1>Dental Clinical<br>Practice Study Hub</h1>
+    <p class="hero-sub">Foundations of Dental Clinical Practice 2 — OSCE preparation, clinical reasoning, and exam-ready frameworks.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">9</span>
+        <span class="stat-label">Study modules</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">164</span>
+        <span class="stat-label">Lecture slides</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">7</span>
+        <span class="stat-label">PDF slide sets</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">OSCE</span>
+        <span class="stat-label">Exam ready</span>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- SEARCH -->
+<div class="search-bar">
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search" placeholder="Search topics, e.g. SOCRATES, ICDAS, MRONJ, pulpitis…">
+  </div>
+</div>
+
+<!-- MAIN -->
 <div class="main">
 
-  <!-- FOLDER: STUDY NOTES -->
-  <div class="folder" id="folder-notes">
-    <div class="folder-header">
-      <div class="folder-icon">📂</div>
-      <span class="folder-name">Study Notes</span>
-      <span class="folder-count">9 files</span>
-    </div>
-    <div class="file-list">
-
-      <a href="high_yield.html" class="file-item" style="--item-accent:#ff6b6b"
-         data-tags="high yield key facts pitfalls exam osce">
-        <div class="file-dot"></div>
-        <span class="file-name">High Yield Exam Notes</span>
-        <span class="file-desc">Critical facts, must-know frameworks, common pitfalls</span>
-        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">EXAM</span>
-      </a>
-
-      <a href="osce.html" class="file-item" style="--item-accent:#4a9eff"
-         data-tags="osce workflow socrates salud practice case treatment planning">
-        <div class="file-dot"></div>
-        <span class="file-name">OSCE Workflow & Practice Case</span>
-        <span class="file-desc">8-step sequence, worked case, eMIMs/TG guidance</span>
-        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">CASE</span>
-      </a>
-
-      <a href="treatment_planning.html" class="file-item" style="--item-accent:#3dd68c"
-         data-tags="treatment planning 5 phases systemic active maintenance appointment">
-        <div class="file-dot"></div>
-        <span class="file-name">Treatment Planning</span>
-        <span class="file-desc">5-phase framework, appointment sequencing, case complexity</span>
-        <span class="file-tag" style="color:#3dd68c;border-color:#3dd68c44;background:#3dd68c11">NOTES</span>
-      </a>
-
-      <a href="medical_history.html" class="file-item" style="--item-accent:#ffb347"
-         data-tags="medical history organ system salud asa cardiovascular respiratory medications">
-        <div class="file-dot"></div>
-        <span class="file-name">Medical History</span>
-        <span class="file-desc">Organ-system MHx, 4 critical processes, ASA classification</span>
-        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">NOTES</span>
-      </a>
-
-      <a href="special_tests.html" class="file-item" style="--item-accent:#b57bee"
-         data-tags="special tests pulp EPT cold percussion palpation vitality probing">
-        <div class="file-dot"></div>
-        <span class="file-name">Special Tests</span>
-        <span class="file-desc">EPT, cold/heat, percussion, palpation, periodontal probing</span>
-        <span class="file-tag" style="color:#b57bee;border-color:#b57bee44;background:#b57bee11">NOTES</span>
-      </a>
-
-      <a href="caries.html" class="file-item" style="--item-accent:#ffb347"
-         data-tags="caries icdas iccms classification active inactive cavitated risk">
-        <div class="file-dot"></div>
-        <span class="file-name">Caries Notes</span>
-        <span class="file-desc">ICDAS/ICCMS classification, activity assessment, management thresholds</span>
-        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">NOTES</span>
-      </a>
-
-      <a href="red_flags.html" class="file-item" style="--item-accent:#ff6b6b"
-         data-tags="red flags medications anticoagulant antiresorptive mronj bisphosphonate warfarin liaison">
-        <div class="file-dot"></div>
-        <span class="file-name">Red Flags & Medications</span>
-        <span class="file-desc">Anticoagulants, MRONJ risk, safe vs liaison-required procedures</span>
-        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">REF</span>
-      </a>
-
-      <a href="anamnesis.html" class="file-item" style="--item-accent:#2dd4bf"
-         data-tags="anamnesis history taking chief complaint HPC socrates dental social">
-        <div class="file-dot"></div>
-        <span class="file-name">Anamnesis & History Taking</span>
-        <span class="file-desc">Chief complaint, SOCRATES, dental/social/family history</span>
-        <span class="file-tag" style="color:#2dd4bf;border-color:#2dd4bf44;background:#2dd4bf11">NOTES</span>
-      </a>
-
-      <a href="dental_records.html" class="file-item" style="--item-accent:#4a9eff"
-         data-tags="dental records charting problem list diagnosis isbar documentation">
-        <div class="file-dot"></div>
-        <span class="file-name">Dental Records & Charting</span>
-        <span class="file-desc">Problem list, diagnosis, ISBAR presentation, record standards</span>
-        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">NOTES</span>
-      </a>
-
+  <!-- OSCE WORKFLOW STRIP -->
+  <div class="osce-strip">
+    <h3>⚡ OSCE Station Sequence — 8 Steps</h3>
+    <div class="steps">
+      <div class="step-pill"><div class="step-num">1</div>Greet & ID</div>
+      <div class="step-pill"><div class="step-num">2</div>Chief complaint + SOCRATES</div>
+      <div class="step-pill"><div class="step-num">3</div>Medical history (SALUD)</div>
+      <div class="step-pill"><div class="step-num">4</div>Medications & allergies</div>
+      <div class="step-pill"><div class="step-num">5</div>EO/IO examination</div>
+      <div class="step-pill"><div class="step-num">6</div>Special tests + charting</div>
+      <div class="step-pill"><div class="step-num">7</div>Problem list → diagnosis</div>
+      <div class="step-pill"><div class="step-num">8</div>5-phase treatment plan</div>
     </div>
   </div>
 
-  <!-- FOLDER: LECTURE SLIDES -->
-  <div class="folder" id="folder-slides">
-    <div class="folder-header">
-      <div class="folder-icon">🖼️</div>
-      <span class="folder-name">Lecture Slides</span>
-      <span class="folder-count">7 sets · 164 slides</span>
-    </div>
-    <div class="file-list">
+  <!-- ── SECTION 1: CORE NOTES ── -->
+  <p class="section-label">📚 Core Study Notes</p>
+  <div class="card-grid" id="notes-grid">
 
-      <a href="slides_EO_IO_exam.html" class="file-item" style="--item-accent:#2dd4bf"
-         data-tags="extraoral intraoral examination soft tissue lymph node tmj muscles">
-        <div class="file-dot"></div>
-        <span class="file-name">EO/IO Examination</span>
-        <span class="file-desc">Soft tissue, lymph node levels I–VI, TMJ, muscles of mastication</span>
-        <span class="file-tag" style="color:#2dd4bf;border-color:#2dd4bf44;background:#2dd4bf11">26 slides</span>
-      </a>
+    <a href="high_yield.html" class="card" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33"
+       data-tags="high yield exam osce key points red flag pitfalls">
+      <div class="card-icon" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33">🎯</div>
+      <span class="badge badge-exam">HIGH YIELD</span>
+      <div class="card-title">High Yield Exam Notes</div>
+      <div class="card-desc">Critical facts, common OSCE pitfalls, and must-know frameworks condensed for rapid pre-exam review.</div>
+      <div class="card-meta" style="--card-accent:#ff6b6b">notes · exam-prep</div>
+    </a>
 
-      <a href="slides_radiology.html" class="file-item" style="--item-accent:#4a9eff"
-         data-tags="radiology xray bitewing periapical radiation safety interpretation">
-        <div class="file-dot"></div>
-        <span class="file-name">Radiology</span>
-        <span class="file-desc">X-ray physics, bitewing/periapical technique, radiation safety</span>
-        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">11 slides</span>
-      </a>
+    <a href="osce.html" class="card" style="--card-accent:#4a9eff;--card-accent-dim:#0d1f3a;--card-accent-border:#4a9eff33"
+       data-tags="osce workflow history socrates salud treatment planning practice case sarah mitchell">
+      <div class="card-icon">📋</div>
+      <span class="badge badge-cases">OSCE + CASE</span>
+      <div class="card-title">OSCE Workflow & Practice Case</div>
+      <div class="card-desc">Full 8-step OSCE sequence, diagnostic frameworks, 5-phase treatment planning, eMIMs/TG guidance, and a worked practice case.</div>
+      <div class="card-meta">workflow · practice case</div>
+    </a>
 
-      <a href="slides_caries.html" class="file-item" style="--item-accent:#ffb347"
-         data-tags="caries classification diagnosis icdas lesion activity radiographic">
-        <div class="file-dot"></div>
-        <span class="file-name">Caries Diagnosis & Classification</span>
-        <span class="file-desc">ICDAS staging, lesion activity, radiographic caries, discolouration</span>
-        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">25 slides</span>
-      </a>
+    <a href="treatment_planning.html" class="card" style="--card-accent:#3dd68c;--card-accent-dim:#0a2418;--card-accent-border:#3dd68c33"
+       data-tags="treatment planning 5 phases systemic active maintenance recall appointment caries perio">
+      <div class="card-icon" style="--card-accent:#3dd68c;--card-accent-dim:#0a2418;--card-accent-border:#3dd68c33">🗂️</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Treatment Planning</div>
+      <div class="card-desc">Complete 5-phase framework — systemic, acute, disease control, definitive, maintenance — with appointment sequencing and case complexity.</div>
+      <div class="card-meta" style="--card-accent:#3dd68c">5 phases · appointment planning</div>
+    </a>
 
-      <a href="slides_special_tests.html" class="file-item" style="--item-accent:#b57bee"
-         data-tags="special tests pulp EPT cold percussion palpation probing vitality">
-        <div class="file-dot"></div>
-        <span class="file-name">Special Tests</span>
-        <span class="file-desc">Pulp sensibility, periapical assessment, periodontal probing</span>
-        <span class="file-tag" style="color:#b57bee;border-color:#b57bee44;background:#b57bee11">30 slides</span>
-      </a>
+    <a href="medical_history.html" class="card" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733"
+       data-tags="medical history organ system salud cardiovascular respiratory 4 critical processes asa classification">
+      <div class="card-icon" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733">🫀</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Medical History</div>
+      <div class="card-desc">Organ-system MHx with 4 critical processes, SALUD framework, ASA classification, vitals, and hospitalisation red flags.</div>
+      <div class="card-meta" style="--card-accent:#ffb347">organ systems · ASA · SALUD</div>
+    </a>
 
-      <a href="slides_periodontium.html" class="file-item" style="--item-accent:#3dd68c"
-         data-tags="periodontium anatomy PDL cementum alveolar bone gingiva biologic width">
-        <div class="file-dot"></div>
-        <span class="file-name">Periodontium Anatomy</span>
-        <span class="file-desc">Gingiva, PDL, cementum, alveolar bone, biologic width</span>
-        <span class="file-tag" style="color:#3dd68c;border-color:#3dd68c44;background:#3dd68c11">25 slides</span>
-      </a>
+    <a href="special_tests.html" class="card" style="--card-accent:#b57bee;--card-accent-dim:#1a0e2e;--card-accent-border:#b57bee33"
+       data-tags="special tests pulp sensibility EPT cold hot percussion palpation vitality periodontal probing">
+      <div class="card-icon" style="--card-accent:#b57bee;--card-accent-dim:#1a0e2e;--card-accent-border:#b57bee33">🔬</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Special Tests</div>
+      <div class="card-desc">Pulp sensibility (EPT, cold, heat), periapical tests (percussion, palpation), periodontal probing, and interpretation of results.</div>
+      <div class="card-meta" style="--card-accent:#b57bee">EPT · percussion · probing</div>
+    </a>
 
-      <a href="slides_mhx.html" class="file-item" style="--item-accent:#ff6b6b"
-         data-tags="medical history lecture organ system cardiovascular respiratory medications ASA">
-        <div class="file-dot"></div>
-        <span class="file-name">Medical History Lecture</span>
-        <span class="file-desc">Organ-system history, medications, allergies, bleeding disorders</span>
-        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">22 slides</span>
-      </a>
+    <a href="caries.html" class="card" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733"
+       data-tags="caries icdas iccms classification management threshold active inactive cavitated non-cavitated">
+      <div class="card-icon" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733">🦷</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Caries Study Notes</div>
+      <div class="card-desc">ICDAS/ICCMS caries classification, activity assessment, management thresholds, radiographic caries, and risk stratification.</div>
+      <div class="card-meta" style="--card-accent:#ffb347">ICDAS · ICCMS · risk</div>
+    </a>
 
-      <a href="slides_treatment_planning.html" class="file-item" style="--item-accent:#4a9eff"
-         data-tags="treatment planning lecture 5 phases systemic active disease control definitive maintenance stefanac">
-        <div class="file-dot"></div>
-        <span class="file-name">Treatment Planning Lecture</span>
-        <span class="file-desc">Stefanac's 5 phases, case complexity, treatment sequencing</span>
-        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">25 slides</span>
-      </a>
+    <a href="red_flags.html" class="card" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33"
+       data-tags="red flags medications anticoagulant antithrombotic antiresorptive MRONJ bisphosphonate warfarin aspirin liaison">
+      <div class="card-icon" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33">🚨</div>
+      <span class="badge badge-ref">REFERENCE</span>
+      <div class="card-title">Red Flags & Medications</div>
+      <div class="card-desc">Anticoagulants, antithrombotics, antiresorptives (MRONJ risk), safe vs. liaison-required procedures, and prescribing red flags.</div>
+      <div class="card-meta" style="--card-accent:#ff6b6b">MRONJ · anticoagulants · liaison</div>
+    </a>
 
-    </div>
+    <a href="anamnesis.html" class="card" style="--card-accent:#2dd4bf;--card-accent-dim:#061e1a;--card-accent-border:#2dd4bf33"
+       data-tags="anamnesis history taking chief complaint HPC SOCRATES dental history social history">
+      <div class="card-icon" style="--card-accent:#2dd4bf;--card-accent-dim:#061e1a;--card-accent-border:#2dd4bf33">📝</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Anamnesis & History Taking</div>
+      <div class="card-desc">Chief complaint, history of presenting complaint, SOCRATES framework, dental/social/family history, and structured questioning technique.</div>
+      <div class="card-meta" style="--card-accent:#2dd4bf">SOCRATES · HPC · chief complaint</div>
+    </a>
+
+    <a href="dental_records.html" class="card" style="--card-accent:#4a9eff;--card-accent-dim:#0d1f3a;--card-accent-border:#4a9eff33"
+       data-tags="dental records charting problem list diagnosis treatment plan documentation ISBAR">
+      <div class="card-icon">📊</div>
+      <span class="badge badge-notes">NOTES</span>
+      <div class="card-title">Dental Records & Charting</div>
+      <div class="card-desc">Problem list construction, diagnosis documentation, treatment plan recording, ISBAR presentation, and clinical record standards.</div>
+      <div class="card-meta">problem list · ISBAR · charting</div>
+    </a>
+
+  </div>
+
+  <!-- ── SECTION 2: LECTURE SLIDES ── -->
+  <p class="section-label">🖼️ Lecture Slides (PDF pages)</p>
+  <div class="card-grid" id="slides-grid">
+
+    <a href="slides_EO_IO_exam.html" class="card" style="--card-accent:#2dd4bf;--card-accent-dim:#061e1a;--card-accent-border:#2dd4bf33"
+       data-tags="extraoral intraoral examination soft tissue lymph node TMJ muscles">
+      <div class="card-icon" style="--card-accent:#2dd4bf;--card-accent-dim:#061e1a;--card-accent-border:#2dd4bf33">👁️</div>
+      <span class="badge badge-slides">26 SLIDES</span>
+      <div class="card-title">EO/IO Examination Slides</div>
+      <div class="card-desc">Dr Kang's lecture — systematic extra/intra-oral soft tissue examination, lymph node levels I–VI, TMJ, muscles of mastication.</div>
+      <div class="card-meta" style="--card-accent:#2dd4bf">lymph nodes · TMJ · soft tissue</div>
+    </a>
+
+    <a href="slides_radiology.html" class="card" style="--card-accent:#4a9eff;--card-accent-dim:#0d1f3a;--card-accent-border:#4a9eff33"
+       data-tags="radiology xray bitewing periapical occlusal radiation safety interpretation">
+      <div class="card-icon">☢️</div>
+      <span class="badge badge-slides">11 SLIDES</span>
+      <div class="card-title">Radiology Slides</div>
+      <div class="card-desc">X-ray physics, bitewing/periapical technique, radiation safety, radiographic interpretation, and normal anatomical landmarks.</div>
+      <div class="card-meta">bitewing · periapical · radiation</div>
+    </a>
+
+    <a href="slides_caries.html" class="card" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733"
+       data-tags="caries classification diagnosis icdas staging lesion activity radiographic">
+      <div class="card-icon" style="--card-accent:#ffb347;--card-accent-dim:#251a00;--card-accent-border:#ffb34733">🦷</div>
+      <span class="badge badge-slides">25 SLIDES</span>
+      <div class="card-title">Caries Diagnosis & Classification</div>
+      <div class="card-desc">ICDAS staging, lesion activity assessment, radiographic caries diagnosis, internalised discolouration, and caries vs. not caries.</div>
+      <div class="card-meta" style="--card-accent:#ffb347">ICDAS · activity · radiographic</div>
+    </a>
+
+    <a href="slides_special_tests.html" class="card" style="--card-accent:#b57bee;--card-accent-dim:#1a0e2e;--card-accent-border:#b57bee33"
+       data-tags="special tests pulp EPT cold percussion palpation probing vitality">
+      <div class="card-icon" style="--card-accent:#b57bee;--card-accent-dim:#1a0e2e;--card-accent-border:#b57bee33">🔬</div>
+      <span class="badge badge-slides">30 SLIDES</span>
+      <div class="card-title">Special Tests Slides</div>
+      <div class="card-desc">Full lecture slides on pulp sensibility testing, periapical assessment, periodontal probing, and test result interpretation.</div>
+      <div class="card-meta" style="--card-accent:#b57bee">EPT · cold · percussion</div>
+    </a>
+
+    <a href="slides_periodontium.html" class="card" style="--card-accent:#3dd68c;--card-accent-dim:#0a2418;--card-accent-border:#3dd68c33"
+       data-tags="periodontium anatomy attachment cementum PDL alveolar bone gingiva perio">
+      <div class="card-icon" style="--card-accent:#3dd68c;--card-accent-dim:#0a2418;--card-accent-border:#3dd68c33">🫦</div>
+      <span class="badge badge-slides">25 SLIDES</span>
+      <div class="card-title">Periodontium Anatomy</div>
+      <div class="card-desc">Structure of the periodontium — gingiva, PDL, cementum, alveolar bone, junctional epithelium, and biologic width.</div>
+      <div class="card-meta" style="--card-accent:#3dd68c">PDL · cementum · biologic width</div>
+    </a>
+
+    <a href="slides_mhx.html" class="card" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33"
+       data-tags="medical history lecture organ system cardiovascular respiratory medications ASA">
+      <div class="card-icon" style="--card-accent:#ff6b6b;--card-accent-dim:#250d0d;--card-accent-border:#ff6b6b33">🫀</div>
+      <span class="badge badge-slides">22 SLIDES</span>
+      <div class="card-title">Medical History Lecture Slides</div>
+      <div class="card-desc">MHx lecture — organ-system history taking, medications, allergies, hospitalisation, bleeding disorders, and anaesthetic considerations.</div>
+      <div class="card-meta" style="--card-accent:#ff6b6b">organ systems · medications</div>
+    </a>
+
+    <a href="slides_treatment_planning.html" class="card" style="--card-accent:#4a9eff;--card-accent-dim:#0d1f3a;--card-accent-border:#4a9eff33"
+       data-tags="treatment planning lecture 5 phases systemic active disease control definitive maintenance">
+      <div class="card-icon">🗂️</div>
+      <span class="badge badge-slides">25 SLIDES</span>
+      <div class="card-title">Treatment Planning Lecture Slides</div>
+      <div class="card-desc">Treatment planning lecture — Stefanac's 5 phases, case complexity, treatment sequencing, and patient-centred care.</div>
+      <div class="card-meta">5 phases · Stefanac · sequencing</div>
+    </a>
+
   </div>
 
 </div>
 
-<script>
-  const input = document.getElementById('search');
-  const items = document.querySelectorAll('.file-item');
-  const folders = document.querySelectorAll('.folder');
+<footer>
+  DOH 256 · Foundations of Dental Clinical Practice 2 · Charles Sturt University · 2026<br>
+  <span style="color:#3a3e52">Add new content: drop files into the Claude project → regenerate</span>
+</footer>
 
+<script>
+  // Live search
+  const input = document.getElementById('search');
+  const cards = document.querySelectorAll('.card');
+  
   input.addEventListener('input', () => {
     const q = input.value.toLowerCase().trim();
-    items.forEach(item => {
-      const text = (item.textContent + ' ' + (item.dataset.tags || '')).toLowerCase();
-      item.classList.toggle('hidden', q.length > 1 && !text.includes(q));
+    cards.forEach(card => {
+      const text = (card.textContent + ' ' + (card.dataset.tags || '')).toLowerCase();
+      card.classList.toggle('hidden', q.length > 1 && !text.includes(q));
     });
-    folders.forEach(folder => {
-      const visible = [...folder.querySelectorAll('.file-item')].some(i => !i.classList.contains('hidden'));
-      folder.classList.toggle('all-hidden', q.length > 1 && !visible);
+    // Show section labels only if cards visible
+    document.querySelectorAll('.section-label').forEach(label => {
+      const grid = label.nextElementSibling;
+      const visible = grid && [...grid.querySelectorAll('.card')].some(c => !c.classList.contains('hidden'));
+      label.style.display = (!q || visible) ? '' : 'none';
     });
   });
 </script>

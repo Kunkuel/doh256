@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DOH 256 — High Yield Exam Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3347;
+      --text: #e8eaf0;
+      --muted: #7a82a0;
+      --blue: #4a9eff;
+      --blue-dim: #1a2d4a;
+      --green: #3dd68c;
+      --green-dim: #0d2e1f;
+      --amber: #ffb347;
+      --amber-dim: #2e2000;
+      --red: #ff6b6b;
+      --red-dim: #2e1010;
+      --purple: #b57bee;
+      --purple-dim: #1e1030;
+      --teal: #2dd4bf;
+      --teal-dim: #0a2020;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 1.5rem 1rem 4rem;
+    }
+    .wrap { max-width: 860px; margin: 0 auto; }
+
+    /* HEADER */
+    header {
+      border: 1px solid var(--blue);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      background: var(--blue-dim);
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+    }
+    header h1 { font-size: 1.3rem; font-weight: 700; color: var(--blue); }
+    header p { font-size: 0.82rem; color: var(--muted); }
+    .tag {
+      display: inline-block; padding: 0.15rem 0.55rem; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      font-family: 'DM Mono', monospace;
+    }
+    .tag-blue   { background: var(--blue-dim);   color: var(--blue);   border: 1px solid var(--blue); }
+    .tag-green  { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green); }
+    .tag-amber  { background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber); }
+    .tag-red    { background: var(--red-dim);    color: var(--red);    border: 1px solid var(--red); }
+    .tag-purple { background: var(--purple-dim); color: var(--purple); border: 1px solid var(--purple); }
+    .tag-teal   { background: var(--teal-dim);   color: var(--teal);   border: 1px solid var(--teal); }
+
+    /* SECTION */
+    .section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .section-head {
+      display: flex; align-items: center; gap: 0.6rem;
+      margin-bottom: 0.9rem; padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-head h2 { font-size: 0.98rem; font-weight: 700; }
+
+    /* SUBHEAD */
+    h3 {
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.07em; color: var(--muted);
+      margin: 1rem 0 0.4rem;
+      font-family: 'DM Mono', monospace;
+    }
+    h3:first-of-type { margin-top: 0.2rem; }
+
+    /* FACT LIST */
+    ul { padding-left: 1.2rem; }
+    li { font-size: 0.88rem; margin-bottom: 0.22rem; color: var(--text); }
+    li strong { color: var(--amber); }
+    li em { color: var(--muted); font-style: normal; }
+
+    /* HIGHLIGHT BOX */
+    .hbox {
+      border-radius: 7px; padding: 0.7rem 0.9rem;
+      margin: 0.6rem 0; font-size: 0.87rem;
+    }
+    .hbox-red    { background: var(--red-dim);    border-left: 3px solid var(--red); }
+    .hbox-green  { background: var(--green-dim);  border-left: 3px solid var(--green); }
+    .hbox-amber  { background: var(--amber-dim);  border-left: 3px solid var(--amber); }
+    .hbox-blue   { background: var(--blue-dim);   border-left: 3px solid var(--blue); }
+    .hbox-purple { background: var(--purple-dim); border-left: 3px solid var(--purple); }
+    .hbox b { color: inherit; }
+
+    /* TABLE */
+    .tbl { overflow-x: auto; margin: 0.6rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    th { background: var(--surface2); color: var(--muted); padding: 0.45rem 0.65rem; text-align: left; font-weight: 600; font-family: 'DM Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 0.42rem 0.65rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+
+    /* GRID */
+    .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin: 0.5rem 0; }
+    @media(max-width:580px){ .g2 { grid-template-columns: 1fr; } }
+    .gc { background: var(--surface2); border-radius: 6px; padding: 0.55rem 0.75rem; font-size: 0.85rem; }
+    .gc .k { color: var(--blue); font-weight: 700; font-size: 0.78rem; display: block; margin-bottom: 0.15rem; font-family: 'DM Mono', monospace; }
+
+    /* PHASE STRIP */
+    .phases { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.5rem 0; }
+    .ph { border-radius: 6px; padding: 0.4rem 0.7rem; font-size: 0.78rem; font-weight: 700; text-align: center; }
+    .ph1 { background: var(--blue-dim);   color: var(--blue); }
+    .ph2 { background: var(--red-dim);    color: var(--red); }
+    .ph3 { background: var(--green-dim);  color: var(--green); }
+    .ph4 { background: var(--purple-dim); color: var(--purple); }
+    .ph5 { background: var(--amber-dim);  color: var(--amber); }
+
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid var(--border); margin: 0.85rem 0; }
+
+    /* MONO INLINE */
+    code { font-family: 'DM Mono', monospace; font-size: 0.82rem; background: var(--surface2); padding: 0.1rem 0.35rem; border-radius: 3px; color: var(--teal); }
+
+    /* GREEN/RED INLINE */
+    .yes { color: var(--green); font-weight: 700; }
+    .no  { color: var(--red);   font-weight: 700; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>DOH 256 — Treatment Planning</h1>
+      <p>High-Yield Exam Notes &nbsp;·&nbsp; Dr Ball &amp; Dr Da Cruz &nbsp;·&nbsp; CSU</p>
+    </div>
+  </header>
+
+  <!-- ─── CORE RULES ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-red">Must Know</span>
+      <h2>Core Rules &amp; Phases</h2>
+    </div>
+    <div class="hbox hbox-red"><strong>Non-negotiable:</strong> No irreversible treatment without a diagnosis. <em>Diagnosis dictates treatment.</em></div>
+    <div class="phases">
+      <div class="ph ph1">① Systemic</div>
+      <div class="ph ph2">② Acute</div>
+      <div class="ph ph3">③ Disease Control</div>
+      <div class="ph ph4">④ Definitive</div>
+      <div class="ph ph5">⑤ Maintenance</div>
+    </div>
+    <h3>Exam Types</h3>
+    <ul>
+      <li><strong>Comprehensive</strong> — new patients before treatment starts</li>
+      <li><strong>Periodic</strong> — regular recall intervals</li>
+      <li><strong>Problem-focused / limited</strong> — specific complaint (pain, swelling, broken tooth)</li>
+      <li><strong>Post-treatment assessment</strong> — at end of disease control or full treatment plan</li>
+    </ul>
+    <h3>SOAP</h3>
+    <div class="g2">
+      <div class="gc"><span class="k">S — Subjective</span>Chief concern in patient's own words, pain history</div>
+      <div class="gc"><span class="k">O — Objective</span>Clinical/radiographic findings, charting, vitals</div>
+      <div class="gc"><span class="k">A — Assessment</span>Diagnosis list from S + O</div>
+      <div class="gc"><span class="k">P — Plan</span>Treatment options, informed consent, patient wishes</div>
+    </div>
+  </div>
+
+  <!-- ─── SYSTEMIC PHASE ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-blue">Phase 1</span>
+      <h2>Systemic Phase</h2>
+    </div>
+    <h3>4 Rationales</h3>
+    <ul>
+      <li>Recognise <strong>undiagnosed systemic disease</strong> → refer</li>
+      <li><strong>Limit or modify</strong> dental treatment based on systemic findings</li>
+      <li><strong>Prevent medical emergencies</strong> in the dental office</li>
+      <li>Prevent serious <strong>postoperative complications</strong></li>
+    </ul>
+    <h3>ASA Classification</h3>
+    <div class="tbl"><table>
+      <tr><th>Class</th><th>Definition</th><th>Examples</th></tr>
+      <tr><td><strong style="color:var(--green)">ASA I</strong></td><td>Normal, healthy, no systemic disease</td><td>—</td></tr>
+      <tr><td><strong style="color:var(--blue)">ASA II</strong></td><td>Mild systemic disease; can walk 2 city blocks/1 flight of stairs</td><td>Well-controlled DM/HTN, mild asthma, smoker, dental anxiety, pregnancy</td></tr>
+      <tr><td><strong style="color:var(--amber)">ASA III</strong></td><td>Moderate–severe; limits activity but not incapacitating</td><td>Stable angina, post-MI, poorly controlled HTN, massive obesity</td></tr>
+      <tr><td><strong style="color:var(--red)">ASA IV</strong></td><td>Life-threatening; distress at rest</td><td>Unstable angina, liver failure, severe CHF, end-stage renal disease</td></tr>
+    </table></div>
+    <div class="hbox hbox-amber"><strong>Rule:</strong> ASA III–IV → medical consultation required before treatment proceeds.</div>
+
+    <h3>Blood Pressure Management</h3>
+    <div class="tbl"><table>
+      <tr><th>BP (mmHg)</th><th>Treatment</th><th>Action</th></tr>
+      <tr><td>≤ 120/80</td><td>Any</td><td>No referral needed</td></tr>
+      <tr><td>120–140 / 80–90</td><td>Any</td><td>Encourage physician visit</td></tr>
+      <tr><td>140–160 / 90–100</td><td>Any</td><td>Encourage physician visit</td></tr>
+      <tr><td>160–180 / 100–110</td><td>Any; consider intraop BP monitoring</td><td>Refer to physician within 1 month</td></tr>
+      <tr><td style="color:var(--red)"><strong>≥ 180/110</strong></td><td style="color:var(--red)"><strong>Defer elective treatment</strong></td><td>Refer urgently; if symptomatic → immediate referral</td></tr>
+    </table></div>
+
+    <h3>Physician Consultation</h3>
+    <ul>
+      <li>Ask: <span class="yes">✓</span> <em>"Is the patient medically fit for this dental treatment?"</em></li>
+      <li>Do NOT ask: <span class="no">✗</span> <em>"Should I do treatment or not?"</em> — that's your decision.</li>
+    </ul>
+    <div class="hbox hbox-blue"><strong>CSU:</strong> Typed letter signed by student + supervisor. Written reply required <em>before</em> treatment proceeds. All verbal conversations documented in file.</div>
+  </div>
+
+  <!-- ─── ACUTE PHASE ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-red">Phase 2</span>
+      <h2>Acute Phase</h2>
+    </div>
+    <div class="g2">
+      <div class="gc" style="border:1px solid var(--red); background: var(--red-dim);">
+        <span class="k" style="color:var(--red)">🚨 Emergency</span>
+        Incapacitates patient; potentially life-threatening. Requires <em>immediate</em> attention.<br>
+        <em>e.g. severe pain, swelling, systemic infection, facial trauma</em>
+      </div>
+      <div class="gc" style="border:1px solid var(--amber); background: var(--amber-dim);">
+        <span class="k" style="color:var(--amber)">⚠ Urgency</span>
+        Does NOT require immediate attention; patient/dentist thinks it should be seen soon.<br>
+        <em>e.g. mild pain, broken tooth, lost restoration</em>
+      </div>
+    </div>
+    <h3>SOCRATES Pain Framework</h3>
+    <div class="g2">
+      <div class="gc"><span class="k">S — Site</span>Where is the pain?</div>
+      <div class="gc"><span class="k">O — Onset</span>When did it start? Getting better/worse?</div>
+      <div class="gc"><span class="k">C — Character</span>Dull, sharp, throbbing?</div>
+      <div class="gc"><span class="k">R — Radiation</span>Does it radiate?</div>
+      <div class="gc"><span class="k">A — Associations</span>Related signs/symptoms?</div>
+      <div class="gc"><span class="k">T — Time course</span>Any pattern?</div>
+      <div class="gc"><span class="k">E — Exacerbating/Relieving</span>What changes it?</div>
+      <div class="gc"><span class="k">S — Severity</span>0–10 scale</div>
+    </div>
+    <h3>Clinical Exam — 5 Steps</h3>
+    <ul>
+      <li>Overall physical health / constitutional signs</li>
+      <li>Oral cancer screening</li>
+      <li>Vital signs (temperature if febrile/infection suspected)</li>
+      <li>Chief concern area (thorough exam → working diagnosis)</li>
+      <li>Contiguous tissues (lymph nodes, muscles, opposing teeth, perio status)</li>
+    </ul>
+  </div>
+
+  <!-- ─── DISEASE CONTROL PHASE ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-green">Phase 3</span>
+      <h2>Disease Control Phase</h2>
+    </div>
+    <h3>3 Purposes</h3>
+    <ul>
+      <li><strong>Eradicate</strong> active disease and infection</li>
+      <li><strong>Arrest</strong> occlusal, functional, and esthetic deterioration</li>
+      <li><strong>Control</strong> causes and risk factors for future disease</li>
+    </ul>
+    <h3>Pre &amp; Post Assessment Tools</h3>
+    <ul>
+      <li>Caries: <strong>ICCMS</strong> (odontogram + radiographs)</li>
+      <li>Periodontal: <strong>PPD, CAL, BOP, furcation, mobility, plaque index</strong> (World Workshop 2017)</li>
+      <li>Pulpal: <strong>Cold test, EPT, percussion</strong> (AAE 2013)</li>
+      <li>Occlusion: <strong>Angle's Classification</strong></li>
+    </ul>
+    <hr/>
+
+    <h3>Caries Management by Risk Group</h3>
+    <div class="tbl"><table>
+      <tr><th>Group</th><th>Management</th></tr>
+      <tr><td><strong style="color:var(--green)">Low risk, no active lesions</strong></td><td>No caries control protocol needed. Restore with <em>definitive</em> restorations. Routine maintenance only.</td></tr>
+      <tr><td><strong style="color:var(--amber)">No lesions but moderate/high risk</strong></td><td>Place on basic caries control protocol. Reevaluate every 6 months.</td></tr>
+      <tr><td><strong style="color:var(--red)">Active lesions or high risk</strong></td><td>Full caries control protocol + identify patient-specific causes (diet, saliva, fluoride, OH, medications).</td></tr>
+    </table></div>
+
+    <h3>Basic Caries Control Protocol</h3>
+    <ul>
+      <li>Professional prophylaxis</li>
+      <li>Oral hygiene instructions</li>
+      <li>Professional fluoride gel/varnish at every recall <em>(&lt;6 months most effective)</em></li>
+      <li>Dietary counselling — reduce sucrose/refined carb frequency</li>
+      <li>Daily OTC fluoride toothpaste + rinse</li>
+      <li>Sealants on susceptible pits and fissures</li>
+      <li>Restore cavitated lesions with <strong>provisional or direct restorations</strong> <em>(NO indirect restorations at this stage)</em></li>
+    </ul>
+    <div class="hbox hbox-amber"><strong>Key additions:</strong> Xerostomia → salivary substitutes; root/smooth surface risk → high-conc fluoride varnish (22,600 ppm); high fluoride need → Neutrafluor 5000 Plus (5,000 ppm NaF); caries risk + gum chewer → xylitol gum.</div>
+    <hr/>
+
+    <h3>Periodontal — Initial Therapy Components</h3>
+    <ul>
+      <li>OHI (brushing technique, interdental cleaning)</li>
+      <li>Scaling and root debridement</li>
+      <li>Elimination of iatrogenic overhangs</li>
+      <li>Extraction of hopeless teeth</li>
+    </ul>
+
+    <h3>Debridement vs Root Planing — Key Evidence</h3>
+    <div class="tbl"><table>
+      <tr><th>Study</th><th>Finding</th></tr>
+      <tr><td><strong>Waerhaug 1956</strong></td><td>Rough surfaces → ↑ calculus/plaque accumulation</td></tr>
+      <tr><td><strong>Rosenberg &amp; Ash 1974</strong></td><td>Increased surface roughness ≠ more plaque or inflammation</td></tr>
+      <tr><td><strong>Nakib et al. 1982</strong></td><td>Endotoxin only adheres to surface (no deep penetration); removed by light brushing → no need to remove cementum</td></tr>
+      <tr><td><strong>Nyman et al. 1988</strong></td><td>Excellent healing with OR without cementum removal → over-instrumentation causes more harm than good</td></tr>
+    </table></div>
+    <div class="hbox hbox-green"><strong>Bottom line:</strong> Goal = disrupt biofilm + remove calculus. <span class="no">NOT</span> aggressive cementum removal.</div>
+
+    <h3>McGuire &amp; Nunn 1996 — Periodontal Prognosis</h3>
+    <div class="tbl"><table>
+      <tr><th>Prognosis</th><th>Key Criteria</th></tr>
+      <tr><td><strong style="color:var(--green)">Good</strong></td><td>Adequate periodontal support; etiologic factors controlled; easy to maintain</td></tr>
+      <tr><td><strong style="color:var(--blue)">Fair</strong></td><td>~25% attachment loss and/or Class I furcation; maintainable with compliance</td></tr>
+      <tr><td><strong style="color:var(--amber)">Poor</strong></td><td>50% attachment loss with Class II furcations; maintainable but with difficulty</td></tr>
+      <tr><td><strong style="color:var(--red)">Questionable</strong></td><td>&gt;50% AL; poor crown-to-root ratio; Class II/III furcations; mobility ≥2+</td></tr>
+      <tr><td><strong style="color:var(--red)">Hopeless</strong></td><td>Inadequate attachment to maintain tooth → extract</td></tr>
+    </table></div>
+  </div>
+
+  <!-- ─── DEFINITIVE PHASE ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-purple">Phase 4</span>
+      <h2>Definitive / Reconstructive Phase</h2>
+    </div>
+    <h3>6 Components</h3>
+    <ul>
+      <li>Periodontal surgery</li>
+      <li>Orthodontic treatment</li>
+      <li>Restoration of individual teeth</li>
+      <li>Elective (non-acute) endodontic treatment</li>
+      <li>Extractions and pre-prosthetic surgery</li>
+      <li>Replacement of missing teeth</li>
+    </ul>
+
+    <h3>Periodontal Surgery — Indications</h3>
+    <ul>
+      <li>Residual PPD <strong>≥ 6 mm</strong> after non-surgical therapy</li>
+      <li>Recurrent inflammation with PPD <strong>4–5 mm</strong> and/or furcation-involved teeth</li>
+      <li>Gingival overgrowth, mucogingival defects, high frenal attachments</li>
+    </ul>
+
+    <h3>Periodontal Regeneration</h3>
+    <ul>
+      <li>Uses bone grafts, barrier membranes, biologic agents</li>
+      <li><strong>Best results:</strong> deep <strong>3-wall infrabony defects</strong></li>
+      <li>Also possible in select furcation/recession defects</li>
+    </ul>
+
+    <h3>Restorations — Intra vs Extracoronal</h3>
+    <div class="g2">
+      <div class="gc"><span class="k">Intracoronal</span>Within confines of tooth<br><em>Amalgam, composite, ceramic inlay</em></div>
+      <div class="gc"><span class="k">Extracoronal</span>Covers most/all coronal surface<br><em>Onlay, full cast crown, PFM, all-ceramic crown</em></div>
+    </div>
+
+    <h3>Endodontic Treatment</h3>
+    <div class="g2">
+      <div class="gc" style="background:var(--red-dim);"><span class="k" style="color:var(--red)">Acute/Disease Control Phase</span>Pulp extirpation or RCT to halt disease/prevent acute flare-up</div>
+      <div class="gc" style="background:var(--purple-dim);"><span class="k" style="color:var(--purple)">Definitive Phase</span>Conventional RCT, retreatment, apical microsurgery</div>
+    </div>
+
+    <h3>Refer to Endodontist If:</h3>
+    <ul>
+      <li>Calcified pulp, root dilaceration, congenital anomalies</li>
+      <li>Max premolar with 3 canals; mand premolar with split canal</li>
+      <li>Access through crown; any molar RCT</li>
+      <li>Retreatment; apical microsurgery; open apex</li>
+      <li>Root resorption; difficult patient management</li>
+    </ul>
+
+    <h3>Tooth Replacement — Options Summary</h3>
+    <div class="tbl"><table>
+      <tr><th>Scenario</th><th>Options</th></tr>
+      <tr><td>Single tooth</td><td>Implant crown; 3-unit bridge; RPD; No replacement</td></tr>
+      <tr><td>Multiple teeth</td><td>Implant-retained (fixed or removable); Bridge; RPD; No replacement</td></tr>
+      <tr><td>Edentulous</td><td>Complete denture; Implant-retained fixed bridge; Implant overdenture</td></tr>
+    </table></div>
+    <div class="hbox hbox-purple"><strong>Pre-prosthetic surgery:</strong> Remove interfering soft tissue/bone; site/ridge preservation; implant placement. All eligible patients must be informed of options.</div>
+  </div>
+
+  <!-- ─── MAINTENANCE PHASE ─── -->
+  <div class="section">
+    <div class="section-head">
+      <span class="tag tag-amber">Phase 5</span>
+      <h2>Maintenance Phase</h2>
+    </div>
+    <h3>Primary Purpose</h3>
+    <ul>
+      <li>Ensure <strong>long-term oral health, optimum function, and favourable esthetics</strong></li>
+      <li>Reassess success/failure of previous treatment; plan additional treatment if needed</li>
+    </ul>
+
+    <h3>Recall Frequency</h3>
+    <div class="tbl"><table>
+      <tr><th>Patient Type</th><th>Interval</th><th>Reference</th></tr>
+      <tr><td>Gingivitis</td><td>6–12 months</td><td>—</td></tr>
+      <tr><td>Periodontitis (good OH)</td><td>3–6 months</td><td>Lindhe &amp; Nyman, 1975</td></tr>
+      <tr><td>Periodontitis (poor OH)</td><td>2–3 months</td><td>Ramfjord et al., 1982</td></tr>
+      <tr><td>Active caries / high caries risk</td><td>2–4 months</td><td>—</td></tr>
+      <tr><td>No active disease, low risk</td><td>6–12 months</td><td>—</td></tr>
+    </table></div>
+    <div class="hbox hbox-blue"><strong>PRA Tool:</strong> Bern Periodontal Risk Assessment (Lang &amp; Tonetti, 2003) — personalises recall intervals.</div>
+
+    <h3>Radiographic Follow-Up in Maintenance</h3>
+    <ul>
+      <li>After extra-coronal or large direct-fill restorations → new periapicals</li>
+      <li>Teeth with selective caries removal near pulp → updated radiographs</li>
+      <li>Asymptomatic radiographic lesions under observation → scheduled follow-up</li>
+      <li>Prior active caries → bitewings every <strong>2 years</strong> (more frequent if increased activity)</li>
+    </ul>
+
+    <h3>Key Evidence</h3>
+    <div class="hbox hbox-green">
+      <strong>Axelsson et al. 2004 — 30-year study:</strong> Structured maintenance (visits every 2 months for 2 years, then 3–12 months for 28 years) + OHI significantly reduced tooth mortality, caries, and periodontal disease. Intact tooth surfaces increased dramatically over 30 years.
+    </div>
+
+    <h3>Implants in Maintenance</h3>
+    <ul>
+      <li>Reevaluate for stability and presence of <strong>peri-mucositis</strong> or <strong>peri-implantitis</strong></li>
+    </ul>
+
+    <h3>Elevated Caries Risk Indicators (= more frequent recalls)</h3>
+    <ul>
+      <li>Poor compliance, high plaque score, dry mouth</li>
+      <li>Aciduric/high fermentable carb diet</li>
+      <li>Immune compromise, debilitated general health</li>
+    </ul>
+  </div>
+
+</div>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

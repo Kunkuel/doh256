@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dental Red Flags & Medications</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e14;
+    --surface: #13161f;
+    --surface2: #1a1e2a;
+    --surface3: #202433;
+    --border: #252a3a;
+    --border2: #2e3448;
+
+    --red: #ff4d4d;
+    --red-dim: rgba(255,77,77,0.12);
+    --red-border: rgba(255,77,77,0.3);
+
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.1);
+    --amber-border: rgba(245,166,35,0.3);
+
+    --green: #3dd68c;
+    --green-dim: rgba(61,214,140,0.1);
+    --green-border: rgba(61,214,140,0.3);
+
+    --blue: #4da6ff;
+    --blue-dim: rgba(77,166,255,0.1);
+    --blue-border: rgba(77,166,255,0.3);
+
+    --purple: #b07aff;
+    --purple-dim: rgba(176,122,255,0.1);
+    --purple-border: rgba(176,122,255,0.3);
+
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.1);
+    --teal-border: rgba(45,212,191,0.3);
+
+    --pink: #f472b6;
+    --pink-dim: rgba(244,114,182,0.1);
+    --pink-border: rgba(244,114,182,0.3);
+
+    --text: #dde3f0;
+    --muted: #6b7a99;
+    --dim: #3a4255;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13.5px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────────── */
+  .header {
+    padding: 56px 48px 40px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,77,77,0.08) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .header-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    max-width: 700px;
+  }
+  .header h1 em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--red);
+  }
+  .header-sub {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 12px;
+    max-width: 640px;
+  }
+  .header-meta {
+    margin-top: 24px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+  }
+  .meta-chip span { color: var(--text); }
+
+  /* ─── TOC ─────────────────────────────────────── */
+  .toc-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 48px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .toc-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 8px;
+  }
+  .toc-btn {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 3px;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+  .toc-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
+
+  /* ─── LAYOUT ──────────────────────────────────── */
+  .main { padding: 40px 48px 80px; max-width: 1200px; }
+
+  /* ─── CATEGORY BLOCKS ─────────────────────────── */
+  .cat-block {
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .cat-header {
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-icon {
+    font-size: 1.4em;
+    flex-shrink: 0;
+  }
+  .cat-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .cat-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .cat-badge {
+    margin-left: auto;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .badge-critical { background: var(--red-dim); color: var(--red); border: 1px solid var(--red-border); }
+  .badge-high     { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+  .badge-moderate { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+  .badge-awareness{ background: var(--purple-dim); color: var(--purple); border: 1px solid var(--purple-border); }
+
+  /* ─── DRUG ROW ────────────────────────────────── */
+  .drug-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 1fr;
+    gap: 0;
+  }
+  .drug-col-headers {
+    display: grid;
+    grid-template-columns: 220px 1fr 1fr 1fr;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+  }
+  .col-hdr {
+    padding: 6px 16px;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .drug-row {
+    display: contents;
+  }
+  .drug-row > div {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .drug-row:last-child > div { border-bottom: none; }
+  .drug-row:hover > div { background: var(--surface2); }
+
+  .drug-name-cell {
+    border-right: 1px solid var(--border);
+  }
+  .drug-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+  }
+  .drug-brand {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .drug-class-tag {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .what-for-cell {
+    border-right: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--text);
+  }
+  .mechanism {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .flag-cell {
+    border-right: 1px solid var(--border);
+  }
+  .flag-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .flag-item:last-child { margin-bottom: 0; }
+  .flag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  .action-cell { font-size: 12px; }
+  .action-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+  .action-item:last-child { margin-bottom: 0; }
+  .action-arrow {
+    color: var(--green);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-size: 11px;
+  }
+
+  /* ─── HIGHLIGHT RULE BOXES ────────────────────── */
+  .rule-box {
+    margin: 16px 24px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .rule-box-icon { font-size: 1.1em; flex-shrink: 0; }
+  .rule-box.red-rule   { background: var(--red-dim); border: 1px solid var(--red-border); }
+  .rule-box.amber-rule { background: var(--amber-dim); border: 1px solid var(--amber-border); }
+  .rule-box.green-rule { background: var(--green-dim); border: 1px solid var(--green-border); }
+  .rule-box.blue-rule  { background: var(--blue-dim); border: 1px solid var(--blue-border); }
+
+  /* ─── SPECIAL SECTIONS ────────────────────────── */
+  .section-title-bar {
+    padding: 48px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .section-title-bar h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #fff;
+  }
+  .title-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ─── ALLERGY TABLE ───────────────────────────── */
+  .allergy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .allergy-cell {
+    background: var(--surface);
+    padding: 16px 18px;
+  }
+  .allergy-cell.header-cell {
+    background: var(--surface2);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    padding: 10px 18px;
+  }
+  .allergy-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  /* ─── CHECKLIST ───────────────────────────────── */
+  .checklist {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .checklist-header {
+    padding: 16px 24px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .check-item:last-child { border-bottom: none; }
+  .check-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 2px;
+    width: 24px;
+  }
+  .check-q {
+    font-weight: 600;
+    color: #fff;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  .check-eg { font-size: 11.5px; color: var(--muted); }
+
+  /* ─── DRUG INTERACTION BOX ────────────────────── */
+  .interaction-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .int-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .int-drugs {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #fff;
+  }
+  .int-plus { color: var(--muted); margin: 0 4px; }
+  .int-result {
+    font-size: 12px;
+    color: var(--amber);
+    margin-bottom: 4px;
+  }
+  .int-detail { font-size: 11.5px; color: var(--muted); }
+
+  /* ─── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 900px) {
+    .header, .toc-bar, .main { padding-left: 20px; padding-right: 20px; }
+    .drug-grid, .drug-col-headers {
+      grid-template-columns: 1fr;
+    }
+    .drug-col-headers { display: none; }
+    .drug-row > div { border-right: none; }
+    .drug-name-cell { border-bottom: 1px solid var(--border); }
+    .allergy-grid { grid-template-columns: 1fr; }
+    .interaction-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════ -->
+<div class="header">
+  <div class="header-tag">DOH 256 · OSCE Reference · CSU Orange</div>
+  <h1>Dental <em>Red Flags</em><br>& Medications</h1>
+  <p class="header-sub">
+    A quick-reference guide to medical red flags, drug classes, and their dental implications.
+    Use alongside eMIMS during the OSCE — look up the drug class first, then use this to determine the action required.
+  </p>
+  <div class="header-meta">
+    <div class="meta-chip">Use with: <span>eMIMS + Therapeutic Guidelines v4 (2025)</span></div>
+    <div class="meta-chip">Key principle: <span>Thromboembolic risk &gt; bleeding risk — almost always</span></div>
+    <div class="meta-chip">If unsure: <span>Consult GP via ISBAR</span></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     TOC
+═══════════════════════════════════════════════════ -->
+<div class="toc-bar">
+  <span class="toc-label">Jump to</span>
+  <a class="toc-btn" href="#bleeding">🩸 Bleeding</a>
+  <a class="toc-btn" href="#mronj">🦴 MRONJ</a>
+  <a class="toc-btn" href="#diabetes">💉 Diabetes</a>
+  <a class="toc-btn" href="#cardiac">❤️ Cardiac</a>
+  <a class="toc-btn" href="#hypertension">🫀 Hypertension</a>
+  <a class="toc-btn" href="#immunosuppression">🛡️ Immunosuppression</a>
+  <a class="toc-btn" href="#gingival">🦷 Gingival Changes</a>
+  <a class="toc-btn" href="#allergy">⚠️ Allergies</a>
+  <a class="toc-btn" href="#pregnancy">🤰 Pregnancy</a>
+  <a class="toc-btn" href="#other">⚡ Other</a>
+  <a class="toc-btn" href="#interactions">💊 Interactions</a>
+  <a class="toc-btn" href="#checklist">✅ Chair Checklist</a>
+</div>
+
+<div class="main">
+
+<!-- ════════════════════════════════════════════════
+     1. BLEEDING RISK
+═══════════════════════════════════════════════════ -->
+<div id="bleeding" class="cat-block">
+  <div class="cat-header" style="background: var(--red-dim); border-color: var(--red-border);">
+    <span class="cat-icon">🩸</span>
+    <div>
+      <div class="cat-title">Bleeding Risk — Antithrombotic Drugs</div>
+      <div class="cat-subtitle">Anticoagulants · Antiplatelets · Other</div>
+    </div>
+    <span class="cat-badge badge-critical">Critical</span>
+  </div>
+
+  <div class="rule-box red-rule">
+    <span class="rule-box-icon">⚠️</span>
+    <div><strong style="color:var(--red)">Golden rule:</strong> Thromboembolic risk of stopping a drug is almost always GREATER than the bleeding risk of continuing. <strong>Never stop antithrombotics without consulting the prescribing clinician.</strong> Use local haemostatic measures instead: sutures, tranexamic acid mouthwash (5%), gelatin sponge, bone wax.</div>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Class</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <!-- WARFARIN -->
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Warfarin</div>
+        <div class="drug-brand">Coumadin, Marevan</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Vitamin K antagonist</div>
+      </div>
+      <div class="what-for-cell">
+        Prevents blood clots by blocking Vitamin K — the vitamin your liver needs to make clotting factors (II, VII, IX, X).
+        <div class="mechanism">Used for: AF, mechanical heart valves, DVT/PE, stroke prevention.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Prolonged, potentially uncontrollable bleeding after extractions or surgery</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Variable effect — narrow therapeutic window; affected by diet (vitamin K foods), antibiotics, other drugs</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Requires INR test — no fixed dose for every patient</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Check INR within 24–72 h before any invasive procedure</div>
+        <div class="action-item"><span class="action-arrow">→</span>INR &lt;4.0 = generally safe for simple extractions (per TG)</div>
+        <div class="action-item"><span class="action-arrow">→</span>INR 4.0–5.0 = discuss with physician; defer if possible</div>
+        <div class="action-item"><span class="action-arrow">→</span>Do NOT stop warfarin — liaise with GP if INR too high</div>
+        <div class="action-item"><span class="action-arrow">→</span>Tranexamic acid mouthwash post-op (hold for 2 min × 4/day)</div>
+      </div>
+    </div>
+
+    <!-- DOACs -->
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">DOACs</div>
+        <div class="drug-brand">Apixaban (Eliquis), Rivaroxaban (Xarelto), Dabigatran (Pradaxa), Edoxaban</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Direct oral anticoagulants</div>
+      </div>
+      <div class="what-for-cell">
+        Directly block specific clotting factors — apixaban/rivaroxaban/edoxaban block Factor Xa; dabigatran blocks thrombin (Factor IIa). More predictable than warfarin.
+        <div class="mechanism">Used for: AF (prevent stroke), DVT/PE treatment & prevention, post joint-replacement clot prevention.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Increased bleeding risk — NO routine monitoring test (no INR equivalent)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>No easy reversal agent for most (idarucizumab for dabigatran only; andexanet alfa for Xa inhibitors — hospital only)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Peak effect 1–4 h after dose; trough just before next dose</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Low-bleeding-risk procedures (simple extractions): do NOT stop — time procedure at trough (just before next dose)</div>
+        <div class="action-item"><span class="action-arrow">→</span>High-risk procedures: consider omitting one dose — only with physician guidance</div>
+        <div class="action-item"><span class="action-arrow">→</span>Local haemostatic measures essential</div>
+        <div class="action-item"><span class="action-arrow">→</span>Do NOT prescribe NSAIDs — significantly increases bleeding risk</div>
+      </div>
+    </div>
+
+    <!-- ANTIPLATELETS -->
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Antiplatelets</div>
+        <div class="drug-brand">Aspirin, Clopidogrel (Plavix), Ticagrelor (Brilinta), Prasugrel (Effient), Dipyridamole (Persantin)</div>
+        <div class="drug-class-tag" style="background:var(--amber-dim);color:var(--amber);">Antiplatelet agents</div>
+      </div>
+      <div class="what-for-cell">
+        Prevent platelets from sticking together by blocking ADP receptors (clopidogrel, ticagrelor, prasugrel) or inhibiting thromboxane A2 (aspirin). Platelets can't form a clot plug.
+        <div class="mechanism">Used for: prevention of heart attack, stroke, after stent placement, peripheral artery disease.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Impaired platelet plug formation → prolonged bleeding after extractions</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Dual antiplatelet therapy (e.g., aspirin + clopidogrel after stent) = high bleeding risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Stopping clopidogrel or ticagrelor within 12 months of stent → risk of stent thrombosis (life-threatening)</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Do NOT stop antiplatelets — stent thrombosis risk is catastrophic</div>
+        <div class="action-item"><span class="action-arrow">→</span>Low-dose aspirin alone: simple extractions safe — local haemostatic measures</div>
+        <div class="action-item"><span class="action-arrow">→</span>Dual antiplatelet: consult prescriber before any invasive procedure</div>
+        <div class="action-item"><span class="action-arrow">→</span>Avoid NSAIDs (ibuprofen blocks aspirin's antiplatelet effect)</div>
+      </div>
+    </div>
+
+    <!-- SSRIs -->
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">SSRIs</div>
+        <div class="drug-brand">Sertraline (Zoloft), Escitalopram (Lexapro), Fluoxetine (Prozac), Paroxetine</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">Antidepressants</div>
+      </div>
+      <div class="what-for-cell">
+        Block reuptake of serotonin in the brain → more serotonin available. Serotonin is also stored in platelets and helps them aggregate.
+        <div class="mechanism">Used for: depression, anxiety, OCD, PTSD, panic disorder.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Platelets depleted of serotonin → mild platelet dysfunction → slightly increased post-op bleeding</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Bruxism — serotonin affects jaw muscle tone; may cause or worsen parafunction</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Xerostomia — common side effect, increases caries risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Awareness only — no modification for routine extractions</div>
+        <div class="action-item"><span class="action-arrow">→</span>Assess for bruxism / occlusal wear clinically</div>
+        <div class="action-item"><span class="action-arrow">→</span>Address xerostomia: fluoride varnish, saliva substitutes, increased caries recall</div>
+        <div class="action-item"><span class="action-arrow">→</span>Check if patient is also on other antiplatelets — combined risk</div>
+      </div>
+    </div>
+
+  </div><!-- end drug-grid -->
+</div><!-- end cat-block -->
+
+
+<!-- ════════════════════════════════════════════════
+     2. MRONJ
+═══════════════════════════════════════════════════ -->
+<div id="mronj" class="cat-block">
+  <div class="cat-header" style="background: var(--amber-dim); border-color: var(--amber-border);">
+    <span class="cat-icon">🦴</span>
+    <div>
+      <div class="cat-title">MRONJ Risk — Antiresorptives & Antiangiogenics</div>
+      <div class="cat-subtitle">Bisphosphonates · Denosumab · VEGF inhibitors · TKIs</div>
+    </div>
+    <span class="cat-badge badge-critical">Critical</span>
+  </div>
+
+  <div class="rule-box amber-rule">
+    <span class="rule-box-icon">💀</span>
+    <div><strong style="color:var(--amber)">MRONJ definition (AAOMS 2014):</strong> Exposed bone / bone probeable through IO or EO fistula in maxillofacial region, persisting &gt;8 weeks, in a patient on antiresorptive or antiangiogenic therapy, with NO history of radiotherapy to jaws and no obvious metastatic disease to jaws. <br><strong>Prevention &gt; treatment. Prioritise keeping teeth over extracting.</strong></div>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Class</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Oral Bisphosphonates</div>
+        <div class="drug-brand">Alendronate (Fosamax), Risedronate (Actonel), Ibandronate, Etidronate</div>
+        <div class="drug-class-tag" style="background:var(--amber-dim);color:var(--amber);">Antiresorptive</div>
+      </div>
+      <div class="what-for-cell">
+        Absorbed into bone and permanently inhibit osteoclasts (cells that break down bone). Bone remodelling is suppressed — bone cannot heal or remodel normally.
+        <div class="mechanism">Used for: osteoporosis (prevent fractures), Paget's disease, hypercalcaemia of malignancy.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Low-moderate MRONJ risk for osteoporosis dose (oral route)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Risk increases with: duration &gt;4 years, concurrent corticosteroids, diabetes, smoking, poor OH, denture trauma</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Drug holidays are controversial for oral route — small benefit</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Optimise oral hygiene before any surgery — reduce infection risk</div>
+        <div class="action-item"><span class="action-arrow">→</span>Avoid extractions if possible — RCT + retain root is preferred</div>
+        <div class="action-item"><span class="action-arrow">→</span>If extraction unavoidable: atraumatic technique, primary closure, antibiotic cover</div>
+        <div class="action-item"><span class="action-arrow">→</span>Avoid implants in high-risk patients</div>
+        <div class="action-item"><span class="action-arrow">→</span>Follow-up at 1, 2, 4, 8 weeks post-extraction</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">IV Bisphosphonates</div>
+        <div class="drug-brand">Zoledronic acid — Aclasta (osteoporosis, 1×/yr), Zometa (oncology, monthly), Pamidronate</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Antiresorptive — HIGH risk</div>
+      </div>
+      <div class="what-for-cell">
+        Same mechanism as oral BPs but IV administration = much higher bioavailability = much more drug deposited in bone = significantly suppressed remodelling.
+        <div class="mechanism">Used for: cancer-related bone metastases (breast, prostate, lung, myeloma), hypercalcaemia of malignancy, osteoporosis (Aclasta only).</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>High MRONJ risk — especially monthly oncology dosing</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Bone remains permanently altered — drug does not wash out</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Patient may be immunocompromised (chemotherapy) — compound risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Complete all necessary extractions BEFORE commencing IV bisphosphonate therapy</div>
+        <div class="action-item"><span class="action-arrow">→</span>For Aclasta (osteoporosis, annual): time procedures &gt;3 months from infusion if possible</div>
+        <div class="action-item"><span class="action-arrow">→</span>For Zometa (oncology): consult treating oncologist before any invasive procedure</div>
+        <div class="action-item"><span class="action-arrow">→</span>Refer to oral surgery for any extractions needed</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Denosumab</div>
+        <div class="drug-brand">Prolia (60 mg 6-monthly, osteoporosis), Xgeva (120 mg monthly, oncology)</div>
+        <div class="drug-class-tag" style="background:var(--amber-dim);color:var(--amber);">RANK-L inhibitor (antiresorptive)</div>
+      </div>
+      <div class="what-for-cell">
+        A monoclonal antibody that blocks RANK-L — the signal that activates osteoclasts. Without osteoclast activation, bone resorption is halted. Effect is reversible (unlike bisphosphonates) but rebounds dangerously if stopped abruptly.
+        <div class="mechanism">Used for: osteoporosis (Prolia), bone metastases / giant cell tumours (Xgeva).</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Prolia: low-moderate MRONJ risk; Xgeva: HIGH risk (oncology dose)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>NEVER stop Prolia abruptly without endocrinologist guidance — rebound bone loss → vertebral fracture within months of stopping</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>6-monthly dosing: lowest risk window is just before next dose (end of cycle)</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Same precautions as oral bisphosphonates for Prolia</div>
+        <div class="action-item"><span class="action-arrow">→</span>Do NOT suggest stopping Prolia — consult GP/endocrinologist</div>
+        <div class="action-item"><span class="action-arrow">→</span>If invasive procedure needed: time it 4–5 months into the 6-month cycle (just before next injection)</div>
+        <div class="action-item"><span class="action-arrow">→</span>Xgeva patients: refer all invasive procedures to oral surgery</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Antiangiogenics / TKIs</div>
+        <div class="drug-brand">Bevacizumab (Avastin), Sunitinib (Sutent), Sorafenib, Pazopanib; also mTOR inhibitors: Everolimus, Temsirolimus</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Antiangiogenic / TKI</div>
+      </div>
+      <div class="what-for-cell">
+        Block blood vessel formation (angiogenesis) and cell signalling pathways that drive cancer growth. Also impair normal bone healing, which requires new blood vessel growth.
+        <div class="mechanism">Used for: colorectal cancer, kidney cancer, liver cancer, GIST, lung cancer — IV or oral chemotherapy agents.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>High MRONJ risk even without bisphosphonates — impaired angiogenesis = impaired bone healing</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Often combined with bisphosphonates → compound risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Immunocompromised state</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Consult oncologist before any invasive dental procedure</div>
+        <div class="action-item"><span class="action-arrow">→</span>Extractions: refer to oral maxillofacial surgery</div>
+        <div class="action-item"><span class="action-arrow">→</span>Focus on prevention: meticulous OH, fluoride, early caries management to avoid need for extraction</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     3. DIABETES DRUGS
+═══════════════════════════════════════════════════ -->
+<div id="diabetes" class="cat-block">
+  <div class="cat-header" style="background: var(--blue-dim); border-color: var(--blue-border);">
+    <span class="cat-icon">💉</span>
+    <div>
+      <div class="cat-title">Diabetes Medications</div>
+      <div class="cat-subtitle">Biguanides · Sulfonylureas · Insulin · SGLT2i · GLP-1 agonists · DPP-4 inhibitors</div>
+    </div>
+    <span class="cat-badge badge-high">High</span>
+  </div>
+
+  <div class="rule-box blue-rule">
+    <span class="rule-box-icon">⚡</span>
+    <div><strong style="color:var(--blue)">Acute chair risk = HYPOGLYCAEMIA, not hyperglycaemia.</strong> Recognise: pale, sweating, tremor, confusion, hunger, tachycardia. Treat immediately with 15–20 g fast-acting glucose (Glucojuice, 4 jelly beans, 150 mL juice). Repeat if no improvement at 15 min. Periodontitis ↔ Diabetes is bidirectional — worsening of one worsens the other.</div>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Class</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Metformin</div>
+        <div class="drug-brand">Glucophage, Diaformin; also in Janumet (+ sitagliptin)</div>
+        <div class="drug-class-tag" style="background:var(--blue-dim);color:var(--blue);">Biguanide</div>
+      </div>
+      <div class="what-for-cell">
+        Reduces glucose production by the liver and improves insulin sensitivity. Does NOT stimulate insulin release. First-line for T2DM.
+        <div class="mechanism">Used for: Type 2 diabetes (first-line); sometimes PCOS.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--green)"></div>Does NOT cause hypoglycaemia alone — safest diabetic drug</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Marker that patient has T2DM — ask about HbA1c, control, GP</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Rare lactic acidosis risk with severe illness or IV contrast (not dental concern)</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Take as normal — no modification for dental appointments</div>
+        <div class="action-item"><span class="action-arrow">→</span>Ensure patient has eaten their normal meal before appointment</div>
+        <div class="action-item"><span class="action-arrow">→</span>Ask for HbA1c — &lt;7% = well controlled; 7–8% = review; &gt;8% = defer elective surgery</div>
+        <div class="action-item"><span class="action-arrow">→</span>Periodontitis-diabetes link: inform patient, improve perio control may improve HbA1c</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Sulfonylureas</div>
+        <div class="drug-brand">Gliclazide (Diamicron), Glimepiride (Amaryl), Glibenclamide</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Sulfonylurea</div>
+      </div>
+      <div class="what-for-cell">
+        Stimulate the pancreatic beta cells to release more insulin, regardless of blood glucose levels. Insulin release can happen even when blood sugar is normal or low.
+        <div class="mechanism">Used for: Type 2 diabetes, often as add-on to metformin.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>HIGH hypoglycaemia risk — stimulates insulin release regardless of glucose</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Risk increased if: fasting for dental appointment, delayed meals, nausea post-procedure</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Morning appointment — patient must have eaten normally + taken medication</div>
+        <div class="action-item"><span class="action-arrow">→</span>Keep glucose gel / orange juice in surgery</div>
+        <div class="action-item"><span class="action-arrow">→</span>Short appointments; don't delay meals</div>
+        <div class="action-item"><span class="action-arrow">→</span>Know hypoglycaemia management protocol</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Insulin</div>
+        <div class="drug-brand">Rapid-acting: NovoRapid, Humalog, Apidra | Long-acting: Lantus, Levemir, Tresiba | Mixed: NovoMix, Mixtard</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Insulin therapy</div>
+      </div>
+      <div class="what-for-cell">
+        Replaces or supplements the body's own insulin. Moves glucose from the blood into cells. Different types vary in how quickly they act and how long they last.
+        <div class="mechanism">Used for: Type 1 diabetes (all patients); Type 2 diabetes when oral agents insufficient.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Highest hypoglycaemia risk of all diabetic medications</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Risk of severe hypoglycaemia if meal skipped, procedure prolonged, or patient anxious/stressed</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>T1DM patients: no endogenous insulin at all — more brittle control</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Morning appointment — patient must eat normal meal and take usual insulin before attending</div>
+        <div class="action-item"><span class="action-arrow">→</span>Ask: "When did you last eat? When did you last take insulin?"</div>
+        <div class="action-item"><span class="action-arrow">→</span>Have glucose available throughout appointment</div>
+        <div class="action-item"><span class="action-arrow">→</span>Short, stress-minimising appointments</div>
+        <div class="action-item"><span class="action-arrow">→</span>If hypoglycaemic episode: stop, administer glucose, do not continue treatment</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">SGLT2 Inhibitors</div>
+        <div class="drug-brand">Empagliflozin (Jardiance), Dapagliflozin (Forxiga), Canagliflozin (Invokana)</div>
+        <div class="drug-class-tag" style="background:var(--blue-dim);color:var(--blue);">SGLT2 inhibitor</div>
+      </div>
+      <div class="what-for-cell">
+        Block the SGLT2 transporter in the kidney, causing excess glucose to be excreted in the urine rather than reabsorbed. Also have cardioprotective and renoprotective effects.
+        <div class="mechanism">Used for: Type 2 diabetes; also for heart failure and chronic kidney disease.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Euglycaemic DKA risk — ketoacidosis with near-normal blood sugar; rare but serious; more risk with fasting/surgery</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Excess urinary glucose → increased risk of oral Candida and genital thrush</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Low hypoglycaemia risk alone</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>For major surgery: liaise with GP about holding dose 3–4 days prior (per anaesthetic guidelines)</div>
+        <div class="action-item"><span class="action-arrow">→</span>For routine dental treatment: no modification needed</div>
+        <div class="action-item"><span class="action-arrow">→</span>Screen for oral candidiasis at each visit</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">GLP-1 Agonists</div>
+        <div class="drug-brand">Semaglutide (Ozempic, Wegovy), Dulaglutide (Trulicity), Liraglutide (Victoza), Exenatide</div>
+        <div class="drug-class-tag" style="background:var(--blue-dim);color:var(--blue);">GLP-1 receptor agonist</div>
+      </div>
+      <div class="what-for-cell">
+        Mimic GLP-1, a gut hormone that stimulates insulin release, suppresses glucagon, and slows gastric emptying (food stays in stomach longer, reducing appetite).
+        <div class="mechanism">Used for: Type 2 diabetes; increasingly for weight loss (Wegovy/Ozempic).</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Delayed gastric emptying → increased aspiration risk under sedation/GA</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Low hypoglycaemia risk alone</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Nausea/vomiting side effect → GORD → dental erosion risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Routine dental treatment: no modification</div>
+        <div class="action-item"><span class="action-arrow">→</span>If sedation/GA planned: inform anaesthetist — fasting period may need to be extended</div>
+        <div class="action-item"><span class="action-arrow">→</span>Screen for erosion patterns if patient reports GI symptoms</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     4. CARDIAC
+═══════════════════════════════════════════════════ -->
+<div id="cardiac" class="cat-block">
+  <div class="cat-header" style="background: var(--red-dim); border-color: var(--red-border);">
+    <span class="cat-icon">❤️</span>
+    <div>
+      <div class="cat-title">Cardiovascular Conditions</div>
+      <div class="cat-subtitle">Antibiotic prophylaxis · Post-MI/stent · Infective endocarditis · LA with adrenaline</div>
+    </div>
+    <span class="cat-badge badge-critical">Critical</span>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Condition / Drug</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Prosthetic heart valve / Previous IE / High-risk congenital</div>
+        <div class="drug-brand">The restricted group requiring abx prophylaxis per TG</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">IE prophylaxis required</div>
+      </div>
+      <div class="what-for-cell">
+        These conditions create abnormal surfaces in the heart where bacteria from dental procedures (transient bacteraemia) can colonise and form vegetations → infective endocarditis.
+        <div class="mechanism">IE mortality: 15–25% in-hospital. High lifetime risk of IE in this group.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Dental procedures causing bacteraemia can trigger IE</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Restricted group: prosthetic valve, previous IE, congenital cyanotic HD, cardiac transplant with valvulopathy, rheumatic HD in some populations</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Joint replacements — routine prophylaxis NOT recommended per TG unless specific indication</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Prophylaxis: <strong>Amoxicillin 2 g PO 1 h before</strong> invasive dental procedures</div>
+        <div class="action-item"><span class="action-arrow">→</span>Penicillin allergic: <strong>Clindamycin 600 mg PO 1 h before</strong></div>
+        <div class="action-item"><span class="action-arrow">→</span>Confirm diagnosis and prescribing history with GP (ISBAR)</div>
+        <div class="action-item"><span class="action-arrow">→</span>All dental treatment including scaling / RCT / extractions requires prophylaxis in this group</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Recent MI / Stent / CABG / Valve surgery</div>
+        <div class="drug-brand">Within 6 months</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">Post-cardiac event</div>
+      </div>
+      <div class="what-for-cell">
+        After these events, cardiac tissue is healing and re-establishing blood supply. Patients are on dual antiplatelet or anticoagulant therapy, which cannot be stopped. Stress of dental procedure can trigger further cardiac events.
+        <div class="mechanism">Per TG v4 (2025): defer elective dental treatment for 6 months post-event.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Stress-induced increase in cardiac demand → risk of another MI or stent thrombosis</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Heavily anticoagulated/antiplatelet — bleeding risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Defer ALL elective treatment for 6 months post-event</div>
+        <div class="action-item"><span class="action-arrow">→</span>If pain/infection within 6 months: emergency care only — analgesia, antibiotics, drainage, temporary measures</div>
+        <div class="action-item"><span class="action-arrow">→</span>Consult with cardiologist before any procedure within the 6-month window</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     5. HYPERTENSION & BP DRUGS
+═══════════════════════════════════════════════════ -->
+<div id="hypertension" class="cat-block">
+  <div class="cat-header" style="background: var(--purple-dim); border-color: var(--purple-border);">
+    <span class="cat-icon">🫀</span>
+    <div>
+      <div class="cat-title">Hypertension & Antihypertensive Drugs</div>
+      <div class="cat-subtitle">ACE inhibitors · ARBs · CCBs · Beta-blockers · Diuretics</div>
+    </div>
+    <span class="cat-badge badge-high">High</span>
+  </div>
+
+  <div class="rule-box" style="background:var(--purple-dim);border:1px solid var(--purple-border);">
+    <span class="rule-box-icon">🩺</span>
+    <div><strong style="color:var(--purple)">BP thresholds to act on:</strong> Normal &lt;120/80 · Elevated 120–129/&lt;80 · Stage 1 HTN 130–139/80–89 · Stage 2 HTN ≥140/90 · Hypertensive crisis ≥180/120. <strong>Defer all elective treatment if BP ≥180/120 at appointment.</strong></div>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Class</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">ACE Inhibitors</div>
+        <div class="drug-brand">Perindopril (Coversyl), Ramipril (Tritace), Enalapril, Lisinopril (Zestril), Captopril</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">ACE inhibitor (-pril)</div>
+      </div>
+      <div class="what-for-cell">
+        Block angiotensin-converting enzyme → less angiotensin II → blood vessels relax + kidneys retain less sodium → lower BP. Also reduce strain on failing heart.
+        <div class="mechanism">Used for: hypertension, heart failure, post-MI, diabetic nephropathy, chronic kidney disease.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Persistent dry cough (common side effect — bradykinin buildup)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Angioedema — sudden swelling of lips, tongue, throat (rare but life-threatening; more common in some ethnic groups); can be precipitated or worsened by dental treatment</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Xerostomia — decreased saliva → caries risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Combined with NSAIDs → reduced antihypertensive effect + renal risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Avoid long-term NSAIDs — undermines BP control and kidney protection</div>
+        <div class="action-item"><span class="action-arrow">→</span>If angioedema develops in chair: stop all treatment, airway assessment, call 000</div>
+        <div class="action-item"><span class="action-arrow">→</span>Address xerostomia: fluoride, saliva substitutes, xylitol</div>
+        <div class="action-item"><span class="action-arrow">→</span>Check BP at each visit — patients may have uncontrolled BP</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Calcium Channel Blockers (CCBs)</div>
+        <div class="drug-brand">Amlodipine (Norvasc), Nifedipine (Adalat), Felodipine, Diltiazem (Cardizem), Verapamil</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">CCB (-dipine, diltiazem, verapamil)</div>
+      </div>
+      <div class="what-for-cell">
+        Block calcium channels in blood vessel walls and heart muscle → vessels relax → lower BP. Some (diltiazem, verapamil) also slow heart rate for arrhythmias.
+        <div class="mechanism">Used for: hypertension, angina, some arrhythmias, Raynaud's phenomenon.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Gingival enlargement (gingival overgrowth) — especially nifedipine; also amlodipine, felodipine</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Overgrowth worsened by poor plaque control; can be severe</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Dry mouth, facial flushing</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Intensive OHI to minimise plaque-induced worsening of gingival enlargement</div>
+        <div class="action-item"><span class="action-arrow">→</span>If severe: refer to GP to discuss switching to a non-CCB antihypertensive</div>
+        <div class="action-item"><span class="action-arrow">→</span>Gingivectomy if functionally / aesthetically compromised and drug cannot be changed</div>
+        <div class="action-item"><span class="action-arrow">→</span>Overgrowth will recur if drug is not changed</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Beta-Blockers</div>
+        <div class="drug-brand">Metoprolol (Lopressor), Atenolol (Tenormin), Propranolol, Carvedilol, Bisoprolol</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">Beta-blocker (-olol)</div>
+      </div>
+      <div class="what-for-cell">
+        Block beta-adrenergic receptors → heart beats slower and with less force → lower BP. Also prevent arrhythmias and reduce cardiac oxygen demand.
+        <div class="mechanism">Used for: hypertension, heart failure, angina, arrhythmias, post-MI, anxiety (propranolol), migraine prevention.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Masks signs of hypoglycaemia (tachycardia, tremor) — important if diabetic patient</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Non-selective beta-blockers (propranolol) can cause bronchoconstriction — avoid in asthmatics</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Potentiates adrenaline vasopressor effect — use LA with adrenaline carefully; aspirate</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Avoid propranolol in asthmatic patients — use cardioselective beta-blockers (metoprolol, atenolol) are safer but still caution</div>
+        <div class="action-item"><span class="action-arrow">→</span>Diabetic patients: warn that they may not feel hypoglycaemia onset — check glucose before appointment</div>
+        <div class="action-item"><span class="action-arrow">→</span>Aspirate before injecting LA with adrenaline</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">ARBs</div>
+        <div class="drug-brand">Irbesartan (Avapro), Candesartan (Atacand), Losartan (Cozaar), Valsartan (Diovan), Olmesartan, Telmisartan</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">Angiotensin receptor blocker (-sartan)</div>
+      </div>
+      <div class="what-for-cell">
+        Block the angiotensin II receptor directly (rather than stopping its production like ACEi). Same end result: vasodilation and lower BP. Used when ACEi cause intolerable cough.
+        <div class="mechanism">Used for: hypertension, heart failure, diabetic nephropathy, post-MI.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Lichenoid drug reactions (rare but reported — olmesartan notably) → oral ulceration, white striae</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Same NSAID interaction as ACEi → reduced BP control + renal risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Generally better tolerated than ACEi — less dry cough, less angioedema</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Avoid long-term NSAIDs</div>
+        <div class="action-item"><span class="action-arrow">→</span>If lichenoid reaction: refer to GP for drug review, manage symptomatically</div>
+        <div class="action-item"><span class="action-arrow">→</span>Check BP at visit</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     6. IMMUNOSUPPRESSION & STEROIDS
+═══════════════════════════════════════════════════ -->
+<div id="immunosuppression" class="cat-block">
+  <div class="cat-header" style="background: var(--teal-dim); border-color: var(--teal-border);">
+    <span class="cat-icon">🛡️</span>
+    <div>
+      <div class="cat-title">Immunosuppression & Corticosteroids</div>
+      <div class="cat-subtitle">Prednisolone · Methotrexate · Cyclosporine · Biologics · Chemotherapy</div>
+    </div>
+    <span class="cat-badge badge-high">High</span>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Class</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Corticosteroids</div>
+        <div class="drug-brand">Prednisolone, Prednisone, Dexamethasone, Hydrocortisone</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Glucocorticoid</div>
+      </div>
+      <div class="what-for-cell">
+        Potent anti-inflammatory and immunosuppressive agents. Suppress the immune system's inflammatory response broadly.
+        <div class="mechanism">Used for: asthma, rheumatoid arthritis, IBD, organ transplant, autoimmune disease, allergic reactions, COPD exacerbations.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Adrenal suppression — long-term use (≥7.5 mg/day prednisolone for &gt;3 weeks) suppresses HPA axis; patient cannot mount a cortisol response to surgical stress → adrenal crisis risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Impaired wound healing — suppresses the inflammatory healing cascade</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Increased infection risk — candidiasis, spreading dental infections</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Masks pain and infection signs</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Osteoporosis — often why patient is also on bisphosphonates/denosumab</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>For major surgical procedures: discuss steroid supplementation (stress dosing) with GP</div>
+        <div class="action-item"><span class="action-arrow">→</span>For routine treatment (scaling, fillings): usually no supplementation needed if taking morning dose as usual</div>
+        <div class="action-item"><span class="action-arrow">→</span>Screen for oral candidiasis at every visit</div>
+        <div class="action-item"><span class="action-arrow">→</span>Treat infections aggressively — don't underestimate them</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Methotrexate</div>
+        <div class="drug-brand">Methtrex, Ledertrexate (weekly low-dose for autoimmune; high-dose for cancer)</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Antimetabolite / DMARD</div>
+      </div>
+      <div class="what-for-cell">
+        At low doses: inhibits folate metabolism to suppress inflammation and immune overactivity (immune cells are fast-dividing and need folate). At high doses: blocks DNA synthesis in cancer cells.
+        <div class="mechanism">Used for: rheumatoid arthritis, psoriasis, psoriatic arthritis (low dose weekly); leukaemia, lymphoma (high dose).</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Oral ulcers / mucositis — folate depletion affects rapidly dividing mucosal cells</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>NSAIDs reduce methotrexate excretion → toxicity (even low-dose) — potentially fatal</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Immunosuppression → increased infection risk</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Hepatotoxicity — affects drug metabolism</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span><strong>Never prescribe NSAIDs (ibuprofen)</strong> — interaction causes methotrexate toxicity</div>
+        <div class="action-item"><span class="action-arrow">→</span>Use paracetamol only for analgesia</div>
+        <div class="action-item"><span class="action-arrow">→</span>Oral ulcers: folate supplementation may help (prescribed by GP); topical management</div>
+        <div class="action-item"><span class="action-arrow">→</span>Treat dental infections aggressively; low threshold for antibiotics</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Cyclosporine</div>
+        <div class="drug-brand">Neoral, Sandimmun</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Calcineurin inhibitor / immunosuppressant</div>
+      </div>
+      <div class="what-for-cell">
+        Inhibits T-lymphocyte activation → suppresses the immune response that would otherwise reject a transplanted organ or attack the body's own tissues.
+        <div class="mechanism">Used for: organ transplant (kidney, liver, heart), severe psoriasis, rheumatoid arthritis, nephrotic syndrome.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Gingival overgrowth — one of the "gingival trio" along with CCBs and phenytoin</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Severe immunosuppression — infection risk, delayed healing</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Drug interactions — erythromycin, clarithromycin, fluconazole increase cyclosporine levels → toxicity</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Hypertension (often also on CCBs → compound gingival overgrowth)</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Avoid erythromycin, clarithromycin, fluconazole, metronidazole (check eMIMS)</div>
+        <div class="action-item"><span class="action-arrow">→</span>Use amoxicillin or clindamycin as antibiotic of choice</div>
+        <div class="action-item"><span class="action-arrow">→</span>Intensive OH: meticulous plaque control reduces gingival overgrowth severity</div>
+        <div class="action-item"><span class="action-arrow">→</span>Consult transplant physician before invasive procedures</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     7. GINGIVAL CHANGES TRIO
+═══════════════════════════════════════════════════ -->
+<div id="gingival" class="cat-block">
+  <div class="cat-header" style="background: var(--green-dim); border-color: var(--green-border);">
+    <span class="cat-icon">🦷</span>
+    <div>
+      <div class="cat-title">Drug-Induced Gingival Overgrowth — The Trio</div>
+      <div class="cat-subtitle">Phenytoin · Cyclosporine · Calcium Channel Blockers</div>
+    </div>
+    <span class="cat-badge badge-moderate">Awareness</span>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Mechanism of gingival effect</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Phenytoin</div>
+        <div class="drug-brand">Dilantin, Epanutin</div>
+        <div class="drug-class-tag" style="background:var(--green-dim);color:var(--green);">Antiepileptic — sodium channel blocker</div>
+      </div>
+      <div class="what-for-cell">Stabilises nerve cell membranes by blocking sodium channels → prevents seizure spread. One of the oldest antiepileptic drugs.
+        <div class="mechanism">Used for: epilepsy (tonic-clonic, partial seizures), status epilepticus, trigeminal neuralgia.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--green)"></div>Stimulates fibroblast proliferation → excess connective tissue in gingiva</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Plaque-modified — worse with poor OH</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Affects ~50% of patients to some degree</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Rigorous OHI — reduces plaque-driven component</div>
+        <div class="action-item"><span class="action-arrow">→</span>Refer to GP: newer antiepileptics (levetiracetam, lamotrigine) do not cause gingival overgrowth</div>
+        <div class="action-item"><span class="action-arrow">→</span>Gingivectomy if functionally/aesthetically severe — will recur if drug not changed</div>
+      </div>
+    </div>
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Cyclosporine</div>
+        <div class="drug-brand">Neoral, Sandimmun</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Calcineurin inhibitor</div>
+      </div>
+      <div class="what-for-cell">See immunosuppression section above.
+        <div class="mechanism">Used for: organ transplant, autoimmune conditions.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--green)"></div>Inhibits collagenase → collagen accumulates in gingival connective tissue</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Worst when combined with CCBs (e.g., transplant patient on cyclosporine + amlodipine for HTN)</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Request GP review drug combination — switch CCB to ACEi/ARB where possible</div>
+        <div class="action-item"><span class="action-arrow">→</span>OHI, scaling, surgical correction if warranted</div>
+      </div>
+    </div>
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Calcium Channel Blockers</div>
+        <div class="drug-brand">Nifedipine (worst), Amlodipine, Felodipine, Verapamil, Diltiazem</div>
+        <div class="drug-class-tag" style="background:var(--purple-dim);color:var(--purple);">CCB (-dipine)</div>
+      </div>
+      <div class="what-for-cell">See hypertension section above.
+        <div class="mechanism">Used for: hypertension, angina, arrhythmias.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--green)"></div>Reduce cation influx into gingival fibroblasts → altered metabolism → excess collagen</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Nifedipine most potent; amlodipine less so but still occurs</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Request GP switch to ACEi/ARB or diuretic instead</div>
+        <div class="action-item"><span class="action-arrow">→</span>Overgrowth improves within 3–6 months after drug change</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     8. ALLERGIES
+═══════════════════════════════════════════════════ -->
+<div id="allergy" class="cat-block">
+  <div class="cat-header" style="background: var(--pink-dim); border-color: var(--pink-border);">
+    <span class="cat-icon">⚠️</span>
+    <div>
+      <div class="cat-title">Allergies — Penicillin, Latex, NSAIDs, LA, Sulfites</div>
+      <div class="cat-subtitle">Always clarify: WHAT happened? HOW SOON after?</div>
+    </div>
+    <span class="cat-badge badge-critical">Critical</span>
+  </div>
+
+  <div class="allergy-grid">
+    <div class="allergy-cell header-cell">Allergy type</div>
+    <div class="allergy-cell header-cell">What it means</div>
+    <div class="allergy-cell header-cell">Dental action</div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--amber)">Penicillin — Rash only (delayed, non-IgE)</div>
+      Maculopapular rash hours–days after dose. Low true allergy risk. ~1% cross-reactivity with cephalosporins.
+    </div>
+    <div class="allergy-cell">Avoid penicillins to be safe. Cephalosporins cautiously possible — discuss with GP. Usually a low-grade hypersensitivity, not anaphylaxis.</div>
+    <div class="allergy-cell">
+      <strong>Clindamycin 300 mg 6-hrly</strong> for dental infections.<br>
+      <strong>Clindamycin 600 mg 1 h before</strong> for IE prophylaxis.
+    </div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--red)">Penicillin — Anaphylaxis (immediate IgE-mediated)</div>
+      Urticaria, angioedema, bronchospasm, or collapse within 1 h of dose. True IgE-mediated allergy.
+    </div>
+    <div class="allergy-cell">Avoid ALL beta-lactams (penicillins AND cephalosporins). Document prominently.</div>
+    <div class="allergy-cell">
+      <strong>Clindamycin only</strong> for dental infections and IE prophylaxis.<br>Check clarithromycin / metronidazole as alternatives depending on context.
+    </div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--red)">Latex allergy</div>
+      IgE-mediated allergy to natural rubber latex proteins. Can cause contact dermatitis → urticaria → anaphylaxis.
+    </div>
+    <div class="allergy-cell">Life-threatening anaphylaxis risk during dental procedures using latex gloves / rubber dam. Cross-reacts with avocado, banana, kiwi, chestnut.</div>
+    <div class="allergy-cell">
+      Latex-free environment — gloves, rubber dam (use nitrile/vinyl).<br>
+      Book as <strong>first appointment of the day</strong> (minimal latex contamination in air).<br>
+      Adrenaline autoinjector on hand.
+    </div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--amber)">NSAID / Aspirin sensitivity</div>
+      Non-IgE mechanism — blocks cyclooxygenase → excess leukotrienes → bronchoconstriction. Especially in Samter's triad (asthma + nasal polyps + NSAID sensitivity).
+    </div>
+    <div class="allergy-cell">NSAIDs (ibuprofen, ketorolac) can trigger severe bronchospasm in sensitive patients.</div>
+    <div class="allergy-cell">
+      <strong>Paracetamol only</strong> for analgesia — safe in this group.<br>
+      Avoid ibuprofen, diclofenac, ketorolac.
+    </div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--blue)">Sulfite allergy</div>
+      Allergy to sodium metabisulfite — the preservative in adrenaline-containing local anaesthetics (the sulfite stabilises the adrenaline).
+    </div>
+    <div class="allergy-cell">Plain LA (without adrenaline) contains no sulfites. Sulfite allergy = allergy to the preservative, NOT to the LA itself.</div>
+    <div class="allergy-cell">
+      Use plain LA — <strong>mepivacaine 3% (Carbocaine)</strong> or <strong>lignocaine without adrenaline</strong>.<br>
+      Note: haemostasis and depth of anaesthesia will be reduced.
+    </div>
+
+    <div class="allergy-cell">
+      <div class="allergy-type" style="color:var(--blue)">True LA allergy</div>
+      Extremely rare (&lt;1% of reported reactions). Most "LA allergies" are actually vasovagal (faint), adrenaline reaction (palpitations), or intravascular injection. True IgE to amide LA is almost unheard of.
+    </div>
+    <div class="allergy-cell">Most patients reporting "allergy to the needle" or "heart racing" had a normal adrenaline reaction, not true allergy. Clarify history carefully.</div>
+    <div class="allergy-cell">
+      Clarify the reaction in detail.<br>
+      If true allergy suspected: refer to allergist for testing.<br>
+      Aspirate before injecting. Use slow injection technique.
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     9. PREGNANCY
+═══════════════════════════════════════════════════ -->
+<div id="pregnancy" class="cat-block">
+  <div class="cat-header" style="background: var(--pink-dim); border-color: var(--pink-border);">
+    <span class="cat-icon">🤰</span>
+    <div>
+      <div class="cat-title">Pregnancy — Safe & Avoid Drug Guide</div>
+      <div class="cat-subtitle">Safest window: 2nd trimester · Emergency care any trimester</div>
+    </div>
+    <span class="cat-badge badge-high">High</span>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:16px 24px;">
+    <div style="background:var(--surface2); padding:10px 16px; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted)">Trimester</div>
+    <div style="background:var(--surface2); padding:10px 16px; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted)">Approach</div>
+    <div style="background:var(--surface2); padding:10px 16px; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted)">Notes</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;"><strong style="color:var(--amber)">1st (Weeks 1–12)</strong></div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;">Defer all elective treatment. Emergency care only.</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px; color:var(--muted)">Organogenesis occurring — highest teratogen risk. Nausea common. Morning sickness → dental erosion risk.</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;"><strong style="color:var(--green)">2nd (Weeks 13–28)</strong></div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;">Safest window. Routine + necessary treatment OK.</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px; color:var(--muted)">Most stable period. Organogenesis complete. Supine position well tolerated.</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;"><strong style="color:var(--amber)">3rd (Weeks 29–40)</strong></div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px;">Defer elective. Emergency care with left lateral tilt.</div>
+    <div style="background:var(--surface); padding:12px 16px; font-size:12.5px; color:var(--muted)">Supine hypotension syndrome (uterus compresses IVC). Short appointments. Avoid prolonged supine position.</div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin: 0 24px 20px;">
+    <div class="int-card" style="border-color:var(--green-border); background:var(--green-dim);">
+      <div class="int-drugs" style="color:var(--green)">✅ Generally Safe</div>
+      <div style="font-size:12px; color:var(--text)">
+        <strong>Antibiotics:</strong> Amoxicillin, cephalexin, clindamycin, azithromycin<br>
+        <strong>Analgesia:</strong> Paracetamol (all trimesters — first line)<br>
+        <strong>LA:</strong> Lignocaine (lidocaine), articaine — with adrenaline OK in small doses<br>
+        <strong>Fluoride:</strong> Topical — safe; systemic supplements — discuss with GP
+      </div>
+    </div>
+    <div class="int-card" style="border-color:var(--red-border); background:var(--red-dim);">
+      <div class="int-drugs" style="color:var(--red)">❌ Avoid</div>
+      <div style="font-size:12px; color:var(--text)">
+        <strong>Antibiotics:</strong> Tetracyclines (all trimesters — permanent tooth staining); Metronidazole (avoid 1st trimester — controversial); Ciprofloxacin<br>
+        <strong>Analgesia:</strong> NSAIDs in 3rd trimester (premature closure of ductus arteriosus); NSAIDs 1st trimester (miscarriage risk)<br>
+        <strong>LA:</strong> Prilocaine (Citanest) — methaemoglobinaemia risk<br>
+        <strong>Sedation:</strong> Nitrous oxide — avoid 1st trimester; caution 2nd/3rd
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     10. OTHER IMPORTANT DRUGS
+═══════════════════════════════════════════════════ -->
+<div id="other" class="cat-block">
+  <div class="cat-header" style="background: var(--teal-dim); border-color: var(--teal-border);">
+    <span class="cat-icon">⚡</span>
+    <div>
+      <div class="cat-title">Other Important Drugs & Conditions</div>
+      <div class="cat-subtitle">Osteoporosis · Liver · Renal · Smoking / Recreational drugs · CNS</div>
+    </div>
+    <span class="cat-badge badge-moderate">Moderate</span>
+  </div>
+
+  <div class="drug-col-headers">
+    <div class="col-hdr">Drug / Condition</div>
+    <div class="col-hdr">What it is & what it's for</div>
+    <div class="col-hdr">Why it's a dental red flag</div>
+    <div class="col-hdr">What to do</div>
+  </div>
+
+  <div class="drug-grid">
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Lithium</div>
+        <div class="drug-brand">Lithicarb, Quilonum</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Mood stabiliser</div>
+      </div>
+      <div class="what-for-cell">Stabilises mood by affecting sodium transport in nerve and muscle cells. Narrow therapeutic window — small dose increases cause toxicity.
+        <div class="mechanism">Used for: bipolar disorder, severe depression, mania prevention.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>NSAIDs reduce renal lithium excretion → lithium toxicity (confusion, tremor, seizure, cardiac arrhythmia)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Xerostomia → increased caries risk</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span><strong>Absolutely no NSAIDs</strong> — use paracetamol only</div>
+        <div class="action-item"><span class="action-arrow">→</span>Address xerostomia and increased caries risk at every visit</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Antipsychotics</div>
+        <div class="drug-brand">Olanzapine (Zyprexa), Quetiapine (Seroquel), Risperidone (Risperdal), Haloperidol, Clozapine</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">Antipsychotic / dopamine antagonist</div>
+      </div>
+      <div class="what-for-cell">Block dopamine receptors (and serotonin receptors for atypicals) → reduce positive symptoms of psychosis (hallucinations, delusions).
+        <div class="mechanism">Used for: schizophrenia, bipolar disorder, major depressive disorder with psychosis, delirium.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Severe xerostomia → rampant caries risk (especially clozapine)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Extrapyramidal side effects — dystonia (involuntary jaw/tongue movements), tardive dyskinesia → may affect impression taking, denture fit</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Clozapine: agranulocytosis — check WBC before surgery</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Postural hypotension — raise chair slowly after treatment</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>High-risk caries protocol: fluoride, saliva substitutes, dietary counselling</div>
+        <div class="action-item"><span class="action-arrow">→</span>Raise dental chair slowly — orthostatic hypotension</div>
+        <div class="action-item"><span class="action-arrow">→</span>If dystonia evident: note in records; impression timing and technique adaptation</div>
+        <div class="action-item"><span class="action-arrow">→</span>Clozapine: request recent FBC from GP before surgical procedures</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Cocaine (recreational)</div>
+        <div class="drug-brand">—</div>
+        <div class="drug-class-tag" style="background:var(--red-dim);color:var(--red);">CNS stimulant / vasoconstrictor</div>
+      </div>
+      <div class="what-for-cell">Blocks noradrenaline reuptake → excessive sympathetic stimulation → hypertension, tachycardia, vasoconstriction. Also blocks sodium channels (local anaesthetic effect).
+        <div class="mechanism">Recreational stimulant — no medical indication in Australia.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Adrenaline in LA + cocaine → massive sympathomimetic effect → hypertensive crisis, MI, fatal arrhythmia</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--red)"></div>Dental erosion and perforation of nasal septum from snorting (palatal erosion)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--amber)"></div>Vasoconstriction of mucosal vessels → ischaemic ulcers</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Defer treatment 24 h after last use</div>
+        <div class="action-item"><span class="action-arrow">→</span>Use plain LA without adrenaline if use suspected or confirmed</div>
+        <div class="action-item"><span class="action-arrow">→</span>Non-judgmental history taking: "Do you use any recreational drugs?"</div>
+      </div>
+    </div>
+
+    <div class="drug-row">
+      <div class="drug-name-cell">
+        <div class="drug-name">Proton Pump Inhibitors (PPIs)</div>
+        <div class="drug-brand">Omeprazole (Losec), Pantoprazole (Somac), Esomeprazole (Nexium), Lansoprazole</div>
+        <div class="drug-class-tag" style="background:var(--teal-dim);color:var(--teal);">PPI — acid suppressant</div>
+      </div>
+      <div class="what-for-cell">Irreversibly block the proton pump in stomach parietal cells → reduce gastric acid production. Most potent acid suppressant available.
+        <div class="mechanism">Used for: GORD, peptic ulcer disease, H. pylori eradication, Barrett's oesophagus, prevent GI bleeds in patients on NSAIDs/antiplatelets.</div>
+      </div>
+      <div class="flag-cell">
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Marker that patient has GORD → dental erosion risk (regurgitation of acid)</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>Long-term use → hypomagnesaemia, reduced Ca/Mg absorption → potential bone health concern</div>
+        <div class="flag-item"><div class="flag-dot" style="background:var(--blue)"></div>If patient is on PPI + antiplatelet → GP prescribed to protect GI mucosa — do NOT prescribe separate NSAIDs</div>
+      </div>
+      <div class="action-cell">
+        <div class="action-item"><span class="action-arrow">→</span>Screen for dental erosion — palatal surfaces of upper anteriors (classic GORD pattern)</div>
+        <div class="action-item"><span class="action-arrow">→</span>Dietary advice: reduce acidic food/drink; don't brush immediately after reflux episode</div>
+        <div class="action-item"><span class="action-arrow">→</span>High-fluoride toothpaste for erosion risk management</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     11. DRUG INTERACTIONS
+═══════════════════════════════════════════════════ -->
+<div id="interactions">
+  <div class="section-title-bar">
+    <h2>💊 Critical Drug Interactions with Dental Drugs</h2>
+    <div class="title-line"></div>
+  </div>
+
+  <div class="interaction-grid">
+    <div class="int-card" style="border-color:var(--red-border)">
+      <div class="int-drugs"><span style="color:var(--red)">NSAIDs</span><span class="int-plus">+</span><span style="color:var(--amber)">Warfarin</span></div>
+      <div class="int-result">⚠️ Increased bleeding risk</div>
+      <div class="int-detail">NSAIDs inhibit platelet aggregation + displace warfarin from protein binding → markedly elevated INR → GI bleed, prolonged dental bleeding. Use paracetamol instead.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--red-border)">
+      <div class="int-drugs"><span style="color:var(--red)">NSAIDs</span><span class="int-plus">+</span><span style="color:var(--amber)">Methotrexate</span></div>
+      <div class="int-result">⚠️ Methotrexate toxicity</div>
+      <div class="int-detail">NSAIDs reduce renal methotrexate excretion → methotrexate accumulates → bone marrow suppression, severe mucositis, hepatotoxicity. Potentially fatal even at low MTX doses. Absolute contraindication.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--red-border)">
+      <div class="int-drugs"><span style="color:var(--red)">NSAIDs</span><span class="int-plus">+</span><span style="color:var(--amber)">Lithium</span></div>
+      <div class="int-result">⚠️ Lithium toxicity</div>
+      <div class="int-detail">NSAIDs reduce renal lithium clearance → lithium accumulates → toxicity (tremor, confusion, arrhythmia, seizures). Paracetamol is safe and should be used instead.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--red-border)">
+      <div class="int-drugs"><span style="color:var(--red)">NSAIDs</span><span class="int-plus">+</span><span style="color:var(--amber)">ACEi / ARBs</span></div>
+      <div class="int-result">⚠️ Reduced BP control + renal risk</div>
+      <div class="int-detail">NSAIDs antagonise the vasodilatory effect of ACEi/ARBs and reduce renal prostaglandin production → increased BP, reduced GFR, potential acute kidney injury. Short-course OK in healthy patients; avoid in elderly or CKD.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--amber-border)">
+      <div class="int-drugs"><span style="color:var(--amber)">Metronidazole</span><span class="int-plus">+</span><span style="color:var(--amber)">Warfarin</span></div>
+      <div class="int-result">⚠️ Significantly elevated INR</div>
+      <div class="int-detail">Metronidazole inhibits CYP2C9 enzyme → reduced warfarin metabolism → INR rises substantially. If metronidazole essential: reduce warfarin dose and monitor INR closely. Check eMIMS.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--amber-border)">
+      <div class="int-drugs"><span style="color:var(--amber)">Metronidazole / Tinidazole</span><span class="int-plus">+</span><span style="color:var(--amber)">Alcohol</span></div>
+      <div class="int-result">⚠️ Disulfiram reaction</div>
+      <div class="int-detail">Metronidazole inhibits aldehyde dehydrogenase → acetaldehyde accumulates → flushing, nausea, vomiting, palpitations, hypotension. Warn patients: no alcohol during course AND 48 h after completing metronidazole.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--amber-border)">
+      <div class="int-drugs"><span style="color:var(--amber)">Clarithromycin / Erythromycin</span><span class="int-plus">+</span><span style="color:var(--amber)">Cyclosporine / Statins</span></div>
+      <div class="int-result">⚠️ Drug level toxicity</div>
+      <div class="int-detail">Macrolide antibiotics inhibit CYP3A4 → reduced cyclosporine metabolism → toxicity (nephrotoxicity). Same mechanism raises statin levels → rhabdomyolysis risk. Use amoxicillin or clindamycin instead for transplant patients on cyclosporine.</div>
+    </div>
+    <div class="int-card" style="border-color:var(--amber-border)">
+      <div class="int-drugs"><span style="color:var(--amber)">Adrenaline in LA</span><span class="int-plus">+</span><span style="color:var(--amber)">Non-selective beta-blockers (propranolol)</span></div>
+      <div class="int-result">⚠️ Hypertensive rebound</div>
+      <div class="int-detail">Adrenaline causes peripheral vasoconstriction via alpha receptors. Non-selective beta-blockers block the beta-2 vasodilatory counter-response → unopposed alpha → hypertensive crisis. Use max 2 cartridges; aspirate carefully; use cardioselective beta-blockers are lower risk.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════
+     12. CHAIR CHECKLIST
+═══════════════════════════════════════════════════ -->
+<div id="checklist" style="margin-top:40px">
+  <div class="section-title-bar">
+    <h2>✅ Mental Checklist for Every Medication List</h2>
+    <div class="title-line"></div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-header">For every drug on the patient's medication list — ask these 5 questions</div>
+    <div class="check-item">
+      <div class="check-num">01</div>
+      <div>
+        <div class="check-q">Will my patient bleed more than expected?</div>
+        <div class="check-eg">Anticoagulants (warfarin, DOACs), antiplatelets (aspirin, clopidogrel), SSRIs, liver disease, haematological disorders</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">02</div>
+      <div>
+        <div class="check-q">Will bone or soft tissue heal normally?</div>
+        <div class="check-eg">Antiresorptives (bisphosphonates, denosumab → MRONJ), antiangiogenics, corticosteroids, immunosuppressants, radiotherapy to head/neck, smoking, uncontrolled diabetes</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">03</div>
+      <div>
+        <div class="check-q">Is there an acute risk in the dental chair today?</div>
+        <div class="check-eg">Hypoglycaemia (insulin, sulfonylureas), hypertensive crisis (uncontrolled HTN), angina/MI risk (cardiac history), anaphylaxis (known allergies), seizure (epilepsy), syncere (postural hypotension, antipsychotics)</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">04</div>
+      <div>
+        <div class="check-q">Will any drug I prescribe interact with their current medications?</div>
+        <div class="check-eg">NSAIDs + warfarin/MTX/lithium/ACEi; metronidazole + warfarin/alcohol; clarithromycin + cyclosporine; adrenaline + cocaine/propranolol</div>
+      </div>
+    </div>
+    <div class="check-item">
+      <div class="check-num">05</div>
+      <div>
+        <div class="check-q">Does this condition or medication increase their risk of oral disease?</div>
+        <div class="check-eg">Xerostomia (SSRIs, antipsychotics, antihypertensives, antihistamines) → caries; GORD (PPIs as marker) → erosion; diabetes ↔ periodontitis; immunosuppression → candida; CCBs/phenytoin/cyclosporine → gingival overgrowth</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-box amber-rule" style="margin-top:20px">
+    <span class="rule-box-icon">📱</span>
+    <div><strong style="color:var(--amber)">Using eMIMS in the OSCE:</strong> When you see an unfamiliar drug, look it up and identify: (1) the drug CLASS, (2) what it's used FOR, (3) any listed <em>drug interactions</em> section. Then cross-reference with this document for the dental action. State out loud: <em>"I would check Therapeutic Guidelines for the recommended approach to this drug class."</em></div>
+  </div>
+</div>
+
+<div style="text-align:center; padding:48px 0 0; color:var(--muted); font-size:11px; border-top:1px solid var(--border); margin-top:40px;">
+  DOH 256 · Treatment Planning · CSU Orange Dental Clinic · Reference: Therapeutic Guidelines Oral & Dental v4 (2025) · eMIMS · AAOMS 2014
+</div>
+
+</div><!-- end main -->
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

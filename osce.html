@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DOH 256 — OSCE Study Summary & Practice Case</title>
+<style>
+  :root{
+    --bg:#fafaf7; --ink:#1f2937; --muted:#6b7280;
+    --blue:#1e40af; --blue-bg:#dbeafe;
+    --green:#166534; --green-bg:#dcfce7;
+    --amber:#92400e; --amber-bg:#fef3c7;
+    --red:#991b1b; --red-bg:#fee2e2;
+    --purple:#5b21b6; --purple-bg:#ede9fe;
+    --slate:#334155; --slate-bg:#e2e8f0;
+    --teal:#115e59; --teal-bg:#ccfbf1;
+  }
+  *{box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+       background:var(--bg); color:var(--ink); max-width:1100px; margin:0 auto; padding:24px; line-height:1.55}
+  h1{font-size:1.9em; border-bottom:3px solid var(--blue); padding-bottom:8px; margin-top:0}
+  h2{font-size:1.45em; color:var(--blue); border-bottom:2px solid #e5e7eb; padding-bottom:4px; margin-top:36px}
+  h3{font-size:1.15em; color:var(--slate); margin-top:24px}
+  h4{font-size:1em; color:var(--slate); margin-bottom:6px}
+  code{background:#f1f5f9; padding:2px 6px; border-radius:4px; font-size:0.92em}
+  table{border-collapse:collapse; width:100%; margin:12px 0; font-size:0.92em}
+  th,td{border:1px solid #d1d5db; padding:8px 10px; text-align:left; vertical-align:top}
+  th{background:#f1f5f9; font-weight:600}
+  ul,ol{padding-left:22px; margin:6px 0}
+  li{margin:3px 0}
+  .toc{background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:16px 22px; margin:16px 0}
+  .toc a{color:var(--blue); text-decoration:none}
+  .toc a:hover{text-decoration:underline}
+  .toc ol{columns:2; column-gap:32px}
+  .box{border-left:5px solid; padding:12px 16px; margin:14px 0; border-radius:6px}
+  .blue{border-color:var(--blue); background:var(--blue-bg); color:var(--ink)}
+  .green{border-color:var(--green); background:var(--green-bg); color:var(--ink)}
+  .amber{border-color:var(--amber); background:var(--amber-bg); color:var(--ink)}
+  .red{border-color:var(--red); background:var(--red-bg); color:var(--ink)}
+  .purple{border-color:var(--purple); background:var(--purple-bg); color:var(--ink)}
+  .teal{border-color:var(--teal); background:var(--teal-bg); color:var(--ink)}
+  .slate{border-color:var(--slate); background:var(--slate-bg); color:var(--ink)}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media (max-width:780px){.grid2,.grid3{grid-template-columns:1fr} .toc ol{columns:1}}
+  .pill{display:inline-block; padding:2px 8px; border-radius:12px; font-size:0.82em; font-weight:600; margin-right:4px}
+  .pill-red{background:var(--red-bg); color:var(--red)}
+  .pill-amber{background:var(--amber-bg); color:var(--amber)}
+  .pill-green{background:var(--green-bg); color:var(--green)}
+  .pill-blue{background:var(--blue-bg); color:var(--blue)}
+  details{background:#fff; border:1px solid #e5e7eb; border-radius:8px; padding:10px 16px; margin:10px 0}
+  details summary{cursor:pointer; font-weight:600; color:var(--blue); padding:6px 0}
+  details[open] summary{border-bottom:1px solid #e5e7eb; margin-bottom:10px}
+  .phase-card{border:1px solid #e5e7eb; border-radius:8px; padding:14px; background:#fff; margin:10px 0}
+  .phase-card h4{margin-top:0; color:var(--blue)}
+  .step{display:flex; gap:12px; align-items:flex-start; margin:8px 0}
+  .step-num{flex:0 0 28px; height:28px; width:28px; border-radius:50%; background:var(--blue); color:#fff;
+            display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9em}
+  .danger{color:var(--red); font-weight:600}
+  .key{color:var(--green); font-weight:600}
+  .scenario-banner{background:linear-gradient(135deg,#1e40af,#5b21b6); color:#fff; padding:18px 22px;
+                   border-radius:10px; margin:18px 0}
+  .scenario-banner h2{color:#fff; border:none; margin:0 0 6px 0}
+  .role-tag{display:inline-block; background:#fff; color:var(--blue); padding:3px 10px;
+            border-radius:14px; font-size:0.8em; font-weight:700; margin-bottom:8px; letter-spacing:0.4px}
+  .findings-table th{background:#1e40af; color:#fff}
+  hr{border:none; border-top:2px dashed #cbd5e1; margin:30px 0}
+</style>
+</head>
+<body>
+
+<h1>DOH 256 — OSCE Treatment Planning Study & Practice Case</h1>
+<p style="color:var(--muted); margin-top:-8px"><em>Comprehensive exam preparation: workflow, frameworks, medical history red flags, 5-phase treatment planning, and a fresh practice patient.</em></p>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#workflow">OSCE workflow — your 8 steps</a></li>
+    <li><a href="#history">History taking (SOCRATES + SALUD)</a></li>
+    <li><a href="#medsys">Medical history by organ system</a></li>
+    <li><a href="#asa">ASA classification & vitals</a></li>
+    <li><a href="#exam">Clinical examination</a></li>
+    <li><a href="#dx">Diagnostic frameworks (perio / pulp / caries)</a></li>
+    <li><a href="#phases">The 5 phases of treatment planning</a></li>
+    <li><a href="#resources">Using eMIMs & TG live in the exam</a></li>
+    <li><a href="#pitfalls">Common OSCE pitfalls</a></li>
+    <li><a href="#case">Practice case — Sarah Mitchell</a></li>
+  </ol>
+</div>
+
+<!-- ============================================== -->
+<h2 id="workflow">1. OSCE workflow — your 8 steps</h2>
+<p>Don't freelance. Follow the same sequence every time. The examiner is watching for <em>systematic and reproducible</em> assessment.</p>
+
+<div class="phase-card">
+  <div class="step"><div class="step-num">1</div><div><strong>Greet & confirm identity.</strong> Name, DOB, reason for attendance. Observe gait, frailty, who's with them, mode of transport — first hint at general health.</div></div>
+  <div class="step"><div class="step-num">2</div><div><strong>Chief complaint, in patient's own words.</strong> Then HPC using <strong>SOCRATES</strong> if pain.</div></div>
+  <div class="step"><div class="step-num">3</div><div><strong>Medical history — go through SALUD headings out loud.</strong> Yes/no with cues to elaborate. Allergies → Meds → Supplements → Hospitalisations → CVS → HTN → Haem → Resp → CNS → Endo → Infectious → MSK → Immune → GI → Uro-gen → Hepatic → Skin → Cancer → Pregnant?</div></div>
+  <div class="step"><div class="step-num">4</div><div><strong>Dental history, social history, family history, OH habits, diet.</strong> All risk factor data.</div></div>
+  <div class="step"><div class="step-num">5</div><div><strong>Review the materials provided.</strong> Odontogram, radiograph(s), periochart, BP/vitals. Don't just glance — call out what you see.</div></div>
+  <div class="step"><div class="step-num">6</div><div><strong>Special tests if appropriate.</strong> Cold/EPT, percussion, palpation, mobility, TTP, mention INR / HbA1c / BP if needed.</div></div>
+  <div class="step"><div class="step-num">7</div><div><strong>Problem list → diagnoses.</strong> Group everything significant: medical issues, periodontal status, caries, endodontic, missing teeth, social/behavioural. Use the SOAP structure when writing up.</div></div>
+  <div class="step"><div class="step-num">8</div><div><strong>Treatment plan in the 5 phases.</strong> Systemic → Acute → Disease Control → Definitive → Maintenance. Always in this order.</div></div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="history">2. History taking</h2>
+
+<div class="grid2">
+  <div class="box blue">
+    <h4>SOCRATES — for pain HPC</h4>
+    <ul>
+      <li><strong>S</strong>ite — where exactly?</li>
+      <li><strong>O</strong>nset — when, gradual/sudden, progressive?</li>
+      <li><strong>C</strong>haracter — sharp / dull / throbbing / aching?</li>
+      <li><strong>R</strong>adiation — spread to ear, jaw, neck?</li>
+      <li><strong>A</strong>ssociations — swelling, bad taste, fever?</li>
+      <li><strong>T</strong>iming — constant / intermittent / nocturnal?</li>
+      <li><strong>E</strong>xacerbating/Relieving — hot, cold, sweet, biting, lying down, analgesia?</li>
+      <li><strong>S</strong>everity — 0–10.</li>
+    </ul>
+  </div>
+  <div class="box purple">
+    <h4>The "4 critical processes" lens</h4>
+    <p style="margin:0">For every system in the medical history, ask:</p>
+    <ol style="margin-top:6px">
+      <li>Will it stop bleeding? (haemostasis)</li>
+      <li>Will it heal? (wound healing)</li>
+      <li>Does blood circulate? (around &amp; around)</li>
+      <li>Does air move? (in &amp; out)</li>
+    </ol>
+    <p style="margin-bottom:0"><em>This makes your medical history dental-relevant, not just a recital.</em></p>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="medsys">3. Medical history by organ system — what matters dentally</h2>
+
+<table>
+<tr><th>System</th><th>Key conditions / meds</th><th>Dental implication & action</th></tr>
+
+<tr><td><strong>CVS</strong></td>
+<td>Valve replacement, congenital heart disease, previous IE, rheumatic heart disease, MI / stent / CABG, angina</td>
+<td><span class="pill pill-red">High risk</span> Defer elective treatment <strong>6 months</strong> after MI / stent / CABG / valve surgery. Consider antibiotic prophylaxis per TG for the <strong>restricted high-risk group</strong> (prosthetic valve, previous IE, certain congenital defects, cardiac transplant w/ valvulopathy).</td></tr>
+
+<tr><td><strong>Hypertension</strong></td>
+<td>BP categories (normal &lt;120/80; elevated 120–129/&lt;80; stage 1 130–139/80–89; stage 2 ≥140/90)</td>
+<td><span class="pill pill-amber">Caution</span> Defer elective treatment if BP ≥180/120 (hypertensive crisis). Stress reduction, short appointments, avoid LA with high-dose adrenaline if uncontrolled.</td></tr>
+
+<tr><td><strong>Haematological / antithrombotics</strong></td>
+<td>Warfarin, DOACs (apixaban, rivaroxaban, dabigatran), aspirin, clopidogrel, heparin</td>
+<td><span class="pill pill-red">Bleeding risk</span> <strong>Warfarin → check INR within 24 h before invasive procedure; INR &lt;4.0 generally safe for simple extractions</strong> (per TG). <strong>Do not stop anticoagulants without consulting the prescribing clinician</strong> — thromboembolic risk usually outweighs bleeding risk. Use local haemostatic measures.</td></tr>
+
+<tr><td><strong>Respiratory</strong></td>
+<td>Asthma, COPD, OSA</td>
+<td>Bring inhaler to every visit. Avoid NSAIDs in aspirin-sensitive asthmatics. Avoid sulfite-containing LA if sulfite allergy. Upright chair position.</td></tr>
+
+<tr><td><strong>CNS</strong></td>
+<td>Epilepsy, stroke, anxiety, depression</td>
+<td>Stroke/seizure protocol: stop tx, clear instruments, airway, 000. Ask about frequency, triggers, last episode.</td></tr>
+
+<tr><td><strong>Endocrine</strong></td>
+<td>Diabetes (T1/T2), thyroid</td>
+<td><span class="pill pill-amber">Modifier</span> Ask: HbA1c, last reading, hypoglycaemic episodes, GP/endo, medications. <strong>Periodontitis ↔ diabetes is bidirectional.</strong> Morning appointments, ensure eaten + taken meds. Hypoglycaemia is the acute risk in the chair.</td></tr>
+
+<tr><td><strong>Infectious</strong></td>
+<td>Hep B/C, HIV, TB</td>
+<td>Standard precautions for all. Hep C: bleeding tendency if cirrhosis, drug metabolism affected. HIV: CD4 count, viral load, opportunistic infections.</td></tr>
+
+<tr><td><strong>MSK / Osteoporosis</strong></td>
+<td>Bisphosphonates (alendronate, zoledronic acid), <strong>denosumab/Prolia</strong>, joint replacement</td>
+<td><span class="pill pill-red">MRONJ risk</span> Antiresorptive + antiangiogenic drugs. Risk increases with: IV route, duration, concurrent steroids, diabetes. <strong>Prevent extractions where possible; avoid implants in higher-risk patients.</strong> Joint replacement: routine prophylaxis NOT recommended now (per current TG) unless specific indication.</td></tr>
+
+<tr><td><strong>Hepatic</strong></td>
+<td>Cirrhosis, fatty liver, viral hepatitis</td>
+<td>Impaired clotting, drug metabolism. Avoid/reduce paracetamol dose. Avoid metronidazole in alcoholics.</td></tr>
+
+<tr><td><strong>Allergies (ADR)</strong></td>
+<td>Type A (predictable) vs Type B (hypersensitivity)</td>
+<td><strong>Record drug name + type of reaction.</strong> Penicillin allergy → use clindamycin or clarithromycin per TG. Latex allergy → latex-free environment. Anaphylaxis vs intolerance — clarify always.</td></tr>
+</table>
+
+<div class="box red">
+  <strong>Red-flag drugs to memorise:</strong> warfarin (INR), DOACs (no easy reversal), bisphosphonates &amp; denosumab (MRONJ), prednisolone &gt;7.5 mg/day chronic (adrenal suppression, healing), methotrexate (immunosuppression), chemotherapy agents, immunosuppressants post-transplant, SSRIs (bleeding risk, bruxism).
+</div>
+
+<!-- ============================================== -->
+<h2 id="asa">4. ASA classification & vitals</h2>
+
+<table>
+<tr><th>ASA</th><th>Description</th><th>Dental implication</th></tr>
+<tr><td>I</td><td>Healthy patient, no systemic disease</td><td>Routine care</td></tr>
+<tr><td>II</td><td>Mild systemic disease, no functional limitation (well-controlled HTN, mild DM, mild asthma, smoker)</td><td>Routine care + standard precautions</td></tr>
+<tr><td>III</td><td>Severe systemic disease, functional limitation (uncontrolled DM, prior MI &gt;6mo, COPD on oxygen, stable angina)</td><td><strong>Medical consult often required</strong>; modify treatment</td></tr>
+<tr><td>IV</td><td>Severe systemic disease, constant threat to life (unstable angina, recent MI &lt;6mo, severe COPD)</td><td>Hospital setting only; emergency care</td></tr>
+<tr><td>V</td><td>Moribund</td><td>Not applicable in routine dental setting</td></tr>
+</table>
+
+<div class="box amber">
+  <strong>Take vitals.</strong> BP, pulse, RR. State them out loud. If BP ≥180/120 → defer elective. If pulse irregular → ask about AF (often on warfarin/DOAC).
+</div>
+
+<!-- ============================================== -->
+<h2 id="exam">5. Clinical examination — what to call out</h2>
+<div class="grid2">
+  <div class="box slate">
+    <h4>Extra-oral</h4>
+    <ul>
+      <li>Symmetry, swellings, lymphadenopathy (submandibular, cervical)</li>
+      <li>TMJ — clicking, deviation, tenderness</li>
+      <li>Skin: lesions, scars</li>
+      <li>Lip competence</li>
+    </ul>
+  </div>
+  <div class="box slate">
+    <h4>Intra-oral</h4>
+    <ul>
+      <li>Soft tissue screen (oral cancer): tongue, FOM, buccal mucosa, palate, tonsillar pillars</li>
+      <li>Odontogram: missing, restorations, caries, wear</li>
+      <li>Periochart: PPD, BOP, CAL, recession, mobility, furcation, suppuration, plaque score</li>
+      <li>Occlusion: Angle class, overjet, overbite, crossbite, wear facets</li>
+      <li>Special tests: cold (Endo-Frost), EPT, percussion, palpation, mobility, TTP</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="dx">6. Diagnostic frameworks — name them in the OSCE</h2>
+
+<h3>Periodontal — 2017 World Workshop (AAP/EFP)</h3>
+<div class="grid2">
+<table>
+<tr><th>Staging</th><th>CAL / RBL</th></tr>
+<tr><td>Stage I</td><td>CAL 1–2 mm; RBL coronal third (&lt;15%)</td></tr>
+<tr><td>Stage II</td><td>CAL 3–4 mm; RBL coronal third (15–33%)</td></tr>
+<tr><td>Stage III</td><td>CAL ≥5 mm; RBL extending to mid- or apical-third; tooth loss ≤4 due to perio</td></tr>
+<tr><td>Stage IV</td><td>CAL ≥5 mm; RBL to apical third; tooth loss ≥5; complex rehab needed</td></tr>
+</table>
+<table>
+<tr><th>Grading (rate)</th><th>% bone loss / age</th></tr>
+<tr><td>Grade A — slow</td><td>&lt;0.25</td></tr>
+<tr><td>Grade B — moderate</td><td>0.25–1.0</td></tr>
+<tr><td>Grade C — rapid</td><td>&gt;1.0; or smoker ≥10/day; or HbA1c ≥7.0%</td></tr>
+</table>
+</div>
+<p><strong>Extent:</strong> localised (&lt;30% teeth), generalised (≥30%), or molar/incisor pattern.<br>
+<strong>Reference:</strong> Tonetti, Greenwell, Kornman 2018 — staging & grading framework.</p>
+
+<h3>Pulpal & periapical — AAE 2013 classification</h3>
+<table>
+<tr><th>Pulpal Dx</th><th>Clinical signs</th></tr>
+<tr><td>Normal pulp</td><td>Asymptomatic, normal response to cold</td></tr>
+<tr><td>Reversible pulpitis</td><td>Sharp pain to stimulus, <strong>resolves quickly</strong>; no spontaneous pain</td></tr>
+<tr><td>Symptomatic irreversible pulpitis</td><td><strong>Lingering pain</strong> after stimulus, spontaneous, throbbing, often nocturnal</td></tr>
+<tr><td>Asymptomatic irreversible pulpitis</td><td>No symptoms but deep caries / trauma indicates irreversible</td></tr>
+<tr><td>Pulp necrosis</td><td>No response to cold/EPT</td></tr>
+<tr><td>Previously treated / initiated</td><td>RCT done / started</td></tr>
+</table>
+<table>
+<tr><th>Periapical Dx</th><th>Clinical signs</th></tr>
+<tr><td>Normal apical tissues</td><td>No percussion / palpation tenderness; normal PDL on PA</td></tr>
+<tr><td>Symptomatic apical periodontitis</td><td>+ve percussion, may have widened PDL</td></tr>
+<tr><td>Asymptomatic apical periodontitis</td><td>Apical radiolucency, no symptoms</td></tr>
+<tr><td>Acute apical abscess</td><td>Rapid onset, swelling, pus, often systemic signs</td></tr>
+<tr><td>Chronic apical abscess</td><td>Gradual onset, sinus tract, little/no pain</td></tr>
+<tr><td>Condensing osteitis</td><td>Localised radiopacity around apex (reactive bone)</td></tr>
+</table>
+
+<h3>Caries risk — ICCMS &amp; risk stratification</h3>
+<div class="grid3">
+<div class="box green"><strong>Low</strong><br>No new lesions; good OH; low sugar; F⁻ exposure; normal saliva</div>
+<div class="box amber"><strong>Moderate</strong><br>1–2 new lesions/yr; some risk factors; suboptimal OH</div>
+<div class="box red"><strong>High</strong><br>≥3 new lesions/yr; xerostomia; high sugar frequency; poor OH; medical/social risk factors; previous restorations failing</div>
+</div>
+
+<!-- ============================================== -->
+<h2 id="phases">7. The 5 phases of treatment planning</h2>
+<p><strong>Flow:</strong> Assessment → Diagnose → <span class="key">Stabilise</span> → <span class="key">Relieve</span> → <span class="key">Control</span> → <span class="key">Restore</span> → <span class="key">Maintain</span>.</p>
+
+<div class="phase-card">
+  <h4>Phase 1 — Systemic</h4>
+  <p><strong>Goal:</strong> ensure patient is safe to treat. Stabilise medical conditions.</p>
+  <ul>
+    <li>Liaise with GP (ISBAR — Identity, Situation, Background, Assessment, Request)</li>
+    <li>Request relevant tests: INR, HbA1c, BP, FBC if indicated</li>
+    <li>Determine ASA category and modify accordingly</li>
+    <li>Antibiotic prophylaxis decision per TG (restricted to high-risk cardiac group)</li>
+    <li>Smoking cessation brief intervention (5A's: Ask, Advise, Assess, Assist, Arrange)</li>
+    <li>Diet counselling, alcohol reduction if relevant</li>
+    <li>Document any modifications and verbal conversations</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h4>Phase 2 — Acute</h4>
+  <p><strong>Goal:</strong> relieve pain, swelling, infection, trauma.</p>
+  <ul>
+    <li>Distinguish <strong>emergency</strong> (life-threatening / incapacitating) vs <strong>urgency</strong> (prompt but not immediate)</li>
+    <li>Pulpal debridement / pulpotomy / extirpation for irreversible pulpitis</li>
+    <li>Incision &amp; drainage for fluctuant abscess</li>
+    <li>Antibiotics <strong>only if</strong> systemic involvement (fever, malaise, lymphadenopathy, cellulitis, immunocompromised) — local infection alone does <strong>not</strong> require antibiotics</li>
+    <li>Analgesia — paracetamol ± ibuprofen (first line); consider drug interactions (warfarin + NSAID risk)</li>
+    <li>Provisional restorations / temporary cementation for fractured teeth</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h4>Phase 3 — Disease Control</h4>
+  <p><strong>Goal:</strong> eradicate active disease; control modifiable risk factors before definitive treatment.</p>
+  <ul>
+    <li><strong>Caries control:</strong> OHI, dietary advice (frequency &amp; quantity of refined carbs), fluoride (toothpaste 1000–1450 ppm baseline; 5000 ppm Rx if high risk; varnish 22 600 ppm professionally), provisional restorations of cavitated lesions, sealants on susceptible pits/fissures</li>
+    <li><strong>Periodontal:</strong> supra- &amp; subgingival scaling and root surface debridement (NOT aggressive root planing — <em>Nakib 1982, Nyman 1988</em>). Reassess at <strong>6–8 weeks</strong> with re-probe and BOP</li>
+    <li>Endodontic stabilisation: complete pulpal therapy initiated in acute phase</li>
+    <li>Extract teeth with hopeless prognosis (McGuire &amp; Nunn 1996)</li>
+    <li>Behavioural: continue smoking cessation, glycaemic control liaison, oral hygiene reinforcement</li>
+    <li>Salivary substitutes / xerostomia management</li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h4>Phase 4 — Definitive / Reconstructive</h4>
+  <p><strong>Goal:</strong> final restorations, prosthetics, complex care.</p>
+  <ul>
+    <li><strong>Perio surgery / regeneration:</strong> for residual ≥6 mm pockets, persistent 4–5 mm pockets with inflammation, infrabony defects, furcation</li>
+    <li>Orthodontic treatment</li>
+    <li>Elective (non-acute) endodontics: definitive RCT, retreatment, apical microsurgery</li>
+    <li>Direct &amp; indirect restorations: composite, amalgam, onlays, crowns</li>
+    <li>Pre-prosthetic surgery: ridge preservation, soft tissue grafts</li>
+    <li>Replacement of missing teeth: implant, FDP, RPD, no replacement, complete denture, implant-supported overdenture</li>
+    <li><em>Avoid implants in: smokers, uncontrolled DM, MRONJ-risk patients</em></li>
+  </ul>
+</div>
+
+<div class="phase-card">
+  <h4>Phase 5 — Maintenance / Supportive Periodontal Therapy (SPT)</h4>
+  <p><strong>Goal:</strong> long-term stability; prevent recurrence.</p>
+  <ul>
+    <li>Recall intervals based on caries + perio risk:
+      <ul>
+        <li>Low risk: 12 months</li>
+        <li>Moderate: 6 months</li>
+        <li>High risk (active perio, smoker, DM): <strong>3 months SPT initially</strong>, extend to 6 if stable</li>
+      </ul>
+    </li>
+    <li>Re-examine BOP, PPD, CAL, radiographs (bitewings 2-yearly low risk, annually high risk; PAs as indicated)</li>
+    <li>Reinforce OH, dietary, smoking status at each visit</li>
+    <li>Ongoing liaison with GP for systemic conditions</li>
+  </ul>
+</div>
+
+<!-- ============================================== -->
+<h2 id="resources">8. Using eMIMs &amp; Therapeutic Guidelines live in the exam</h2>
+<div class="grid2">
+  <div class="box teal">
+    <h4>eMIMs — when to open it</h4>
+    <ul>
+      <li>Any medication you don't immediately recognise</li>
+      <li>To confirm active ingredient vs brand name</li>
+      <li>To check interactions with dental drugs (LA, NSAIDs, antibiotics)</li>
+      <li>To find class of drug (anticoagulant subtype, antihypertensive class)</li>
+    </ul>
+  </div>
+  <div class="box teal">
+    <h4>Therapeutic Guidelines (Oral &amp; Dental) — key chapters</h4>
+    <ul>
+      <li><strong>Periprocedural bleeding risk</strong> (antithrombotics)</li>
+      <li><strong>Antibiotic prophylaxis</strong> for IE — restricted patient group</li>
+      <li><strong>Prescribing for dental infections</strong> — first-line amoxicillin; clindamycin if penicillin-allergic</li>
+      <li><strong>Analgesics</strong> for dental pain</li>
+      <li><strong>Patients on antiresorptives</strong> — MRONJ prevention</li>
+    </ul>
+  </div>
+</div>
+<p><em>State out loud: "I would refer to Therapeutic Guidelines chapter on [X] to confirm" — examiners want to hear that you know where to look.</em></p>
+
+<!-- ============================================== -->
+<h2 id="pitfalls">9. Common OSCE pitfalls</h2>
+<div class="box red">
+  <ol>
+    <li><strong>Jumping to treatment before diagnosis.</strong> "If you cannot establish a diagnosis, do not perform irreversible treatment."</li>
+    <li><strong>Forgetting the systemic phase.</strong> Antibiotic prophylaxis decisions, INR, GP liaison — all live here.</li>
+    <li><strong>Stopping anticoagulants on your own.</strong> Never. Consult prescriber; thromboembolic risk &gt; bleeding risk almost always.</li>
+    <li><strong>Prescribing antibiotics for localised pulpitis or chronic abscess.</strong> Wrong. Drainage / pulpal therapy is the treatment.</li>
+    <li><strong>Missing MRONJ risk</strong> in osteoporosis / cancer patients on antiresorptives.</li>
+    <li><strong>Vague risk assessment.</strong> Always state caries risk (low/mod/high) and perio stage &amp; grade with rationale.</li>
+    <li><strong>Not naming your frameworks.</strong> Say "AAE 2013", "2017 World Workshop", "ICCMS", "Stefanac phases".</li>
+    <li><strong>Treating a tooth in isolation.</strong> Always consider it in the context of the whole mouth and the patient's medical, social, and financial situation.</li>
+  </ol>
+</div>
+
+<hr>
+
+<!-- ============================================== -->
+<div class="scenario-banner">
+  <span class="role-tag">PRACTICE CASE</span>
+  <h2 id="case" style="border:none">Sarah Mitchell — 62 F — Acute toothache + complex MHx</h2>
+  <p style="margin:0">Run this with your colleague. They take the <strong>Patient Brief</strong> section; you receive the <strong>Clinical Findings</strong>. Model answer is collapsed at the bottom — try the full SOAP &amp; 5-phase plan before opening it.</p>
+</div>
+
+<details>
+<summary>📋 For the Patient (your colleague) — Sarah Mitchell's brief</summary>
+<div class="box blue">
+<h4>Identity</h4>
+<p>You are <strong>Sarah Mitchell</strong>, 62 years old, female. Retired primary school teacher. You live with your husband. You drove yourself here.</p>
+
+<h4>Reason for attendance</h4>
+<p>"I've had a terrible toothache on the upper left for about 4 days. It's keeping me awake at night. I also know I'm overdue for a check-up — it's been about 3 years."</p>
+
+<h4>If asked about the pain (SOCRATES) — answer in order if they ask:</h4>
+<ul>
+  <li><strong>Site:</strong> Upper left, towards the back. Hard to pinpoint exactly.</li>
+  <li><strong>Onset:</strong> Started about 4 days ago, came on its own — no injury or food incident. It's getting worse, not better.</li>
+  <li><strong>Character:</strong> Throbbing, deep, like a heartbeat in the tooth.</li>
+  <li><strong>Radiation:</strong> Sometimes feels like it goes up to your ear and temple on the same side.</li>
+  <li><strong>Associated:</strong> No swelling you can see; no bad taste; no fever; gum feels a bit tender there.</li>
+  <li><strong>Timing:</strong> Worse at night when you lie down. Constant background ache during the day, with sharp flares.</li>
+  <li><strong>Exacerbating:</strong> Hot tea makes it much worse — lingers for 5–10 minutes. Pressure when chewing on that side.</li>
+  <li><strong>Relieving:</strong> Cold water gave relief at first; now nothing helps much. Paracetamol takes the edge off.</li>
+  <li><strong>Severity:</strong> 8/10 at its worst, 5/10 background.</li>
+</ul>
+
+<h4>Medical history (only mention if asked the specific heading)</h4>
+<ul>
+  <li><strong>Allergies:</strong> Penicillin — develops an itchy rash all over body (no anaphylaxis). No latex or other allergies.</li>
+  <li><strong>Medications:</strong>
+    <ul>
+      <li>Denosumab (Prolia) — 6-monthly injection, last one 2 months ago. For osteoporosis.</li>
+      <li>Perindopril 5 mg once daily — for blood pressure.</li>
+      <li>Metformin 1000 mg twice daily — for diabetes.</li>
+      <li>Atorvastatin 20 mg nightly — for cholesterol.</li>
+      <li>Paracetamol PRN — taking it for the toothache.</li>
+    </ul>
+  </li>
+  <li><strong>Supplements:</strong> Calcium + Vitamin D daily, fish oil.</li>
+  <li><strong>Hospitalisations:</strong> Hysterectomy 15 years ago. No complications.</li>
+  <li><strong>CVS:</strong> Nothing — no heart attacks, no surgery, no valves.</li>
+  <li><strong>Hypertension:</strong> Yes, diagnosed 8 years ago, controlled on perindopril. GP checks every 6 months. Last BP at GP: 138/85.</li>
+  <li><strong>Haematological:</strong> No bleeding problems. No anticoagulants.</li>
+  <li><strong>Respiratory:</strong> No.</li>
+  <li><strong>CNS:</strong> No epilepsy, no strokes. Has anxiety about dentistry though — feels tense.</li>
+  <li><strong>Endocrine:</strong> Type 2 diabetes for 10 years. HbA1c at last test (2 months ago) was 6.8%. Well controlled. GP manages.</li>
+  <li><strong>Infectious:</strong> No.</li>
+  <li><strong>MSK:</strong> Osteoporosis diagnosed 4 years ago after a wrist fracture. On denosumab since then. No joint replacements.</li>
+  <li><strong>Immune:</strong> No.</li>
+  <li><strong>GI:</strong> Occasional reflux, manages with diet.</li>
+  <li><strong>Uro-genital:</strong> No.</li>
+  <li><strong>Hepatic:</strong> No.</li>
+  <li><strong>Skin / Cancer:</strong> No.</li>
+  <li><strong>Pregnant:</strong> No, post-menopausal.</li>
+  <li><strong>GP:</strong> Dr Patel at the Orange Family Medical Centre. Sees her every 6 months.</li>
+</ul>
+
+<h4>Dental history</h4>
+<ul>
+  <li>Last dental visit 3 years ago — quick check-up with another dentist who's now retired.</li>
+  <li>Has had "lots of fillings" over the years — both amalgam (older) and white. No extractions.</li>
+  <li>Doesn't remember any root canals.</li>
+  <li>Wears no dentures or appliances.</li>
+  <li>No history of orthodontic treatment.</li>
+</ul>
+
+<h4>Social history</h4>
+<ul>
+  <li>Retired teacher, married, 2 adult children.</li>
+  <li><strong>Smoking:</strong> Never smoked.</li>
+  <li><strong>Alcohol:</strong> 1–2 glasses of wine on Friday and Saturday only. Otherwise none.</li>
+  <li><strong>Recreational drugs:</strong> None.</li>
+  <li>Stress level: moderate; family caring duties for elderly mother.</li>
+</ul>
+
+<h4>Family history</h4>
+<p>Mother had dentures by age 70. Father had a heart attack at 68 (recovered). No diabetes in family.</p>
+
+<h4>Oral hygiene</h4>
+<ul>
+  <li>Brushes twice daily, manual toothbrush, fluoride toothpaste.</li>
+  <li>Doesn't floss — "I never got into the habit."</li>
+  <li>Uses a mouthwash "sometimes" — Listerine.</li>
+</ul>
+
+<h4>Diet</h4>
+<ul>
+  <li>Coffee 3–4 times daily, <strong>with 2 sugars each</strong>.</li>
+  <li>Tea in the afternoon, 1 sugar.</li>
+  <li>Likes biscuits with her tea — usually 2–3.</li>
+  <li>Otherwise eats home-cooked meals, plenty of vegetables.</li>
+  <li>Hydrates mostly with the coffee/tea; not much plain water.</li>
+</ul>
+
+<h4>Anything else if asked</h4>
+<ul>
+  <li>Mouth feels a bit dry sometimes — thinks it's from the medications.</li>
+  <li>Worried about the cost of treatment; on pension.</li>
+  <li>Wants to keep her own teeth — doesn't want dentures like her mum.</li>
+</ul>
+</div>
+</details>
+
+<details open>
+<summary>🦷 For the Student (you) — Clinical Findings</summary>
+<div class="box slate">
+
+<h4>Vital signs</h4>
+<ul>
+  <li>BP: <strong>148/92 mmHg</strong> (in chair, after some waiting)</li>
+  <li>Pulse: 78 bpm, regular</li>
+  <li>RR: 16/min</li>
+</ul>
+
+<h4>Extra-oral</h4>
+<ul>
+  <li>Symmetrical face, no obvious swelling</li>
+  <li>No lymphadenopathy</li>
+  <li>TMJ: no clicking, no deviation, no tenderness</li>
+  <li>Lips, skin: unremarkable</li>
+</ul>
+
+<h4>Intra-oral soft tissue</h4>
+<ul>
+  <li>Mucosa: pink, well-hydrated but salivary pooling reduced</li>
+  <li>Tongue, FOM, palate, tonsillar pillars: unremarkable, no lesions</li>
+  <li>Mild generalised gingival erythema, more pronounced upper left</li>
+</ul>
+
+<h4>Odontogram</h4>
+<table class="findings-table">
+<tr><th>Tooth</th><th>Finding</th></tr>
+<tr><td>18, 28, 38, 48</td><td>Missing (long-term, presumed never erupted or removed wisdom teeth)</td></tr>
+<tr><td>17</td><td>Large DO amalgam, satisfactory margins</td></tr>
+<tr><td>16</td><td>MOD composite, intact</td></tr>
+<tr><td>14, 24</td><td>Occlusal composites</td></tr>
+<tr><td><strong>26</strong></td><td><strong>Large MOD amalgam (≥15 years old), distal marginal ridge fractured, distal caries extending subgingivally and into pulp chamber clinically</strong></td></tr>
+<tr><td><strong>27</strong></td><td><strong>MO amalgam with secondary caries on mesial, no symptoms</strong></td></tr>
+<tr><td>36</td><td>Missing (extracted approx 10 years ago, no replacement, space partially closed)</td></tr>
+<tr><td>37</td><td>Mesially tilted into 36 space, MO composite</td></tr>
+<tr><td>46, 47</td><td>Occlusal amalgams, intact</td></tr>
+<tr><td>11, 21</td><td>Class V cervical composites, intact</td></tr>
+<tr><td>All others</td><td>Sound or minor restorations</td></tr>
+</table>
+
+<h4>Periochart (summary)</h4>
+<ul>
+  <li><strong>BOP:</strong> 22% (generalised mild, concentrated upper left)</li>
+  <li><strong>PPD:</strong> Mostly 2–3 mm. Isolated 5 mm on 17 distal, 26 distal (8 mm at distopalatal — likely communicating with the carious lesion), 27 mesial 4 mm</li>
+  <li><strong>CAL:</strong> 26 distopalatal 6 mm; otherwise CAL ≤2 mm</li>
+  <li><strong>Recession:</strong> Generalised 1–2 mm; 3 mm on 11/21 cervicals</li>
+  <li><strong>Mobility:</strong> 26 — Grade I mobility; all others firm</li>
+  <li><strong>Furcation:</strong> No furcation involvement at 16, 17, 26, 27 (buccal)</li>
+  <li><strong>Suppuration:</strong> None</li>
+  <li><strong>Plaque score:</strong> ~40% (visible plaque cervical of most teeth)</li>
+</ul>
+
+<h4>Special tests</h4>
+<table class="findings-table">
+<tr><th>Tooth</th><th>Cold</th><th>Percussion</th><th>Palpation</th><th>TTP / Mobility</th></tr>
+<tr><td>26</td><td><strong>No response</strong></td><td><strong>Positive — sharp pain</strong></td><td>Mild buccal tenderness</td><td>+ve tender to percussion; Grade I mobile</td></tr>
+<tr><td>27</td><td>Positive, non-lingering (~3 sec)</td><td>Negative</td><td>Negative</td><td>Not tender</td></tr>
+<tr><td>25, 24, 17, 16</td><td>Positive, non-lingering</td><td>Negative</td><td>Negative</td><td>Not tender</td></tr>
+</table>
+
+<h4>Radiographs</h4>
+<ul>
+  <li><strong>PA 26:</strong> Large distal radiolucency communicating with pulp chamber; <strong>periapical radiolucency 4–5 mm around both roots</strong>; widened PDL space; no clear root fracture; minor furcation radiolucency (incipient)</li>
+  <li><strong>BW left posterior:</strong> Secondary caries on mesial 27 — radiolucency extending close to but not into pulp; restoration of 17 intact</li>
+  <li><strong>OPG (provided as part of comprehensive exam):</strong> Generalised horizontal bone loss <strong>~10–15% in posterior sextants</strong> (coronal third); no apical pathology elsewhere; impacted 38 not present (previously removed); no other findings</li>
+</ul>
+
+</div>
+</details>
+
+<details>
+<summary>✅ Model answer — diagnosis, problem list, 5-phase plan (try yours first!)</summary>
+<div class="box green">
+
+<h3>Problem list</h3>
+<table>
+<tr><th>Category</th><th>Problem</th></tr>
+<tr><td>Medical</td><td>Penicillin allergy (rash — non-anaphylactic)</td></tr>
+<tr><td>Medical</td><td>Osteoporosis on denosumab 6-monthly — <strong>MRONJ risk</strong> (currently 2 months into dosing cycle)</td></tr>
+<tr><td>Medical</td><td>Hypertension — usually controlled but elevated today (148/92, possibly white-coat / pain-related)</td></tr>
+<tr><td>Medical</td><td>Type 2 diabetes — well-controlled (HbA1c 6.8%)</td></tr>
+<tr><td>Medical</td><td>Dental anxiety (moderate)</td></tr>
+<tr><td>Dental — acute</td><td>26 — symptomatic apical periodontitis with pulpal necrosis, periapical radiolucency, deep distal carious lesion communicating with pulp, restoration failure</td></tr>
+<tr><td>Dental — caries</td><td>27 mesial secondary caries (asymptomatic, vital pulp)</td></tr>
+<tr><td>Dental — perio</td><td>Localised periodontitis Stage I, Grade B (likely Grade B due to bone loss/age ~0.25, well-controlled diabetes; generalised &lt;15% RBL); plus localised perio–endo lesion at 26</td></tr>
+<tr><td>Dental — perio</td><td>Mild generalised gingivitis with poor plaque control (40%)</td></tr>
+<tr><td>Dental — missing teeth</td><td>36 missing 10 yrs, 37 mesially tilted, space partially closed — functional but with occlusal implications</td></tr>
+<tr><td>Behavioural / risk</td><td>High sugar frequency (sweetened coffee/tea/biscuits) → caries risk <strong>HIGH</strong></td></tr>
+<tr><td>Behavioural / risk</td><td>No flossing; suboptimal plaque control</td></tr>
+<tr><td>Behavioural / risk</td><td>Mild xerostomia (subjective) — likely medication-related (perindopril, antimuscarinic side effects)</td></tr>
+<tr><td>Social</td><td>Pensioner — cost considerations for treatment options</td></tr>
+</table>
+
+<h3>Diagnosis summary (SOAP framework)</h3>
+<p><strong>S:</strong> 62 F, throbbing UL toothache 4 days, worse with heat, lingers, keeps her awake. PMHx: osteoporosis on denosumab, controlled HTN, controlled T2DM, penicillin allergy.</p>
+<p><strong>O:</strong> BP 148/92, 26 — fractured marginal ridge, deep distal caries to pulp, no cold response, +ve percussion, 8 mm pocket DP, Grade I mobile, PA radiolucency 4–5 mm. 27 — mesial secondary caries, vital. Generalised early bone loss ~10–15%, plaque score 40%, BOP 22%.</p>
+<p><strong>A — Diagnoses (named frameworks):</strong></p>
+<ul>
+  <li>Pulpal: <strong>Pulp necrosis 26</strong> (AAE 2013)</li>
+  <li>Periapical: <strong>Symptomatic apical periodontitis 26 with chronic apical lesion</strong> (AAE 2013) ± perio-endo combined</li>
+  <li>Dental caries: 26 (cavitated, ICDAS 6), 27 mesial secondary (ICDAS likely 4–5)</li>
+  <li>Periodontal: <strong>Periodontitis Stage I, Grade B, generalised</strong>; localised perio-endo lesion 26 (2017 World Workshop, Tonetti et al. 2018)</li>
+  <li>Gingival: Plaque-induced gingivitis on intact periodontium</li>
+  <li>Caries risk: <strong>HIGH</strong> (multiple lesions, high sugar frequency, xerostomia, age, diabetes)</li>
+  <li>ASA II (controlled DM + HTN + osteoporosis on denosumab)</li>
+</ul>
+<p><strong>P:</strong> See 5-phase plan below.</p>
+
+<h3>5-phase treatment plan</h3>
+
+<div class="phase-card">
+<h4>🩺 Phase 1 — Systemic</h4>
+<ul>
+  <li><strong>BP recheck</strong> after rest in chair. If persistently &gt;160/100, defer elective treatment and refer to GP. Today's elevated reading likely pain/anxiety-related; for acute pain management OK to proceed with caution.</li>
+  <li><strong>Liaise with GP (ISBAR):</strong> confirm HbA1c, BP control, request guidance re denosumab MRONJ risk for extraction if needed. Document conversation.</li>
+  <li><strong>MRONJ risk assessment:</strong> patient on denosumab for 4 years, low-dose (osteoporosis dose, not oncology dose). Risk of MRONJ for extraction estimated &lt;1% but real. Per AAOMS 2014 / AAOMS 2022 update and TG: optimise OH, consider <strong>atraumatic extraction technique, primary closure, antibiotic cover</strong>. <strong>Do not interrupt denosumab without consulting prescribing GP/endocrinologist</strong> — drug holiday is controversial for osteoporosis-dose denosumab and rebound fracture risk is significant.</li>
+  <li><strong>Antibiotic prophylaxis (IE):</strong> not indicated — no high-risk cardiac condition.</li>
+  <li><strong>Penicillin allergy:</strong> document. If antibiotics needed, use clindamycin 300 mg 6-hourly OR metronidazole 400 mg 12-hourly per TG (avoid metronidazole if alcohol consumed).</li>
+  <li><strong>Diabetes:</strong> well-controlled. Morning appointment, ensure eaten + taken metformin. Periodontitis-diabetes link discussed with patient.</li>
+  <li><strong>Anxiety:</strong> reassurance, short appointments, possible nitrous oxide sedation; consider stress-reduction protocol.</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h4>🚨 Phase 2 — Acute</h4>
+<ul>
+  <li><strong>26 pulpal debridement / extirpation</strong> under LA (articaine 4% with adrenaline 1:200 000 if BP controlled; otherwise 1:100 000 with aspirating syringe and limited dose). Place CaOH dressing, temporary restoration.</li>
+  <li><strong>Analgesia:</strong> paracetamol 1 g QID (max 4 g/day) + ibuprofen 400 mg TDS — check no contraindication (no renal disease, no NSAID allergy, no GI ulcer). She is on perindopril → NSAIDs short course OK but monitor; avoid long-term.</li>
+  <li><strong>Antibiotics not indicated</strong> — localised infection without systemic involvement. State this explicitly per TG.</li>
+  <li>Decision on definitive 26 management deferred — RCT vs extraction discussed at reassessment (see Phase 4 decision-making).</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h4>🦠 Phase 3 — Disease Control</h4>
+<ul>
+  <li><strong>Caries control protocol (HIGH risk):</strong>
+    <ul>
+      <li>OHI: modified Bass technique, twice daily; introduce interdental brushes (size appropriate) — demonstrate</li>
+      <li>Prescribe <strong>5000 ppm sodium fluoride toothpaste (Neutrafluor 5000 Plus)</strong> daily, brush and spit don't rinse</li>
+      <li>Professional fluoride varnish (22 600 ppm) at scaling visits, 3-monthly initially</li>
+      <li><strong>Dietary advice — critical:</strong> reduce sugar in coffee/tea (suggest gradual reduction or non-cariogenic sweetener); biscuits limited to mealtimes only (frequency &gt; quantity); increase plain water intake</li>
+      <li>Xylitol gum after meals (stimulates saliva, reduces cariogenic bacteria)</li>
+      <li>Salivary substitutes if symptomatic xerostomia persists</li>
+      <li>Restore 27 mesial — composite, indirect pulp cap if close to pulp; ensure good marginal seal</li>
+    </ul>
+  </li>
+  <li><strong>Periodontal disease control:</strong>
+    <ul>
+      <li>Supra- and subgingival scaling and root surface <strong>debridement</strong> (not aggressive root planing) — full mouth, 2 quadrants/visit, under LA where needed</li>
+      <li>Site-specific debridement at 26 distal (pending decision on tooth)</li>
+      <li>Re-evaluate at <strong>6–8 weeks</strong>: re-probe, BOP, plaque score</li>
+    </ul>
+  </li>
+  <li>Reinforce OH at every visit; aim plaque score &lt;20%, BOP &lt;10% before moving to definitive phase.</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h4>🔧 Phase 4 — Definitive / Reconstructive</h4>
+<ul>
+  <li><strong>26 decision — RCT vs extraction:</strong>
+    <ul>
+      <li><strong>RCT + cuspal-coverage restoration (crown):</strong> avoids extraction (avoiding MRONJ risk); requires significant remaining tooth structure, post if needed; cost &amp; multiple visits; perio-endo prognosis guarded due to 8 mm pocket DP. Per McGuire &amp; Nunn 1996, prognosis is <strong>questionable to poor</strong>.</li>
+      <li><strong>Extraction:</strong> resolves the problem but carries MRONJ risk on denosumab; atraumatic technique, primary closure, antibiotic cover (clindamycin given penicillin allergy), close follow-up at 1, 2, 4, 8 weeks.</li>
+      <li><strong>Recommended:</strong> attempt RCT if structurally restorable and patient accepts guarded prognosis and cost. Discuss thoroughly, obtain informed consent. If unrestorable or perio-endo prognosis worsens — extract with MRONJ precautions.</li>
+    </ul>
+  </li>
+  <li><strong>Replacement of 26 (if extracted) and 36 (long-standing):</strong>
+    <ul>
+      <li><strong>Implants — contraindicated</strong> given denosumab MRONJ risk</li>
+      <li><strong>FDP (bridge):</strong> requires preparation of sound teeth; 36 space partially closed and 37 tilted — challenging</li>
+      <li><strong>RPD (removable partial denture):</strong> cost-appropriate for pensioner; non-invasive; acceptable function</li>
+      <li><strong>No replacement:</strong> acceptable if patient functional and aesthetic concerns are minimal</li>
+      <li>Decision per patient preference, prognosis of other teeth, cost.</li>
+    </ul>
+  </li>
+  <li>Restore 27 if not done in disease control phase (definitive composite).</li>
+  <li>Replace failing/marginal older restorations as identified at reassessment.</li>
+  <li>Perio surgery only if residual ≥6 mm pockets after reassessment — unlikely given Stage I baseline; not anticipated.</li>
+</ul>
+</div>
+
+<div class="phase-card">
+<h4>♻️ Phase 5 — Maintenance / SPT</h4>
+<ul>
+  <li><strong>3-monthly SPT initially</strong> (high caries risk + recent active perio + diabetic) for first 12 months, then reassess.</li>
+  <li>Extend to 6-monthly when: plaque score consistently &lt;20%, BOP &lt;10%, no new caries, dietary changes sustained.</li>
+  <li>Bitewings annually (high caries risk); PA of 26 at 6 months and 1 year post-treatment to monitor periapical healing.</li>
+  <li>Continue dietary &amp; OH reinforcement, fluoride varnish.</li>
+  <li>Ongoing liaison with GP re HbA1c, BP, denosumab management.</li>
+  <li>Annual oral cancer screening.</li>
+  <li>If MRONJ symptoms develop (exposed bone, non-healing site, pain, paraesthesia) → immediate review and refer to oral surgery.</li>
+</ul>
+</div>
+
+<h3>Why this case tests you well</h3>
+<ul>
+  <li><strong>MRONJ risk decision-making</strong> — the highest-yield drug interaction in modern dental treatment planning</li>
+  <li><strong>Antibiotic stewardship</strong> — localised pulpitis/abscess does NOT need antibiotics; penicillin allergy alternative</li>
+  <li><strong>Perio-endo lesion</strong> — distinguishing primary endo with secondary perio involvement and how it affects prognosis</li>
+  <li><strong>Caries risk stratification</strong> with HIGH-risk interventions (5000 ppm, varnish, dietary)</li>
+  <li><strong>Implant contraindication</strong> reasoning — not all missing teeth get implants</li>
+  <li><strong>BP at elevated reading</strong> — when to defer, when to proceed with caution</li>
+  <li><strong>Multidisciplinary liaison</strong> — GP, possibly endocrinologist, oral surgery referral pathway</li>
+</ul>
+
+</div>
+</details>
+
+<hr>
+<p style="text-align:center; color:var(--muted); font-size:0.9em">DOH 256 — Treatment Planning OSCE Preparation • CSU Orange Dental Clinic<br><em>Good luck Kunwook 🦷</em></p>
+
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

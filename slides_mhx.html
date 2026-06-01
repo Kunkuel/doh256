@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medical History — DOH 256</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:#0f1117; --surface:#1a1d27; --border:#2e3347;
+      --text:#e8eaf0; --muted:#7a82a0; --accent:#ff6b6b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:5rem 1rem 4rem}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{background:#ff6b6b22;border:1px solid #ff6b6b44;border-radius:12px;padding:1.5rem 2rem;margin-bottom:2rem}
+    header h1{font-size:1.6rem;font-weight:700;color:var(--accent);margin-bottom:.4rem}
+    header p{color:var(--muted);font-size:.9rem}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+    .img-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;
+      overflow:hidden;cursor:pointer;transition:all 0.2s;}
+    .img-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px #ff6b6b22}
+    .img-card img{width:100%;display:block;height:200px;object-fit:cover;object-position:top}
+    .img-label{padding:.5rem .75rem;font-size:.78rem;color:var(--muted);font-family:'DM Mono',monospace}
+    /* Lightbox */
+    #lb{display:none;position:fixed;inset:0;background:#000c;z-index:999;align-items:center;justify-content:center}
+    #lb.open{display:flex}
+    #lb img{max-width:92vw;max-height:90vh;border-radius:8px;box-shadow:0 0 60px #000}
+    #lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);background:#ff6b6b33;
+      border:1px solid #ff6b6b66;color:var(--text);font-size:1.5rem;padding:.6rem 1rem;
+      border-radius:8px;cursor:pointer;transition:all .2s;z-index:1000}
+    #lb-prev{left:1rem} #lb-next{right:1rem}
+    #lb-prev:hover,#lb-next:hover{background:#ff6b6b66}
+    #lb-close{position:absolute;top:1rem;right:1rem;background:#1a1d2799;border:1px solid var(--border);
+      color:var(--muted);padding:.4rem .8rem;border-radius:6px;cursor:pointer;font-size:.9rem}
+    #lb-counter{position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);
+      background:#1a1d27cc;border:1px solid var(--border);padding:.3rem .8rem;border-radius:6px;
+      font-family:'DM Mono',monospace;font-size:.8rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:100">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;border:1px solid #2e3347;
+  color:#7a82a0;text-decoration:none;padding:8px 14px;border-radius:8px;font-size:0.82rem;font-family:'DM Sans',sans-serif;
+  transition:all 0.2s">← Home</a>
+</div>
+<div class="wrap">
+  <header>
+    <h1>Medical History</h1>
+    <p>Organ-system MHx, 4 critical processes, ASA classification, medication red flags</p>
+    <p style="margin-top:.5rem;color:#ff6b6b;font-family:'DM Mono',monospace;font-size:.78rem">22 slides · click any to expand</p>
+  </header>
+  <div class="grid">
+    <div class="img-card" onclick="openLightbox(0)">
+      <img src="images/mhx/page_000.jpg" loading="lazy" alt="Slide 1">
+      <div class="img-label">Slide 1</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(1)">
+      <img src="images/mhx/page_001.jpg" loading="lazy" alt="Slide 2">
+      <div class="img-label">Slide 2</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(2)">
+      <img src="images/mhx/page_002.jpg" loading="lazy" alt="Slide 3">
+      <div class="img-label">Slide 3</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(3)">
+      <img src="images/mhx/page_003.jpg" loading="lazy" alt="Slide 4">
+      <div class="img-label">Slide 4</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(4)">
+      <img src="images/mhx/page_004.jpg" loading="lazy" alt="Slide 5">
+      <div class="img-label">Slide 5</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(5)">
+      <img src="images/mhx/page_005.jpg" loading="lazy" alt="Slide 6">
+      <div class="img-label">Slide 6</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(6)">
+      <img src="images/mhx/page_006.jpg" loading="lazy" alt="Slide 7">
+      <div class="img-label">Slide 7</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(7)">
+      <img src="images/mhx/page_007.jpg" loading="lazy" alt="Slide 8">
+      <div class="img-label">Slide 8</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(8)">
+      <img src="images/mhx/page_008.jpg" loading="lazy" alt="Slide 9">
+      <div class="img-label">Slide 9</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(9)">
+      <img src="images/mhx/page_009.jpg" loading="lazy" alt="Slide 10">
+      <div class="img-label">Slide 10</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(10)">
+      <img src="images/mhx/page_010.jpg" loading="lazy" alt="Slide 11">
+      <div class="img-label">Slide 11</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(11)">
+      <img src="images/mhx/page_011.jpg" loading="lazy" alt="Slide 12">
+      <div class="img-label">Slide 12</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(12)">
+      <img src="images/mhx/page_012.jpg" loading="lazy" alt="Slide 13">
+      <div class="img-label">Slide 13</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(13)">
+      <img src="images/mhx/page_013.jpg" loading="lazy" alt="Slide 14">
+      <div class="img-label">Slide 14</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(14)">
+      <img src="images/mhx/page_014.jpg" loading="lazy" alt="Slide 15">
+      <div class="img-label">Slide 15</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(15)">
+      <img src="images/mhx/page_015.jpg" loading="lazy" alt="Slide 16">
+      <div class="img-label">Slide 16</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(16)">
+      <img src="images/mhx/page_016.jpg" loading="lazy" alt="Slide 17">
+      <div class="img-label">Slide 17</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(17)">
+      <img src="images/mhx/page_017.jpg" loading="lazy" alt="Slide 18">
+      <div class="img-label">Slide 18</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(18)">
+      <img src="images/mhx/page_018.jpg" loading="lazy" alt="Slide 19">
+      <div class="img-label">Slide 19</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(19)">
+      <img src="images/mhx/page_019.jpg" loading="lazy" alt="Slide 20">
+      <div class="img-label">Slide 20</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(20)">
+      <img src="images/mhx/page_020.jpg" loading="lazy" alt="Slide 21">
+      <div class="img-label">Slide 21</div>
+    </div>
+    <div class="img-card" onclick="openLightbox(21)">
+      <img src="images/mhx/page_021.jpg" loading="lazy" alt="Slide 22">
+      <div class="img-label">Slide 22</div>
+    </div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div id="lb">
+  <img id="lb-img" src="" alt="">
+  <button id="lb-prev" onclick="lbNav(-1)">&#8592;</button>
+  <button id="lb-next" onclick="lbNav(1)">&#8594;</button>
+  <button id="lb-close" onclick="closeLb()">✕ Close</button>
+  <div id="lb-counter"></div>
+</div>
+
+<script>
+const imgs = ["images/mhx/page_000.jpg", "images/mhx/page_001.jpg", "images/mhx/page_002.jpg", "images/mhx/page_003.jpg", "images/mhx/page_004.jpg", "images/mhx/page_005.jpg", "images/mhx/page_006.jpg", "images/mhx/page_007.jpg", "images/mhx/page_008.jpg", "images/mhx/page_009.jpg", "images/mhx/page_010.jpg", "images/mhx/page_011.jpg", "images/mhx/page_012.jpg", "images/mhx/page_013.jpg", "images/mhx/page_014.jpg", "images/mhx/page_015.jpg", "images/mhx/page_016.jpg", "images/mhx/page_017.jpg", "images/mhx/page_018.jpg", "images/mhx/page_019.jpg", "images/mhx/page_020.jpg", "images/mhx/page_021.jpg"];
+let cur = 0;
+function openLightbox(i){cur=i;document.getElementById('lb').classList.add('open');updateLb()}
+function closeLb(){document.getElementById('lb').classList.remove('open')}
+function lbNav(d){cur=(cur+d+imgs.length)%imgs.length;updateLb()}
+function updateLb(){
+  document.getElementById('lb-img').src=imgs[cur];
+  document.getElementById('lb-counter').textContent=(cur+1)+' / '+imgs.length;
+}
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLb()})
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')lbNav(1);
+  if(e.key==='ArrowLeft')lbNav(-1);
+})
+</script>
+</body>
+</html>

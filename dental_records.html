@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 256 – Ethics & Professionalism Flashcards</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f1a12; color: #eee; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
+  h1 { font-size: 1.4rem; color: #6ee7b7; margin-bottom: 4px; text-align: center; }
+  .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 24px; }
+  .progress-bar-bg { width: 100%; max-width: 640px; height: 6px; background: #1a2e1f; border-radius: 99px; margin-bottom: 8px; }
+  .progress-bar { height: 6px; background: #059669; border-radius: 99px; transition: width 0.4s; }
+  .counter { font-size: 0.8rem; color: #888; margin-bottom: 20px; text-align: right; width: 100%; max-width: 640px; }
+  .card-container { width: 100%; max-width: 640px; perspective: 1200px; }
+  .card { width: 100%; min-height: 240px; position: relative; transform-style: preserve-3d; transition: transform 0.55s cubic-bezier(.4,0,.2,1); cursor: pointer; border-radius: 16px; }
+  .card.flipped { transform: rotateY(180deg); }
+  .face { position: absolute; width: 100%; min-height: 240px; border-radius: 16px; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 28px 28px; text-align: center; }
+  .front { background: linear-gradient(135deg, #064e3b, #022c22); border: 1px solid #065f46; }
+  .back { background: linear-gradient(135deg, #0c2a1a, #0a1f12); border: 1px solid #047857; transform: rotateY(180deg); }
+  .label { font-size: 0.7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 12px; }
+  .front .label { color: #6ee7b7; }
+  .back .label { color: #a7f3d0; }
+  .question { font-size: 1.15rem; font-weight: 600; color: #f0fdf4; line-height: 1.5; }
+  .answer { font-size: 1rem; color: #a7f3d0; line-height: 1.65; }
+  .answer ul { text-align: left; margin-top: 8px; padding-left: 18px; }
+  .answer li { margin-bottom: 4px; }
+  .hint { font-size: 0.75rem; color: #6b7280; margin-top: 14px; }
+  .controls { display: flex; gap: 12px; margin-top: 20px; width: 100%; max-width: 640px; }
+  .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: opacity .2s, transform .1s; }
+  .btn:active { transform: scale(0.97); }
+  .btn-prev { background: #374151; color: #d1d5db; }
+  .btn-flip { background: #065f46; color: #fff; }
+  .btn-next { background: #374151; color: #d1d5db; }
+  .deck-badge { display: inline-block; background: #064e3b; color: #6ee7b7; font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; letter-spacing: .08em; text-transform: uppercase; }
+</style>
+</head>
+<body>
+<div class="deck-badge">Deck 2 of 3</div>
+<h1>DOH 256 – Ethics & Professionalism</h1>
+<p class="subtitle">Click card to reveal answer · Use buttons to navigate</p>
+<div class="progress-bar-bg"><div class="progress-bar" id="pbar"></div></div>
+<div class="counter" id="counter"></div>
+<div class="card-container">
+  <div class="card" id="card" onclick="flipCard()">
+    <div class="face front">
+      <div class="label">Question</div>
+      <div class="question" id="q"></div>
+      <div class="hint">Tap to reveal answer</div>
+    </div>
+    <div class="face back">
+      <div class="label">Answer</div>
+      <div class="answer" id="a"></div>
+    </div>
+  </div>
+</div>
+<div class="controls">
+  <button class="btn btn-prev" onclick="navigate(-1)">← Prev</button>
+  <button class="btn btn-flip" onclick="flipCard()">Flip</button>
+  <button class="btn btn-next" onclick="navigate(1)">Next →</button>
+</div>
+
+<script>
+const cards = [
+  { q: "What are the three record-keeping rules regarding defence?", a: "<ul><li>Good records = good defence</li><li>Poor records = poor defence</li><li>No records = no defence</li></ul>" },
+  { q: "What is the golden rule about dental record documentation?", a: "If it isn't written down, it didn't happen." },
+  { q: "List the 4 main reasons for the importance of dental record keeping.", a: "<ol><li>Patient care</li><li>Legal protection</li><li>Quality improvement</li><li>Regulatory compliance (statutory obligation)</li></ol>" },
+  { q: "How should the chief complaint be phrased in dental records?", a: "In the patient's own words — to ensure accuracy and reflect the patient's oral health knowledge." },
+  { q: "What organisation provides the statutory obligation for record keeping in Australia?", a: "AHPRA (Australian Health Practitioner Regulation Agency)" },
+  { q: "How many elements does AHPRA Section 8.3 list for good record-keeping practice?", a: "7 elements" },
+  { q: "List the 7 elements of good record-keeping practice per AHPRA Section 8.3.", a: "<ul><li>Accurate, relevant, detailed, legible</li><li>Secure</li><li>Respectful</li><li>Continuity of care</li><li>Contemporaneous (recorded at the time)</li><li>Health management of information</li><li>No abbreviations for common words (clinical terms acceptable, e.g. TMJ)</li></ul>" },
+  { q: "What are the 3 guiding principles of the Australian Charter of Healthcare Rights?", a: "<ul><li>Access to healthcare</li><li>Provide the best quality of care to each person</li><li>Diversity</li></ul>" },
+  { q: "List all 7 rights in the Australian Charter of Healthcare Rights.", a: "<ul><li>Access</li><li>Safety</li><li>Respect</li><li>Communication</li><li>Participation</li><li>Privacy</li><li>Comment</li></ul>" },
+  { q: "What legal obligations govern dental record keeping in Australia?", a: "<ul><li>National Privacy Principles</li><li>Retention periods (longer for children)</li><li>Access to records (APP — Australian Privacy Principles)</li></ul>" },
+  { q: "What are the 4 best practices for maintaining dental records?", a: "<ul><li>Use of digital systems</li><li>Regular training and audits</li><li>Standardisation</li><li>Security measures</li></ul>" },
+  { q: "Why must the 'doing nothing' option always be mentioned to a patient?", a: "Because it is part of informed consent — the patient must receive all information, including pros and cons of inaction, so they can make their own decision." },
+  { q: "Why are dental records important for continuity of care?", a: "They allow the patient to receive ideal care across different clinicians and enable communication/collaboration with other practitioners." },
+  { q: "What does 'contemporaneous' mean in the context of dental records?", a: "Records must be written at the time of the appointment/event — not recalled or filled in later." },
+  { q: "Are clinical abbreviations allowed in dental records? Give an example.", a: "Yes — clinical/technical terms can be abbreviated (e.g. TMJ = temporomandibular joint), but abbreviations for common everyday words are not allowed." },
+];
+
+let current = 0, flipped = false;
+const cardEl = document.getElementById('card');
+const qEl = document.getElementById('q');
+const aEl = document.getElementById('a');
+const pbar = document.getElementById('pbar');
+const counter = document.getElementById('counter');
+
+function render() {
+  qEl.innerHTML = cards[current].q;
+  aEl.innerHTML = cards[current].a;
+  pbar.style.width = ((current + 1) / cards.length * 100) + '%';
+  counter.textContent = `Card ${current + 1} of ${cards.length}`;
+}
+
+function flipCard() {
+  flipped = !flipped;
+  cardEl.classList.toggle('flipped', flipped);
+}
+
+function navigate(dir) {
+  current = (current + dir + cards.length) % cards.length;
+  flipped = false;
+  cardEl.classList.remove('flipped');
+  setTimeout(() => { qEl.innerHTML = cards[current].q; aEl.innerHTML = cards[current].a; pbar.style.width = ((current + 1) / cards.length * 100) + '%'; counter.textContent = `Card ${current + 1} of ${cards.length}`; }, 100);
+}
+
+render();
+</script>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>
