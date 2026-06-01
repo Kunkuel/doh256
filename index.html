@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DOH 256 — Study Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0c12;
+      --surface: #12151e;
+      --surface2: #1a1d27;
+      --border: #232740;
+      --text: #e2e5f0;
+      --muted: #6b7494;
+      --blue: #4a9eff;
+      --blue-dim: #0d1f3a;
+      --green: #3dd68c;
+      --green-dim: #0a2418;
+      --amber: #ffb347;
+      --amber-dim: #251a00;
+      --red: #ff6b6b;
+      --red-dim: #250d0d;
+      --purple: #b57bee;
+      --purple-dim: #1a0e2e;
+      --teal: #2dd4bf;
+      --teal-dim: #061e1a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .header-top {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap; margin-bottom: 1.2rem;
+    }
+    .title-block h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem; font-weight: 800;
+      color: var(--text); line-height: 1.1;
+    }
+    .title-block p {
+      color: var(--muted); font-size: 0.85rem; margin-top: 0.3rem;
+    }
+    .search-wrap {
+      position: relative; width: 100%; max-width: 320px;
+    }
+    .search-icon {
+      position: absolute; left: 12px; top: 50%;
+      transform: translateY(-50%); color: var(--muted); pointer-events: none;
+    }
+    #search {
+      width: 100%;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text);
+      font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+      padding: 0.6rem 1rem 0.6rem 2.4rem; outline: none;
+      transition: border-color 0.2s;
+    }
+    #search:focus { border-color: var(--blue); }
+    #search::placeholder { color: var(--muted); }
+
+    /* MAIN */
+    .main { max-width: 860px; margin: 0 auto; padding: 2rem 2rem 5rem; }
+
+    /* FOLDER SECTION */
+    .folder {
+      margin-bottom: 2.5rem;
+    }
+    .folder-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .folder-icon {
+      font-size: 1rem;
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .folder-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .folder-count {
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--border);
+    }
+
+    /* FILE LIST */
+    .file-list {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .file-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .file-item:hover {
+      border-color: var(--item-accent, #4a9eff);
+      background: var(--surface2);
+      padding-left: 1.2rem;
+    }
+    .file-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--item-accent, #4a9eff);
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .file-item:hover .file-dot { opacity: 1; }
+    .file-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+    }
+    .file-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      flex: 2;
+    }
+    .file-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid;
+      flex-shrink: 0;
+    }
+
+    /* hidden by search */
+    .file-item.hidden { display: none; }
+    .folder.all-hidden .file-list { display: none; }
+    .folder.all-hidden .folder-header { opacity: 0.3; }
+
+    @media (max-width: 600px) {
+      .header { padding: 1.5rem 1rem 1.2rem; }
+      .main { padding: 1.5rem 1rem 4rem; }
+      .file-desc { display: none; }
+      .header-top { flex-direction: column; }
+      .search-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="title-block">
+      <h1>DOH 256</h1>
+      <p>Foundations of Dental Clinical Practice 2 · CSU · 2026</p>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search" placeholder="Search…">
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- FOLDER: STUDY NOTES -->
+  <div class="folder" id="folder-notes">
+    <div class="folder-header">
+      <div class="folder-icon">📂</div>
+      <span class="folder-name">Study Notes</span>
+      <span class="folder-count">9 files</span>
+    </div>
+    <div class="file-list">
+
+      <a href="high_yield.html" class="file-item" style="--item-accent:#ff6b6b"
+         data-tags="high yield key facts pitfalls exam osce">
+        <div class="file-dot"></div>
+        <span class="file-name">High Yield Exam Notes</span>
+        <span class="file-desc">Critical facts, must-know frameworks, common pitfalls</span>
+        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">EXAM</span>
+      </a>
+
+      <a href="osce.html" class="file-item" style="--item-accent:#4a9eff"
+         data-tags="osce workflow socrates salud practice case treatment planning">
+        <div class="file-dot"></div>
+        <span class="file-name">OSCE Workflow & Practice Case</span>
+        <span class="file-desc">8-step sequence, worked case, eMIMs/TG guidance</span>
+        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">CASE</span>
+      </a>
+
+      <a href="treatment_planning.html" class="file-item" style="--item-accent:#3dd68c"
+         data-tags="treatment planning 5 phases systemic active maintenance appointment">
+        <div class="file-dot"></div>
+        <span class="file-name">Treatment Planning</span>
+        <span class="file-desc">5-phase framework, appointment sequencing, case complexity</span>
+        <span class="file-tag" style="color:#3dd68c;border-color:#3dd68c44;background:#3dd68c11">NOTES</span>
+      </a>
+
+      <a href="medical_history.html" class="file-item" style="--item-accent:#ffb347"
+         data-tags="medical history organ system salud asa cardiovascular respiratory medications">
+        <div class="file-dot"></div>
+        <span class="file-name">Medical History</span>
+        <span class="file-desc">Organ-system MHx, 4 critical processes, ASA classification</span>
+        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">NOTES</span>
+      </a>
+
+      <a href="special_tests.html" class="file-item" style="--item-accent:#b57bee"
+         data-tags="special tests pulp EPT cold percussion palpation vitality probing">
+        <div class="file-dot"></div>
+        <span class="file-name">Special Tests</span>
+        <span class="file-desc">EPT, cold/heat, percussion, palpation, periodontal probing</span>
+        <span class="file-tag" style="color:#b57bee;border-color:#b57bee44;background:#b57bee11">NOTES</span>
+      </a>
+
+      <a href="caries.html" class="file-item" style="--item-accent:#ffb347"
+         data-tags="caries icdas iccms classification active inactive cavitated risk">
+        <div class="file-dot"></div>
+        <span class="file-name">Caries Notes</span>
+        <span class="file-desc">ICDAS/ICCMS classification, activity assessment, management thresholds</span>
+        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">NOTES</span>
+      </a>
+
+      <a href="red_flags.html" class="file-item" style="--item-accent:#ff6b6b"
+         data-tags="red flags medications anticoagulant antiresorptive mronj bisphosphonate warfarin liaison">
+        <div class="file-dot"></div>
+        <span class="file-name">Red Flags & Medications</span>
+        <span class="file-desc">Anticoagulants, MRONJ risk, safe vs liaison-required procedures</span>
+        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">REF</span>
+      </a>
+
+      <a href="anamnesis.html" class="file-item" style="--item-accent:#2dd4bf"
+         data-tags="anamnesis history taking chief complaint HPC socrates dental social">
+        <div class="file-dot"></div>
+        <span class="file-name">Anamnesis & History Taking</span>
+        <span class="file-desc">Chief complaint, SOCRATES, dental/social/family history</span>
+        <span class="file-tag" style="color:#2dd4bf;border-color:#2dd4bf44;background:#2dd4bf11">NOTES</span>
+      </a>
+
+      <a href="dental_records.html" class="file-item" style="--item-accent:#4a9eff"
+         data-tags="dental records charting problem list diagnosis isbar documentation">
+        <div class="file-dot"></div>
+        <span class="file-name">Dental Records & Charting</span>
+        <span class="file-desc">Problem list, diagnosis, ISBAR presentation, record standards</span>
+        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">NOTES</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- FOLDER: LECTURE SLIDES -->
+  <div class="folder" id="folder-slides">
+    <div class="folder-header">
+      <div class="folder-icon">🖼️</div>
+      <span class="folder-name">Lecture Slides</span>
+      <span class="folder-count">7 sets · 164 slides</span>
+    </div>
+    <div class="file-list">
+
+      <a href="slides_EO_IO_exam.html" class="file-item" style="--item-accent:#2dd4bf"
+         data-tags="extraoral intraoral examination soft tissue lymph node tmj muscles">
+        <div class="file-dot"></div>
+        <span class="file-name">EO/IO Examination</span>
+        <span class="file-desc">Soft tissue, lymph node levels I–VI, TMJ, muscles of mastication</span>
+        <span class="file-tag" style="color:#2dd4bf;border-color:#2dd4bf44;background:#2dd4bf11">26 slides</span>
+      </a>
+
+      <a href="slides_radiology.html" class="file-item" style="--item-accent:#4a9eff"
+         data-tags="radiology xray bitewing periapical radiation safety interpretation">
+        <div class="file-dot"></div>
+        <span class="file-name">Radiology</span>
+        <span class="file-desc">X-ray physics, bitewing/periapical technique, radiation safety</span>
+        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">11 slides</span>
+      </a>
+
+      <a href="slides_caries.html" class="file-item" style="--item-accent:#ffb347"
+         data-tags="caries classification diagnosis icdas lesion activity radiographic">
+        <div class="file-dot"></div>
+        <span class="file-name">Caries Diagnosis & Classification</span>
+        <span class="file-desc">ICDAS staging, lesion activity, radiographic caries, discolouration</span>
+        <span class="file-tag" style="color:#ffb347;border-color:#ffb34744;background:#ffb34711">25 slides</span>
+      </a>
+
+      <a href="slides_special_tests.html" class="file-item" style="--item-accent:#b57bee"
+         data-tags="special tests pulp EPT cold percussion palpation probing vitality">
+        <div class="file-dot"></div>
+        <span class="file-name">Special Tests</span>
+        <span class="file-desc">Pulp sensibility, periapical assessment, periodontal probing</span>
+        <span class="file-tag" style="color:#b57bee;border-color:#b57bee44;background:#b57bee11">30 slides</span>
+      </a>
+
+      <a href="slides_periodontium.html" class="file-item" style="--item-accent:#3dd68c"
+         data-tags="periodontium anatomy PDL cementum alveolar bone gingiva biologic width">
+        <div class="file-dot"></div>
+        <span class="file-name">Periodontium Anatomy</span>
+        <span class="file-desc">Gingiva, PDL, cementum, alveolar bone, biologic width</span>
+        <span class="file-tag" style="color:#3dd68c;border-color:#3dd68c44;background:#3dd68c11">25 slides</span>
+      </a>
+
+      <a href="slides_mhx.html" class="file-item" style="--item-accent:#ff6b6b"
+         data-tags="medical history lecture organ system cardiovascular respiratory medications ASA">
+        <div class="file-dot"></div>
+        <span class="file-name">Medical History Lecture</span>
+        <span class="file-desc">Organ-system history, medications, allergies, bleeding disorders</span>
+        <span class="file-tag" style="color:#ff6b6b;border-color:#ff6b6b44;background:#ff6b6b11">22 slides</span>
+      </a>
+
+      <a href="slides_treatment_planning.html" class="file-item" style="--item-accent:#4a9eff"
+         data-tags="treatment planning lecture 5 phases systemic active disease control definitive maintenance stefanac">
+        <div class="file-dot"></div>
+        <span class="file-name">Treatment Planning Lecture</span>
+        <span class="file-desc">Stefanac's 5 phases, case complexity, treatment sequencing</span>
+        <span class="file-tag" style="color:#4a9eff;border-color:#4a9eff44;background:#4a9eff11">25 slides</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const input = document.getElementById('search');
+  const items = document.querySelectorAll('.file-item');
+  const folders = document.querySelectorAll('.folder');
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase().trim();
+    items.forEach(item => {
+      const text = (item.textContent + ' ' + (item.dataset.tags || '')).toLowerCase();
+      item.classList.toggle('hidden', q.length > 1 && !text.includes(q));
+    });
+    folders.forEach(folder => {
+      const visible = [...folder.querySelectorAll('.file-item')].some(i => !i.classList.contains('hidden'));
+      folder.classList.toggle('all-hidden', q.length > 1 && !visible);
+    });
+  });
+</script>
+
+</body>
+</html>
