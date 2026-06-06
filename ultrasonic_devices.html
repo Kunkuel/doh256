@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DOH 256 — Anamnesis (History Taking)</title>
+<title>DOH 256 — Ultrasonic Devices</title>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 
@@ -698,91 +698,214 @@
 </head>
 <body>
 
-<div class="topbar anamnesis">
+<div class="topbar ultra">
   <div class="topbar-inner">
-    <div class="topbar-brand">DOH 256 · <span>Anamnesis</span></div>
+    <div class="topbar-brand">DOH 256 · <span>Ultrasonic Devices</span></div>
     <nav class="topbar-nav">
-      <a href="#an-what">What is Anamnesis?</a>
-      <a href="#an-laws">Diagnosis = Detectiv…</a>
-      <a href="#an-components">Components of the Hi…</a>
-      <a href="#an-detail">Each History in Detail</a>
+      <a href="#us-overview">Overview & Definition</a>
+      <a href="#us-moa">Mode of Action</a>
+      <a href="#us-types">Piezoelectric vs Mag…</a>
+      <a href="#us-evidence">Clinical Effectivene…</a>
+      <a href="#us-tech">Technique</a>
+      <a href="#us-contra">Contraindications & …</a>
+      <a href="#us-dangers">Dangers, Infection C…</a>
+      <a href="#us-implant">Peri-implant Health …</a>
+      <a href="#us-summary">Summary</a>
     </nav>
   </div>
 </div>
 
 <main>
-<div class="part anamnesis" id="part-anamnesis">
+<div class="part ultra" id="part-ultra">
   <div class="part-header">
     <span class="part-number">TOPIC</span>
-    <h2 class="part-title">Anamnesis — History Taking</h2>
-    <span class="part-tag">Diagnosis · Foundations</span>
+    <h2 class="part-title">Ultrasonic Devices in Periodontal Management</h2>
+    <span class="part-tag">Instrumentation · Peri-implant</span>
   </div>
 
   <div class="part-toc">
     <div class="part-toc-label">In this note</div>
     <ul>
-      <li><a href="#an-what">What is Anamnesis?</a></li>
-      <li><a href="#an-laws">Diagnosis &amp; the Laws</a></li>
-      <li><a href="#an-components">Components of the History</a></li>
-      <li><a href="#an-detail">Each History in Detail</a></li>
+      <li><a href="#us-overview">Overview &amp; Definition</a></li>
+      <li><a href="#us-moa">Mode of Action</a></li>
+      <li><a href="#us-types">Piezo vs Magnetostrictive</a></li>
+      <li><a href="#us-evidence">Effectiveness &amp; Comfort</a></li>
+      <li><a href="#us-tech">Technique</a></li>
+      <li><a href="#us-contra">Contraindications &amp; Cautions</a></li>
+      <li><a href="#us-dangers">Dangers, Infection Control &amp; Prevention</a></li>
+      <li><a href="#us-implant">Peri-implant Health &amp; Disease</a></li>
+      <li><a href="#us-summary">Summary</a></li>
     </ul>
   </div>
 
-  <section id="an-what">
-    <h2><span class="num">1</span>What is Anamnesis?</h2>
-    <p><strong>Anamnesis</strong> (Greek for "remembrance / recollection") is the patient's <strong>case history</strong> — the recollection of past experience used in medicine to build the story of the presenting problem. It is the <strong>first step</strong> of every clinical encounter and the single richest source of diagnostic information.</p>
+  <section id="us-overview">
+    <h2><span class="num">1</span>Overview &amp; Definition</h2>
+    <p><strong>Ultrasonic scalers</strong> are dental instruments that use high-frequency mechanical vibration (<strong>~25–50 kHz</strong>) to remove plaque, calculus (tartar) and bacterial biofilm from the teeth — especially <strong>subgingivally</strong>. There are two types: <strong>piezoelectric</strong> and <strong>magnetostrictive</strong>. They are central to non-surgical periodontal therapy.</p>
   </section>
 
-  <section id="an-laws">
-    <h2><span class="num">2</span>Diagnosis = Detective Work</h2>
-    <div class="callout key">
-      <span class="callout-label">The Diagnostic Pathway</span>
-      Symptoms + History + Exam → <strong>diagnostic sieve</strong> → <strong>provisional diagnosis</strong> → tests (radiographs, biopsies) → test the hypothesis → <strong>final diagnosis</strong>. It is a structured, scientific, pattern-matching process.
+  <section id="us-moa">
+    <h2><span class="num">2</span>Mode of Action</h2>
+    <p>Cleaning is achieved through four overlapping mechanisms — only the first is mechanical; the rest act through the water at the tip:</p>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">① Mechanical vibration</div>The vibrating tip physically <strong>dislodges deposits</strong> from the tooth surface.</div>
+      <div class="card"><div class="card-title">② Cavitation</div>Microbubbles <strong>form and implode</strong> in the water; the implosions release <strong>shockwaves</strong> that disrupt biofilm. (Lower pressure can turn water to vapour at low temperature, generating micro air bubbles.)</div>
+      <div class="card"><div class="card-title">③ Acoustic microstreaming</div><strong>Shear forces</strong> in the surrounding fluid clean <strong>beyond the physical reach</strong> of the tip.</div>
+      <div class="card"><div class="card-title">④ Water cooling / lavage</div>The water spray <strong>prevents overheating</strong> and flushes debris from the pocket.</div>
     </div>
-    <h3>The "Laws of Diagnosis"</h3>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ultrasonic mode of action">
+        <rect x="1" y="1" width="558" height="198" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <!-- tooth/root surface -->
+        <path d="M70 40 l50 0 l-8 130 l-34 0 z" fill="#fff" stroke="#1a1d24" stroke-width="1.5"/>
+        <text x="95" y="186" text-anchor="middle" class="dgm-small">root</text>
+        <!-- calculus -->
+        <rect x="112" y="95" width="14" height="22" rx="3" fill="#cdbb8a" stroke="#8a6d2f"/>
+        <text x="119" y="92" text-anchor="middle" class="dgm-small">calculus</text>
+        <!-- tip -->
+        <line x1="220" y1="60" x2="138" y2="108" stroke="#0e6b7a" stroke-width="6" stroke-linecap="round"/>
+        <text x="232" y="56" class="dgm-small" fill="#0e6b7a">vibrating tip</text>
+        <!-- bubbles cavitation -->
+        <g fill="none" stroke="#1d5b8a" stroke-width="1.3">
+          <circle cx="150" cy="120" r="5"/><circle cx="165" cy="132" r="4"/><circle cx="142" cy="135" r="3"/>
+          <circle cx="172" cy="118" r="3"/>
+        </g>
+        <text x="200" y="135" class="dgm-small" fill="#1d5b8a">cavitation bubbles</text>
+        <!-- microstreaming arrows -->
+        <path d="M150 150 q20 14 44 4" fill="none" stroke="#b07d1a" stroke-width="1.5"/>
+        <polygon points="194,158 184,156 188,165" fill="#b07d1a"/>
+        <text x="210" y="166" class="dgm-small" fill="#b07d1a">microstreaming (shear)</text>
+        <!-- water -->
+        <text x="380" y="60" class="dgm-mono">water = cooling + lavage</text>
+      </svg>
+      <figcaption>The tip both strikes the deposit directly and energises the surrounding water — imploding bubbles and shear streaming disrupt biofilm beyond where the metal touches.</figcaption>
+    </figure>
+  </section>
+
+  <section id="us-types">
+    <h2><span class="num">3</span>Piezoelectric vs Magnetostrictive</h2>
     <table>
-      <thead><tr><th>Law</th><th>Meaning</th></tr></thead>
+      <thead><tr><th></th><th>Piezoelectric (e.g. EMS)</th><th>Magnetostrictive (e.g. Cavitron)</th></tr></thead>
       <tbody>
-        <tr><td><strong>1 · Listen to your patient</strong></td><td>The patient is usually telling you the diagnosis.</td></tr>
-        <tr><td><strong>2 · Hear hoofbeats → think horses, not zebras</strong></td><td>Common things are common — favour likely diagnoses over rare ones.</td></tr>
-        <tr><td><strong>3 · A patient may have as many problems as they please</strong></td><td>Don't force every finding into one diagnosis — multiple conditions can coexist.</td></tr>
+        <tr><td><strong>Driver</strong></td><td>Crystals deform under current</td><td>Magnetic stack expands/contracts</td></tr>
+        <tr><td><strong>Tip motion</strong></td><td><strong>Linear</strong> — only the <strong>lateral sides</strong> are active</td><td><strong>Elliptical</strong> — <strong>all sides active</strong> (the point is most powerful); more versatility / more directions of use</td></tr>
+        <tr><td><strong>Frequency</strong></td><td>~30–50 kHz</td><td>~20–40 kHz</td></tr>
+        <tr><td><strong>Operation</strong></td><td><strong>Quieter</strong></td><td>Versatile motion</td></tr>
       </tbody>
     </table>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piezo linear vs magnetostrictive elliptical tip motion">
+        <rect x="1" y="1" width="558" height="198" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <text x="150" y="30" text-anchor="middle" class="dgm-title" fill="#0e6b7a">Piezoelectric — LINEAR</text>
+        <line x1="100" y1="60" x2="180" y2="120" stroke="#0e6b7a" stroke-width="6" stroke-linecap="round"/>
+        <!-- linear motion double arrow along lateral -->
+        <line x1="120" y1="72" x2="160" y2="108" stroke="#9a3b1f" stroke-width="1.6"/>
+        <polygon points="120,72 124,82 130,75" fill="#9a3b1f"/><polygon points="160,108 156,98 150,105" fill="#9a3b1f"/>
+        <text x="150" y="160" text-anchor="middle" class="dgm-small">back-and-forth · lateral sides active</text>
+        <line x1="290" y1="40" x2="290" y2="175" stroke="#e5e3da"/>
+        <text x="420" y="30" text-anchor="middle" class="dgm-title" fill="#6e2a6e">Magnetostrictive — ELLIPTICAL</text>
+        <line x1="380" y1="60" x2="460" y2="120" stroke="#6e2a6e" stroke-width="6" stroke-linecap="round"/>
+        <!-- ellipse at tip -->
+        <ellipse cx="460" cy="120" rx="16" ry="9" fill="none" stroke="#9a3b1f" stroke-width="1.6" transform="rotate(35 460 120)"/>
+        <text x="420" y="160" text-anchor="middle" class="dgm-small">orbital · all sides active (point strongest)</text>
+      </svg>
+      <figcaption>The driver determines the tip's path: piezo crystals give a straight back-and-forth (use the sides), while a magnetostrictive stack gives an orbital path (all surfaces work).</figcaption>
+    </figure>
   </section>
 
-  <section id="an-components">
-    <h2><span class="num">3</span>Components of the History</h2>
-    <p>The first step gathers, in order:</p>
-    <p><strong>Reason for Attending (RFA / Chief Complaint)</strong> → <strong>History of Presenting Complaint (HPC)</strong> → <strong>Social History</strong> → <strong>Dietary History</strong> → <strong>Medical History</strong> → <strong>Dental History</strong>.</p>
+  <section id="us-evidence">
+    <h2><span class="num">4</span>Clinical Effectiveness &amp; Patient Comfort</h2>
+    <dl class="defs">
+      <dt>Busslinger (2002)</dt><dd>The piezoelectric scaler was <strong>more efficient at removing calculus</strong> but left the instrumented surface <strong>rougher</strong>.</dd>
+      <dt>Singh et al. (2009)</dt><dd>Both produce the <strong>same surface roughness</strong>, so their efficacy for creating a biologically compatible root surface is <strong>similar</strong>.</dd>
+      <dt>Muhney &amp; Dechow (2010)</dt><dd>On average, patients <strong>prefer piezoelectric</strong> instrumentation for comfort (less awareness of discomfort &amp; vibration).</dd>
+    </dl>
     <div class="callout note">
-      <span class="callout-label">RFA</span>
-      What triggered the intention to come to the dentist, and what are they trying to achieve? Record in the patient's own words.
+      <span class="callout-label">Bottom line</span>
+      Both types are <strong>clinically equally effective</strong>. The choice largely comes down to <strong>personal preference</strong> — and patients tend to prefer the quieter, more comfortable piezo.
     </div>
   </section>
 
-  <section id="an-detail">
-    <h2><span class="num">4</span>Each History in Detail</h2>
+  <section id="us-tech">
+    <h2><span class="num">5</span>Technique</h2>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">Tip angulation &amp; pressure</div>Use <strong>0–15° angulation</strong>, the <strong>lateral surfaces only</strong>, and <strong>feather-light pressure</strong>.</div>
+      <div class="card"><div class="card-title">Motion &amp; power</div><strong>Keep the tip constantly moving</strong>, use the <strong>correct power setting</strong>, and <strong>avoid root gouging</strong>.</div>
+    </div>
+    <p><strong>Indications / clinical use:</strong> scaling and root debridement, periodontal maintenance, and gross debridement. <strong>Particular advantage in furcations and deep, narrow pockets</strong>, where the small vibrating tip and fluid dynamics reach areas hand instruments cannot.</p>
+  </section>
 
-    <h3>History of Presenting Complaint (HPC)</h3>
-    <p>What happened? How does it impact comfort / function / life? What do they feel they need, and what do they think the problem is? For pain, use <strong>SOCRATES</strong> — Site · Onset · Character · Radiation · Associated symptoms · Time · Exacerbating/relieving · Severity.</p>
+  <section id="us-contra">
+    <h2><span class="num">6</span>Contraindications &amp; Cautions</h2>
+    <div class="callout warn">
+      <span class="callout-label">Contraindicated</span>
+      <ul style="margin:.3rem 0 0 1rem;">
+        <li><strong>Older, unshielded pacemakers</strong> — the magnetostrictive scaler <em>and its cable</em> can interfere. (The magnetic bracket tray can also interfere — <strong>never place it over the patient's chest</strong>.)</li>
+        <li>High-risk patients with <strong>severe respiratory illness</strong>, the <strong>severely immunocompromised</strong>, and patients at <strong>high risk of infective endocarditis without antibiotic cover</strong>.</li>
+      </ul>
+    </div>
+    <div class="callout note">
+      <span class="callout-label">Caution</span>
+      For pacemaker patients, <strong>prefer a piezo scaler</strong>. IE-risk patients may require antibiotic cover. Use caution with respiratory disease, a strong gag reflex, or swallowing difficulty; over <strong>demineralised tooth surfaces</strong>; near <strong>existing restorations — crowns, bridges, veneers</strong>; and in <strong>children (lower power setting)</strong>.
+    </div>
+  </section>
 
-    <h3>Social History</h3>
-    <p>Family &amp; work circumstances — builds rapport, may explain the RFA, and shapes how you can manage the patient.</p>
+  <section id="us-dangers">
+    <h2><span class="num">7</span>Dangers, Infection Control &amp; Prevention</h2>
+    <h3>Potential harms</h3>
+    <ul>
+      <li><strong>Root damage</strong> and <strong>restoration damage</strong>.</li>
+      <li><strong>Soft-tissue thermal injury</strong> and <strong>gingival trauma</strong> — most heat is generated near the <strong>base</strong> of the ultrasonic; ensure proper <strong>cheek retraction</strong> when accessing molars to avoid thermal trauma to the lip and gingiva.</li>
+      <li><strong>Iatrogenic damage</strong> to porcelain veneers and lingual retainers — "lost adhesion at the composite–wire interface showed rotational moments in the direction of the wire windings" (Seide et al., 2022). <em>Iatrogenic</em> = harm induced by the treatment or comments of the clinician.</li>
+    </ul>
+    <h3>Infection control</h3>
+    <p>Ultrasonics are <strong>aerosol-generating</strong>: use <strong>High-Volume Evacuation (HVE)</strong> suction, a <strong>pre-rinse</strong> (e.g. CHX mouthwash) to lower the bacterial load, and full <strong>PPE</strong> for aerosol control.</p>
+    <div class="callout key">
+      <span class="callout-label">Prevention</span>
+      Most harms are prevented by <strong>correct technique</strong> — constant movement, light pressure, correct power, lateral surfaces, never holding the tip stable on one spot.
+    </div>
+  </section>
 
-    <h3>Dietary History</h3>
-    <p>Types of foods eaten frequently, <strong>between-meal snacking</strong>, food-avoidance patterns, and family/work influences. Critical for caries &amp; erosion risk — does diet drive the RFA?</p>
+  <section id="us-implant">
+    <h2><span class="num">8</span>Peri-implant Health &amp; Disease</h2>
+    <table>
+      <thead><tr><th>Status</th><th>Defining criteria</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Health</strong></td><td>No soft-tissue inflammation (no redness/swelling/profuse BOP) and <strong>no further bone loss after initial healing</strong>. (Updated definition allows a <strong>single bleeding spot</strong>.)</td></tr>
+        <tr><td><strong>Mucositis</strong></td><td>Inflammation with <strong>≥2 BOP sites (or ≥1 with profuse BOP)</strong> — line/drop of bleeding within 30 s of probing — combined with <strong>no additional bone loss</strong> after initial healing. (Reversible.)</td></tr>
+        <tr><td><strong>Peri-implantitis</strong></td><td>Inflammation + <strong>radiographic bone loss</strong> after initial healing + <strong>increasing probing depth</strong> vs the post-prosthetic baseline. With no prior radiographs: bone level <strong>≥3 mm</strong> + BOP + PD <strong>≥6 mm</strong> indicates peri-implantitis.</td></tr>
+      </tbody>
+    </table>
+    <h3>Goals of management</h3>
+    <p>Maintain healthy peri-implant tissues · minimise biofilm accumulation · ensure early detection of inflammation · educate and empower the patient for self-care.</p>
+    <h3>Clinical examination</h3>
+    <p>A normal metal or plastic probe is suitable. Probe with a <strong>light force (~0.25 N)</strong>; peri-implant pocket depths should generally be <strong>≤5 mm</strong> (depths can vary with how deep the implant was placed).</p>
+    <h3>Risk factors</h3>
+    <p>History of periodontitis · poor oral hygiene · smoking · diabetes · inadequate prosthetic design · lack of regular maintenance.</p>
+    <h3>Management &amp; maintenance</h3>
+    <ul>
+      <li><strong>Patient education:</strong> tailor OHI — <strong>interdental brushes are often superior to floss</strong> for implants; recommend electric toothbrushes &amp; low-abrasive toothpaste.</li>
+      <li><strong>PMPR (professional mechanical plaque removal):</strong> focus on interdental brushes; consider <strong>air-polishing with low-abrasive powders (e.g. glycine)</strong> if available.</li>
+      <li><strong>Monitoring:</strong> record PD, BOP, suppuration; take radiographs for marginal bone levels; track inflammation.</li>
+      <li><strong>Maintenance frequency:</strong> low risk <strong>6–12 months</strong>; higher risk (perio history, poor plaque control) <strong>3–4 months</strong>.</li>
+    </ul>
+  </section>
 
-    <h3>Medical History</h3>
-    <p>Previous illnesses, surgical treatments, and current medications — <strong>prescription, OTC, and supplements/"health" foods</strong>. Could any of these tie into the current problem or change your management?</p>
-
-    <h3>Dental History</h3>
-    <p>How often (and why/why not) they see a dentist; previous treatments &amp; experiences and their attitude to them (their "dental IQ"); home-care habits (frequency, what they use); and their <strong>expectations</strong> — are they realistic and achievable?</p>
+  <section id="us-summary">
+    <h2><span class="num">9</span>Summary</h2>
+    <ul>
+      <li>Piezo and magnetostrictive are <strong>both effective</strong> at plaque &amp; calculus removal.</li>
+      <li>Always <strong>risk-assess</strong>: patient factors (pacemaker, IE risk) and local factors (incipient caries, existing restorations, current periodontal status).</li>
+      <li>Use <strong>safe technique</strong> — constant movement, never holding the tip stable.</li>
+      <li>For implants, <strong>assess at every review</strong> prior to any PMPR; emphasise education, air-polishing devices, and interdental aids.</li>
+    </ul>
   </section>
 </div>
 </main>
 
 <footer>
-  <div>DOH 256 · Anamnesis</div>
+  <div>DOH 256 · Ultrasonic Devices</div>
   <div class="source">CSU School of Dentistry &amp; Medical Sciences · compiled from lecture material &amp; personal notes. Study aid only — verify clinical specifics against current guidelines &amp; the DOH 256 handbook.</div>
 </footer>
 

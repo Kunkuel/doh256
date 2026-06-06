@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 256 — Radiography</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #1a1d24;
+    --ink-soft: #3a3f4a;
+    --muted: #6b7280;
+    --dim: #9ca3af;
+    --rule: #e5e3da;
+    --rule-soft: #efede5;
+
+    /* Section accent palette */
+    --c-diagnosis: #0f4c4c;    /* deep teal — diagnosis */
+    --c-anatomy:  #6b4423;     /* warm bronze — anatomy */
+    --c-aetiology: #8b1a1a;    /* maroon — aetiology */
+    --c-class:    #1a2a5a;     /* navy — classification */
+    --c-histo:    #5b3a87;     /* purple — histopath */
+    --c-hygiene:  #1f6e3b;     /* forest green — hygiene */
+    --c-chempc:   #8a4a1f;     /* copper/rust — chemical plaque control */
+
+    --tint-diagnosis: #e3eded;
+    --tint-anatomy:   #f1e8dd;
+    --tint-aetiology: #f7e3e3;
+    --tint-class:     #e3e8f5;
+    --tint-histo:     #ede5f5;
+    --tint-hygiene:   #e3f1e8;
+    --tint-chempc:    #f3e6dd;
+
+    /* Callout colors */
+    --gold: #b07d1a;
+    --gold-soft: #faf2dc;
+    --red: #a8344a;
+    --red-soft: #f9e6ea;
+    --blue: #235a8a;
+    --blue-soft: #e3edf5;
+    --green: #1f6e3b;
+    --green-soft: #e3f1e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ TOP BAR ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .topbar-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .topbar-brand span { color: var(--muted); font-weight: 400; }
+
+  .topbar-nav {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .topbar-nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .topbar-nav a:hover { background: var(--rule-soft); border-color: var(--rule); }
+  .topbar-nav a.n-dx:hover     { color: var(--c-diagnosis); }
+  .topbar-nav a.n-an:hover     { color: var(--c-anatomy); }
+  .topbar-nav a.n-ae:hover     { color: var(--c-aetiology); }
+  .topbar-nav a.n-cl:hover     { color: var(--c-class); }
+  .topbar-nav a.n-hi:hover     { color: var(--c-histo); }
+  .topbar-nav a.n-oh:hover     { color: var(--c-hygiene); }
+  .topbar-nav a.n-cp:hover     { color: var(--c-chempc); }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    background: linear-gradient(180deg, #fdfcf8 0%, var(--bg) 100%);
+    padding: 3rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead-inner { max-width: 980px; margin: 0 auto; }
+
+  .masthead .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-aetiology);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .masthead h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--c-aetiology);
+  }
+
+  .masthead .subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 700px;
+  }
+
+  /* ============ MAIN ============ */
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ============ PART (top-level section) ============ */
+  .part {
+    margin-top: 3rem;
+    scroll-margin-top: 80px;
+  }
+
+  .part:first-of-type { margin-top: 1.5rem; }
+
+  .part-header {
+    border-top: 3px solid;
+    padding-top: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .part-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .part-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .part-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* Part theming */
+  .part.diagnosis  .part-header { border-color: var(--c-diagnosis); }
+  .part.diagnosis  .part-title  { color: var(--c-diagnosis); }
+  .part.diagnosis  .part-tag    { background: var(--tint-diagnosis); color: var(--c-diagnosis); }
+
+  .part.anatomy   .part-header  { border-color: var(--c-anatomy); }
+  .part.anatomy   .part-title   { color: var(--c-anatomy); }
+  .part.anatomy   .part-tag     { background: var(--tint-anatomy); color: var(--c-anatomy); }
+
+  .part.aetiology .part-header  { border-color: var(--c-aetiology); }
+  .part.aetiology .part-title   { color: var(--c-aetiology); }
+  .part.aetiology .part-tag     { background: var(--tint-aetiology); color: var(--c-aetiology); }
+
+  .part.class     .part-header  { border-color: var(--c-class); }
+  .part.class     .part-title   { color: var(--c-class); }
+  .part.class     .part-tag     { background: var(--tint-class); color: var(--c-class); }
+
+  .part.histo     .part-header  { border-color: var(--c-histo); }
+  .part.histo     .part-title   { color: var(--c-histo); }
+  .part.histo     .part-tag     { background: var(--tint-histo); color: var(--c-histo); }
+
+  .part.hygiene   .part-header  { border-color: var(--c-hygiene); }
+  .part.hygiene   .part-title   { color: var(--c-hygiene); }
+  .part.hygiene   .part-tag     { background: var(--tint-hygiene); color: var(--c-hygiene); }
+
+  .part.chempc    .part-header  { border-color: var(--c-chempc); }
+  .part.chempc    .part-title   { color: var(--c-chempc); }
+  .part.chempc    .part-tag     { background: var(--tint-chempc); color: var(--c-chempc); }
+
+  /* ============ SECTION (h2) ============ */
+  section {
+    margin: 2rem 0;
+    scroll-margin-top: 80px;
+  }
+
+  section > h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.005em;
+  }
+
+  section > h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-right: 0.6rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-aetiology);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  .part.diagnosis h3 { color: var(--c-diagnosis); }
+  .part.anatomy   h3 { color: var(--c-anatomy); }
+  .part.aetiology h3 { color: var(--c-aetiology); }
+  .part.class     h3 { color: var(--c-class); }
+  .part.histo     h3 { color: var(--c-histo); }
+  .part.hygiene   h3 { color: var(--c-hygiene); }
+  .part.chempc    h3 { color: var(--c-chempc); }
+
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0.9rem 0 0.4rem;
+  }
+
+  p { margin-bottom: 0.7rem; color: var(--ink-soft); }
+
+  /* ============ TYPOGRAPHY ============ */
+  strong { color: var(--ink); font-weight: 600; }
+  em { color: var(--ink-soft); }
+
+  mark {
+    background: rgba(176, 125, 26, 0.18);
+    color: inherit;
+    padding: 0 0.15em;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.25rem; color: var(--ink-soft); }
+  li::marker { color: var(--muted); }
+
+  a { color: var(--c-class); text-decoration: none; border-bottom: 1px dotted var(--c-class); }
+  a:hover { border-bottom-style: solid; }
+
+  /* ============ CARDS ============ */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+
+  @media (max-width: 720px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ============ CALLOUTS ============ */
+  .callout {
+    border-radius: 4px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.9rem 0;
+    border-left: 3px solid;
+    font-size: 0.95rem;
+  }
+
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .callout.key {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+  }
+  .callout.key .callout-label { color: var(--gold); }
+
+  .callout.note {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+  }
+  .callout.note .callout-label { color: var(--blue); }
+
+  .callout.warn {
+    background: var(--red-soft);
+    border-color: var(--red);
+  }
+  .callout.warn .callout-label { color: var(--red); }
+
+  .callout.tip {
+    background: var(--green-soft);
+    border-color: var(--green);
+  }
+  .callout.tip .callout-label { color: var(--green); }
+
+  /* ============ TABLES ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.92rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  th {
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: #fafaf6; }
+
+  /* Section-themed tables */
+  .part.diagnosis th  { background: var(--c-diagnosis); }
+  .part.anatomy   th  { background: var(--c-anatomy); }
+  .part.aetiology th  { background: var(--c-aetiology); }
+  .part.class     th  { background: var(--c-class); }
+  .part.histo     th  { background: var(--c-histo); }
+  .part.hygiene   th  { background: var(--c-hygiene); }
+  .part.chempc    th  { background: var(--c-chempc); }
+
+  /* ============ STAGE GRID (perio staging) ============ */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+
+  .stage-col {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 3px solid;
+    border-radius: 4px;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .s1 { border-top-color: #2dd4bf; }
+  .s2 { border-top-color: #60a5fa; }
+  .s3 { border-top-color: #f59e0b; }
+  .s4 { border-top-color: #ef4444; }
+
+  .stage-header {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .s1 .stage-header { color: #0d9488; }
+  .s2 .stage-header { color: #2563eb; }
+  .s3 .stage-header { color: #d97706; }
+  .s4 .stage-header { color: #dc2626; }
+
+  .stage-row { margin-bottom: 0.45rem; }
+
+  .row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.05rem;
+  }
+
+  .val { color: var(--ink); font-weight: 500; font-size: 0.88rem; }
+
+  @media (max-width: 720px) {
+    .stage-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============ DX CARDS (pulpal/apical) ============ */
+  .dx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 0.7rem;
+    margin: 0.8rem 0;
+  }
+
+  .dx-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--c-diagnosis);
+  }
+
+  .dx-card.apical { border-left-color: var(--c-aetiology); }
+
+  .dx-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .dx-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    font-weight: 500;
+  }
+
+  .b-normal      { background: #d1fae5; color: #065f46; }
+  .b-reversible  { background: #dbeafe; color: #1e3a8a; }
+  .b-irreversible{ background: #fef3c7; color: #92400e; }
+  .b-necrosis    { background: #fee2e2; color: #991b1b; }
+  .b-treated     { background: #ede9fe; color: #5b21b6; }
+
+  .dx-card ul { padding-left: 1.1rem; font-size: 0.88rem; }
+  .dx-card li { color: var(--ink-soft); margin-bottom: 0.15rem; }
+
+  /* ============ STEPS ============ */
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: stepcounter;
+  }
+
+  .steps li {
+    counter-increment: stepcounter;
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    align-items: flex-start;
+  }
+
+  .steps li::before {
+    content: counter(stepcounter);
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--rule-soft);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 0.1rem;
+  }
+
+  /* ============ TOC INSIDE PART ============ */
+  .part-toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+
+  .part-toc-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .part-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.2rem 1rem;
+  }
+
+  .part-toc li { margin: 0; }
+
+  .part-toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: none;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+    display: block;
+  }
+  .part-toc a:hover { color: var(--c-class); }
+
+  /* ============ AUTHOR CITE ============ */
+  .cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-left: 0.3rem;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 3rem;
+  }
+
+  footer .source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    .topbar { display: none; }
+    body { background: white; font-size: 11pt; }
+    .part { page-break-before: always; }
+    .part:first-of-type { page-break-before: auto; }
+    .callout, .card { break-inside: avoid; }
+    table { break-inside: avoid; }
+  }
+
+  /* ===== Diagram figures ===== */
+  figure.diagram {
+    margin: 1.6rem 0; padding: 1.1rem 1.1rem .6rem; background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  figure.diagram svg { width: 100%; height: auto; display: block; }
+  figure.diagram figcaption {
+    font-family: 'Inter', sans-serif; font-size: .8rem; color: var(--muted);
+    margin-top: .7rem; padding-top: .55rem; border-top: 1px dashed var(--rule);
+    line-height: 1.5;
+  }
+  figure.diagram figcaption b { color: var(--ink-soft); }
+  .dgm-fill-card { fill: #fbfaf6; }
+  .dgm-ink { fill: #1a1d24; } .dgm-muted { fill: #6b7280; }
+  .dgm-label { font-family: 'Inter', sans-serif; font-size: 13px; fill: #1a1d24; }
+  .dgm-small { font-family: 'Inter', sans-serif; font-size: 11px; fill: #6b7280; }
+  .dgm-mono  { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #6b7280; letter-spacing:.04em; }
+  .dgm-title { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; fill: #1a1d24; }
+  /* definition list */
+  dl.defs { margin: 1rem 0; }
+  dl.defs dt { font-family:'Inter',sans-serif; font-weight:600; font-size:.92rem; color:var(--ink); margin-top:.7rem; }
+  dl.defs dd { margin:.15rem 0 0; color:var(--ink-soft); }
+  /* small two-column compare */
+  .keyline { border-left:3px solid var(--rule); padding-left:.9rem; margin:.8rem 0; }
+
+
+  :root {
+    --c-medhx:#2d3a8c; --tint-medhx:#e7e9f6;
+    --c-eoio:#a8512a;  --tint-eoio:#f6e7df;
+    --c-anamnesis:#3b3a8c; --tint-anamnesis:#e8e8f7;
+    --c-ethics:#2a3550;--tint-ethics:#e5e8f0;
+    --c-caries:#936c0f;--tint-caries:#f4ecd6;
+    --c-special:#3d4f66;--tint-special:#e6eaf0;
+    --c-txplan:#1f5e3d;--tint-txplan:#e0f0e6;
+    --c-radio:#1d5b8a; --tint-radio:#e2edf6;
+    --c-occl:#6e2a6e;  --tint-occl:#f2e3f2;
+    --c-ultra:#0e6b7a; --tint-ultra:#def0f3;
+    --c-infx:#9a3b1f;  --tint-infx:#f5e2db;
+  }
+  .part.medhx .part-header{border-color:var(--c-medhx)} .part.medhx .part-title{color:var(--c-medhx)} .part.medhx .part-tag{background:var(--tint-medhx);color:var(--c-medhx)} .part.medhx h3{color:var(--c-medhx)} .topbar.medhx .topbar-brand span{color:var(--c-medhx)}
+  .part.eoio .part-header{border-color:var(--c-eoio)} .part.eoio .part-title{color:var(--c-eoio)} .part.eoio .part-tag{background:var(--tint-eoio);color:var(--c-eoio)} .part.eoio h3{color:var(--c-eoio)} .topbar.eoio .topbar-brand span{color:var(--c-eoio)}
+  .part.anamnesis .part-header{border-color:var(--c-anamnesis)} .part.anamnesis .part-title{color:var(--c-anamnesis)} .part.anamnesis .part-tag{background:var(--tint-anamnesis);color:var(--c-anamnesis)} .part.anamnesis h3{color:var(--c-anamnesis)} .topbar.anamnesis .topbar-brand span{color:var(--c-anamnesis)}
+  .part.ethics .part-header{border-color:var(--c-ethics)} .part.ethics .part-title{color:var(--c-ethics)} .part.ethics .part-tag{background:var(--tint-ethics);color:var(--c-ethics)} .part.ethics h3{color:var(--c-ethics)} .topbar.ethics .topbar-brand span{color:var(--c-ethics)}
+  .part.caries .part-header{border-color:var(--c-caries)} .part.caries .part-title{color:var(--c-caries)} .part.caries .part-tag{background:var(--tint-caries);color:var(--c-caries)} .part.caries h3{color:var(--c-caries)} .topbar.caries .topbar-brand span{color:var(--c-caries)}
+  .part.special .part-header{border-color:var(--c-special)} .part.special .part-title{color:var(--c-special)} .part.special .part-tag{background:var(--tint-special);color:var(--c-special)} .part.special h3{color:var(--c-special)} .topbar.special .topbar-brand span{color:var(--c-special)}
+  .part.txplan .part-header{border-color:var(--c-txplan)} .part.txplan .part-title{color:var(--c-txplan)} .part.txplan .part-tag{background:var(--tint-txplan);color:var(--c-txplan)} .part.txplan h3{color:var(--c-txplan)} .topbar.txplan .topbar-brand span{color:var(--c-txplan)}
+  .part.radio .part-header{border-color:var(--c-radio)} .part.radio .part-title{color:var(--c-radio)} .part.radio .part-tag{background:var(--tint-radio);color:var(--c-radio)} .part.radio h3{color:var(--c-radio)} .topbar.radio .topbar-brand span{color:var(--c-radio)}
+  .part.occl .part-header{border-color:var(--c-occl)} .part.occl .part-title{color:var(--c-occl)} .part.occl .part-tag{background:var(--tint-occl);color:var(--c-occl)} .part.occl h3{color:var(--c-occl)} .topbar.occl .topbar-brand span{color:var(--c-occl)}
+  .part.ultra .part-header{border-color:var(--c-ultra)} .part.ultra .part-title{color:var(--c-ultra)} .part.ultra .part-tag{background:var(--tint-ultra);color:var(--c-ultra)} .part.ultra h3{color:var(--c-ultra)} .topbar.ultra .topbar-brand span{color:var(--c-ultra)}
+  .part.infx .part-header{border-color:var(--c-infx)} .part.infx .part-title{color:var(--c-infx)} .part.infx .part-tag{background:var(--tint-infx);color:var(--c-infx)} .part.infx h3{color:var(--c-infx)} .topbar.infx .topbar-brand span{color:var(--c-infx)}
+</style>
+</head>
+<body>
+
+<div class="topbar radio">
+  <div class="topbar-inner">
+    <div class="topbar-brand">DOH 256 · <span>Radiography</span></div>
+    <nav class="topbar-nav">
+      <a href="#rx-props">Properties of X-Rays</a>
+      <a href="#rx-tube">The X-Ray Tube</a>
+      <a href="#rx-types">Image Types & Their …</a>
+      <a href="#rx-quality">Image Quality</a>
+      <a href="#rx-dose">Radiation Dose, Risk…</a>
+      <a href="#rx-protect">Protection, ALARA & …</a>
+      <a href="#rx-bw">Bitewing Radiography</a>
+      <a href="#rx-pa">Periapical Radiograp…</a>
+      <a href="#rx-occ">Occlusal Radiography</a>
+      <a href="#rx-slob">SLOB & Advanced Tech…</a>
+      <a href="#rx-chart">Periodontal Charting…</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+<div class="part radio" id="part-radio">
+  <div class="part-header">
+    <span class="part-number">TOPIC</span>
+    <h2 class="part-title">Radiography in Dentistry</h2>
+    <span class="part-tag">Imaging · Technique · Dose</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this note</div>
+    <ul>
+      <li><a href="#rx-props">Properties of X-Rays</a></li>
+      <li><a href="#rx-tube">The X-Ray Tube</a></li>
+      <li><a href="#rx-types">Image Types &amp; Uses</a></li>
+      <li><a href="#rx-quality">Image Quality</a></li>
+      <li><a href="#rx-dose">Dose, Risk &amp; Biological Effects</a></li>
+      <li><a href="#rx-protect">Protection, ALARA &amp; Legislation</a></li>
+      <li><a href="#rx-bw">Bitewing Technique</a></li>
+      <li><a href="#rx-pa">Periapical: Paralleling vs Bisecting</a></li>
+      <li><a href="#rx-occ">Occlusal Radiography</a></li>
+      <li><a href="#rx-slob">SLOB &amp; Advanced Techniques</a></li>
+      <li><a href="#rx-chart">Periodontal Charting from Radiographs</a></li>
+    </ul>
+  </div>
+
+  <section id="rx-props">
+    <h2><span class="num">1</span>Properties of X-Rays</h2>
+    <p>X-rays are a form of electromagnetic radiation. Their key physical properties explain both how they form an image and why they are hazardous:</p>
+    <ul>
+      <li><strong>Invisible and weightless</strong> — cannot be detected by the senses.</li>
+      <li><strong>Very short wavelength</strong> (≈ 0.01–0.05 nm) — high energy, highly penetrating.</li>
+      <li><strong>Travel in straight lines</strong> from a point source and <strong>cannot be focused</strong> by a lens (this is why image geometry depends entirely on positioning).</li>
+      <li><strong>Travel at the speed of light</strong> (3 × 10⁸ m/s).</li>
+      <li><strong>Differentially absorbed by matter</strong> — dense tissues (enamel, bone, metal) absorb more → appear <em>radiopaque</em> (white); soft tissue/air absorb less → <em>radiolucent</em> (dark). This differential absorption <em>is</em> the image.</li>
+      <li><strong>Can be deflected</strong> (scattered).</li>
+      <li><strong>Cause certain substances to fluoresce</strong> (basis of intensifying screens / digital sensors).</li>
+      <li><strong>Can ionise gases</strong> and <strong>produce biological changes in living tissue</strong> (the basis of radiation risk).</li>
+    </ul>
+  </section>
+
+  <section id="rx-tube">
+    <h2><span class="num">2</span>The X-Ray Tube</h2>
+    <p>X-rays are produced inside an evacuated tube with two electrodes — a <strong>cathode</strong> (negative) and an <strong>anode</strong> (positive):</p>
+    <ol>
+      <li>A current heats the <strong>tungsten filament</strong> at the cathode → electrons are "boiled off" (thermionic emission).</li>
+      <li>A high voltage (kV) accelerates these electrons across the tube toward the <strong>anode target</strong>.</li>
+      <li>The electrons strike the <strong>tungsten target plate</strong> on the anode. The collision converts their energy into <strong>X-ray photons (~1%)</strong> and <strong>heat (~99%)</strong>.</li>
+      <li>Photons are emitted through the tube <strong>window</strong>, pass through the patient's tissues, and strike the image receptor (film/sensor) behind the teeth.</li>
+    </ol>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="X-ray tube schematic">
+        <rect x="1" y="1" width="638" height="248" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <!-- tube envelope -->
+        <rect x="120" y="55" width="360" height="110" rx="55" fill="#fff" stroke="#1d5b8a" stroke-width="2"/>
+        <text x="300" y="46" text-anchor="middle" class="dgm-small">evacuated glass tube</text>
+        <!-- cathode side -->
+        <text x="165" y="80" text-anchor="middle" class="dgm-title" fill="#9a3b1f">CATHODE (–)</text>
+        <!-- filament coil -->
+        <path d="M150 110 q6 -10 12 0 q6 -10 12 0 q6 -10 12 0" fill="none" stroke="#9a3b1f" stroke-width="2.5"/>
+        <text x="168" y="135" text-anchor="middle" class="dgm-small">tungsten filament</text>
+        <!-- electron stream -->
+        <line x1="195" y1="112" x2="370" y2="112" stroke="#1d5b8a" stroke-width="1.5" stroke-dasharray="2 4"/>
+        <polygon points="370,112 360,108 360,116" fill="#1d5b8a"/>
+        <text x="280" y="105" text-anchor="middle" class="dgm-mono">electron stream →</text>
+        <!-- anode / target -->
+        <line x1="400" y1="70" x2="430" y2="150" stroke="#444" stroke-width="9" stroke-linecap="round"/>
+        <text x="450" y="80" text-anchor="middle" class="dgm-title" fill="#1d5b8a">ANODE (+)</text>
+        <text x="455" y="150" text-anchor="middle" class="dgm-small">tungsten target</text>
+        <!-- photons out window -->
+        <g stroke="#b07d1a" stroke-width="2" fill="none">
+          <path d="M408 130 q6 8 0 16 q-6 8 0 16"/>
+          <path d="M420 132 q6 8 0 16 q-6 8 0 16"/>
+        </g>
+        <polygon points="414,196 408,184 422,184" fill="#b07d1a"/>
+        <text x="470" y="205" text-anchor="middle" class="dgm-small" fill="#b07d1a">X-ray photons (~1%) + heat (~99%)</text>
+        <!-- kV / mA labels -->
+        <text x="300" y="190" text-anchor="middle" class="dgm-mono">kV = accelerating voltage · mA = filament current</text>
+      </svg>
+      <figcaption><b>X-ray production.</b> Heated filament → electron stream accelerated by kV → strikes tungsten anode → mostly heat, a small fraction emitted as X-ray photons through the window toward the receptor.</figcaption>
+    </figure>
+  </section>
+
+  <section id="rx-types">
+    <h2><span class="num">3</span>Image Types &amp; Their Uses</h2>
+    <h3>Intra-oral (receptor inside the mouth)</h3>
+    <table>
+      <thead><tr><th>Type</th><th>What it shows / Use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Periapical (PA)</strong></td><td>The whole tooth (crown + root) and the surrounding periapical bone. Usually 2–4 teeth per film. Root-focused.</td></tr>
+        <tr><td><strong>Bitewing (BW)</strong></td><td>Patient bites on a "wing". Shows crowns + crestal bone of upper &amp; lower teeth together — best for <strong>proximal caries</strong> and bone-level screening.</td></tr>
+        <tr><td><strong>Occlusal</strong></td><td>Larger film held on the occlusal plane. Important for <strong>trauma / displaced fragments in soft tissue</strong>, unerupted teeth, salivary calculi.</td></tr>
+      </tbody>
+    </table>
+    <h3>Extra-oral (receptor outside the mouth)</h3>
+    <table>
+      <thead><tr><th>Type</th><th>What it shows / Use</th></tr></thead>
+      <tbody>
+        <tr><td><strong>OPG (panoramic)</strong></td><td>All four quadrants in one image; tube + receptor rotate in a spiralling movement around the head. Workflow tip: <em>count the teeth, then assess bone loss, then the teeth</em>. Taken <strong>static</strong>, so patient angulation doesn't distort it the way intra-oral does — but lower resolution / fine detail than a bitewing.</td></tr>
+        <tr><td><strong>Cephalometric</strong></td><td>Standardised lateral skull view — orthodontic jaw &amp; growth assessment.</td></tr>
+        <tr><td><strong>Lateral oblique</strong></td><td>View of the posterior mandible/ramus.</td></tr>
+      </tbody>
+    </table>
+    <h3>What we use X-rays for</h3>
+    <ul>
+      <li><strong>Detect hard-tissue pathology:</strong> caries, periodontal bone loss, bony pathology, tooth fractures, bone fractures (apical third fractures are most common).</li>
+      <li><strong>Detect subgingival calculus</strong> — small radiopaque "lumps" on the root surface.</li>
+      <li><strong>Locate objects:</strong> foreign bodies, calculi, root tips, dental implants.</li>
+      <li><strong>Evaluate growth &amp; development:</strong> face/skull growth, eruption timing of deciduous &amp; impacted teeth, asymmetries.</li>
+    </ul>
+  </section>
+
+  <section id="rx-quality">
+    <h2><span class="num">4</span>Image Quality</h2>
+    <dl class="defs">
+      <dt>Sharpness</dt><dd>How well a boundary between two areas of different radiodensity is revealed (a crisp vs blurred edge).</dd>
+      <dt>Resolution</dt><dd>How well the radiograph reveals small objects that are close together.</dd>
+      <dt>Magnification</dt><dd>The increase in image size compared with the true object size (a geometric distortion).</dd>
+      <dt>Contrast</dt><dd>The difference in density between image areas. <strong>High contrast</strong> = mostly black &amp; white. <strong>Low contrast</strong> = many shades of grey (light grey vs dark grey).</dd>
+    </dl>
+    <div class="callout note">
+      <span class="callout-label">OPG vs Bitewing</span>
+      An OPG gives <strong>more coverage</strong> but <strong>less resolution / fine detail</strong> than a bitewing. Because the OPG is captured while the machine is static, angulation does not distort it the way it does intra-oral images; but for detecting early proximal caries the bitewing remains superior.
+    </div>
+  </section>
+
+  <section id="rx-dose">
+    <h2><span class="num">5</span>Radiation Dose, Risk &amp; Biological Effects</h2>
+    <h3>Dose quantities</h3>
+    <dl class="defs">
+      <dt>Exposure</dt><dd>A measure of radiation <em>quantity</em> — the capacity of radiation to ionise air.</dd>
+      <dt>Absorbed dose (Gy)</dt><dd>Energy absorbed per unit mass of matter. 1 Gy = 1 J/kg = 100 rad.</dd>
+      <dt>Equivalent dose, H<sub>T</sub> (Sv)</dt><dd>Compares the <em>biological effect</em> of different radiation types on a tissue/organ.</dd>
+      <dt>Effective dose, E (Sv)</dt><dd>Used to <em>estimate overall risk in humans</em> across all exposed tissues.</dd>
+    </dl>
+
+    <h3>Linear Non-Threshold (LNT) hypothesis</h3>
+    <div class="callout key">
+      <span class="callout-label">LNT — the working assumption in dentistry</span>
+      There is a linear relationship between dose and the risk of inducing a new cancer, with <strong>no safe threshold</strong> — even small doses carry some risk. Therefore: <strong>minimise dose wherever possible.</strong>
+    </div>
+    <p><strong>Radiosensitive structures</strong> in the head &amp; neck: <strong>thyroid gland, salivary glands, bone marrow (leukaemia risk), brain</strong>. Dental exposures have specifically been linked to <strong>meningiomas, salivary-gland tumours and thyroid tumours</strong>. As a scale of risk: roughly <strong>1 excess cancer fatality per ~47,600 full-mouth examinations</strong> made with D-speed film and round collimation (Ludlow et al., 2008).</p>
+
+    <h3>Biological effects — Deterministic vs Stochastic</h3>
+    <table>
+      <thead><tr><th></th><th>Deterministic (tissue reactions)</th><th>Stochastic</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Mechanism</strong></td><td>Killing of many cells</td><td>Sublethal DNA damage</td></tr>
+        <tr><td><strong>Threshold?</strong></td><td><strong>Yes</strong> — occurs above a threshold dose; severity ↑ with dose</td><td><strong>No threshold</strong> — probability ↑ with dose</td></tr>
+        <tr><td><strong>Examples</strong></td><td>Radiation burns, cataracts</td><td>Cancer, hereditary mutations</td></tr>
+        <tr><td><strong>Relevant to dentistry?</strong></td><td><strong>No</strong> — doses are far too low</td><td><strong>Yes</strong> — the risk we manage with ALARA</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="rx-protect">
+    <h2><span class="num">6</span>Protection, ALARA &amp; Legislation</h2>
+    <div class="callout key">
+      <span class="callout-label">ALARA</span>
+      <strong>A</strong>s <strong>L</strong>ow <strong>A</strong>s <strong>R</strong>easonably <strong>A</strong>chievable. Every exposure must be <strong>justified</strong> (it changes management), <strong>optimised</strong> (lowest dose for an adequate image), and limited. The supervisor and the patient must both know the justification. <strong>Justification must be higher for children</strong>, who are more radiosensitive.
+    </div>
+    <h3>Legislation &amp; responsibility</h3>
+    <ul>
+      <li>A <strong>licence</strong> is required to take radiographs.</li>
+      <li>The <strong>practitioner who records</strong> the radiograph is responsible for it.</li>
+      <li>Store radiographs for at least <strong>7–10 years</strong> (longer for children).</li>
+    </ul>
+    <div class="callout note">
+      <span class="callout-label">Retakes</span>
+      Repeat an X-ray <em>only</em> when the diagnostic criteria are not met. Keep a record of all re-takes, stating the type of X-ray, the type of error, and the cause.
+    </div>
+  </section>
+
+  <section id="rx-bw">
+    <h2><span class="num">7</span>Bitewing Radiography</h2>
+    <h3>Indications</h3>
+    <ul>
+      <li>Routine examination &amp; <strong>detection of dental caries</strong> (proximal lesions).</li>
+      <li>A <strong>baseline</strong> record and follow-up of any suspicion or dietary change.</li>
+      <li>Investigate periodontal status — a <strong>5 mm pocket or more</strong> (or 4 mm with bleeding) is a good reason to also take a periapical.</li>
+    </ul>
+    <h3>Ideal outcomes of a bitewing</h3>
+    <ul>
+      <li>Adequate image quality.</li>
+      <li><strong>~2 mm of root apical to the cemento-enamel junction (CEJ)</strong> must be visible (so crestal bone is assessable).</li>
+      <li>Crown <strong>overlap as minimal as possible</strong>.</li>
+      <li>Teeth captured from the <strong>distal of the lower canine posteriorly</strong>.</li>
+    </ul>
+    <div class="callout warn">
+      <span class="callout-label">Trap — Cervical Burnout</span>
+      <strong>Cervical translucency ("burnout") is NOT caries.</strong> It is a radiolucent band at the CEJ caused by the thinner tissue there. Always confirm with clinical examination.
+    </div>
+    <h3>Technique methodology</h3>
+    <ul>
+      <li>The bite-platform sits on the <strong>middle of the film</strong>, parallel to its upper and lower edges.</li>
+      <li>Film <strong>horizontal</strong> for posterior bitewings, <strong>vertical</strong> for anterior (clinical indications can vary this).</li>
+      <li>Posterior teeth and film should be <strong>in contact (or as close as possible) and parallel</strong>.</li>
+      <li><strong>Horizontal plane:</strong> aim the beam so it meets teeth &amp; film at right angles and passes <strong>through the contact areas</strong> (avoids overlap).</li>
+      <li><strong>Vertical plane:</strong> tube head angled <strong>downward 5°–8°</strong>.</li>
+    </ul>
+    <h3>Two positioning techniques</h3>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">Tab technique</div>Tab attached to the film, tube head aligned by eye. Simple, cheap, disposable, usable in kids — but operator-dependent and cone-cutting is common.</div>
+      <div class="card"><div class="card-title">Holder + beam-aiming device</div>Facilitates positioning &amp; alignment. Less operator-dependent, reduces cone-cutting — but holders are not usually suitable for children.</div>
+    </div>
+    <h3>Steps</h3>
+    <p>Select film size → select holder/tab → position patient with occlusal plane horizontal and head supported → insert film gently (don't bend) → ask patient to close firmly → check film position while closing → expose.</p>
+    <h3>Advantages &amp; disadvantages</h3>
+    <table>
+      <thead><tr><th>Advantages</th><th>Disadvantages</th></tr></thead>
+      <tbody>
+        <tr><td>Simple, inexpensive</td><td>Holders unsuitable for children</td></tr>
+        <tr><td>Tab/foam disposable; holders autoclavable/disposable</td><td>Film position can be uncomfortable</td></tr>
+        <tr><td>Tab/foam easy in children</td><td>Tongue can displace the film</td></tr>
+        <tr><td>Holder makes positioning less operator-dependent &amp; reduces cone-cut</td><td>Tab/foam: operator-dependent angulation; cone-cutting common</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="rx-pa">
+    <h2><span class="num">8</span>Periapical Radiography — Paralleling vs Bisecting</h2>
+    <p>Periapical (PA) techniques show <strong>individual teeth and the tissues around the apices</strong>. Each film usually shows 2–4 teeth with detail of the teeth and surrounding alveolar bone.</p>
+    <h3>Clinical indications</h3>
+    <ul>
+      <li>Detection of apical infection / inflammation; apical cysts &amp; other bony lesions.</li>
+      <li>Assessment of periodontal status (especially deep pockets).</li>
+      <li>Post-trauma assessment of teeth &amp; alveolar bone.</li>
+      <li>Presence / absence / position of an unerupted tooth; root morphology.</li>
+      <li>Post-operative implant evaluation.</li>
+    </ul>
+    <h3>Ideal positioning requirements</h3>
+    <ul>
+      <li>Tooth and film <strong>parallel</strong> to one another.</li>
+      <li>Film long axis <strong>vertical for incisors/canines, horizontal for premolars/molars</strong>.</li>
+      <li>Tooth under investigation <strong>+ both neighbours</strong> visible.</li>
+      <li><strong>~2 mm beyond the apex</strong> visible.</li>
+      <li>Beam meets tooth &amp; film at <strong>right angles</strong> (both planes); positioning <strong>reproducible</strong>; <strong>dot toward the occlusal/incisal</strong> aspect.</li>
+    </ul>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Paralleling versus bisecting technique geometry">
+        <rect x="1" y="1" width="658" height="298" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <!-- PANEL A: paralleling -->
+        <text x="165" y="30" text-anchor="middle" class="dgm-title" fill="#1f5e3d">PARALLELING (preferred)</text>
+        <!-- tooth -->
+        <path d="M120 70 q14 -14 28 0 l-4 90 q-10 12 -20 0 z" fill="#fff" stroke="#1a1d24" stroke-width="1.5"/>
+        <text x="134" y="180" text-anchor="middle" class="dgm-small">tooth</text>
+        <!-- film parallel, offset -->
+        <line x1="200" y1="62" x2="200" y2="172" stroke="#1d5b8a" stroke-width="4"/>
+        <text x="218" y="120" class="dgm-small" fill="#1d5b8a">film ∥ tooth</text>
+        <!-- beam perpendicular -->
+        <line x1="60" y1="117" x2="196" y2="117" stroke="#b07d1a" stroke-width="2"/>
+        <polygon points="196,117 186,112 186,122" fill="#b07d1a"/>
+        <path d="M186 105 l8 12 l-8 12" fill="none" stroke="#b07d1a" stroke-width="1"/>
+        <text x="95" y="105" class="dgm-mono" fill="#b07d1a">beam ⟂ both</text>
+        <text x="165" y="210" text-anchor="middle" class="dgm-small">→ geometrically accurate length</text>
+        <!-- divider -->
+        <line x1="330" y1="50" x2="330" y2="250" stroke="#e5e3da"/>
+        <!-- PANEL B: bisecting -->
+        <text x="495" y="30" text-anchor="middle" class="dgm-title" fill="#9a3b1f">BISECTING</text>
+        <!-- tooth -->
+        <path d="M430 70 q14 -14 28 0 l-4 90 q-10 12 -20 0 z" fill="#fff" stroke="#1a1d24" stroke-width="1.5"/>
+        <!-- film at angle -->
+        <line x1="468" y1="165" x2="540" y2="95" stroke="#1d5b8a" stroke-width="4"/>
+        <text x="548" y="100" class="dgm-small" fill="#1d5b8a">film</text>
+        <!-- bisector -->
+        <line x1="444" y1="165" x2="505" y2="78" stroke="#6b7280" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <text x="512" y="74" class="dgm-small">bisector</text>
+        <!-- beam perpendicular to bisector -->
+        <line x1="388" y1="150" x2="470" y2="120" stroke="#b07d1a" stroke-width="2"/>
+        <polygon points="470,120 459,118 462,128" fill="#b07d1a"/>
+        <text x="405" y="140" class="dgm-mono" fill="#b07d1a">beam ⟂ bisector</text>
+        <text x="495" y="210" text-anchor="middle" class="dgm-small">→ correct length, but distortion-prone</text>
+        <!-- errors mini -->
+        <text x="495" y="238" text-anchor="middle" class="dgm-small" fill="#9a3b1f">too steep = foreshorten · too flat = elongate</text>
+      </svg>
+      <figcaption><b>Paralleling</b> places the film parallel to the tooth's long axis with the beam perpendicular to both — geometrically accurate and reproducible. <b>Bisecting</b> aims the beam perpendicular to the imaginary line bisecting the tooth–film angle; the image length is correct only if the angle is judged precisely.</figcaption>
+    </figure>
+
+    <h3>Paralleling technique</h3>
+    <p>The film is held in a holder <strong>parallel to the long axis of the tooth</strong>; the cone is aimed at <strong>right angles</strong> to both tooth and film (vertically and horizontally). The holder makes it <strong>reproducible</strong>. Steps: select holder &amp; film (smooth surface toward the tube) → position patient (head supported, occlusal plane horizontal) → patient bites gently to stabilise → cotton roll on the opposite side for comfort → slide the locator ring down to the face → align cone with the locator ring → "keep still, please" → expose. Aim the film toward the midline so the apex is captured while the film stays parallel; follow the arch as it curves. <strong>Always use paralleling whenever possible.</strong></p>
+    <table>
+      <thead><tr><th>Paralleling — Advantages</th><th>Paralleling — Disadvantages</th></tr></thead>
+      <tbody>
+        <tr><td>Geometrically (almost) accurate</td><td>Film position can be uncomfortable / cause gagging</td></tr>
+        <tr><td>Zygomatic buttress shadow falls <em>above</em> the maxillary molar apices</td><td>Difficult for inexperienced operators</td></tr>
+        <tr><td>Periodontal bone levels well represented</td><td>Mouth anatomy sometimes makes it impossible</td></tr>
+        <tr><td>Periapical tissue accurately shown</td><td>Holders must be sterilised/disposable (drop it = don't use it)</td></tr>
+        <tr><td>Angulations auto-determined; very low cone-cut; reproducible; good for patients with disability</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Bisecting-angle technique</h3>
+    <p>Used when paralleling is not possible. The film is placed <strong>as close to the tooth as possible without bending</strong>; the angle between the tooth's long axis and the film's long axis is <strong>mentally bisected</strong>, and the tube head is positioned <strong>at right angles to that bisecting line</strong>. The occlusal plane should be horizontal. Requires patient cooperation. Can be done with a holder or by asking the patient to gently support the film with a finger/thumb.</p>
+    <dl class="defs">
+      <dt>Vertical angulation</dt><dd>The angle of the central ray to the occlusal plane. <strong>Too steep → foreshortening; too flat → elongation.</strong></dd>
+      <dt>Horizontal angulation</dt><dd>Aim the beam <strong>through the interproximal contact area</strong> to avoid overlapping the teeth.</dd>
+    </dl>
+    <table>
+      <thead><tr><th>Bisecting — Advantages</th><th>Bisecting — Disadvantages</th></tr></thead>
+      <tbody>
+        <tr><td>Film position reasonably comfortable</td><td>Many variables → image easily distorted</td></tr>
+        <tr><td>Relatively simple &amp; quick</td><td>Foreshortening / elongation (vertical) or overlap (horizontal) if angled wrong</td></tr>
+        <tr><td>If angulations are correct, tooth image is the same length — adequate (not ideal) for most purposes</td><td>Angles assessed for every patient; needs skill; not reproducible; cone-cut possible; zygomatic buttress often overlies upper molar roots; proximal caries harder to detect; buccal roots of maxillary premolars/molars foreshortened; extra dose to the patient's finger</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="rx-occ">
+    <h2><span class="num">9</span>Occlusal Radiography</h2>
+    <h3>Maxillary — Upper Standard (anterior) Occlusal</h3>
+    <p><strong>Indications:</strong> periapical assessment of upper anteriors in patients who can't tolerate PA holders; locate unerupted canines, odontomes, supernumeraries; the midline view for the <strong>parallax method</strong> (bucco-palatal position of maxillary canines); size/extent of cysts or tumours in the anterior maxilla; fractures of anterior teeth &amp; alveolar bone. <strong>Positioning:</strong> patient upright, occlusal plane parallel to floor, head supported; dot toward the lip; thyroid collar; film centred &amp; extended as posteriorly as possible; tube on the midline aiming <strong>down through the bridge of the nose at 60°–70°</strong> to the film. (An upper oblique occlusal also exists.)</p>
+    <h3>Mandibular — Lower 90° (true) Occlusal</h3>
+    <p><strong>Indications:</strong> presence/position of <strong>radiopaque calculi in the submandibular ducts</strong>; bucco-lingual position of unerupted mandibular teeth; bucco-lingual expansion of the mandible by cysts/tumours/lesions; displaced fractures of the anterior mandible (horizontal plane).</p>
+    <h3>Mandibular — Lower 45° (standard) Occlusal</h3>
+    <p><strong>Indications:</strong> periapical assessment of lower teeth (useful when PA holders aren't tolerated); size/extent of cysts/tumours in the anterior mandible; displaced anterior mandibular fractures (vertical plane).</p>
+    <div class="callout note">
+      <span class="callout-label">Patient prep (all occlusals)</span>
+      Explain the technique · check for prior radiographs · ask about issues (e.g. pregnancy) · apply radiation-protection measures.
+    </div>
+  </section>
+
+  <section id="rx-slob">
+    <h2><span class="num">10</span>SLOB &amp; Advanced Techniques</h2>
+    <div class="callout key">
+      <span class="callout-label">Exam Q — SLOB Rule</span>
+      <strong>S</strong>ame <strong>L</strong>ingual, <strong>O</strong>pposite <strong>B</strong>uccal. Take two radiographs with a <strong>horizontal shift of the tube head</strong> and compare how the object moves <em>relative to a fixed reference</em> (usually a tooth). It localises objects in the third dimension that a single 2D film cannot.
+    </div>
+    <ul>
+      <li>If the object moves the <strong>SAME</strong> direction as the tube shift → the object is <strong>LINGUAL / palatal</strong>.</li>
+      <li>If the object moves the <strong>OPPOSITE</strong> direction to the tube shift → the object is <strong>BUCCAL</strong>.</li>
+    </ul>
+    <p>Used to localise impacted teeth, extra root canals (e.g. during RCT), and foreign objects. (Also called the tube-shift / parallax / Clark's rule.)</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 660 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SLOB rule tube shift">
+        <rect x="1" y="1" width="658" height="258" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <!-- LEFT: object lingual -->
+        <text x="165" y="28" text-anchor="middle" class="dgm-title" fill="#6e2a6e">Object moves SAME way → LINGUAL</text>
+        <line x1="60" y1="120" x2="270" y2="120" stroke="#cfcabb" stroke-width="1"/>
+        <circle cx="165" cy="100" r="9" fill="#fff" stroke="#1a1d24" stroke-width="1.5"/>
+        <text x="165" y="104" text-anchor="middle" class="dgm-small">ref tooth</text>
+        <!-- object (lingual = behind, away from tube on film) -->
+        <circle cx="165" cy="135" r="6" fill="#6e2a6e"/>
+        <text x="200" y="139" class="dgm-small" fill="#6e2a6e">lingual object</text>
+        <!-- tube shift arrow mesial -->
+        <line x1="120" y1="170" x2="210" y2="170" stroke="#b07d1a" stroke-width="2"/>
+        <polygon points="210,170 200,165 200,175" fill="#b07d1a"/>
+        <text x="165" y="190" text-anchor="middle" class="dgm-mono" fill="#b07d1a">tube shifts →</text>
+        <text x="165" y="212" text-anchor="middle" class="dgm-small">image of object also shifts →</text>
+        <line x1="330" y1="40" x2="330" y2="225" stroke="#e5e3da"/>
+        <!-- RIGHT: object buccal -->
+        <text x="495" y="28" text-anchor="middle" class="dgm-title" fill="#1d5b8a">Object moves OPPOSITE → BUCCAL</text>
+        <line x1="390" y1="120" x2="600" y2="120" stroke="#cfcabb" stroke-width="1"/>
+        <circle cx="495" cy="100" r="9" fill="#fff" stroke="#1a1d24" stroke-width="1.5"/>
+        <text x="495" y="104" text-anchor="middle" class="dgm-small">ref tooth</text>
+        <circle cx="495" cy="70" r="6" fill="#1d5b8a"/>
+        <text x="530" y="74" class="dgm-small" fill="#1d5b8a">buccal object</text>
+        <line x1="450" y1="170" x2="540" y2="170" stroke="#b07d1a" stroke-width="2"/>
+        <polygon points="540,170 530,165 530,175" fill="#b07d1a"/>
+        <text x="495" y="190" text-anchor="middle" class="dgm-mono" fill="#b07d1a">tube shifts →</text>
+        <text x="495" y="212" text-anchor="middle" class="dgm-small">image of object shifts ←</text>
+      </svg>
+      <figcaption><b>SLOB.</b> A buccal object (near the tube) appears to move <i>against</i> the tube shift; a lingual object (near the film) appears to move <i>with</i> the tube shift — the same parallax you see looking out of a moving car.</figcaption>
+    </figure>
+
+    <h3>Other advanced techniques</h3>
+    <p><strong>Modified bisecting technique</strong> · <strong>Lip radiography</strong> (for fragments lodged in the vestibule — e.g. a child with a chipped tooth fragment in the lip). <strong>Think critically — when to modify technique:</strong> gag reflex, shallow palate, tooth tender to percussion / painful to bite on the holder, holder unavailable, or an uncooperative patient.</p>
+  </section>
+
+  <section id="rx-chart">
+    <h2><span class="num">11</span>Periodontal Charting (read alongside radiographs)</h2>
+    <div class="callout key">
+      <span class="callout-label">Core measurements</span>
+      <strong>Probing depth + recession = Clinical Attachment Loss (CAL).</strong> Radiographs confirm bone levels; charting confirms soft-tissue attachment.
+    </div>
+    <h3>Landmarks</h3>
+    <ul>
+      <li><strong>Gum line → base of pocket = probing depth (PPD).</strong></li>
+      <li><strong>CEJ → gum line = recession.</strong> If there is no difference between CEJ and gum line → no recession (if you can see yellow root surface, recession is present).</li>
+    </ul>
+    <h3>6-point charting</h3>
+    <p>Record six sites per tooth: <strong>distobuccal, mid-buccal, mesiobuccal</strong> and <strong>distolingual, mid-lingual, mesiolingual</strong>. Check <strong>bleeding on probing (BOP) at all six points</strong> — assessed <em>after</em> probing depth &amp; recession are recorded.</p>
+    <h3>Furcation involvement</h3>
+    <p>Probe the furcation entrances: <strong>upper molars</strong> — mid-buccal, mesio-palatal, disto-palatal; <strong>lower molars</strong> — mid-buccal, mid-lingual. Graded <strong>Class I / II / III</strong>.</p>
+    <h3>Mobility</h3>
+    <p>Apply a horizontal force to each tooth and assess movement. Significant = &gt; 1 mm. Graded <strong>1 / 2 / 3</strong>.</p>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div>DOH 256 · Radiography</div>
+  <div class="source">CSU School of Dentistry &amp; Medical Sciences · compiled from lecture material &amp; personal notes. Study aid only — verify clinical specifics against current guidelines &amp; the DOH 256 handbook.</div>
+</footer>
+
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:system-ui,-apple-system,sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>

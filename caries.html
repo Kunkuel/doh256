@@ -3,636 +3,989 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caries or Not — Study Notes</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<title>DOH 256 — Dental Caries</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+
   :root {
-    --bg: #0f1117;
-    --surface: #181c27;
-    --surface2: #1e2333;
-    --border: #2a3045;
-    --accent: #e05a5a;
-    --accent2: #f0a050;
-    --accent3: #5ab4e0;
-    --accent4: #6bc98a;
-    --text: #dde3f0;
-    --text-muted: #7a869e;
-    --text-dim: #4a5568;
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #1a1d24;
+    --ink-soft: #3a3f4a;
+    --muted: #6b7280;
+    --dim: #9ca3af;
+    --rule: #e5e3da;
+    --rule-soft: #efede5;
+
+    /* Section accent palette */
+    --c-diagnosis: #0f4c4c;    /* deep teal — diagnosis */
+    --c-anatomy:  #6b4423;     /* warm bronze — anatomy */
+    --c-aetiology: #8b1a1a;    /* maroon — aetiology */
+    --c-class:    #1a2a5a;     /* navy — classification */
+    --c-histo:    #5b3a87;     /* purple — histopath */
+    --c-hygiene:  #1f6e3b;     /* forest green — hygiene */
+    --c-chempc:   #8a4a1f;     /* copper/rust — chemical plaque control */
+
+    --tint-diagnosis: #e3eded;
+    --tint-anatomy:   #f1e8dd;
+    --tint-aetiology: #f7e3e3;
+    --tint-class:     #e3e8f5;
+    --tint-histo:     #ede5f5;
+    --tint-hygiene:   #e3f1e8;
+    --tint-chempc:    #f3e6dd;
+
+    /* Callout colors */
+    --gold: #b07d1a;
+    --gold-soft: #faf2dc;
+    --red: #a8344a;
+    --red-soft: #f9e6ea;
+    --blue: #235a8a;
+    --blue-soft: #e3edf5;
+    --green: #1f6e3b;
+    --green-soft: #e3f1e8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
   body {
     background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    padding: 2rem 1rem 4rem;
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 900px; margin: 0 auto; }
-
-  /* Header */
-  .header {
-    border-left: 4px solid var(--accent);
-    padding: 1rem 0 1rem 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-  .header .tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    margin-bottom: 0.4rem;
-  }
-  .header h1 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.4rem;
-    font-weight: 400;
-    color: #fff;
-    line-height: 1.2;
-  }
-  .header p {
-    margin-top: 0.5rem;
-    color: var(--text-muted);
-    font-size: 14px;
+  /* ============ TOP BAR ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
   }
 
-  /* TOC */
-  .toc {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2.5rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.3rem 1.5rem;
-  }
-  .toc-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    grid-column: 1 / -1;
-  }
-  .toc a {
-    color: var(--accent3);
-    text-decoration: none;
-    font-size: 13px;
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    padding: 0.15rem 0;
+    gap: 1.5rem;
+    flex-wrap: wrap;
   }
-  .toc a:hover { color: #fff; }
-  .toc a::before { content: '→'; color: var(--text-dim); font-size: 11px; }
 
-  /* Section */
-  .section {
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border);
+  .topbar-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-transform: uppercase;
   }
-  .section-header {
-    background: var(--surface2);
-    padding: 0.9rem 1.25rem;
+
+  .topbar-brand span { color: var(--muted); font-weight: 400; }
+
+  .topbar-nav {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    cursor: pointer;
-  }
-  .section-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    min-width: 28px;
-  }
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: #fff;
-    flex: 1;
-  }
-  .section-badge {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 20px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .badge-red { background: rgba(224,90,90,0.15); color: var(--accent); border: 1px solid rgba(224,90,90,0.3); }
-  .badge-blue { background: rgba(90,180,224,0.12); color: var(--accent3); border: 1px solid rgba(90,180,224,0.25); }
-  .badge-green { background: rgba(107,201,138,0.12); color: var(--accent4); border: 1px solid rgba(107,201,138,0.25); }
-  .badge-orange { background: rgba(240,160,80,0.12); color: var(--accent2); border: 1px solid rgba(240,160,80,0.25); }
-
-  .section-body {
-    background: var(--surface);
-    padding: 1.25rem 1.5rem;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-left: auto;
   }
 
-  /* Cards grid */
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 0.85rem;
-    margin-bottom: 1rem;
-  }
-  .card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.9rem 1rem;
-  }
-  .card-title {
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .card ul { padding-left: 1.1rem; }
-  .card li { font-size: 13.5px; line-height: 1.65; color: var(--text); margin-bottom: 0.15rem; }
-  .card li::marker { color: var(--text-dim); }
-
-  /* Highlight boxes */
-  .highlight {
-    border-left: 3px solid;
-    padding: 0.75rem 1rem;
-    border-radius: 0 6px 6px 0;
-    margin: 0.75rem 0;
-    font-size: 13.5px;
-  }
-  .hl-red { border-color: var(--accent); background: rgba(224,90,90,0.07); }
-  .hl-blue { border-color: var(--accent3); background: rgba(90,180,224,0.07); }
-  .hl-green { border-color: var(--accent4); background: rgba(107,201,138,0.07); }
-  .hl-orange { border-color: var(--accent2); background: rgba(240,160,80,0.07); }
-  .hl-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
+  .topbar-nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
     font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .topbar-nav a:hover { background: var(--rule-soft); border-color: var(--rule); }
+  .topbar-nav a.n-dx:hover     { color: var(--c-diagnosis); }
+  .topbar-nav a.n-an:hover     { color: var(--c-anatomy); }
+  .topbar-nav a.n-ae:hover     { color: var(--c-aetiology); }
+  .topbar-nav a.n-cl:hover     { color: var(--c-class); }
+  .topbar-nav a.n-hi:hover     { color: var(--c-histo); }
+  .topbar-nav a.n-oh:hover     { color: var(--c-hygiene); }
+  .topbar-nav a.n-cp:hover     { color: var(--c-chempc); }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    background: linear-gradient(180deg, #fdfcf8 0%, var(--bg) 100%);
+    padding: 3rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead-inner { max-width: 980px; margin: 0 auto; }
+
+  .masthead .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-aetiology);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .masthead h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--c-aetiology);
+  }
+
+  .masthead .subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 700px;
+  }
+
+  /* ============ MAIN ============ */
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ============ PART (top-level section) ============ */
+  .part {
+    margin-top: 3rem;
+    scroll-margin-top: 80px;
+  }
+
+  .part:first-of-type { margin-top: 1.5rem; }
+
+  .part-header {
+    border-top: 3px solid;
+    padding-top: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .part-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .part-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .part-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* Part theming */
+  .part.diagnosis  .part-header { border-color: var(--c-diagnosis); }
+  .part.diagnosis  .part-title  { color: var(--c-diagnosis); }
+  .part.diagnosis  .part-tag    { background: var(--tint-diagnosis); color: var(--c-diagnosis); }
+
+  .part.anatomy   .part-header  { border-color: var(--c-anatomy); }
+  .part.anatomy   .part-title   { color: var(--c-anatomy); }
+  .part.anatomy   .part-tag     { background: var(--tint-anatomy); color: var(--c-anatomy); }
+
+  .part.aetiology .part-header  { border-color: var(--c-aetiology); }
+  .part.aetiology .part-title   { color: var(--c-aetiology); }
+  .part.aetiology .part-tag     { background: var(--tint-aetiology); color: var(--c-aetiology); }
+
+  .part.class     .part-header  { border-color: var(--c-class); }
+  .part.class     .part-title   { color: var(--c-class); }
+  .part.class     .part-tag     { background: var(--tint-class); color: var(--c-class); }
+
+  .part.histo     .part-header  { border-color: var(--c-histo); }
+  .part.histo     .part-title   { color: var(--c-histo); }
+  .part.histo     .part-tag     { background: var(--tint-histo); color: var(--c-histo); }
+
+  .part.hygiene   .part-header  { border-color: var(--c-hygiene); }
+  .part.hygiene   .part-title   { color: var(--c-hygiene); }
+  .part.hygiene   .part-tag     { background: var(--tint-hygiene); color: var(--c-hygiene); }
+
+  .part.chempc    .part-header  { border-color: var(--c-chempc); }
+  .part.chempc    .part-title   { color: var(--c-chempc); }
+  .part.chempc    .part-tag     { background: var(--tint-chempc); color: var(--c-chempc); }
+
+  /* ============ SECTION (h2) ============ */
+  section {
+    margin: 2rem 0;
+    scroll-margin-top: 80px;
+  }
+
+  section > h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.005em;
+  }
+
+  section > h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-right: 0.6rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    color: var(--c-aetiology);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  .part.diagnosis h3 { color: var(--c-diagnosis); }
+  .part.anatomy   h3 { color: var(--c-anatomy); }
+  .part.aetiology h3 { color: var(--c-aetiology); }
+  .part.class     h3 { color: var(--c-class); }
+  .part.histo     h3 { color: var(--c-histo); }
+  .part.hygiene   h3 { color: var(--c-hygiene); }
+  .part.chempc    h3 { color: var(--c-chempc); }
+
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0.9rem 0 0.4rem;
+  }
+
+  p { margin-bottom: 0.7rem; color: var(--ink-soft); }
+
+  /* ============ TYPOGRAPHY ============ */
+  strong { color: var(--ink); font-weight: 600; }
+  em { color: var(--ink-soft); }
+
+  mark {
+    background: rgba(176, 125, 26, 0.18);
+    color: inherit;
+    padding: 0 0.15em;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.25rem; color: var(--ink-soft); }
+  li::marker { color: var(--muted); }
+
+  a { color: var(--c-class); text-decoration: none; border-bottom: 1px dotted var(--c-class); }
+  a:hover { border-bottom-style: solid; }
+
+  /* ============ CARDS ============ */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+
+  @media (max-width: 720px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ============ CALLOUTS ============ */
+  .callout {
+    border-radius: 4px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.9rem 0;
+    border-left: 3px solid;
+    font-size: 0.95rem;
+  }
+
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .callout.key {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+  }
+  .callout.key .callout-label { color: var(--gold); }
+
+  .callout.note {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+  }
+  .callout.note .callout-label { color: var(--blue); }
+
+  .callout.warn {
+    background: var(--red-soft);
+    border-color: var(--red);
+  }
+  .callout.warn .callout-label { color: var(--red); }
+
+  .callout.tip {
+    background: var(--green-soft);
+    border-color: var(--green);
+  }
+  .callout.tip .callout-label { color: var(--green); }
+
+  /* ============ TABLES ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.92rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  th {
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: #fafaf6; }
+
+  /* Section-themed tables */
+  .part.diagnosis th  { background: var(--c-diagnosis); }
+  .part.anatomy   th  { background: var(--c-anatomy); }
+  .part.aetiology th  { background: var(--c-aetiology); }
+  .part.class     th  { background: var(--c-class); }
+  .part.histo     th  { background: var(--c-histo); }
+  .part.hygiene   th  { background: var(--c-hygiene); }
+  .part.chempc    th  { background: var(--c-chempc); }
+
+  /* ============ STAGE GRID (perio staging) ============ */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+
+  .stage-col {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 3px solid;
+    border-radius: 4px;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .s1 { border-top-color: #2dd4bf; }
+  .s2 { border-top-color: #60a5fa; }
+  .s3 { border-top-color: #f59e0b; }
+  .s4 { border-top-color: #ef4444; }
+
+  .stage-header {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .s1 .stage-header { color: #0d9488; }
+  .s2 .stage-header { color: #2563eb; }
+  .s3 .stage-header { color: #d97706; }
+  .s4 .stage-header { color: #dc2626; }
+
+  .stage-row { margin-bottom: 0.45rem; }
+
+  .row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.05rem;
+  }
+
+  .val { color: var(--ink); font-weight: 500; font-size: 0.88rem; }
+
+  @media (max-width: 720px) {
+    .stage-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============ DX CARDS (pulpal/apical) ============ */
+  .dx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 0.7rem;
+    margin: 0.8rem 0;
+  }
+
+  .dx-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--c-diagnosis);
+  }
+
+  .dx-card.apical { border-left-color: var(--c-aetiology); }
+
+  .dx-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
     margin-bottom: 0.3rem;
   }
-  .hl-red .hl-title { color: var(--accent); }
-  .hl-blue .hl-title { color: var(--accent3); }
-  .hl-green .hl-title { color: var(--accent4); }
-  .hl-orange .hl-title { color: var(--accent2); }
 
-  /* Myth/Fact pairs */
-  .myth-fact { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
-  @media(max-width:600px){ .myth-fact { grid-template-columns: 1fr; } }
-  .myth-box, .fact-box {
-    border-radius: 6px;
-    padding: 0.8rem 1rem;
-    font-size: 13.5px;
-  }
-  .myth-box { background: rgba(224,90,90,0.08); border: 1px solid rgba(224,90,90,0.25); }
-  .fact-box { background: rgba(107,201,138,0.08); border: 1px solid rgba(107,201,138,0.25); }
-  .myth-box strong { color: var(--accent); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
-  .fact-box strong { color: var(--accent4); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
-
-  /* Table */
-  table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin: 0.75rem 0; }
-  th { background: var(--bg); color: var(--text-muted); font-size: 11px; font-family: 'DM Mono', monospace; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
-  td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-  tr:last-child td { border-bottom: none; }
-  .col-label { color: var(--accent3); font-weight: 600; white-space: nowrap; }
-
-  /* Zone pills */
-  .zone-list { display: flex; flex-direction: column; gap: 0.45rem; }
-  .zone-item {
-    display: flex; align-items: flex-start; gap: 0.75rem;
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: 6px; padding: 0.55rem 0.85rem;
-    font-size: 13.5px;
-  }
-  .zone-num {
-    font-family: 'DM Mono', monospace; font-size: 12px;
-    background: var(--surface2); border-radius: 4px;
-    padding: 1px 7px; color: var(--accent3); white-space: nowrap; margin-top: 1px;
-  }
-
-  /* Two-col */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin: 0.75rem 0; }
-  @media(max-width:600px){ .two-col { grid-template-columns: 1fr; } }
-
-  /* Inline tag */
-  .tag-pill {
+  .dx-badge {
     display: inline-block;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px; padding: 1px 7px; border-radius: 4px;
-    margin-right: 0.35rem; margin-bottom: 0.2rem;
-  }
-  .tp-red { background: rgba(224,90,90,0.15); color: var(--accent); }
-  .tp-blue { background: rgba(90,180,224,0.12); color: var(--accent3); }
-  .tp-green { background: rgba(107,201,138,0.12); color: var(--accent4); }
-  .tp-orange { background: rgba(240,160,80,0.12); color: var(--accent2); }
-
-  /* Divider */
-  .sub-title {
-    font-family: 'DM Mono', monospace; font-size: 11px;
-    color: var(--text-muted); letter-spacing: 0.12em;
-    text-transform: uppercase; margin: 1.1rem 0 0.6rem;
-    padding-bottom: 0.35rem; border-bottom: 1px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    font-weight: 500;
   }
 
-  p.note { font-size: 13px; color: var(--text-muted); margin: 0.4rem 0; }
+  .b-normal      { background: #d1fae5; color: #065f46; }
+  .b-reversible  { background: #dbeafe; color: #1e3a8a; }
+  .b-irreversible{ background: #fef3c7; color: #92400e; }
+  .b-necrosis    { background: #fee2e2; color: #991b1b; }
+  .b-treated     { background: #ede9fe; color: #5b21b6; }
+
+  .dx-card ul { padding-left: 1.1rem; font-size: 0.88rem; }
+  .dx-card li { color: var(--ink-soft); margin-bottom: 0.15rem; }
+
+  /* ============ STEPS ============ */
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: stepcounter;
+  }
+
+  .steps li {
+    counter-increment: stepcounter;
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    align-items: flex-start;
+  }
+
+  .steps li::before {
+    content: counter(stepcounter);
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--rule-soft);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 0.1rem;
+  }
+
+  /* ============ TOC INSIDE PART ============ */
+  .part-toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+
+  .part-toc-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .part-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.2rem 1rem;
+  }
+
+  .part-toc li { margin: 0; }
+
+  .part-toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: none;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+    display: block;
+  }
+  .part-toc a:hover { color: var(--c-class); }
+
+  /* ============ AUTHOR CITE ============ */
+  .cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-left: 0.3rem;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 3rem;
+  }
+
+  footer .source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    .topbar { display: none; }
+    body { background: white; font-size: 11pt; }
+    .part { page-break-before: always; }
+    .part:first-of-type { page-break-before: auto; }
+    .callout, .card { break-inside: avoid; }
+    table { break-inside: avoid; }
+  }
+
+  /* ===== Diagram figures ===== */
+  figure.diagram {
+    margin: 1.6rem 0; padding: 1.1rem 1.1rem .6rem; background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  figure.diagram svg { width: 100%; height: auto; display: block; }
+  figure.diagram figcaption {
+    font-family: 'Inter', sans-serif; font-size: .8rem; color: var(--muted);
+    margin-top: .7rem; padding-top: .55rem; border-top: 1px dashed var(--rule);
+    line-height: 1.5;
+  }
+  figure.diagram figcaption b { color: var(--ink-soft); }
+  .dgm-fill-card { fill: #fbfaf6; }
+  .dgm-ink { fill: #1a1d24; } .dgm-muted { fill: #6b7280; }
+  .dgm-label { font-family: 'Inter', sans-serif; font-size: 13px; fill: #1a1d24; }
+  .dgm-small { font-family: 'Inter', sans-serif; font-size: 11px; fill: #6b7280; }
+  .dgm-mono  { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #6b7280; letter-spacing:.04em; }
+  .dgm-title { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; fill: #1a1d24; }
+  /* definition list */
+  dl.defs { margin: 1rem 0; }
+  dl.defs dt { font-family:'Inter',sans-serif; font-weight:600; font-size:.92rem; color:var(--ink); margin-top:.7rem; }
+  dl.defs dd { margin:.15rem 0 0; color:var(--ink-soft); }
+  /* small two-column compare */
+  .keyline { border-left:3px solid var(--rule); padding-left:.9rem; margin:.8rem 0; }
+
+
+  :root {
+    --c-medhx:#2d3a8c; --tint-medhx:#e7e9f6;
+    --c-eoio:#a8512a;  --tint-eoio:#f6e7df;
+    --c-anamnesis:#3b3a8c; --tint-anamnesis:#e8e8f7;
+    --c-ethics:#2a3550;--tint-ethics:#e5e8f0;
+    --c-caries:#936c0f;--tint-caries:#f4ecd6;
+    --c-special:#3d4f66;--tint-special:#e6eaf0;
+    --c-txplan:#1f5e3d;--tint-txplan:#e0f0e6;
+    --c-radio:#1d5b8a; --tint-radio:#e2edf6;
+    --c-occl:#6e2a6e;  --tint-occl:#f2e3f2;
+    --c-ultra:#0e6b7a; --tint-ultra:#def0f3;
+    --c-infx:#9a3b1f;  --tint-infx:#f5e2db;
+  }
+  .part.medhx .part-header{border-color:var(--c-medhx)} .part.medhx .part-title{color:var(--c-medhx)} .part.medhx .part-tag{background:var(--tint-medhx);color:var(--c-medhx)} .part.medhx h3{color:var(--c-medhx)} .topbar.medhx .topbar-brand span{color:var(--c-medhx)}
+  .part.eoio .part-header{border-color:var(--c-eoio)} .part.eoio .part-title{color:var(--c-eoio)} .part.eoio .part-tag{background:var(--tint-eoio);color:var(--c-eoio)} .part.eoio h3{color:var(--c-eoio)} .topbar.eoio .topbar-brand span{color:var(--c-eoio)}
+  .part.anamnesis .part-header{border-color:var(--c-anamnesis)} .part.anamnesis .part-title{color:var(--c-anamnesis)} .part.anamnesis .part-tag{background:var(--tint-anamnesis);color:var(--c-anamnesis)} .part.anamnesis h3{color:var(--c-anamnesis)} .topbar.anamnesis .topbar-brand span{color:var(--c-anamnesis)}
+  .part.ethics .part-header{border-color:var(--c-ethics)} .part.ethics .part-title{color:var(--c-ethics)} .part.ethics .part-tag{background:var(--tint-ethics);color:var(--c-ethics)} .part.ethics h3{color:var(--c-ethics)} .topbar.ethics .topbar-brand span{color:var(--c-ethics)}
+  .part.caries .part-header{border-color:var(--c-caries)} .part.caries .part-title{color:var(--c-caries)} .part.caries .part-tag{background:var(--tint-caries);color:var(--c-caries)} .part.caries h3{color:var(--c-caries)} .topbar.caries .topbar-brand span{color:var(--c-caries)}
+  .part.special .part-header{border-color:var(--c-special)} .part.special .part-title{color:var(--c-special)} .part.special .part-tag{background:var(--tint-special);color:var(--c-special)} .part.special h3{color:var(--c-special)} .topbar.special .topbar-brand span{color:var(--c-special)}
+  .part.txplan .part-header{border-color:var(--c-txplan)} .part.txplan .part-title{color:var(--c-txplan)} .part.txplan .part-tag{background:var(--tint-txplan);color:var(--c-txplan)} .part.txplan h3{color:var(--c-txplan)} .topbar.txplan .topbar-brand span{color:var(--c-txplan)}
+  .part.radio .part-header{border-color:var(--c-radio)} .part.radio .part-title{color:var(--c-radio)} .part.radio .part-tag{background:var(--tint-radio);color:var(--c-radio)} .part.radio h3{color:var(--c-radio)} .topbar.radio .topbar-brand span{color:var(--c-radio)}
+  .part.occl .part-header{border-color:var(--c-occl)} .part.occl .part-title{color:var(--c-occl)} .part.occl .part-tag{background:var(--tint-occl);color:var(--c-occl)} .part.occl h3{color:var(--c-occl)} .topbar.occl .topbar-brand span{color:var(--c-occl)}
+  .part.ultra .part-header{border-color:var(--c-ultra)} .part.ultra .part-title{color:var(--c-ultra)} .part.ultra .part-tag{background:var(--tint-ultra);color:var(--c-ultra)} .part.ultra h3{color:var(--c-ultra)} .topbar.ultra .topbar-brand span{color:var(--c-ultra)}
+  .part.infx .part-header{border-color:var(--c-infx)} .part.infx .part-title{color:var(--c-infx)} .part.infx .part-tag{background:var(--tint-infx);color:var(--c-infx)} .part.infx h3{color:var(--c-infx)} .topbar.infx .topbar-brand span{color:var(--c-infx)}
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <div class="tag">CSU · BDSc · Cariology</div>
-    <h1>Caries or Not?</h1>
-    <p>Caries detection, diagnosis, classification, and tooth discolouration — study notes</p>
+<div class="topbar caries">
+  <div class="topbar-inner">
+    <div class="topbar-brand">DOH 256 · <span>Dental Caries</span></div>
+    <nav class="topbar-nav">
+      <a href="#ca-intro">Introduction & Epide…</a>
+      <a href="#ca-aeti">Aetiology & Pathogen…</a>
+      <a href="#ca-detect">Detection — Four Met…</a>
+      <a href="#ca-dx">Diagnosis: Concept, …</a>
+      <a href="#ca-zones">Zones of the Non-Cav…</a>
+      <a href="#ca-class">Classification Syste…</a>
+      <a href="#ca-types">Lesion Types & Activ…</a>
+      <a href="#ca-disc">Tooth Discolouration…</a>
+    </nav>
   </div>
-
-  <!-- TOC -->
-  <div class="toc">
-    <div class="toc-title">Contents</div>
-    <a href="#s1">Detection Methods</a>
-    <a href="#s2">Caries Diagnosis</a>
-    <a href="#s3">Caries Classification</a>
-    <a href="#s4">Smooth Surface Caries</a>
-    <a href="#s5">Pit & Fissure Caries</a>
-    <a href="#s6">Root Caries</a>
-    <a href="#s7">Acute vs Chronic</a>
-    <a href="#s8">Arrested & Recurrent</a>
-    <a href="#s9">Tooth Discolouration</a>
-    <a href="#s10">Myths & Facts</a>
-  </div>
-
-  <!-- Section 1: Detection Methods -->
-  <div class="section" id="s1">
-    <div class="section-header">
-      <span class="section-num">01</span>
-      <span class="section-title">Caries Detection Methods</span>
-      <span class="section-badge badge-blue">Clinical</span>
-    </div>
-    <div class="section-body">
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent3)">Visual Methods</div>
-          <ul>
-            <li>Detect white spots, demineralisation, discolouration, cavitations</li>
-            <li>Magnification loupes helpful</li>
-            <li>Correct use of mirror + light reflection</li>
-            <li>Temporary elective tooth separation may be used</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent3)">Tactile Methods</div>
-          <ul>
-            <li>Use <em>non-sharp</em> instrument or dental floss</li>
-            <li>Sharp instruments → can damage incipient lesion or cause fracture</li>
-            <li>Correct path of placement + minimum force</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent3)">Radiographs</div>
-          <ul>
-            <li>Essential in diagnosis</li>
-            <li><strong>Bitewings</strong> → proximal/interproximal caries screening</li>
-            <li>Cannot detect early subsurface demineralisation</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent3)">Adjuncts</div>
-          <ul>
-            <li>Caries detection dyes (enamel & dentin)</li>
-            <li>Trans-illumination (FOTI)</li>
-            <li>Electronic caries detection devices</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="highlight hl-orange">
-        <div class="hl-title">⚠ Caries Detection Dyes — Caution</div>
-        Dyes stain the <em>organic matrix of less-mineralised dentine</em>, not bacteria. They also stain the EDJ of caries-free teeth. Removing all dye-stained dentine may sacrifice remineralisable tissue — contrary to Minimal Intervention Dentistry (MID).
-      </div>
-
-      <div class="sub-title">Prerequisites for Clinical Caries Detection</div>
-      <div class="card-grid">
-        <div class="card">
-          <ul>
-            <li>Good lighting</li>
-            <li>Clean tooth — free of mature plaque and debris</li>
-            <li>Sharp eye + correct instruments</li>
-            <li>Both <strong>wet</strong> and <strong>dry</strong> tooth assessment</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 2: Caries Diagnosis -->
-  <div class="section" id="s2">
-    <div class="section-header">
-      <span class="section-num">02</span>
-      <span class="section-title">Caries Diagnosis</span>
-      <span class="section-badge badge-red">Conceptual</span>
-    </div>
-    <div class="section-body">
-      <div class="highlight hl-blue">
-        <div class="hl-title">Definition</div>
-        Diagnosis is an art and science — synthesis of scientific knowledge, clinical experience, intuition, and common sense.
-      </div>
-
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">What caries diagnosis involves</div>
-          <ul>
-            <li>Deciding if a lesion is <strong>active</strong>, progressing (rapidly/slowly), or already <strong>arrested</strong></li>
-            <li>Determining the <strong>extent</strong> of the caries</li>
-            <li>Informing suitable, individualised interventions</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Why diagnosis matters</div>
-          <ul>
-            <li>Forms the basis for treatment decisions</li>
-            <li>Helps inform the patient</li>
-            <li>Advises health service planners about disease prevalence</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="sub-title">Classification Dimensions</div>
-      <p class="note">Caries can be classified by: <span class="tag-pill tp-blue">Site</span><span class="tag-pill tp-blue">Progression</span><span class="tag-pill tp-blue">Extent</span><span class="tag-pill tp-blue">No. of surfaces</span><span class="tag-pill tp-blue">Tissues involved</span></p>
-    </div>
-  </div>
-
-  <!-- Section 3: Myths & Facts -->
-  <div class="section" id="s10">
-    <div class="section-header">
-      <span class="section-num">03</span>
-      <span class="section-title">Myths &amp; Facts</span>
-      <span class="section-badge badge-orange">Key Concepts</span>
-    </div>
-    <div class="section-body">
-      <div class="myth-fact">
-        <div class="myth-box"><strong>Myth</strong>Caries diagnosis should be based on detection of cavities.</div>
-        <div class="fact-box"><strong>Fact</strong>Caries is a transmissible bacterial infection and multifactorial disease. Diagnosis = recognising environmental changes, not just noting cavities.</div>
-      </div>
-      <div class="myth-fact">
-        <div class="myth-box"><strong>Myth</strong>Restoring the cavity is effective treatment of dental caries.</div>
-        <div class="fact-box"><strong>Fact</strong>Treatment requires behaviour modification and/or chemical changes to correct changes in the oral environment.</div>
-      </div>
-      <div class="myth-fact">
-        <div class="myth-box"><strong>Myth</strong>One treatment regime applies to all individuals.</div>
-        <div class="fact-box"><strong>Fact</strong>Every individual has a unique oral environment; treatment must be specific to the conditions in that patient's mouth.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 4: Smooth Surface Caries -->
-  <div class="section" id="s4">
-    <div class="section-header">
-      <span class="section-num">04</span>
-      <span class="section-title">Smooth Surface Caries</span>
-      <span class="section-badge badge-green">Lesion Types</span>
-    </div>
-    <div class="section-body">
-      <div class="two-col">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent4)">Non-Cavitated (White Spot)</div>
-          <ul>
-            <li>Earliest clinically visible enamel caries sign</li>
-            <li>Located where plaque accumulates</li>
-            <li>Chalky/matt surface when dried (not glossy)</li>
-            <li>Demineralisation may extend to dentine — but enamel intact</li>
-            <li>White = increased enamel porosity; may turn brown (stain absorption)</li>
-            <li>Best identified after drying</li>
-            <li>DDx: fluorosis, hypomineralisation, hypoplasia</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Cavitated</div>
-          <ul>
-            <li>Visual breakdown of tooth surface</li>
-            <li>Active cavity → soft walls and floors</li>
-          </ul>
-          <div class="card-title" style="color:var(--accent); margin-top:0.8rem">Dentine involvement zones</div>
-          <ul>
-            <li><strong>Infected dentine (outer):</strong> soft, yellow-brown, cheesy; necrotic; superficial demineralised layer</li>
-            <li><strong>Affected dentine (inner):</strong> darker, leathery/hard; deep demineralised zone; may have sclerotic/reactionary dentine</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="sub-title">Incipient Lesion — 4 Zones (from deep to surface)</div>
-      <div class="zone-list">
-        <div class="zone-item"><span class="zone-num">1</span><div><strong>Translucent zone</strong> — deepest; porosity ~1%</div></div>
-        <div class="zone-item"><span class="zone-num">2</span><div><strong>Dark zone</strong> — porosity 2–4%</div></div>
-        <div class="zone-item"><span class="zone-num">3</span><div><strong>Body of lesion</strong> — largest zone; porosity ~25%</div></div>
-        <div class="zone-item"><span class="zone-num">4</span><div><strong>Surface zone</strong> — relatively intact; greater remineralisation at surface</div></div>
-      </div>
-
-      <div class="sub-title">Approximal (Proximal) Caries</div>
-      <div class="highlight hl-red">
-        <div class="hl-title">⚠ Warning</div>
-        Approximal lesions are hard to see clinically. Usually discovered late — once progressed into dentine, visible as a pinkish-grey shadow through the marginal ridge (clean, dry tooth). Radiography (bitewings) is critical. Heavy-handed probing can <em>cause</em> cavitation.
-      </div>
-      <ul style="padding-left:1.2rem; font-size:13.5px; margin-top:0.5rem;">
-        <li>Root surface approximal lesions need good gingival health to diagnose visually</li>
-        <li>Cavitated proximal lesions are likely active — plaque removal from cavity is difficult</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- Section 5: Pit & Fissure Caries -->
-  <div class="section" id="s5">
-    <div class="section-header">
-      <span class="section-num">05</span>
-      <span class="section-title">Pit &amp; Fissure Caries</span>
-      <span class="section-badge badge-green">Lesion Types</span>
-    </div>
-    <div class="section-body">
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent4)">Non-Cavitated</div>
-          <ul>
-            <li><strong>Active:</strong> white, matt surface</li>
-            <li><strong>Inactive:</strong> brown</li>
-            <li>Dry tooth: chalkiness extends outside fissure system</li>
-            <li>Wet tooth: shadow → caries into underlying dentine</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Cavitated</div>
-          <ul>
-            <li>Micro-cavities ± greyish discolouration</li>
-            <li>Easily missed on visual exam alone</li>
-            <li>Radiographic evaluation essential — safety net</li>
-            <li>Main cause: patient unable to clean plaque from cavity</li>
-          </ul>
-        </div>
-      </div>
-      <div class="highlight hl-blue">
-        <div class="hl-title">Clinical tip</div>
-        Examine pits/fissures on a clean, plaque-free surface. Use visual, tactile, and radiographic examination together.
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 6: Root Caries -->
-  <div class="section" id="s6">
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <span class="section-title">Root Caries</span>
-      <span class="section-badge badge-green">Lesion Types</span>
-    </div>
-    <div class="section-body">
-      <table>
-        <tr><th></th><th>Active</th><th>Arrested</th></tr>
-        <tr><td class="col-label">Colour</td><td>Yellow/lighter</td><td>Dark brown/black</td></tr>
-        <tr><td class="col-label">Texture</td><td>Soft to probe</td><td>Firm/hard</td></tr>
-        <tr><td class="col-label">Plaque</td><td>Always underlying plaque</td><td>Clean, can be polished</td></tr>
-        <tr><td class="col-label">Margin</td><td colspan="2">Less well-defined margins; changes in root colour + contour</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- Section 7: Acute vs Chronic -->
-  <div class="section" id="s7">
-    <div class="section-header">
-      <span class="section-num">07</span>
-      <span class="section-title">Acute vs Chronic Caries</span>
-      <span class="section-badge badge-orange">Progression</span>
-    </div>
-    <div class="section-body">
-      <div class="two-col">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Acute</div>
-          <ul>
-            <li>Rapid process</li>
-            <li>Lighter in colour</li>
-            <li>Often associated with pulp involvement/inflammation</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent2)">Chronic</div>
-          <ul>
-            <li>Long-standing, slower process</li>
-            <li>Darker in colour</li>
-            <li>Pain may not be a feature — protective mechanisms of dentine/pulp</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 8: Arrested & Recurrent -->
-  <div class="section" id="s8">
-    <div class="section-header">
-      <span class="section-num">08</span>
-      <span class="section-title">Arrested &amp; Recurrent Caries</span>
-      <span class="section-badge badge-orange">Progression</span>
-    </div>
-    <div class="section-body">
-      <div class="two-col">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent4)">Arrested (Remineralised)</div>
-          <ul>
-            <li>Clinically intact but discoloured — brown or black spots</li>
-            <li>Colour change from trapped organic debris and metallic ions within enamel</li>
-            <li>Hard, non-progressive</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Recurrent (Secondary)</div>
-          <ul>
-            <li>Softness at a <strong>defective restoration margin</strong></li>
-            <li>Periodontal probe tip enters defect without resistance</li>
-            <li>Discoloured margin + small marginal ditch = record as defective filling / recurrent carious area</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Section 9: Tooth Discolouration -->
-  <div class="section" id="s9">
-    <div class="section-header">
-      <span class="section-num">09</span>
-      <span class="section-title">Tooth Discolouration</span>
-      <span class="section-badge badge-red">DDx</span>
-    </div>
-    <div class="section-body">
-
-      <div class="highlight hl-blue">
-        <div class="hl-title">Colour Terminology</div>
-        <strong>Hue</strong> — the colour family (red, blue, green) · <strong>Value</strong> — lightness/darkness on a black-to-white scale · <strong>Chroma</strong> — colour saturation/intensity · <strong>Metamerism</strong> — same tooth appears different colour under different light sources
-      </div>
-
-      <div class="sub-title">Classification of Discolouration</div>
-      <div class="card-grid">
-        <div class="card">
-          <div class="card-title" style="color:var(--accent)">Intrinsic</div>
-          <ul>
-            <li>Structural change in hard tissue composition/thickness</li>
-            <li>Chromogenic material <em>within</em> enamel or dentine</li>
-            <li>During odontogenesis or after eruption</li>
-          </ul>
-          <div style="margin-top:0.6rem; font-size:12.5px; color:var(--text-muted);">Examples:</div>
-          <ul style="font-size:12.5px;">
-            <li>Amelogenesis / Dentinogenesis imperfecta</li>
-            <li>Tetracycline staining</li>
-            <li>Fluorosis</li>
-            <li>Enamel hypoplasia</li>
-            <li>Pulpal haemorrhagic products</li>
-            <li>Root resorption · Ageing</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent3)">Extrinsic</div>
-          <ul>
-            <li>Outside tooth — on surface or in acquired pellicle</li>
-            <li><strong>Metallic:</strong> iron (black), copper (green), potassium permanganate (violet-black), silver nitrate (grey), stannous fluoride (golden-brown)</li>
-            <li><strong>Non-metallic:</strong> dietary, beverages, tobacco, mouthrinses (chlorhexidine = brown stain)</li>
-            <li>Chromogenic bacteria (green/orange = poor OH; black/brown = good OH)</li>
-          </ul>
-        </div>
-        <div class="card">
-          <div class="card-title" style="color:var(--accent2)">Internalised</div>
-          <ul>
-            <li>Extrinsic stain incorporated <em>within</em> tooth after development</li>
-            <li>Occurs in enamel defects or porous exposed dentine</li>
-            <li>Routes: developmental defects, tooth wear, gingival recession, dental caries, restorative materials</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="highlight hl-orange">
-        <div class="hl-title">Ageing changes</div>
-        Teeth darken with age — secondary dentine deposition, extrinsic stain incorporation, and enamel wear exposing darker underlying dentine.
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <div style="margin-top:2rem; padding:1rem 1.5rem; border:1px solid var(--border); border-radius:8px; font-size:12px; color:var(--text-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
-    <span>CSU Bachelor of Dental Science · Cariology lecture notes</span>
-    <span>Key refs: Kidd — Essentials of Dental Caries 3e · Mount &amp; Hume 2e · Int Dent J 2012 · Aust Dent J 2002</span>
-  </div>
-
 </div>
+
+<main>
+<div class="part caries" id="part-caries">
+  <div class="part-header">
+    <span class="part-number">TOPIC</span>
+    <h2 class="part-title">Dental Caries — Aetiology, Detection, Diagnosis &amp; Classification</h2>
+    <span class="part-tag">Cariology · High-Yield</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this note</div>
+    <ul>
+      <li><a href="#ca-intro">Introduction &amp; Epidemiology</a></li>
+      <li><a href="#ca-aeti">Aetiology &amp; Pathogenesis</a></li>
+      <li><a href="#ca-detect">Detection — 4 Methods</a></li>
+      <li><a href="#ca-dx">Diagnosis: Myths vs Facts</a></li>
+      <li><a href="#ca-zones">Zones of the Non-Cavitated Lesion</a></li>
+      <li><a href="#ca-class">Classification (Black → ICCMS)</a></li>
+      <li><a href="#ca-types">Lesion Types &amp; Activity</a></li>
+      <li><a href="#ca-disc">Tooth Discolouration</a></li>
+    </ul>
+  </div>
+
+  <section id="ca-intro">
+    <h2><span class="num">1</span>Introduction &amp; Epidemiology</h2>
+    <p>"Caries" comes from the Latin for <em>decay</em>. It is the progressive destruction of tooth structure by <strong>demineralisation of enamel and dentine driven by bacterial acids</strong>. It is a <strong>multifactorial, transmissible, biofilm-mediated, diet-modulated</strong> disease — not simply "a cavity".</p>
+    <ul>
+      <li>Untreated caries in permanent teeth is the <strong>most common health condition globally</strong> (GBD 2019; WHO 2023).</li>
+      <li>The <strong>most common chronic childhood disease</strong> in the US (CDC 2023).</li>
+      <li>Consequences: pain, infection, impaired eating/speaking/learning, poor school outcomes.</li>
+    </ul>
+    <table>
+      <thead><tr><th>Australian data (AIHW 2023)</th><th>Avg dmft/DMFT</th><th>Untreated decay</th></tr></thead>
+      <tbody>
+        <tr><td>Children 5–10 yr (primary)</td><td>1.5</td><td>27%</td></tr>
+        <tr><td>Children 6–14 yr (permanent)</td><td>0.5</td><td>11%</td></tr>
+        <tr><td>Adults ≥15 yr (permanent)</td><td>11.2</td><td>32%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout note">
+      <span class="callout-label">Why early detection matters</span>
+      Prevent damage before progression (avoids costly treatment) · preserve tooth structure (conservative options) · reduce pain &amp; improve quality of life · prevent progression to pulpal/periapical infection.
+    </div>
+  </section>
+
+  <section id="ca-aeti">
+    <h2><span class="num">2</span>Aetiology &amp; Pathogenesis</h2>
+    <div class="callout key">
+      <span class="callout-label">The caries equation — Keyes' triad + Time (Newbrun)</span>
+      Caries requires the simultaneous overlap of <strong>① a susceptible host/tooth surface</strong>, <strong>② cariogenic microflora</strong> (acidogenic &amp; aciduric — <em>S. mutans</em>, lactobacilli), and <strong>③ a fermentable substrate</strong> (sugars), acting over <strong>④ time</strong>.
+    </div>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 480 270" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Keyes Newbrun caries factors">
+        <rect x="1" y="1" width="478" height="268" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <circle cx="190" cy="120" r="80" fill="#936c0f" fill-opacity="0.16" stroke="#936c0f" stroke-width="1.5"/>
+        <circle cx="290" cy="120" r="80" fill="#1d5b8a" fill-opacity="0.16" stroke="#1d5b8a" stroke-width="1.5"/>
+        <circle cx="240" cy="190" r="80" fill="#9a3b1f" fill-opacity="0.16" stroke="#9a3b1f" stroke-width="1.5"/>
+        <text x="150" y="110" text-anchor="middle" class="dgm-label" fill="#936c0f">Host /</text>
+        <text x="150" y="126" text-anchor="middle" class="dgm-label" fill="#936c0f">tooth</text>
+        <text x="330" y="110" text-anchor="middle" class="dgm-label" fill="#1d5b8a">Bacteria</text>
+        <text x="240" y="222" text-anchor="middle" class="dgm-label" fill="#9a3b1f">Substrate</text>
+        <text x="240" y="150" text-anchor="middle" class="dgm-title">CARIES</text>
+        <text x="240" y="252" text-anchor="middle" class="dgm-small">+ TIME (Newbrun's 4th factor)</text>
+      </svg>
+      <figcaption>Caries occurs only where all three rings overlap <i>and</i> persist over time. Remove any one factor — or reduce the time of acid exposure — and the lesion does not progress.</figcaption>
+    </figure>
+
+    <h3>The demineralisation–remineralisation balance</h3>
+    <p>Plaque bacteria ferment dietary carbohydrate → organic acids → plaque pH falls below the <strong>critical pH (~5.5 for enamel, ~6.2 for dentine/root)</strong> → mineral dissolves (<strong>demineralisation</strong>). Between sugar challenges, <strong>saliva buffers</strong> the acid, pH recovers, and ions (Ca²⁺, PO₄³⁻, F⁻) redeposit (<strong>remineralisation</strong>). Caries develops when demineralisation repeatedly outweighs remineralisation.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 560 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stephan curve">
+        <rect x="1" y="1" width="558" height="238" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <!-- axes -->
+        <line x1="70" y1="40" x2="70" y2="195" stroke="#1a1d24" stroke-width="1.2"/>
+        <line x1="70" y1="195" x2="520" y2="195" stroke="#1a1d24" stroke-width="1.2"/>
+        <text x="34" y="60" class="dgm-small">pH 7</text>
+        <text x="30" y="120" class="dgm-small" fill="#9a3b1f">5.5</text>
+        <text x="40" y="195" class="dgm-small">4</text>
+        <text x="300" y="222" text-anchor="middle" class="dgm-small">time (minutes after sugar)</text>
+        <!-- critical pH line -->
+        <line x1="70" y1="118" x2="520" y2="118" stroke="#9a3b1f" stroke-width="1.2" stroke-dasharray="5 3"/>
+        <text x="525" y="118" class="dgm-small" fill="#9a3b1f" >critical pH</text>
+        <!-- stephan curve -->
+        <path d="M70 62 L120 62 C150 62 150 150 185 150 C240 150 250 70 360 64 L520 62" fill="none" stroke="#936c0f" stroke-width="2.5"/>
+        <!-- demin shade -->
+        <path d="M133 118 C150 118 150 150 185 150 C220 150 232 130 250 118 Z" fill="#9a3b1f" fill-opacity="0.13"/>
+        <text x="190" y="142" text-anchor="middle" class="dgm-small" fill="#9a3b1f">demineralisation</text>
+        <text x="430" y="56" text-anchor="middle" class="dgm-small" fill="#1f5e3d">recovery (remineralisation)</text>
+        <text x="105" y="56" class="dgm-small">sugar ↓</text>
+      </svg>
+      <figcaption><b>The Stephan curve.</b> Each sugar exposure drops plaque pH below the critical threshold for a period; saliva then restores it. <b>Frequency</b> of sugar intake — how often the curve dips — matters more than total amount.</figcaption>
+    </figure>
+
+    <h3>Ecological Plaque Hypothesis (Marsh)</h3>
+    <p>Frequent sugar → sustained low pH → <strong>selects</strong> for acidogenic/aciduric species → <strong>dysbiosis</strong> of the biofilm. Disease is driven by an <strong>environmental shift</strong>, not a single pathogen — so management targets the <strong>environment</strong> (diet, fluoride, hygiene), not just the cavity.</p>
+    <div class="callout note">
+      <span class="callout-label">Protective factors</span>
+      <strong>Saliva</strong> (flow, buffering, clearance) · <strong>fluoride</strong> (favours remineralisation, forms acid-resistant fluorapatite, is antibacterial) · <strong>reduced sugar frequency</strong>.
+    </div>
+  </section>
+
+  <section id="ca-detect">
+    <h2><span class="num">3</span>Detection — Four Methods</h2>
+    <div class="callout warn">
+      <span class="callout-label">Prerequisites for clinical detection</span>
+      Good lighting · a <strong>clean, plaque-free tooth</strong> · a sharp eye + correct instruments · assessment <strong>both wet and dry</strong>.
+    </div>
+    <div class="grid-2">
+      <div class="card"><div class="card-title">1 · Visual</div>Detect white spots, demineralisation, discolouration, cavitation. Magnification loupes help; correct mirror + light reflection; temporary elective tooth separation can aid proximal viewing.</div>
+      <div class="card"><div class="card-title">2 · Tactile</div>Use a <strong>blunt / non-sharp</strong> probe or dental floss, with minimum force and a correct path of placement. <strong>Sharp probes can fracture an intact remineralisable surface</strong> and transmit bacteria — avoid forceful probing of incipient lesions.</div>
+      <div class="card"><div class="card-title">3 · Radiographic</div>Essential. <strong>Bitewings</strong> screen proximal/interproximal caries (a vital safety net). Limitation: <strong>cannot detect early subsurface demineralisation</strong>; beware cervical burnout mimicking caries.</div>
+      <div class="card"><div class="card-title">4 · Adjuncts</div><strong>Transillumination (FOTI)</strong> · <strong>caries-detection dyes</strong> (enamel &amp; dentine) · <strong>electronic devices</strong> (e.g. laser fluorescence / DIAGNOdent).</div>
+    </div>
+    <div class="callout note">
+      <span class="callout-label">Caution — detection dyes</span>
+      Dyes stain the <strong>organic matrix of less-mineralised dentine</strong> (not bacteria) and also stain the EDJ of caries-free teeth. Removing all stained dentine can sacrifice remineralisable tissue — against <strong>Minimal Intervention Dentistry (MID)</strong>.
+    </div>
+  </section>
+
+  <section id="ca-dx">
+    <h2><span class="num">4</span>Diagnosis: Concept, Myths &amp; Facts</h2>
+    <p>Diagnosis is "an art and a science" — a synthesis of scientific knowledge, clinical experience, intuition and common sense. It involves deciding whether a lesion is <strong>active, progressing (rapidly/slowly), or arrested</strong>, determining its <strong>extent</strong>, and informing an <strong>individualised intervention</strong>. It forms the basis for treatment, informs the patient, and informs public-health planners about disease prevalence.</p>
+    <table>
+      <thead><tr><th>Myth</th><th>Fact</th></tr></thead>
+      <tbody>
+        <tr><td>Caries diagnosis should be based on detecting cavities.</td><td>Caries is a transmissible bacterial infection &amp; multifactorial disease — diagnosis = recognising <em>environmental changes</em>, not just noting cavities.</td></tr>
+        <tr><td>Restoring the cavity is effective treatment.</td><td>Treatment requires <strong>behaviour modification and/or chemical change</strong> to correct the oral environment.</td></tr>
+        <tr><td>One treatment regime applies to all.</td><td>Every patient's oral environment is unique — treatment must be specific to that mouth.</td></tr>
+      </tbody>
+    </table>
+    <p>Caries can be classified by: <strong>site · progression · extent · number of surfaces · tissues involved.</strong></p>
+  </section>
+
+  <section id="ca-zones">
+    <h2><span class="num">5</span>Zones of the Non-Cavitated (Incipient) Lesion</h2>
+    <div class="callout key">
+      <span class="callout-label">Exam Q — the 4 zones (deep → surface)</span>
+      A subsurface enamel lesion beneath an intact surface shows four histological zones.
+    </div>
+    <figure class="diagram">
+      <svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four zones of incipient lesion">
+        <rect x="1" y="1" width="558" height="218" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+        <text x="280" y="28" text-anchor="middle" class="dgm-small">enamel surface (top) → advancing front (deep)</text>
+        <!-- surface zone -->
+        <rect x="120" y="45" width="320" height="22" fill="#eadfae" stroke="#8a6d2f"/>
+        <text x="450" y="60" class="dgm-small">4 · Surface zone — intact (~remineralised)</text>
+        <!-- body -->
+        <rect x="120" y="67" width="320" height="55" fill="#d9c46a" stroke="#8a6d2f"/>
+        <text x="450" y="98" class="dgm-small">3 · Body of lesion — porosity ~25% (largest)</text>
+        <!-- dark zone -->
+        <rect x="120" y="122" width="320" height="26" fill="#9b8330" stroke="#6b5520"/>
+        <text x="450" y="139" class="dgm-small">2 · Dark zone — porosity 2–4%</text>
+        <!-- translucent -->
+        <rect x="120" y="148" width="320" height="22" fill="#6b5520" stroke="#4a3a14"/>
+        <text x="450" y="163" class="dgm-small">1 · Translucent zone — porosity ~1% (deepest)</text>
+        <text x="100" y="60" text-anchor="end" class="dgm-small">surface</text>
+        <text x="100" y="162" text-anchor="end" class="dgm-small">deep</text>
+      </svg>
+      <figcaption>From the advancing front outward: <b>translucent → dark → body → surface</b>. The surface stays relatively intact because of greater surface remineralisation — which is why the lesion is reversible.</figcaption>
+    </figure>
+    <div class="callout warn">
+      <span class="callout-label">Key difference — Non-cavitated vs Cavitated</span>
+      In a <strong>non-cavitated</strong> ("white spot") lesion the <strong>surface remains intact</strong> over subsurface demineralisation — <strong>reversible / remineralisable</strong>. In a <strong>cavitated</strong> lesion the surface has <strong>broken down</strong> into a cavity that <strong>traps plaque</strong>, cannot be cleaned, and is <strong>not reversible by remineralisation</strong> — it needs restorative management.
+    </div>
+    <p>A white spot is chalky/matt when dried (loss of glossiness) and best seen <strong>after drying</strong>. DDx: fluorosis, hypomineralisation, hypoplasia.</p>
+  </section>
+
+  <section id="ca-class">
+    <h2><span class="num">6</span>Classification Systems (Black → ICCMS)</h2>
+    <p>Historical progression: <strong>G.V. Black (1896) → Mount &amp; Hume (1997) → ICDAS (2002) → ICCMS (2013)</strong>.</p>
+    <h3>G.V. Black (1896) — by surface location</h3>
+    <table>
+      <thead><tr><th>Class</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td>Pits &amp; fissures (occlusal/buccal/lingual of molars &amp; premolars; lingual of anteriors)</td></tr>
+        <tr><td>II</td><td>Proximal surfaces of molars &amp; premolars</td></tr>
+        <tr><td>III</td><td>Proximal surfaces of incisors/canines — <em>not</em> involving the incisal edge</td></tr>
+        <tr><td>IV</td><td>Proximal surfaces of incisors/canines — <em>involving</em> the incisal edge</td></tr>
+        <tr><td>V</td><td>Cervical third of facial/lingual surfaces</td></tr>
+      </tbody>
+    </table>
+    <h3>Mount &amp; Hume (1997) — by lesion site</h3>
+    <p><strong>Site 1</strong> pits &amp; fissures · <strong>Site 2</strong> contact areas between teeth · <strong>Site 3</strong> cervical areas / exposed roots.</p>
+    <h3>ICDAS Visual Codes (0–6)</h3>
+    <table>
+      <thead><tr><th>Code</th><th>Finding</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>Sound — no change after air-drying</td></tr>
+        <tr><td>1</td><td>First visual change in enamel — only after prolonged drying (≥5 s)</td></tr>
+        <tr><td>2</td><td>Distinct change visible when wet (white/brown spot)</td></tr>
+        <tr><td>3</td><td>Localised enamel breakdown, no dentine visible (probe detects microcavity)</td></tr>
+        <tr><td>4</td><td>Underlying dentine shadow (grey/blue/brown) through intact enamel</td></tr>
+        <tr><td>5</td><td>Distinct cavity with visible dentine, &lt;½ surface</td></tr>
+        <tr><td>6</td><td>Extensive cavity with visible dentine, ≥½ surface</td></tr>
+      </tbody>
+    </table>
+    <p>The <strong>+ / –</strong> suffix indicates lesion <strong>activity</strong>: (+) active, (–) inactive.</p>
+    <h3>ICDAS Radiographic Scoring</h3>
+    <table>
+      <thead><tr><th>Code</th><th>Stage</th><th>Radiographic finding</th></tr></thead>
+      <tbody>
+        <tr><td>R0</td><td>Sound</td><td>No radiolucency</td></tr>
+        <tr><td>RA1</td><td>Initial</td><td>Outer ½ enamel</td></tr>
+        <tr><td>RA2</td><td>Initial</td><td>Inner ½ enamel ± EDJ</td></tr>
+        <tr><td>RA3</td><td>Initial</td><td>Outer ⅓ dentine</td></tr>
+        <tr><td>RB4</td><td>Moderate</td><td>Middle ⅓ dentine</td></tr>
+        <tr><td>RC5</td><td>Extensive</td><td>Inner ⅓ dentine, clinically cavitated</td></tr>
+        <tr><td>RC6</td><td>Extensive</td><td>Into pulp, clinically cavitated</td></tr>
+      </tbody>
+    </table>
+    <h3>ICCMS (2013) — the 4D framework</h3>
+    <p>ICCMS wraps ICDAS in a management workflow: <strong>Detect</strong> &amp; assess (staging + activity) → <strong>Determine</strong> patient-level risk → <strong>Decide</strong> a personalised plan → <strong>Do</strong> tooth- &amp; patient-preserving prevention, control &amp; management.</p>
+    <table>
+      <thead><tr><th>Merged category</th><th>ICDAS</th></tr></thead>
+      <tbody>
+        <tr><td>Sound</td><td>0</td></tr>
+        <tr><td>Initial</td><td>1–2</td></tr>
+        <tr><td>Moderate</td><td>3–4</td></tr>
+        <tr><td>Extensive</td><td>5–6</td></tr>
+      </tbody>
+    </table>
+    <div class="callout key">
+      <span class="callout-label">Final ICCMS diagnosis (per lesion)</span>
+      <strong>Merged category</strong> (Sound / Initial / Moderate / Extensive) <strong>+ activity status</strong> (Active / Inactive). e.g. "Moderate Active", "Initial Inactive".
+    </div>
+  </section>
+
+  <section id="ca-types">
+    <h2><span class="num">7</span>Lesion Types &amp; Activity</h2>
+    <h3>Smooth-surface caries</h3>
+    <p><strong>Non-cavitated (white spot):</strong> earliest visible enamel sign, located where plaque accumulates, chalky/matt when dried, enamel intact. <strong>Cavitated:</strong> surface breakdown; an active cavity has soft walls/floors. <strong>Approximal:</strong> hard to see clinically, often found late as a pinkish-grey shadow through the marginal ridge — bitewings are critical; heavy probing can cause cavitation.</p>
+    <h3>Infected vs Affected dentine</h3>
+    <p><strong>Infected (outer):</strong> soft, yellow-brown, "cheesy", necrotic, bacteria-laden → remove. <strong>Affected (inner):</strong> darker, leathery/firmer, demineralised but remineralisable, may show sclerotic/reactionary dentine → preserve (MID).</p>
+    <h3>Pit &amp; fissure caries</h3>
+    <p>Active = white, matt; inactive = brown. On a dry tooth, chalkiness extends outside the fissure; on a wet tooth, a shadow indicates caries into dentine. Easily missed on visual exam — radiographs are an essential safety net. Main cause: patient can't clean plaque from the fissure.</p>
+    <h3>Root caries — active vs arrested</h3>
+    <table>
+      <thead><tr><th></th><th>Active</th><th>Arrested</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Colour</strong></td><td>Yellow / lighter</td><td>Dark brown / black</td></tr>
+        <tr><td><strong>Texture</strong></td><td>Soft to probe</td><td>Firm / hard</td></tr>
+        <tr><td><strong>Plaque</strong></td><td>Always underlying plaque</td><td>Clean, can be polished</td></tr>
+        <tr><td><strong>Margin</strong></td><td colspan="2">Less well-defined margins; changes in root colour &amp; contour</td></tr>
+      </tbody>
+    </table>
+    <h3>Acute vs Chronic</h3>
+    <p><strong>Acute:</strong> rapid, lighter, often pulpal involvement/inflammation. <strong>Chronic:</strong> slow, darker, pain may be absent due to protective dentine/pulp mechanisms.</p>
+    <h3>Arrested vs Recurrent</h3>
+    <p><strong>Arrested (remineralised):</strong> clinically intact but discoloured (brown/black), hard, non-progressive — colour from trapped organic debris &amp; metallic ions. <strong>Recurrent (secondary):</strong> softness at a defective restoration margin; probe enters the defect without resistance → record as defective filling / recurrent carious area.</p>
+  </section>
+
+  <section id="ca-disc">
+    <h2><span class="num">8</span>Tooth Discolouration (DDx)</h2>
+    <dl class="defs">
+      <dt>Hue</dt><dd>The colour family (red, blue, green).</dd>
+      <dt>Value</dt><dd>Lightness/darkness on a black-to-white scale.</dd>
+      <dt>Chroma</dt><dd>Colour saturation / intensity.</dd>
+      <dt>Metamerism</dt><dd>The same colour appearing different under different lighting.</dd>
+    </dl>
+    <p><strong>Extrinsic (surface) staining</strong> sits on the surface (e.g. chromogenic bacteria, tea/coffee, tobacco, chlorhexidine). <strong>Intrinsic staining</strong> is within the tooth (e.g. fluorosis, tetracycline, pulp necrosis, developmental defects).</p>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div>DOH 256 · Dental Caries</div>
+  <div class="source">CSU School of Dentistry &amp; Medical Sciences · compiled from lecture material &amp; personal notes. Study aid only — verify clinical specifics against current guidelines &amp; the DOH 256 handbook.</div>
+</footer>
+
 <!-- DOH256 Study Hub Nav -->
-<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:'DM Sans',sans-serif">
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:system-ui,-apple-system,sans-serif">
   <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
   border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
   border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;

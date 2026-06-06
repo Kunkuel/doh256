@@ -1,0 +1,2866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 256 — Master Study Notes · Periodontics &amp; Endodontics</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #1a1d24;
+    --ink-soft: #3a3f4a;
+    --muted: #6b7280;
+    --dim: #9ca3af;
+    --rule: #e5e3da;
+    --rule-soft: #efede5;
+
+    /* Section accent palette */
+    --c-diagnosis: #0f4c4c;    /* deep teal — diagnosis */
+    --c-anatomy:  #6b4423;     /* warm bronze — anatomy */
+    --c-aetiology: #8b1a1a;    /* maroon — aetiology */
+    --c-class:    #1a2a5a;     /* navy — classification */
+    --c-histo:    #5b3a87;     /* purple — histopath */
+    --c-hygiene:  #1f6e3b;     /* forest green — hygiene */
+    --c-chempc:   #8a4a1f;     /* copper/rust — chemical plaque control */
+
+    --tint-diagnosis: #e3eded;
+    --tint-anatomy:   #f1e8dd;
+    --tint-aetiology: #f7e3e3;
+    --tint-class:     #e3e8f5;
+    --tint-histo:     #ede5f5;
+    --tint-hygiene:   #e3f1e8;
+    --tint-chempc:    #f3e6dd;
+
+    /* Callout colors */
+    --gold: #b07d1a;
+    --gold-soft: #faf2dc;
+    --red: #a8344a;
+    --red-soft: #f9e6ea;
+    --blue: #235a8a;
+    --blue-soft: #e3edf5;
+    --green: #1f6e3b;
+    --green-soft: #e3f1e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ TOP BAR ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .topbar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .topbar-brand {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    text-transform: uppercase;
+  }
+
+  .topbar-brand span { color: var(--muted); font-weight: 400; }
+
+  .topbar-nav {
+    display: flex;
+    gap: 0.3rem;
+    flex-wrap: wrap;
+    margin-left: auto;
+  }
+
+  .topbar-nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .topbar-nav a:hover { background: var(--rule-soft); border-color: var(--rule); }
+  .topbar-nav a.n-dx:hover     { color: var(--c-diagnosis); }
+  .topbar-nav a.n-an:hover     { color: var(--c-anatomy); }
+  .topbar-nav a.n-ae:hover     { color: var(--c-aetiology); }
+  .topbar-nav a.n-cl:hover     { color: var(--c-class); }
+  .topbar-nav a.n-hi:hover     { color: var(--c-histo); }
+  .topbar-nav a.n-oh:hover     { color: var(--c-hygiene); }
+  .topbar-nav a.n-cp:hover     { color: var(--c-chempc); }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    background: linear-gradient(180deg, #fdfcf8 0%, var(--bg) 100%);
+    padding: 3rem 1.5rem 2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .masthead-inner { max-width: 980px; margin: 0 auto; }
+
+  .masthead .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c-aetiology);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .masthead h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+
+  .masthead h1 em {
+    font-style: italic;
+    color: var(--c-aetiology);
+  }
+
+  .masthead .subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 700px;
+  }
+
+  /* ============ MAIN ============ */
+  main {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  /* ============ PART (top-level section) ============ */
+  .part {
+    margin-top: 3rem;
+    scroll-margin-top: 80px;
+  }
+
+  .part:first-of-type { margin-top: 1.5rem; }
+
+  .part-header {
+    border-top: 3px solid;
+    padding-top: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .part-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .part-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+
+  .part-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-weight: 600;
+    margin-left: auto;
+  }
+
+  /* Part theming */
+  .part.diagnosis  .part-header { border-color: var(--c-diagnosis); }
+  .part.diagnosis  .part-title  { color: var(--c-diagnosis); }
+  .part.diagnosis  .part-tag    { background: var(--tint-diagnosis); color: var(--c-diagnosis); }
+
+  .part.anatomy   .part-header  { border-color: var(--c-anatomy); }
+  .part.anatomy   .part-title   { color: var(--c-anatomy); }
+  .part.anatomy   .part-tag     { background: var(--tint-anatomy); color: var(--c-anatomy); }
+
+  .part.aetiology .part-header  { border-color: var(--c-aetiology); }
+  .part.aetiology .part-title   { color: var(--c-aetiology); }
+  .part.aetiology .part-tag     { background: var(--tint-aetiology); color: var(--c-aetiology); }
+
+  .part.class     .part-header  { border-color: var(--c-class); }
+  .part.class     .part-title   { color: var(--c-class); }
+  .part.class     .part-tag     { background: var(--tint-class); color: var(--c-class); }
+
+  .part.histo     .part-header  { border-color: var(--c-histo); }
+  .part.histo     .part-title   { color: var(--c-histo); }
+  .part.histo     .part-tag     { background: var(--tint-histo); color: var(--c-histo); }
+
+  .part.hygiene   .part-header  { border-color: var(--c-hygiene); }
+  .part.hygiene   .part-title   { color: var(--c-hygiene); }
+  .part.hygiene   .part-tag     { background: var(--tint-hygiene); color: var(--c-hygiene); }
+
+  .part.chempc    .part-header  { border-color: var(--c-chempc); }
+  .part.chempc    .part-title   { color: var(--c-chempc); }
+  .part.chempc    .part-tag     { background: var(--tint-chempc); color: var(--c-chempc); }
+
+  /* ============ SECTION (h2) ============ */
+  section {
+    margin: 2rem 0;
+    scroll-margin-top: 80px;
+  }
+
+  section > h2 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: -0.005em;
+  }
+
+  section > h2 .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-right: 0.6rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-aetiology);
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  .part.diagnosis h3 { color: var(--c-diagnosis); }
+  .part.anatomy   h3 { color: var(--c-anatomy); }
+  .part.aetiology h3 { color: var(--c-aetiology); }
+  .part.class     h3 { color: var(--c-class); }
+  .part.histo     h3 { color: var(--c-histo); }
+  .part.hygiene   h3 { color: var(--c-hygiene); }
+  .part.chempc    h3 { color: var(--c-chempc); }
+
+  h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0.9rem 0 0.4rem;
+  }
+
+  p { margin-bottom: 0.7rem; color: var(--ink-soft); }
+
+  /* ============ TYPOGRAPHY ============ */
+  strong { color: var(--ink); font-weight: 600; }
+  em { color: var(--ink-soft); }
+
+  mark {
+    background: rgba(176, 125, 26, 0.18);
+    color: inherit;
+    padding: 0 0.15em;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.25rem; color: var(--ink-soft); }
+  li::marker { color: var(--muted); }
+
+  a { color: var(--c-class); text-decoration: none; border-bottom: 1px dotted var(--c-class); }
+  a:hover { border-bottom-style: solid; }
+
+  /* ============ CARDS ============ */
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+    margin: 0.6rem 0;
+  }
+
+  .card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7rem;
+  }
+
+  @media (max-width: 720px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* ============ CALLOUTS ============ */
+  .callout {
+    border-radius: 4px;
+    padding: 0.85rem 1.1rem;
+    margin: 0.9rem 0;
+    border-left: 3px solid;
+    font-size: 0.95rem;
+  }
+
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+    display: block;
+  }
+
+  .callout.key {
+    background: var(--gold-soft);
+    border-color: var(--gold);
+  }
+  .callout.key .callout-label { color: var(--gold); }
+
+  .callout.note {
+    background: var(--blue-soft);
+    border-color: var(--blue);
+  }
+  .callout.note .callout-label { color: var(--blue); }
+
+  .callout.warn {
+    background: var(--red-soft);
+    border-color: var(--red);
+  }
+  .callout.warn .callout-label { color: var(--red); }
+
+  .callout.tip {
+    background: var(--green-soft);
+    border-color: var(--green);
+  }
+  .callout.tip .callout-label { color: var(--green); }
+
+  /* ============ TABLES ============ */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.8rem 0;
+    font-size: 0.92rem;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  th {
+    background: var(--ink);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 0.55rem 0.8rem;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink-soft);
+    vertical-align: top;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: #fafaf6; }
+
+  /* Section-themed tables */
+  .part.diagnosis th  { background: var(--c-diagnosis); }
+  .part.anatomy   th  { background: var(--c-anatomy); }
+  .part.aetiology th  { background: var(--c-aetiology); }
+  .part.class     th  { background: var(--c-class); }
+  .part.histo     th  { background: var(--c-histo); }
+  .part.hygiene   th  { background: var(--c-hygiene); }
+  .part.chempc    th  { background: var(--c-chempc); }
+
+  /* ============ STAGE GRID (perio staging) ============ */
+  .stage-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+    margin: 0.8rem 0;
+  }
+
+  .stage-col {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 3px solid;
+    border-radius: 4px;
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .s1 { border-top-color: #2dd4bf; }
+  .s2 { border-top-color: #60a5fa; }
+  .s3 { border-top-color: #f59e0b; }
+  .s4 { border-top-color: #ef4444; }
+
+  .stage-header {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .s1 .stage-header { color: #0d9488; }
+  .s2 .stage-header { color: #2563eb; }
+  .s3 .stage-header { color: #d97706; }
+  .s4 .stage-header { color: #dc2626; }
+
+  .stage-row { margin-bottom: 0.45rem; }
+
+  .row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.05rem;
+  }
+
+  .val { color: var(--ink); font-weight: 500; font-size: 0.88rem; }
+
+  @media (max-width: 720px) {
+    .stage-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ============ DX CARDS (pulpal/apical) ============ */
+  .dx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 0.7rem;
+    margin: 0.8rem 0;
+  }
+
+  .dx-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--c-diagnosis);
+  }
+
+  .dx-card.apical { border-left-color: var(--c-aetiology); }
+
+  .dx-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .dx-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    font-weight: 500;
+  }
+
+  .b-normal      { background: #d1fae5; color: #065f46; }
+  .b-reversible  { background: #dbeafe; color: #1e3a8a; }
+  .b-irreversible{ background: #fef3c7; color: #92400e; }
+  .b-necrosis    { background: #fee2e2; color: #991b1b; }
+  .b-treated     { background: #ede9fe; color: #5b21b6; }
+
+  .dx-card ul { padding-left: 1.1rem; font-size: 0.88rem; }
+  .dx-card li { color: var(--ink-soft); margin-bottom: 0.15rem; }
+
+  /* ============ STEPS ============ */
+  .steps {
+    list-style: none;
+    padding: 0;
+    counter-reset: stepcounter;
+  }
+
+  .steps li {
+    counter-increment: stepcounter;
+    display: flex;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    align-items: flex-start;
+  }
+
+  .steps li::before {
+    content: counter(stepcounter);
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--rule-soft);
+    color: var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 0.1rem;
+  }
+
+  /* ============ TOC INSIDE PART ============ */
+  .part-toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.88rem;
+  }
+
+  .part-toc-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .part-toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.2rem 1rem;
+  }
+
+  .part-toc li { margin: 0; }
+
+  .part-toc a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: none;
+    font-size: 0.85rem;
+    padding: 0.15rem 0;
+    display: block;
+  }
+  .part-toc a:hover { color: var(--c-class); }
+
+  /* ============ AUTHOR CITE ============ */
+  .cite {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-left: 0.3rem;
+  }
+
+  /* ============ FOOTER ============ */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 3rem;
+  }
+
+  footer .source {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+  }
+
+  /* ============ PRINT ============ */
+  @media print {
+    .topbar { display: none; }
+    body { background: white; font-size: 11pt; }
+    .part { page-break-before: always; }
+    .part:first-of-type { page-break-before: auto; }
+    .callout, .card { break-inside: avoid; }
+    table { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">DOH 256 · <span>Master Notes</span></div>
+    <nav class="topbar-nav">
+      <a href="#part-diagnosis" class="n-dx">1 · Diagnosis</a>
+      <a href="#part-anatomy" class="n-an">2 · Anatomy</a>
+      <a href="#part-aetiology" class="n-ae">3 · Aetiology</a>
+      <a href="#part-class" class="n-cl">4 · Classification</a>
+      <a href="#part-histo" class="n-hi">5 · Histopath</a>
+      <a href="#part-hygiene" class="n-oh">6 · OH Procedures</a>
+      <a href="#part-chempc" class="n-cp">7 · Chemical Plaque</a>
+    </nav>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="eyebrow">CSU Dental · DOH 256 · Year 2 Periodontics &amp; Endodontics</div>
+    <h1>Periodontics &amp; <em>Endodontics</em><br>Master Study Notes</h1>
+    <p class="subtitle">Consolidated reference covering clinical diagnosis, periodontium anatomy, aetiology, classification, histopathology overview, oral hygiene procedures, and chemical plaque control — built for exam preparation.</p>
+  </div>
+</div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                     PART 1 — DIAGNOSIS                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part diagnosis" id="part-diagnosis">
+  <div class="part-header">
+    <span class="part-number">PART 01</span>
+    <h2 class="part-title">Periodontics &amp; Endodontics Diagnosis</h2>
+    <span class="part-tag">Clinical · High-Yield</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#dx-staging">Periodontitis Staging</a></li>
+      <li><a href="#dx-grading">Periodontitis Grading</a></li>
+      <li><a href="#dx-exam">Endodontic Diagnostic Exam</a></li>
+      <li><a href="#dx-pulpal">Pulpal Diagnoses (AAE 2008)</a></li>
+      <li><a href="#dx-apical">Apical Diagnoses (AAE 2008)</a></li>
+      <li><a href="#dx-tests">Clinical Tests — Interpretation</a></li>
+      <li><a href="#dx-rules">High-Yield Rules &amp; Exam Traps</a></li>
+    </ul>
+  </div>
+
+  <!-- 1.1 STAGING -->
+  <section id="dx-staging">
+    <h2><span class="num">1.1</span>Periodontitis Staging</h2>
+
+    <div class="callout key">
+      <span class="callout-label">Core Principle</span>
+      Staging classifies <strong>severity and extent</strong> of destroyed/damaged tissue. Initial stage = <strong>CAL</strong> (use RBL if CAL unavailable). Tooth loss due to periodontitis may upgrade the stage. One or more complexity factors can shift the stage higher.
+    </div>
+
+    <div class="stage-grid">
+      <div class="stage-col s1">
+        <div class="stage-header">STAGE I</div>
+        <div class="stage-row"><span class="row-label">CAL</span><span class="val">1–2 mm</span></div>
+        <div class="stage-row"><span class="row-label">RBL</span><span class="val">Coronal ⅓ (&lt;15%)</span></div>
+        <div class="stage-row"><span class="row-label">Tooth Loss</span><span class="val">None</span></div>
+        <div class="stage-row"><span class="row-label">Max PD</span><span class="val">≤4 mm</span></div>
+        <div class="stage-row"><span class="row-label">Bone Loss</span><span class="val">Mostly horizontal</span></div>
+        <div class="stage-row"><span class="row-label">Furcation</span><span class="val">—</span></div>
+      </div>
+      <div class="stage-col s2">
+        <div class="stage-header">STAGE II</div>
+        <div class="stage-row"><span class="row-label">CAL</span><span class="val">3–4 mm</span></div>
+        <div class="stage-row"><span class="row-label">RBL</span><span class="val">Coronal ⅓ (15–33%)</span></div>
+        <div class="stage-row"><span class="row-label">Tooth Loss</span><span class="val">None</span></div>
+        <div class="stage-row"><span class="row-label">Max PD</span><span class="val">≤5 mm</span></div>
+        <div class="stage-row"><span class="row-label">Bone Loss</span><span class="val">Mostly horizontal</span></div>
+        <div class="stage-row"><span class="row-label">Furcation</span><span class="val">—</span></div>
+      </div>
+      <div class="stage-col s3">
+        <div class="stage-header">STAGE III</div>
+        <div class="stage-row"><span class="row-label">CAL</span><span class="val">≥5 mm</span></div>
+        <div class="stage-row"><span class="row-label">RBL</span><span class="val">Extends to middle ⅓+</span></div>
+        <div class="stage-row"><span class="row-label">Tooth Loss</span><span class="val">≤4 teeth</span></div>
+        <div class="stage-row"><span class="row-label">PD</span><span class="val">≥6 mm</span></div>
+        <div class="stage-row"><span class="row-label">Bone Loss</span><span class="val">Vertical ≥3 mm</span></div>
+        <div class="stage-row"><span class="row-label">Furcation</span><span class="val">Class II or III</span></div>
+      </div>
+      <div class="stage-col s4">
+        <div class="stage-header">STAGE IV</div>
+        <div class="stage-row"><span class="row-label">CAL</span><span class="val">≥5 mm</span></div>
+        <div class="stage-row"><span class="row-label">RBL</span><span class="val">Extends to middle ⅓+</span></div>
+        <div class="stage-row"><span class="row-label">Tooth Loss</span><span class="val">≥5 teeth</span></div>
+        <div class="stage-row"><span class="row-label">Complexity</span><span class="val">Mastic. dysfunction, mobility ≥2, bite collapse, &lt;20 teeth</span></div>
+        <div class="stage-row"><span class="row-label">Furcation</span><span class="val">Class II or III</span></div>
+        <div class="stage-row"><span class="row-label">Key Feature</span><span class="val">Complex rehab needed</span></div>
+      </div>
+    </div>
+
+    <h3>Extent Descriptor</h3>
+    <p><strong>Localized</strong> = &lt;30% of teeth involved &nbsp;|&nbsp; <strong>Generalized</strong> = ≥30% &nbsp;|&nbsp; <strong>Molar/Incisor pattern</strong></p>
+  </section>
+
+  <!-- 1.2 GRADING -->
+  <section id="dx-grading">
+    <h2><span class="num">1.2</span>Periodontitis Grading</h2>
+
+    <div class="callout key">
+      <span class="callout-label">Core Principle</span>
+      Grading indicates <strong>rate of progression</strong>, responsiveness to therapy, and systemic impact. <strong>Start at Grade B</strong> — then use evidence to shift to A or C. Use direct evidence first; fall back to indirect if unavailable.
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Criterion</th>
+          <th>Grade A — Slow</th>
+          <th>Grade B — Moderate</th>
+          <th>Grade C — Rapid</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Direct: RBL or CAL over 5 yrs</strong></td>
+          <td>No loss over 5 years</td>
+          <td>&lt;2 mm over 5 years</td>
+          <td>≥2 mm over 5 years</td>
+        </tr>
+        <tr>
+          <td><strong>Indirect: % bone loss / age</strong></td>
+          <td>&lt;0.25</td>
+          <td>0.25 – 1.0</td>
+          <td>&gt;1.0</td>
+        </tr>
+        <tr>
+          <td><strong>Case phenotype</strong></td>
+          <td>Heavy biofilm, low destruction</td>
+          <td>Destruction commensurate with biofilm</td>
+          <td>Destruction exceeds biofilm; rapid / early-onset</td>
+        </tr>
+        <tr>
+          <td><strong>Smoking</strong></td>
+          <td>Non-smoker</td>
+          <td>&lt;10 cigs/day</td>
+          <td>≥10 cigs/day</td>
+        </tr>
+        <tr>
+          <td><strong>Diabetes</strong></td>
+          <td>Normoglycaemic / no diagnosis</td>
+          <td>HbA1c &lt;7.0% (with diabetes)</td>
+          <td>HbA1c ≥7.0% (with diabetes)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout note">
+      <span class="callout-label">Modifier rule</span>
+      Smoking and diabetes can only shift the grade <strong>up</strong>, never down.
+    </div>
+  </section>
+
+  <!-- 1.3 ENDO DIAGNOSTIC EXAM -->
+  <section id="dx-exam">
+    <h2><span class="num">1.3</span>Endodontic Diagnostic Exam</h2>
+
+    <div class="callout key">
+      <span class="callout-label">Key Concept</span>
+      Diagnosis = jigsaw puzzle — <strong>never from a single test alone</strong>. Always render <strong>both a pulpal AND a periapical diagnosis</strong> for every tooth evaluated. Treatment must not be rendered without a diagnosis.
+    </div>
+
+    <h3>8 Components of Examination</h3>
+    <table>
+      <thead>
+        <tr><th>Component</th><th>Elements</th><th>Clinical Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Medical/Dental Hx</strong></td><td>Past/recent treatment, current medications</td><td>Begin forming preliminary diagnosis here</td></tr>
+        <tr><td><strong>Chief Complaint</strong></td><td>Duration, onset, location, stimuli, relief, spontaneity, meds tried</td><td>Use SOCRATES-style questioning</td></tr>
+        <tr><td><strong>Clinical Exam</strong></td><td>Facial symmetry, sinus tract, soft tissue, perio status, caries, restorations</td><td>Note any existing sinus tract; trace with GP cone</td></tr>
+        <tr><td><strong>Pulp Tests</strong></td><td>Cold (Endo-Ice®), EPT, Heat</td><td>Always test adjacent + contralateral teeth first as baseline</td></tr>
+        <tr><td><strong>Periapical Tests</strong></td><td>Percussion, Palpation, Tooth Slooth® (biting)</td><td>Start with normal teeth to calibrate patient response</td></tr>
+        <tr><td><strong>Radiographic Analysis</strong></td><td>≥2 new periapicals, bitewing, CBCT if needed</td><td>CBCT for complex anatomy, resorption, calcification</td></tr>
+        <tr><td><strong>Additional Tests</strong></td><td>Transillumination, selective anaesthesia, test cavity</td><td>Use when primary tests are inconclusive</td></tr>
+        <tr><td><strong>Perio Evaluation</strong></td><td>Full probing depths, mobility, furcation</td><td>Distinguish endo vs. perio lesions</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 1.4 PULPAL DX -->
+  <section id="dx-pulpal">
+    <h2><span class="num">1.4</span>Pulpal Diagnoses (AAE 2008)</h2>
+
+    <div class="dx-grid">
+      <div class="dx-card">
+        <div class="dx-title">Normal Pulp</div>
+        <span class="dx-badge b-normal">Normal</span>
+        <ul>
+          <li>Symptom-free; mild/transient cold response ≤1–2 sec</li>
+          <li>No spontaneous pain; normal radiographic appearance</li>
+          <li>No treatment indicated</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Reversible Pulpitis</div>
+        <span class="dx-badge b-reversible">Reversible</span>
+        <ul>
+          <li>Pain to cold/sweet that resolves within seconds of stimulus removal</li>
+          <li>No spontaneous pain; no periapical radiographic changes</li>
+          <li>Aetiology: exposed dentin, caries, deep restorations</li>
+          <li><strong>Tx:</strong> remove aetiology + restore; reassess</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Symptomatic Irreversible Pulpitis (SIP)</div>
+        <span class="dx-badge b-irreversible">Irreversible</span>
+        <ul>
+          <li>Sharp pain to thermal; <strong>lingers ≥30 sec</strong> after stimulus</li>
+          <li>Spontaneous pain; may be positional (worse lying down)</li>
+          <li>OTC analgesics typically ineffective</li>
+          <li>Percussion often normal (inflammation not yet periapical)</li>
+          <li><strong>Tx:</strong> RCT</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Asymptomatic Irreversible Pulpitis</div>
+        <span class="dx-badge b-irreversible">Irreversible</span>
+        <ul>
+          <li>No clinical symptoms; responds normally to thermal testing</li>
+          <li>Pulp still vital but will not heal</li>
+          <li>Often: trauma history or deep caries likely to expose pulp</li>
+          <li><strong>Tx:</strong> RCT</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Pulp Necrosis</div>
+        <span class="dx-badge b-necrosis">Necrosis</span>
+        <ul>
+          <li><strong>Non-responsive</strong> to pulp testing; asymptomatic</li>
+          <li>Does NOT cause apical periodontitis unless canal is infected</li>
+          <li>Caveat: calcification/trauma/no-response on all teeth may give false non-response</li>
+          <li><strong>Tx:</strong> RCT</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Previously Treated</div>
+        <span class="dx-badge b-treated">Treated</span>
+        <ul>
+          <li>Canals obturated with filling materials (not medicaments)</li>
+          <li>No response to thermal or EPT</li>
+        </ul>
+      </div>
+      <div class="dx-card">
+        <div class="dx-title">Previously Initiated Therapy</div>
+        <span class="dx-badge b-treated">Partial Tx</span>
+        <ul>
+          <li>Partial endo: pulpotomy or pulpectomy</li>
+          <li>May or may not respond to pulp testing depending on level</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.5 APICAL DX -->
+  <section id="dx-apical">
+    <h2><span class="num">1.5</span>Apical / Periapical Diagnoses (AAE 2008)</h2>
+
+    <div class="dx-grid">
+      <div class="dx-card apical">
+        <div class="dx-title">Normal Apical Tissues</div>
+        <span class="dx-badge b-normal">Normal</span>
+        <ul>
+          <li>Not sensitive to percussion or palpation</li>
+          <li>Intact lamina dura; uniform PDL space radiographically</li>
+        </ul>
+      </div>
+      <div class="dx-card apical">
+        <div class="dx-title">Symptomatic Apical Periodontitis</div>
+        <span class="dx-badge b-irreversible">Symptomatic</span>
+        <ul>
+          <li>Painful response to biting, percussion, and/or palpation</li>
+          <li>Radiographic changes may or may not be present</li>
+          <li>Severe pain to percussion = highly indicative of degenerating pulp → RCT</li>
+        </ul>
+      </div>
+      <div class="dx-card apical">
+        <div class="dx-title">Asymptomatic Apical Periodontitis</div>
+        <span class="dx-badge b-reversible">Asymptomatic</span>
+        <ul>
+          <li>Inflammation + destruction of pulpal origin</li>
+          <li><strong>Apical radiolucency present</strong>; no pain on percussion/palpation</li>
+        </ul>
+      </div>
+      <div class="dx-card apical">
+        <div class="dx-title">Chronic Apical Abscess</div>
+        <span class="dx-badge b-necrosis">Chronic</span>
+        <ul>
+          <li>Gradual onset; little/no discomfort</li>
+          <li><strong>Intermittent sinus tract discharge</strong></li>
+          <li>Radiolucency present; trace sinus tract with GP cone</li>
+        </ul>
+      </div>
+      <div class="dx-card apical">
+        <div class="dx-title">Acute Apical Abscess</div>
+        <span class="dx-badge b-necrosis">Acute</span>
+        <ul>
+          <li>Rapid onset; spontaneous pain; extreme tenderness</li>
+          <li>Pus formation + tissue swelling</li>
+          <li>May have no radiographic signs; systemic signs (malaise, fever, lymphadenopathy)</li>
+        </ul>
+      </div>
+      <div class="dx-card apical">
+        <div class="dx-title">Condensing Osteitis</div>
+        <span class="dx-badge b-reversible">Reactive</span>
+        <ul>
+          <li>Diffuse <strong>radiopaque</strong> lesion at apex</li>
+          <li>Localised bony reaction to low-grade inflammatory stimulus</li>
+          <li>May partially/totally regress after RCT</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.6 CLINICAL TESTS -->
+  <section id="dx-tests">
+    <h2><span class="num">1.6</span>Clinical Tests — Interpretation Guide</h2>
+
+    <table>
+      <thead>
+        <tr><th>Test</th><th>Positive Response</th><th>Clinical Interpretation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Cold (Endo-Ice®)</strong></td><td>Mild transient pain ≤1–2 sec</td><td>Normal pulp — compare with contralateral</td></tr>
+        <tr><td><strong>Cold — Lingering</strong></td><td>Pain lingers ≥30 sec</td><td>Symptomatic irreversible pulpitis</td></tr>
+        <tr><td><strong>Cold — No Response</strong></td><td>No response</td><td>Pulp necrosis (confirm comparatively — calcification/trauma can also cause no response)</td></tr>
+        <tr><td><strong>EPT (Electric Pulp Test)</strong></td><td>Response at lower threshold</td><td>Pulp vitality check; no response = necrosis or calcification</td></tr>
+        <tr><td><strong>Heat Test</strong></td><td>Pain reproduced</td><td>Symptomatic irreversible pulpitis (especially if heat reproduces chief complaint)</td></tr>
+        <tr><td><strong>Percussion</strong></td><td>Pain on tap</td><td>Periapical inflammation — symptomatic apical periodontitis</td></tr>
+        <tr><td><strong>Palpation</strong></td><td>Tenderness over apex</td><td>Periapical pathology; suggests cortical plate expansion</td></tr>
+        <tr><td><strong>Tooth Slooth® (bite)</strong></td><td>Sharp pain on release</td><td>Cracked tooth syndrome; also used for previously treated teeth</td></tr>
+        <tr><td><strong>Transillumination</strong></td><td>Shadow / interruption</td><td>Crack detection</td></tr>
+        <tr><td><strong>Selective Anaesthesia</strong></td><td>Pain relief after block</td><td>Localise pain source (mandibular vs. maxillary)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 1.7 KEY RULES -->
+  <section id="dx-rules">
+    <h2><span class="num">1.7</span>High-Yield Rules &amp; Exam Traps</h2>
+
+    <div class="callout warn">
+      <span class="callout-label">Must Know</span>
+      <strong>Symptomatic Irreversible Pulpitis (SIP) + Normal Apical Tissues</strong> is a common exam combination. SIP can have <em>normal percussion</em> because inflammation hasn't reached the periapex yet.
+    </div>
+
+    <div class="callout key">
+      <span class="callout-label">Perio Grading — Default Rule</span>
+      Always assume <strong>Grade B</strong> first. Shift to A (slow) or C (rapid) only with specific supporting evidence. Grade modifiers (smoking, diabetes) can only shift the grade <em>up</em>, never down.
+    </div>
+
+    <h3>Staging Upgrade Rules</h3>
+    <ul>
+      <li><strong>Rule 1:</strong> Start with CAL → use RBL if CAL unavailable.</li>
+      <li><strong>Rule 2:</strong> Tooth loss due to periodontitis: ≤4 teeth → Stage III; ≥5 teeth → Stage IV.</li>
+      <li><strong>Rule 3:</strong> Masticatory dysfunction / tooth mobility degree ≥2 → Stage IV.</li>
+      <li><strong>Rule 4:</strong> Furcation Class II or III → Stage III minimum.</li>
+      <li><strong>Rule 5:</strong> &lt;20 remaining teeth / 10 opposing pairs → Stage IV.</li>
+    </ul>
+
+    <h3>Sinus Tract Protocol</h3>
+    <p>Insert GP cone carefully through the stoma until it stops → take radiograph to trace origin. Source is usually the offending tooth (chronic apical abscess).</p>
+
+    <h3>Common Diagnosis Combinations</h3>
+    <ul>
+      <li><strong>Reversible pulpitis + Normal apical tissues</strong> → caries removal + restoration. If pulp exposed during excavation → RCT.</li>
+      <li><strong>Pulp necrosis + Symptomatic apical periodontitis + Condensing osteitis</strong> → RCT; condensing osteitis should regress post-treatment.</li>
+      <li><strong>Previously treated + Symptomatic apical periodontitis</strong> → nonsurgical retreatment.</li>
+      <li><strong>Pulp necrosis + Chronic apical abscess</strong> → RCT; trace sinus tract with GP cone first.</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                     PART 2 — ANATOMY                                -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part anatomy" id="part-anatomy">
+  <div class="part-header">
+    <span class="part-number">PART 02</span>
+    <h2 class="part-title">Anatomy &amp; Structure of the Periodontium</h2>
+    <span class="part-tag">Dr. Jake Ball · Year 2</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#an-overview">Overview — 4 Tissues</a></li>
+      <li><a href="#an-embryology">Embryology</a></li>
+      <li><a href="#an-gingiva">Gingiva</a></li>
+      <li><a href="#an-gcf">Gingival Crevicular Fluid</a></li>
+      <li><a href="#an-biowidth">Biologic Width</a></li>
+      <li><a href="#an-pdl">Periodontal Ligament</a></li>
+      <li><a href="#an-cementum">Cementum</a></li>
+      <li><a href="#an-bone">Alveolar Bone</a></li>
+    </ul>
+  </div>
+
+  <!-- 2.1 OVERVIEW -->
+  <section id="an-overview">
+    <h2><span class="num">2.1</span>Periodontium — Overview</h2>
+    <p>The periodontium provides <mark>support and investment</mark> of teeth. It is composed of four tissues:</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Gingiva</div>
+        <p>Soft tissue collar surrounding and protecting the tooth and alveolar bone. Divided into <strong>free gingiva, attached gingiva, and interdental papilla</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Periodontal Ligament (PDL)</div>
+        <p>Highly cellular and vascular connective tissue connecting cementum to alveolar bone. Transmits masticatory forces and supports repair.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Cementum</div>
+        <p>Thin, mineralised, <strong>avascular</strong> connective tissue covering the root surface. Provides attachment for PDL Sharpey's fibres.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Alveolar Bone</div>
+        <p>Houses and supports the teeth. The alveolar process is <strong>tooth-dependent</strong> — it resorbs following extraction.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.2 EMBRYOLOGY -->
+  <section id="an-embryology">
+    <h2><span class="num">2.2</span>Embryology</h2>
+
+    <h3>Development Sequence</h3>
+    <div class="card">
+      <ol class="steps">
+        <li>Neural tube forms by ectoderm invagination — complete by <mark>4 weeks IU</mark></li>
+        <li>Neural crest cells migrate to invade the <mark>first pharyngeal arch</mark></li>
+        <li>Oral ectoderm thickens → forms the <mark>primary epithelial band</mark> in maxilla and mandible</li>
+        <li>Primary epithelial band forms two structures: <mark>dental lamina</mark> + <mark>vestibular lamina</mark></li>
+        <li>Each arch forms <mark>10 epithelial outgrowths</mark> into ectomesenchyme (= 10 deciduous teeth)</li>
+        <li>Underlying ectomesenchyme proliferates → dental lamina develops via <strong>bud, cap, and bell</strong> stages</li>
+      </ol>
+    </div>
+
+    <h3>Tooth Germ Stages</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Bud Stage (~8 wks)</div>
+        <ul>
+          <li>Undifferentiated epithelial cells</li>
+          <li>Ectomesenchyme proliferates around bud</li>
+          <li>Connected to oral epithelium via dental lamina</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Cap Stage (~11 wks)</div>
+        <ul>
+          <li>Cap morphology from uneven proliferation</li>
+          <li>Enamel organ = OEE + IEE</li>
+          <li>Stellate reticulum in centre</li>
+          <li>Enamel knot formation</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Bell Stage (~14 wks)</div>
+        <ul>
+          <li><em>Early:</em> morphodifferentiation — tooth shape template</li>
+          <li><em>Late:</em> histodifferentiation</li>
+          <li>Dental papilla → dentine + pulp</li>
+          <li>Dental follicle → cementum + PDL + bone</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Tooth Root Formation</h3>
+    <div class="card">
+      <p>Begins at <mark>late bell stage</mark> once dentine formation reaches the cervix.</p>
+      <ul>
+        <li><strong>Hertwig's Epithelial Root Sheath (HERS)</strong> = IEE + OEE; grows apically then horizontally</li>
+        <li>Horizontal projection = <mark>epithelial diaphragm</mark> → outlines future apical foramen</li>
+        <li>Root dentine and cementum formation begin once epithelial diaphragm is established</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2.3 GINGIVA -->
+  <section id="an-gingiva">
+    <h2><span class="num">2.3</span>Gingiva</h2>
+
+    <h3>Gingival Development</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Epithelium</div>
+        <ol class="steps">
+          <li>Enamel covered by <mark>reduced enamel epithelium (REE)</mark> after enamel formation</li>
+          <li>REE unites with oral mucosa on eruption → transforms to <mark>junctional epithelium (JE)</mark></li>
+          <li>JE migrates apically → forms gingival sulcus</li>
+          <li>JE settles at <mark>CEJ on enamel</mark></li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-title">Connective Tissue</div>
+        <ul>
+          <li>Fibroblasts originate from perifollicular mesenchyme (mesoderm derivative)</li>
+          <li>Fibroblasts produce collagen → forms <mark>supra-alveolar fibre attachment</mark></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Gingival Epithelium — Three Zones</h3>
+    <table>
+      <thead>
+        <tr><th>Zone</th><th>Type</th><th>Key Features</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Oral Epithelium</strong></td>
+          <td>Orthokeratinised stratified squamous</td>
+          <td>4 layers: stratum basale, spinosum, granulosum, corneum. Keratinocytes = 90%. Non-keratinocytes: melanocytes (basale), Langerhans cells (spinosum), Merkel cells (rete ridge tips)</td>
+        </tr>
+        <tr>
+          <td><strong>Oral Sulcular Epithelium (OSE)</strong></td>
+          <td>Non-keratinised squamous</td>
+          <td>Lacks granular + corneum layers, no rete ridges, no Merkel cells, not heavily infiltrated by neutrophils. Stains + for CK4 (absent in JE)</td>
+        </tr>
+        <tr>
+          <td><strong>Junctional Epithelium (JE)</strong></td>
+          <td>Non-keratinised squamous</td>
+          <td>Coronally 15–30 cells thick, apically 1–3 cells thick. High turnover: <mark>every 4–6 days</mark>. Wide intercellular spaces = permeable barrier</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Junctional Epithelium — Detail</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Structure</div>
+        <ul>
+          <li>Two zones: basal lamina (internal + external) + JE cells</li>
+          <li>JE cells: stratum basale (cuboidal) + stratum spinosum (flatter)</li>
+          <li>Cells attached to tooth via <mark>hemidesmosomes</mark>; to each other via desmosomes + gap junctions</li>
+          <li>Internal BL adjacent to tooth; external BL adjacent to lamina propria</li>
+          <li>Internal BL: sub-lamina lucida / lamina lucida / lamina densa</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Function</div>
+        <ul>
+          <li>Epithelial barrier against plaque</li>
+          <li>Allows access of GCF, inflammatory cells, and immunologic components</li>
+          <li>Rapid turnover → host-parasite equilibrium + rapid tissue repair</li>
+          <li>JE + gingival fibres = <mark>dentogingival unit</mark></li>
+          <li>Numerous neutrophils present; increase with inflammation</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Lamina Propria</h3>
+    <ul>
+      <li>Binds attached gingiva to bone; supports free gingiva; connects teeth</li>
+      <li>Divided into <mark>papillary layer</mark> (superficial) and <mark>reticular layer</mark> (deep)</li>
+      <li>Composition: ~60% type I + III collagen; ~35% vascular plexus + ground substance; ~5% fibroblasts</li>
+      <li>No submucosa — attached gingiva is directly bound to bone = <mark>mucoperiosteum</mark></li>
+    </ul>
+
+    <h3>Gingival Fibres</h3>
+    <div class="callout note">
+      <span class="callout-label">Function</span>
+      Composed of collagen bundles classified by orientation and attachment. They brace the marginal gingiva against the tooth, withstand masticatory forces, and unite free gingiva to cementum and attached gingiva.
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">10 Fibre Groups (Nanci 2007)</div>
+        <ol>
+          <li>Dento-gingival</li>
+          <li>Alveolar gingival</li>
+          <li>Circular</li>
+          <li>Dento-periosteal</li>
+          <li>Transseptal</li>
+          <li>Semicircular</li>
+          <li>Transgingival</li>
+          <li>Interdental</li>
+          <li>Vertical</li>
+          <li>Longitudinal</li>
+        </ol>
+      </div>
+      <div class="card">
+        <div class="card-title">Anatomical Landmarks (Clinical)</div>
+        <ul>
+          <li><strong>Free gingival margin:</strong> most coronal edge of gingiva</li>
+          <li><strong>Free gingival groove:</strong> shallow groove ~1.5 mm from margin corresponding to sulcus base</li>
+          <li><strong>Attached gingiva:</strong> firm, stippled, bound to cementum and bone</li>
+          <li><strong>Mucogingival junction:</strong> boundary between attached gingiva and alveolar mucosa</li>
+          <li><strong>Interdental papilla:</strong> fills embrasure between teeth</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.4 GCF -->
+  <section id="an-gcf">
+    <h2><span class="num">2.4</span>Gingival Crevicular Fluid (GCF)</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Properties</div>
+        <ul>
+          <li><mark>Transudate</mark> in health; <mark>exudate</mark> in disease</li>
+          <li>Small quantity in health; increases in disease</li>
+          <li>Diffuses through basement membrane → wide intercellular spaces of JE → sulcus</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Functions</div>
+        <ul>
+          <li>Cleanses material from the sulcus</li>
+          <li>Contains plasma proteins that improve epithelial adhesion to tooth</li>
+          <li>Possesses antimicrobial properties</li>
+          <li>Exerts antibody activity to defend the gingiva</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.5 BIO WIDTH -->
+  <section id="an-biowidth">
+    <h2><span class="num">2.5</span>Biologic Width &amp; Dento-Gingival Attachment</h2>
+    <div class="callout note">
+      <span class="callout-label">Origin</span>
+      <strong>Gargiulo et al. (1961)</strong> measured dental supporting tissues. The term "biologic width" was coined by <strong>Cohen (1962)</strong>.
+    </div>
+    <table>
+      <thead>
+        <tr><th>Measurement</th><th>Average</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Sulcus depth</td><td>0.69 mm</td></tr>
+        <tr><td>Junctional epithelial attachment</td><td>0.97 mm</td></tr>
+        <tr><td>Connective tissue attachment</td><td>1.07 mm</td></tr>
+        <tr><td><strong>Biologic width (JE + CT attachment)</strong></td><td><mark>≈ 2.04 mm</mark></td></tr>
+        <tr><td>CEJ to crest of bone</td><td>1.5–2.0 mm</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Clinical relevance:</strong> Restorative margins placed within the biologic width violate this space, potentially causing inflammation, bone loss, and periodontal breakdown.</p>
+  </section>
+
+  <!-- 2.6 PDL -->
+  <section id="an-pdl">
+    <h2><span class="num">2.6</span>Periodontal Ligament (PDL)</h2>
+    <p>Highly cellular and vascular connective tissue surrounding tooth roots, joining cementum to alveolar bone.</p>
+
+    <h3>Functions</h3>
+    <div class="grid-2">
+      <div class="card">
+        <ul>
+          <li>Transmits forces during mastication and tooth contact</li>
+          <li>Contains cells that maintain and repair alveolar bone and cementum</li>
+        </ul>
+      </div>
+      <div class="card">
+        <ul>
+          <li>Permits physiological mobility of teeth</li>
+          <li>Mechanoreception in control of mastication</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Development</h3>
+    <div class="card">
+      <ul>
+        <li>Begins with root formation during <mark>late bell stage</mark></li>
+        <li>Dental follicle has two cell populations: dental follicle mesenchymal cells + perifollicular mesenchymal cells</li>
+        <li>Perifollicular cells deposit collagen and glycoproteins in the developing PDL space</li>
+        <li>PDL maintains undifferentiated stem cells → can differentiate into fibroblasts, osteoblasts, cementoblasts</li>
+        <li>Collagen fringe fibres merge across PDL width upon eruption → <mark>principal fibre bundles</mark></li>
+      </ul>
+    </div>
+
+    <h3>Structure &amp; Composition</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Physical</div>
+        <ul>
+          <li>Width: <mark>~0.2 mm</mark> (narrows in middle third = hourglass)</li>
+          <li>Wavy bundles of collagen + reticular (immature) fibres</li>
+          <li>Predominantly <mark>type I collagen</mark>; type III coats Sharpey's fibres</li>
+          <li>Also: type V and XII collagen</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Ground Substance</div>
+        <ul>
+          <li>Unstructured material bonding fibres, cells, and fluid</li>
+          <li>Contains: proteoglycans, hyaluronan, lipids, minerals, water</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Principal Fibre Groups</h3>
+    <table>
+      <thead>
+        <tr><th>Fibre Group</th><th>Orientation / Location</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alveolar crest</td><td>From cementum obliquely to alveolar crest</td></tr>
+        <tr><td>Horizontal</td><td>Perpendicular to tooth surface at coronal 1/3</td></tr>
+        <tr><td><strong>Oblique</strong></td><td><strong>Most numerous</strong>; oblique from cementum to bone (coronal direction)</td></tr>
+        <tr><td>Apical</td><td>Radiate from apex of root to surrounding bone</td></tr>
+        <tr><td>Inter-radicular</td><td>Multi-rooted teeth only, between roots</td></tr>
+        <tr><td>Oxytalan fibres</td><td>Additional; run parallel to root surface</td></tr>
+      </tbody>
+    </table>
+    <div class="callout key">
+      <span class="callout-label">Sharpey's Fibres</span>
+      Terminal portions of principal fibres inserting into cementum and bone are termed <strong>Sharpey's fibres</strong>.
+    </div>
+
+    <h3>Cells</h3>
+    <ul>
+      <li><mark>Principal cells = fibroblasts</mark> — metabolise ECM components; maintain PDL width</li>
+      <li>Osteoblasts, osteoclasts, cementoblasts (functionally associated with bone/cementum)</li>
+      <li><mark>Cell rests of Malassez</mark> — remnants of HERS within the PDL</li>
+      <li>Undifferentiated mesenchymal cells located perivascularly — new cell source</li>
+    </ul>
+  </section>
+
+  <!-- 2.7 CEMENTUM -->
+  <section id="an-cementum">
+    <h2><span class="num">2.7</span>Cementum</h2>
+    <p>Thin, mineralised, <mark>avascular</mark> connective tissue covering the root surface. No innervation. Pale yellow; softer and more permeable than dentine.</p>
+
+    <h3>Composition by Weight</h3>
+    <ul>
+      <li>65% inorganic (hydroxyapatite)</li>
+      <li>23% organic (~90% type I collagen; also type III, XII)</li>
+      <li>12% water</li>
+    </ul>
+
+    <h3>Classification of Cementum Types</h3>
+    <table>
+      <thead>
+        <tr><th>Type</th><th>Location</th><th>Key Features</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Acellular Extrinsic Fibre (AEFC)</strong></td>
+          <td>CEJ → apical 2/3 of root</td>
+          <td>First formed; 30–50 µm thick; collagen perpendicular to root; slow deposition (~1.5–3 µm/year); Sharpey's fibres; <strong>primary attachment cementum</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Cellular Intrinsic Fibre (CIFC)</strong> — secondary cementum</td>
+          <td>Apical 1/3 and furcation</td>
+          <td>Formed post-eruption; 50–200 µm thick; random/parallel collagen; rapid deposition → cementocytes trapped in lacunae; incremental lines (lines of Salter)</td>
+        </tr>
+        <tr>
+          <td><strong>Mixed Fibre (CMSC)</strong></td>
+          <td>Apical 1/3, furcation</td>
+          <td>Collagen from both extrinsic (fibroblasts) and intrinsic (cementoblasts) sources; fibres run perpendicular to each other</td>
+        </tr>
+        <tr>
+          <td><strong>Acellular Afibrillar (AAC)</strong></td>
+          <td>Covers enamel at CEJ</td>
+          <td>No collagen fibres; no role in attachment; well-mineralised ground substance; may form from retraction of REE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Cemento-Enamel Junction (CEJ)</h3>
+    <div class="card">
+      <p>Three relationships found (Nanci 2007):</p>
+      <ul>
+        <li><mark>60–65%</mark> — cementum overlaps enamel <em>(most common)</em></li>
+        <li><mark>30%</mark> — cementum forms a butt-joint</li>
+        <li><mark>5–10%</mark> — cementum falls short of enamel (dentine exposed) <em>(hypersensitivity risk)</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2.8 ALVEOLAR BONE -->
+  <section id="an-bone">
+    <h2><span class="num">2.8</span>Alveolar Bone</h2>
+
+    <h3>Development</h3>
+    <ul>
+      <li>Linked to PDL and cementum development — <mark>late bell stage</mark></li>
+      <li>Forms from osteoblasts differentiated from <mark>dental follicle ectomesenchyme</mark></li>
+      <li>Tooth germs and alveolar bone grow to accommodate each other</li>
+      <li>Bone structure determined by size and shape of developing roots</li>
+      <li>Dental follicle cells simultaneously differentiate into fibroblasts and cementoblasts</li>
+    </ul>
+
+    <h3>Structure</h3>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Cortical Plates</div>
+        <ul>
+          <li>Dense outer bone surfaces</li>
+          <li>Functional unit = <mark>osteon</mark></li>
+          <li>Haversian canals (parallel), Volkmann's canals (perpendicular)</li>
+          <li>Lamellae concentrically arranged</li>
+          <li>Osteocytes in lacunae connected via canaliculi</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Alveolar Bone Proper (Bundle Bone)</div>
+        <ul>
+          <li>Also: cribriform plate</li>
+          <li>0.1–0.4 mm thick</li>
+          <li>Contains Volkmann's canals for vessels + nerves</li>
+          <li>Provides Sharpey's fibre attachment</li>
+          <li>Radiographically = <mark>lamina dura</mark></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Spongiosa (Trabecular Bone)</div>
+        <ul>
+          <li>Cancellous bone; lamellae not in osteons</li>
+          <li>Trabeculae along lines of stress</li>
+          <li>Bone marrow: red (haematopoietic) + yellow (fatty)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Composition</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Organic Matrix (tensile strength)</div>
+        <ul>
+          <li>Cells: mesenchymal stem cells, osteoblasts, osteocytes, osteoclasts</li>
+          <li>~90% type I collagen; small amounts type III, V</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Inorganic Matrix (compressive strength)</div>
+        <ul>
+          <li>85% hydroxyapatite</li>
+          <li>10% calcium carbonate</li>
+          <li>Trace: fluoride, potassium, magnesium</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Periosteum &amp; Endosteum</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Periosteum (external surface)</div>
+        <ul>
+          <li><em>Inner layer:</em> loosely arranged osteogenic layer; osteoprogenitor cells</li>
+          <li><em>Outer layer:</em> dense, vascular, fibrous; fibroblasts</li>
+          <li>Attaches via Sharpey's fibres</li>
+          <li>Roles: fracture repair, bone nourishment, nociception</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Endosteum (internal surface)</div>
+        <ul>
+          <li>Single layer of osteoblasts ± small amount of CT</li>
+          <li>Attaches to bone via Sharpey's fibres</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Blood &amp; Nerve Supply</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Blood Supply</div>
+        <p>Main arteries → <strong>maxilla:</strong> anterior/posterior alveolar, infra-orbital, nasopalatine, greater palatine. <strong>Mandible:</strong> inferior alveolar, sublingual, mental, buccal/facial.</p>
+        <p>Terminal supply to gingiva/bone via: <mark>PDL vessels</mark>, arterioles, and <mark>supraperiosteal vessels</mark>.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Nerve Supply</div>
+        <p>From <mark>trigeminal nerve</mark> (V2 maxillary, V3 mandibular). Fibres enter via Volkmann's canals → PDL space → travel apically and gingivally.</p>
+        <p>Free nerve endings extend to dentogingival junction and between epithelial cells.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                     PART 3 — AETIOLOGY                              -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part aetiology" id="part-aetiology">
+  <div class="part-header">
+    <span class="part-number">PART 03</span>
+    <h2 class="part-title">Aetiology of Periodontal Diseases</h2>
+    <span class="part-tag">Plaque · Biofilm · Host Response</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#ae-deposits">Tooth Deposits Classification</a></li>
+      <li><a href="#ae-soft">Soft Deposits Characteristics</a></li>
+      <li><a href="#ae-staining">Discolouration / Staining</a></li>
+      <li><a href="#ae-acquisition">Acquisition of Oral Microbes</a></li>
+      <li><a href="#ae-biofilm">Plaque as a Biofilm</a></li>
+      <li><a href="#ae-formation">Plaque Biofilm Formation</a></li>
+      <li><a href="#ae-hypotheses">Microbial Aetiology — Hypotheses</a></li>
+      <li><a href="#ae-complexes">Socransky Microbial Complexes</a></li>
+      <li><a href="#ae-calculus">Dental Calculus</a></li>
+      <li><a href="#ae-summary">Summary / Key Conclusions</a></li>
+    </ul>
+  </div>
+
+  <!-- 3.1 -->
+  <section id="ae-deposits">
+    <h2><span class="num">3.1</span>Classification of Tooth Deposits</h2>
+    <table>
+      <thead>
+        <tr><th>Soft</th><th>Hard</th><th>Discolouration / Surface Staining</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dental Plaque (supra- &amp; sub-gingival)<br>Materia Alba<br>Food Remnants</td>
+          <td>Calculus (supra- &amp; sub-gingival)</td>
+          <td>Extrinsic (surface)<br>Intrinsic (structural)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Supra-gingival vs Sub-gingival</h3>
+    <ul>
+      <li><strong>Supra-gingival:</strong> Found at or above the gingival margin.</li>
+      <li><strong>Sub-gingival:</strong> Found below the gingival margin, between the tooth and gingival pocket epithelium.</li>
+    </ul>
+  </section>
+
+  <!-- 3.2 -->
+  <section id="ae-soft">
+    <h2><span class="num">3.2</span>Characteristics of Soft Deposits</h2>
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Dental Plaque</th><th>Materia Alba</th><th>Food Remnants</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Appearance</td><td>Clear to yellow-grayish</td><td>White, cheese-like</td><td>Food fibres</td></tr>
+        <tr><td>Composition</td><td>Bacteria in salivary glycoproteins &amp; extracellular polysaccharides</td><td>Salivary proteins, some bacteria, desquamated epithelial cells, food debris</td><td>Food particles interspersed with micro-organisms</td></tr>
+        <tr><td>Structure</td><td>Histologically structured</td><td>Lacks organised structure</td><td>Histologically organised</td></tr>
+        <tr><td>Effect of rinsing</td><td><strong>Cannot</strong> be removed by rinsing/sprays</td><td>Easily displaced by water-spray</td><td>Not easily displaced</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3.3 -->
+  <section id="ae-staining">
+    <h2><span class="num">3.3</span>Discolouration / Surface Staining</h2>
+
+    <h3>Extrinsic (Surface) Staining</h3>
+    <p>Located outside tooth substance, on the tooth surface or acquired pellicle (Watts &amp; Addy, 2001).</p>
+    <ul>
+      <li><strong>Metallic:</strong> Iron supplements, stannous fluoride, chlorhexidine (CHX) mouthrinses.</li>
+      <li><strong>Non-metallic:</strong> Tobacco (smoking/chewing), food and drink.</li>
+    </ul>
+
+    <h3>Intrinsic Staining</h3>
+    <p>Stains incorporated into enamel or dentine.</p>
+    <ul>
+      <li><strong>Developmental:</strong> Amelogenesis imperfecta, dentinogenesis imperfecta.</li>
+      <li><strong>Acquired:</strong> Caries, endodontics, restorative materials, tooth wear, recession.</li>
+    </ul>
+  </section>
+
+  <!-- 3.4 -->
+  <section id="ae-acquisition">
+    <h2><span class="num">3.4</span>Acquisition of Oral Micro-organisms</h2>
+    <ul>
+      <li>Within hours of birth, the sterile oral cavity is colonised by facultative and aerobic bacteria resembling the mother's vaginal canal (or skin for C-sections).</li>
+      <li>By day 2, anaerobic bacteria can be detected in the infant's edentulous mouth.</li>
+      <li><em>Streptococcus salivarius</em> and <em>S. mitis</em> are the first dominant colonisers, alongside <em>Veillonella</em>, <em>Neisseria</em>, <em>Actinomyces</em>, and <em>Staphylococcus</em> spp.</li>
+      <li>After tooth eruption, more complex microbiota establish, including <em>S. sanguinis</em>, <em>Lactobacillus</em> spp., and <em>S. oralis</em>.</li>
+      <li>Bacterial diversity continues to increase with more teeth erupting.</li>
+    </ul>
+
+    <h3>Six Major Oral Ecological Niches</h3>
+    <ol>
+      <li>Supragingival hard surfaces (teeth, implants, restorations, prostheses)</li>
+      <li>Subgingival regions / periodontal/peri-implant pocket</li>
+      <li>Buccal, palatal epithelium and floor of the mouth</li>
+      <li>Dorsum of the tongue</li>
+      <li>Tonsils</li>
+      <li>Saliva</li>
+    </ol>
+
+    <div class="callout key">
+      <span class="callout-label">Transmission vs Contagion</span>
+      Transmission of bacteria between individuals is possible (e.g., kissing), but this is <strong>not the same as contagious</strong>. Little evidence that periodontal infections are communicable because they are <strong>host-mediated diseases</strong>.
+    </div>
+  </section>
+
+  <!-- 3.5 -->
+  <section id="ae-biofilm">
+    <h2><span class="num">3.5</span>Dental Plaque as a Biofilm</h2>
+    <p><strong>Biofilm</strong> (Costerton et al. 1994): A co-operative ecosystem of matrix-enclosed microbial communities adherent to each other and/or to surfaces or interfaces.</p>
+    <p><strong>Dental plaque</strong> (Marsh &amp; Bradshaw, 1995): A diverse microbial community found on the tooth surface embedded in a matrix of polymers of bacterial and salivary origin.</p>
+
+    <h3>Three Components of All Biofilms (Socransky &amp; Haffajee, 2005)</h3>
+    <ol>
+      <li>A surface for attachment</li>
+      <li>The biofilm itself</li>
+      <li>Bulk fluid passing over the biofilm (nutrients, waste, transport of cells)</li>
+    </ol>
+
+    <h3>Key Characteristics of Biofilms</h3>
+    <ol>
+      <li><strong>Complex, dynamic community structures:</strong> Bacterial cells (15–20% by volume) in a glycocalyx matrix (75–80%). Water channels permit nutrient passage.</li>
+      <li><strong>Altered gene expression:</strong> Biofilm bacteria express different genes than planktonic bacteria. Genes may be upregulated or downregulated, contributing to antibiotic resistance.</li>
+      <li><strong>Intercellular communication (Quorum Sensing):</strong> Chemical signals accumulate within the biofilm to sufficient concentrations to alter gene expression — e.g., bacteria delay toxin production until population is large enough to survive host defences.</li>
+      <li><strong>Reduced susceptibility to antimicrobials</strong> via four mechanisms (Stewart &amp; Costerton, 2001):
+        <ul>
+          <li><em>Altered microenvironment</em> — bacteria enter quiescent (non-growing) state</li>
+          <li><em>Effective stress response</em> — some cells sacrificed to protect others</li>
+          <li><em>Slow penetration</em> — glycocalyx binds and restricts antimicrobials</li>
+          <li><em>Higher frequency of persister cell formation</em> — dormant cells accumulate</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <!-- 3.6 -->
+  <section id="ae-formation">
+    <h2><span class="num">3.6</span>Mechanisms of Dental Plaque Biofilm Formation</h2>
+    <p>Six sequential stages (Marsh &amp; Bradshaw, 1995):</p>
+    <ol class="steps">
+      <li><strong>Formation of the acquired pellicle</strong> — forms immediately after cleaning; &lt;1 µm thick; plateau reached in ~90–120 min. Contains host molecules (mucins, antibodies, amylase, statherin, lysozyme) and bacterial molecules.</li>
+      <li><strong>Non-specific reversible attachment</strong> — physico-chemical interactions between salivary bacteria and pellicle. Primary colonisers include <em>Streptococci</em> and <em>Actinomyces</em> spp.</li>
+      <li><strong>Specific irreversible attachment</strong> — short-range stereo-chemical interactions via bacterial adhesins (fibrils on streptococci; fimbriae on <em>Actinomyces</em>) to pellicle receptor molecules.</li>
+      <li><strong>Co-aggregation</strong> — secondary colonisers attach to primary colonisers via adhesin-receptor pairs. <em>Fusobacterium</em> acts as a bridge between early and late colonisers.</li>
+      <li><strong>Stratification</strong> — horizontal and vertical stratification creates microenvironments (varying pH, O₂ tension, nutrients), allowing diverse, otherwise incompatible species to coexist.</li>
+      <li><strong>Climax community formation</strong> — stable community with relatively constant composition; sub-gingival plaque influenced by gingival crevicular fluid (GCF).</li>
+    </ol>
+
+    <h3>Temporal Development (Marsh &amp; Bradshaw, 1995)</h3>
+    <table>
+      <thead>
+        <tr><th>Time</th><th>Features</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Minutes–4 hrs</td><td>Free-floating G+ cocci (<em>S. sanguis, S. oralis, S. mitis</em>); produce IgA1 proteases to evade sIgA</td></tr>
+        <tr><td>1–2 days</td><td>G+ rods and filaments increase; predominantly <em>Actinomyces</em> spp.; &gt;90% of early colonisers co-aggregate</td></tr>
+        <tr><td>2–3 weeks</td><td>Climax community; obligate anaerobes increase (<em>Peptostreptococcus, Actinomyces, Bacteroides, Fusobacterium, Prevotella, Veillonella, Propionibacterium</em> spp.)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Plaque Composition by Site</h3>
+    <table>
+      <thead>
+        <tr><th>Site</th><th>Key Features</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fissure plaque</td><td>Mainly Gram +ve; dominated by <em>Streptococci</em>; exception: <em>Veillonella</em> spp.</td></tr>
+        <tr><td>Approximal plaque</td><td>More diverse; streptococci + G+ rods (<em>Actinomyces</em>); higher levels of <em>Veillonella, Fusobacterium, Prevotella</em></td></tr>
+        <tr><td>Gingival crevice plaque</td><td>Distinct habitat (GCF flow); high obligate anaerobes (<em>Peptostreptococcus, Actinomyces, Propionibacterium, Fusobacterium, Prevotella, Selenomonas, Veillonella</em>); many asaccharolytic and proteolytic</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3.7 -->
+  <section id="ae-hypotheses">
+    <h2><span class="num">3.7</span>Microbial Aetiology of Periodontitis — Evolving Hypotheses</h2>
+    <table>
+      <thead>
+        <tr><th>Era</th><th>Hypothesis</th><th>Core Concept</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Late 1950s</td><td>Non-specific plaque hypothesis</td><td>Any accumulation of micro-organisms can cause destructive inflammation</td></tr>
+        <tr><td>Late 1970s–80s</td><td>Microbial shift / Specific plaque hypothesis</td><td>Dramatic compositional changes in disease; overgrowth of specific pathogens</td></tr>
+        <tr><td>Late 1980s</td><td>Red Complex</td><td><em>P. gingivalis, T. denticola, T. forsythia</em> strongly associated with disease sites</td></tr>
+        <tr><td>2003</td><td>Ecological catastrophe hypothesis</td><td>Environmental factors drive selection of pathogenic bacteria</td></tr>
+        <tr><td>2010</td><td>Disruption of periodontal tissue homeostasis</td><td>Periodontitis = disrupted homeostasis; inflammation critical but secondary</td></tr>
+        <tr><td>2011</td><td>Keystone pathogen concept</td><td>Low-abundance keystone species disrupt homeostasis through host modulation</td></tr>
+        <tr><td>2012–present</td><td><strong>Polymicrobial Synergy and Dysbiosis (PSD)</strong></td><td>Synergistic dysbiotic microbiota; combines homeostasis disruption + keystone concepts</td></tr>
+        <tr><td>2020–present</td><td>IMPEDE Model</td><td>Inflammation is the central driver; 5 stages (0–IV) from health → periodontitis</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Symbiosis vs Dysbiosis</h3>
+    <ul>
+      <li><strong>Symbiosis:</strong> Homeostatic relationship between microbiome and host — compatible with health.</li>
+      <li><strong>Dysbiosis:</strong> Imbalance between microbiome and host — capable of inducing disease.</li>
+    </ul>
+
+    <h3>IMPEDE Model Stages (Van Dyke et al. 2020)</h3>
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td>Periodontal health — health-promoting biofilm, proportionate host response</td></tr>
+        <tr><td>I</td><td>Gingivitis — inflammation begins; incipient dysbiosis (quorum sensing bacteria)</td></tr>
+        <tr><td>II</td><td>Polymicrobial emergence — altered subgingival microenvironment; host response attempts to contain infection</td></tr>
+        <tr><td>III</td><td>Inflammation-mediated dysbiosis — host unable to contain; early periodontitis; overgrowth of periodontal pathogens</td></tr>
+        <tr><td>IV</td><td>Late-stage periodontitis — further dysregulation; connective tissue and bone damage</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3.8 -->
+  <section id="ae-complexes">
+    <h2><span class="num">3.8</span>Microbial Complexes (Socransky et al. 1998)</h2>
+    <p>Based on DNA-DNA hybridisation of 13,321 subgingival plaque samples from 185 adults; 40 species; 5 major complexes identified.</p>
+    <table>
+      <thead>
+        <tr><th>Complex</th><th>Key Members</th><th>Association</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Purple</td><td><em>Veillonella parvula, A. odontolyticus</em></td><td>Early colonisers; health</td></tr>
+        <tr><td>Green</td><td><em>Capnocytophaga</em> spp., <em>Campylobacter concisus, Eikenella corrodens</em></td><td>Early colonisers; health</td></tr>
+        <tr><td>Yellow</td><td><em>S. sanguis, S. oralis, S. mitis, S. gordonii, S. intermedius</em></td><td>Early colonisers; health; linked to green complex</td></tr>
+        <tr><td>Orange</td><td><em>Fusobacterium nucleatum, P. intermedia, P. nigrescens, Peptostreptococcus micros, Eubacterium nodatum, Campylobacter</em> spp., <em>S. constellatus</em></td><td>Bridge between early and late colonisers; gingivitis transition</td></tr>
+        <tr><td><strong>Red</strong></td><td><em><strong>Tannerella forsythia, P. gingivalis, T. denticola</strong></em></td><td><strong>Strongly associated with disease; deep pockets; BOP</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn">
+      <span class="callout-label">Clinical Pearl</span>
+      The orange complex is rarely absent when the red complex is present. Red complex bacteria are found at low levels in health but increase dramatically in gingivitis and periodontitis.
+    </div>
+  </section>
+
+  <!-- 3.9 -->
+  <section id="ae-calculus">
+    <h2><span class="num">3.9</span>Dental Calculus</h2>
+    <p>Dental calculus = <strong>calcified bacterial biomass</strong> with an adherent unmineralised biofilm on its surface.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Supragingival Calculus</div>
+        <ul>
+          <li>Creamy-white to dark yellow/brown; moderate hardness</li>
+          <li>Forms adjacent to salivary gland ducts (lingual mandibular anteriors; buccal maxillary first molars)</li>
+          <li>Mineralised by <strong>saliva</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Subgingival Calculus</div>
+        <ul>
+          <li>Brown-black; hard; found in most periodontal pockets</li>
+          <li>Firmly attached from CEJ to near the base of the pocket</li>
+          <li>Mineralised by <strong>GCF</strong> in the presence of inflammatory exudate</li>
+          <li>Detected tactilely, radiographically, or visually upon retraction</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Composition</h3>
+    <ul>
+      <li><strong>Inorganic:</strong> Supra ≈ 37% mineral; Sub ≈ 58% mineral. Crystals include OCP, HAP, WHT (whitlockite), DCPD (brushite).</li>
+      <li><strong>Organic:</strong> Protein-carbohydrate complexes, lipids, bacteria, epithelial cells, immune cells.</li>
+    </ul>
+
+    <h3>Attachment to Tooth Surface (Selvig, 1970)</h3>
+    <ol>
+      <li>Via organic pellicle on cementum, enamel or dentine</li>
+      <li>Mechanical locking into surface irregularities (resorption lacunae)</li>
+      <li>Close adaptation to depressions/mounds on intact cementum</li>
+      <li>Penetration into cementum</li>
+    </ol>
+
+    <h3>Formation Timeline</h3>
+    <ul>
+      <li>Always preceded by bacterial biofilm formation</li>
+      <li>Calcification begins in <strong>4–8 hours</strong></li>
+      <li>50% mineralised by 2 days; 60–90% by 12 days</li>
+    </ul>
+
+    <h3>Hypotheses for Calculus Formation</h3>
+    <ol>
+      <li><strong>Loss of CO₂:</strong> pH rise → calcium salt precipitation from supersaturated saliva.</li>
+      <li><strong>Colloidal precipitation:</strong> Salivary proteins increase viscosity → matrix for inorganic salt precipitation.</li>
+      <li><strong>Enzymatic:</strong> Phosphatase hydrolyses organic phosphates → phosphate ions → calcium phosphate precipitation.</li>
+      <li><strong>Epitactic (heterogenous nucleation):</strong> Seeding by calcium phosphate-like agents → crystallisation and coalescence.</li>
+    </ol>
+
+    <div class="callout warn">
+      <span class="callout-label">Aetiological Significance</span>
+      Calculus is the <strong>secondary</strong> aetiological agent. The <strong>unmineralised plaque on its surface</strong> is the primary agent. When plaque is removed from a calculus surface, disease does not occur (Allen &amp; Kerr 1965; Listgarten &amp; Ellegaard 1973; Nyman et al. 1988).
+    </div>
+  </section>
+
+  <!-- 3.10 -->
+  <section id="ae-summary">
+    <h2><span class="num">3.10</span>Summary / Key Conclusions</h2>
+    <ul>
+      <li>Tooth deposits are classified as <strong>soft</strong> (plaque, materia alba, food remnants), <strong>hard</strong> (calculus), or <strong>discolouration</strong>.</li>
+      <li>The oral cavity is colonised within hours of birth; microbial diversity increases throughout life across six ecological niches.</li>
+      <li>Dental plaque is a <strong>biofilm</strong> with staged formation and site-specific composition.</li>
+      <li>Current evidence supports the <strong>Polymicrobial Synergy and Dysbiosis (PSD) model</strong> for periodontitis aetiology.</li>
+      <li>Red complex bacteria (<em>P. gingivalis, T. denticola, T. forsythia</em>) are most closely associated with clinical disease.</li>
+      <li>Dental plaque is the <strong>primary</strong> aetiological agent; calculus is <strong>secondary</strong> (provides surface for plaque accumulation).</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                     PART 4 — CLASSIFICATION                         -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part class" id="part-class">
+  <div class="part-header">
+    <span class="part-number">PART 04</span>
+    <h2 class="part-title">Classification of Periodontal Diseases &amp; Conditions</h2>
+    <span class="part-tag">2017 AAP/EFP · BSP 2019</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#cl-why">Why Classify?</a></li>
+      <li><a href="#cl-2017">2017 World Workshop Framework</a></li>
+      <li><a href="#cl-health">Periodontal Health</a></li>
+      <li><a href="#cl-gingivitis">Plaque-Induced Gingivitis</a></li>
+      <li><a href="#cl-perio">Periodontitis — Definition</a></li>
+      <li><a href="#cl-staging">Staging (I–IV)</a></li>
+      <li><a href="#cl-grading">Grading (A–C)</a></li>
+      <li><a href="#cl-status">Current Disease Status</a></li>
+      <li><a href="#cl-bsp">BSP Clinical Pathway</a></li>
+      <li><a href="#cl-takeaways">Key Clinical Takeaways</a></li>
+    </ul>
+  </div>
+
+  <!-- 4.1 -->
+  <section id="cl-why">
+    <h2><span class="num">4.1</span>Why Classify?</h2>
+    <ul>
+      <li>Provides a framework to study aetiology, pathogenesis, and treatment</li>
+      <li>Enables a common international language among clinicians/researchers</li>
+      <li>Guides organisation and execution of treatment for individual patients</li>
+    </ul>
+  </section>
+
+  <!-- 4.2 -->
+  <section id="cl-2017">
+    <h2><span class="num">4.2</span>The 2017 World Workshop Classification (AAP/EFP)</h2>
+    <p>Published in <em>Journal of Clinical Periodontology</em> (Caton, Armitage, Berglundh et al. 2018). Replaced the previous 1999 AAP classification.</p>
+
+    <h3>Three Major Domains</h3>
+    <table>
+      <thead>
+        <tr><th>Domain</th><th>Sub-categories</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Periodontal Health, Gingival Diseases &amp; Conditions</td><td>Periodontal health; Biofilm-induced gingivitis; Non-biofilm gingivitis</td></tr>
+        <tr><td>Periodontitis</td><td>Necrotising; Periodontitis (staged/graded); Periodontitis as manifestation of systemic disease</td></tr>
+        <tr><td>Other Conditions Affecting Periodontium</td><td>Systemic diseases; Abscesses; Endo-perio lesions; Mucogingival deformities; Traumatic occlusal forces; Tooth/prosthesis factors</td></tr>
+      </tbody>
+    </table>
+    <p>A separate <strong>Peri-Implant Diseases</strong> section covers: Peri-implant health, Peri-implant mucositis, Peri-implantitis, Soft/hard tissue deficiencies.</p>
+  </section>
+
+  <!-- 4.3 -->
+  <section id="cl-health">
+    <h2><span class="num">4.3</span>Periodontal Health</h2>
+    <p><strong>Broad definition (Chapple et al. 2018):</strong> "an absence of clinically detectable inflammation."</p>
+
+    <h3>Pristine vs Clinical Health</h3>
+    <table>
+      <thead>
+        <tr><th></th><th>Pristine Health</th><th>Clinical Health</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Definition</td><td>Total absence of inflammation <em>and</em> physiological immune surveillance</td><td>Absence or minimal levels of clinical inflammation on a normal-support periodontium</td></tr>
+        <tr><td>Clinically observable?</td><td>Not likely</td><td>Yes</td></tr>
+        <tr><td>Immune cells present?</td><td>No</td><td>Low numbers of immuno-surveillance cells likely present</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout tip">
+      <span class="callout-label">Case Definition — Clinical Gingival Health</span>
+      <strong>&lt;10% BOP</strong> with <strong>PPD ≤ 3 mm</strong>
+    </div>
+
+    <h3>Three Subtypes</h3>
+    <table>
+      <thead>
+        <tr><th>Subtype</th><th>Context</th><th>Criteria</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Intact periodontium</td><td>No previous bone/attachment loss</td><td>&lt;10% BOP, PPD ≤ 3 mm</td></tr>
+        <tr><td>Reduced – stable periodontitis</td><td>Successfully treated periodontitis (LOA present)</td><td>&lt;10% BOP, PPD ≤ 3 mm, LOA noted</td></tr>
+        <tr><td>Reduced – non-periodontitis</td><td>Crown lengthening, recession etc.</td><td>&lt;10% BOP, PPD ≤ 3 mm, LOA noted</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4.4 -->
+  <section id="cl-gingivitis">
+    <h2><span class="num">4.4</span>Dental Plaque-Induced Gingivitis</h2>
+    <p><strong>Definition (Chapple et al. 2018):</strong> "an inflammatory lesion resulting from interactions between the dental plaque biofilm and the host's immune-inflammatory response, which remains contained within the gingiva and does not extend to the periodontal attachment… it is reversible."</p>
+
+    <h3>Key Points</h3>
+    <ul>
+      <li>BOP is the <strong>only objective measure</strong> of gingivitis</li>
+      <li>Severity <em>cannot</em> be measured — only <strong>extent</strong></li>
+      <li>Gingivitis → health is <strong>reversible</strong>; gingivitis → periodontitis is <strong>irreversible</strong></li>
+    </ul>
+
+    <div class="callout key">
+      <span class="callout-label">Extent Classification</span>
+      <strong>Localised:</strong> 10–30% BOP &nbsp;|&nbsp; <strong>Generalised:</strong> &gt;30% BOP &nbsp; (all with PPD ≤ 3 mm)
+    </div>
+
+    <h3>Gingivitis Subtypes</h3>
+    <table>
+      <thead>
+        <tr><th>Subtype</th><th>Context</th><th>Criteria</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Intact periodontium</td><td>No prior LOA</td><td>≥10% BOP, PPD ≤ 3 mm</td></tr>
+        <tr><td>Reduced – treated periodontitis</td><td>Successfully treated, LOA present</td><td>≥10% BOP, PPD ≤ 4 mm, LOA noted</td></tr>
+        <tr><td>Reduced – non-periodontitis</td><td>Crown lengthening, recession</td><td>≥10% BOP, PPD ≤ 3 mm, LOA noted</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4.5 -->
+  <section id="cl-perio">
+    <h2><span class="num">4.5</span>Periodontitis</h2>
+
+    <div class="callout warn">
+      <span class="callout-label">Definition</span>
+      A chronic multifactorial <em>host-mediated</em> inflammatory disease associated with <em>bacterial dysbiosis</em>, characterised by progressive destruction of the tooth-supporting structures.
+    </div>
+
+    <h3>Case Definition (Tonetti et al. 2018)</h3>
+    <p>A patient is a <em>periodontitis case</em> if:</p>
+    <ul>
+      <li><strong>Interdental CAL ≥ 3 mm</strong> detectable at <strong>2 or more non-adjacent teeth</strong>, OR</li>
+      <li><strong>Buccal/oral CAL ≥ 3 mm</strong> with pocketing &gt;3 mm at ≥ 2 teeth</li>
+      <li>AND the observed CAL cannot be ascribed to non-periodontal causes (e.g. traumatic recession, cervical caries, endo lesion, impacted wisdom tooth)</li>
+    </ul>
+
+    <h3>Key Change from 1999: Removal of "Aggressive Periodontitis"</h3>
+    <table>
+      <thead>
+        <tr><th>AAP 1999</th><th>EFP/AAP 2018</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Differentiates chronic vs aggressive periodontitis</td><td>Removes "aggressive" category</td></tr>
+        <tr><td>Emphasis on disease severity</td><td>Introduces staging &amp; grading framework</td></tr>
+      </tbody>
+    </table>
+    <p><em>Features previously called "aggressive" (young onset, rapid progression, familial aggregation) are now captured within Grade C, Stage III/IV.</em></p>
+  </section>
+
+  <!-- 4.6 -->
+  <section id="cl-staging">
+    <h2><span class="num">4.6</span>Periodontitis Staging (I–IV)</h2>
+    <p>Staging classifies <strong>severity and extent</strong> based on measurable tissue destruction, and <strong>complexity</strong> of management. Primary determinant: <strong>Interdental CAL</strong> (use radiographic bone loss [RBL] if unavailable).</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Stage I</th><th>Stage II</th><th>Stage III</th><th>Stage IV</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Interdental CAL</strong></td><td>1–2 mm</td><td>3–4 mm</td><td>≥5 mm</td><td>≥5 mm</td></tr>
+        <tr><td><strong>RBL</strong></td><td>Coronal third (&lt;15%)</td><td>Coronal third (15–33%)</td><td>Extending to middle third or beyond</td><td>Extending to middle third or beyond</td></tr>
+        <tr><td><strong>Tooth loss (perio)</strong></td><td>None</td><td>None</td><td>≤4 teeth</td><td>≥5 teeth</td></tr>
+        <tr><td><strong>Local complexity</strong></td><td>Max PPD ≤4 mm; mostly horizontal BL</td><td>Max PPD ≤5 mm; mostly horizontal BL</td><td>PPD ≥6 mm; vertical BL ≥3 mm; furcation Class II/III; moderate ridge defects</td><td>Masticatory dysfunction; secondary occlusal trauma (mobility ≥2); severe ridge defects; bite collapse / drifting / flaring; &lt;20 remaining teeth</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Extent Descriptor</h3>
+    <ul>
+      <li><strong>Localised:</strong> &lt;30% of teeth involved</li>
+      <li><strong>Generalised:</strong> ≥30% of teeth involved</li>
+      <li><strong>Molar/incisor pattern</strong></li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="callout-label">Key Rule</span>
+      Stage can only go <strong>UP</strong> — it is never downgraded, even after successful treatment. Instead, current disease status is recorded separately.
+    </div>
+  </section>
+
+  <!-- 4.7 -->
+  <section id="cl-grading">
+    <h2><span class="num">4.7</span>Periodontitis Grading (A–C)</h2>
+    <p>Grading indicates <strong>rate of progression</strong>, responsiveness to standard therapy, and potential systemic impact. <strong>Start at Grade B</strong> and seek evidence to shift to A or C.</p>
+
+    <table>
+      <thead>
+        <tr><th></th><th>Grade A (Slow)</th><th>Grade B (Moderate)</th><th>Grade C (Rapid)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Direct evidence (RBL/CAL over 5 yrs)</strong></td><td>No loss</td><td>&lt;2 mm</td><td>≥2 mm</td></tr>
+        <tr><td><strong>% BL / age</strong></td><td>&lt;0.25</td><td>0.25–1.0</td><td>&gt;1.0</td></tr>
+        <tr><td><strong>Case phenotype</strong></td><td>Heavy biofilm, low destruction</td><td>Destruction commensurate with deposits</td><td>Destruction exceeds deposits; rapid/early-onset</td></tr>
+        <tr><td><strong>Smoking</strong></td><td>Non-smoker</td><td>&lt;10 cigarettes/day</td><td>≥10 cigarettes/day</td></tr>
+        <tr><td><strong>Diabetes</strong></td><td>Normoglycaemic / no diagnosis</td><td>HbA1c &lt;7.0%</td><td>HbA1c ≥7.0%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4.8 -->
+  <section id="cl-status">
+    <h2><span class="num">4.8</span>Current Disease Status (Post-Treatment)</h2>
+    <table>
+      <thead>
+        <tr><th>Status</th><th>Criteria</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong style="color:var(--green);">Stable</strong></td><td>BOP &lt;10%; PPD ≤4 mm; no BOP at 4 mm sites</td></tr>
+        <tr><td><strong style="color:var(--gold);">In Remission</strong></td><td>BOP ≥10%; PPD ≤4 mm; no BOP at 4 mm sites</td></tr>
+        <tr><td><strong style="color:var(--red);">Unstable</strong></td><td>PPD ≥5 mm, OR PPD ≥4 mm with BOP</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout note">
+      <span class="callout-label">Full Diagnosis Statement Format</span>
+      <strong>Extent — Periodontitis — Stage — Grade — Stability — Risk Factors</strong><br>
+      <em>e.g.: Generalised Periodontitis Stage III Grade B — Currently Unstable — Risk(s): Smoker 15/day</em>
+    </div>
+  </section>
+
+  <!-- 4.9 -->
+  <section id="cl-bsp">
+    <h2><span class="num">4.9</span>Clinical Pathway: BPE → Diagnosis (BSP 2019)</h2>
+    <table>
+      <thead>
+        <tr><th>BPE Code</th><th>Next Step</th><th>Likely Outcome</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0 / 1 / 2 (no recession)</td><td>Assess BOP %</td><td>&lt;10% = Gingival Health; 10–30% = Localised Gingivitis; &gt;30% = Generalised Gingivitis</td></tr>
+        <tr><td>3 (no recession)</td><td>Radiographic assessment + initial therapy → review 3 months</td><td>If no pockets ≥4 mm + no RBL → Code 0/1/2 pathway; if pockets ≥4 mm or RBL → Code 4 pathway</td></tr>
+        <tr><td>4 and/or recession</td><td>Radiographic assessment + full 6-point pocket chart</td><td>Molar-incisor pattern / Localised / Generalised Periodontitis → Stage + Grade</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 4.10 -->
+  <section id="cl-takeaways">
+    <h2><span class="num">4.10</span>Key Clinical Takeaways</h2>
+    <ul>
+      <li>You do <strong>not</strong> need to populate every cell of the staging/grading grid before assigning a stage and grade</li>
+      <li><strong>Stage can increase</strong> if condition worsens; never decreases</li>
+      <li><strong>Grade can be revised</strong> after assessing treatment response, compliance, and risk-factor control</li>
+      <li>The classification supports <strong>precision / personalised medicine</strong> in dentistry</li>
+      <li>Gingivitis is <strong>reversible</strong>; periodontitis is not — but it can be stabilised</li>
+      <li>Clinicians should default to <strong>Grade B</strong> and look for evidence to shift grade</li>
+    </ul>
+
+    <h3>Epidemiology (for context)</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Adults (Eke et al. 2012 — USA, NHANES)</div>
+        <ul>
+          <li>&gt;47% of adults 30+ had periodontitis</li>
+          <li>Mild 8.7% | Moderate 30% | Severe 8.5%</li>
+          <li>70.1% of adults ≥65 yrs affected</li>
+          <li>86% had ≥1 site with attachment loss ≥3 mm</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Adolescents (Löe &amp; Brown 1991 — USA)</div>
+        <ul>
+          <li>0.53% had Localised Juvenile Periodontitis (LJP)</li>
+          <li>0.13% had Generalised Juvenile Periodontitis (GJP)</li>
+          <li>Black males 2.9× more likely than Black females to have LJP</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--             PART 5 — HISTOPATHOLOGY (BIG PICTURE)                   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part histo" id="part-histo">
+  <div class="part-header">
+    <span class="part-number">PART 05</span>
+    <h2 class="part-title">Histopathology of Periodontal Disease</h2>
+    <span class="part-tag">Big Picture Only · Low-Yield</span>
+  </div>
+
+  <div class="callout note">
+    <span class="callout-label">Scope Note</span>
+    This part is condensed to <strong>big-picture concepts</strong> only, as histopathology is reported to be lightly tested in DOH 256. Use this as a conceptual scaffold; consult the full lecture file if a deeper question arises.
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#hi-healthy">Healthy Gingiva — Baseline</a></li>
+      <li><a href="#hi-stages">The 4 Stages (Page &amp; Schröder 1976)</a></li>
+      <li><a href="#hi-transitions">Key Transitions &amp; Conceptual Points</a></li>
+      <li><a href="#hi-models">Modern Models</a></li>
+      <li><a href="#hi-numbers">Numbers Worth Knowing</a></li>
+    </ul>
+  </div>
+
+  <!-- 5.1 -->
+  <section id="hi-healthy">
+    <h2><span class="num">5.1</span>Healthy Gingival Tissue — Baseline</h2>
+    <ul>
+      <li>Connective tissue is highly collagenous; oral epithelium well keratinised; JE smooth</li>
+      <li>JE attached to tooth via <strong>hemidesmosomes</strong></li>
+      <li>Average sulcus depth ~<strong>0.39 ± 0.15 mm</strong> (Schröder 1970)</li>
+      <li>In <strong>clinical health</strong>, leukocytes are predominantly PMNs (~95–97% per Attström 1971)</li>
+    </ul>
+
+    <div class="callout key">
+      <span class="callout-label">Big Picture</span>
+      <strong>Health is not sterile.</strong> Even in clinically healthy tissue, low-grade leukocyte migration across the JE is constant. Health is an active equilibrium with ongoing immune surveillance.
+    </div>
+  </section>
+
+  <!-- 5.2 -->
+  <section id="hi-stages">
+    <h2><span class="num">5.2</span>The 4-Stage Model (Page &amp; Schröder 1976)</h2>
+    <p>The classical histopathology framework. <strong>Critical caveat:</strong> the histological stages do <em>not</em> correlate cleanly with clinical signs and symptoms.</p>
+
+    <table>
+      <thead>
+        <tr><th>Stage</th><th>Time</th><th>Dominant Cell</th><th>Defining Feature</th><th>Clinical</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1. Initial</strong></td><td>0–4 days</td><td>PMNs</td><td>Subclinical; no tissue damage; perivascular collagen breakdown begins</td><td>Subclinical</td></tr>
+        <tr><td><strong>2. Early</strong></td><td>4–7 days</td><td>Lymphocytes (~75%)</td><td>60–70% local collagen loss; altered fibroblasts</td><td>Gingivitis</td></tr>
+        <tr><td><strong>3. Established</strong></td><td>2–3 weeks</td><td>Plasma cells</td><td>Pocket epithelium forms; IgG predominant; perivascular plasma cells</td><td>Chronic gingivitis</td></tr>
+        <tr><td><strong>4. Advanced</strong></td><td>Undefined</td><td>Plasma cells (degenerating)</td><td><strong>Alveolar bone destruction</strong>; dense fibrosis around lesion</td><td>= Periodontitis</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5.3 -->
+  <section id="hi-transitions">
+    <h2><span class="num">5.3</span>Key Transitions &amp; Conceptual Points</h2>
+    <ul>
+      <li><strong>Initial → Early:</strong> shift from <strong>PMN-dominated</strong> to <strong>lymphocyte-dominated</strong> infiltrate. Significant collagen loss already present.</li>
+      <li><strong>Early → Established:</strong> <strong>plasma cells</strong> take over; pocket epithelium appears; reversibility becomes uncertain.</li>
+      <li><strong>Established → Advanced:</strong> this is the histological transition from <strong>gingivitis → periodontitis</strong>. Bone destruction is the defining event.</li>
+      <li>Antibody class: <strong>IgG predominates</strong> (some IgA, IgM rare).</li>
+      <li>Infiltrate composition <strong>differs by depth</strong>: PMNs near JE, lymphocytes deeper (Seymour 1983).</li>
+      <li>Bone loss in animal models was <strong>not universal</strong> — disease expression depends on host factors.</li>
+    </ul>
+  </section>
+
+  <!-- 5.4 -->
+  <section id="hi-models">
+    <h2><span class="num">5.4</span>Modern Models</h2>
+
+    <h3>Ohlrich et al. (2009) — Modern Immunopathogenesis</h3>
+    <ul>
+      <li><strong>Initial lesion</strong> driven by bacterial enzymes; activated complement &amp; mast cells; ELAM-1/ICAM-1 expression drives PMN migration; PMNs perform abortive phagocytosis and NETosis.</li>
+      <li><strong>Early lesion</strong> resembles a <strong>type IV delayed hypersensitivity</strong> reaction with CD4:CD8 ≈ 2:1; no attachment loss yet.</li>
+      <li><strong>Established lesion</strong>: B-cell/plasma cell response dominates; IL-1 and IL-6 predominate; apical migration of JE → pocket formation.</li>
+      <li><strong>Advanced lesion</strong>: significant attachment loss; <strong>MMPs</strong> drive tissue destruction; non-infiltrated fibrous band encapsulates the lesion.</li>
+    </ul>
+
+    <h3>Offenbacher et al. (2008) — Multi-level Model</h3>
+    <p>Periodontal disease expression results from nested layers; the clinical phenotype is the <em>tip of the iceberg</em>.</p>
+    <table>
+      <thead>
+        <tr><th>Level</th><th>Components</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Person level</strong></td><td>Biofilm characteristics, environment (smoking, diabetes, obesity)</td></tr>
+        <tr><td><strong>Genetic / epigenetic</strong></td><td>Gene polymorphisms, epigenetic modifications, age, gender</td></tr>
+        <tr><td><strong>Biological phenotype</strong></td><td>Host immune-inflammatory response, cellular &amp; molecular changes</td></tr>
+        <tr><td><strong>Clinical phenotype</strong></td><td>What we see at the chairside</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout key">
+      <span class="callout-label">Why This Matters</span>
+      Two patients with identical biofilm can show entirely different clinical disease because of differences in genetics, epigenetics, and modifiers (smoking, diabetes). This is why treatment is <strong>patient-specific, not biofilm-specific</strong>.
+    </div>
+  </section>
+
+  <!-- 5.5 -->
+  <section id="hi-numbers">
+    <h2><span class="num">5.5</span>Numbers Worth Knowing (If Asked)</h2>
+    <ul>
+      <li><strong>0.39 ± 0.15 mm</strong> — average sulcus depth (Schröder 1970)</li>
+      <li><strong>95–97%</strong> — PMN proportion in healthy gingival leukocytes (Attström 1971)</li>
+      <li><strong>5–10%</strong> CT infiltrate (initial) → <strong>5–15%</strong> (early)</li>
+      <li><strong>60–70%</strong> collagen loss in early lesion</li>
+      <li><strong>~Day 7</strong> — peak ELAM-1, ICAM-1 and IL-1 (Kinane 1991)</li>
+      <li><strong>CD4:CD8 = 2:1</strong> in early lesion (Ohlrich 2009)</li>
+      <li><strong>4×</strong> increase in PMNs within JE (Lindhe &amp; Rylander 1975)</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--             PART 6 — ORAL HYGIENE PROCEDURES                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part hygiene" id="part-hygiene">
+  <div class="part-header">
+    <span class="part-number">PART 06</span>
+    <h2 class="part-title">Oral Hygiene Procedures</h2>
+    <span class="part-tag">Clinical Application</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#oh-intro">Introduction &amp; Rationale</a></li>
+      <li><a href="#oh-prevention">Prevention of Bacterial Accumulation</a></li>
+      <li><a href="#oh-maintenance">Maintenance of Healthy Parameters</a></li>
+      <li><a href="#oh-bone">Prevention of Radiographic Bone Loss</a></li>
+      <li><a href="#oh-tb">Toothbrushing: Manual vs Powered</a></li>
+      <li><a href="#oh-tb-tech">Frequency, Force, Duration</a></li>
+      <li><a href="#oh-interdental">Interdental Cleaning</a></li>
+      <li><a href="#oh-floss">Floss</a></li>
+      <li><a href="#oh-idb">Interdental Brushes</a></li>
+      <li><a href="#oh-conclusion">Conclusion</a></li>
+    </ul>
+  </div>
+
+  <!-- 6.1 -->
+  <section id="oh-intro">
+    <h2><span class="num">6.1</span>Introduction</h2>
+
+    <div class="callout warn">
+      <span class="callout-label">Primary Disease Factor</span>
+      <strong>Plaque</strong> is the primary disease factor for periodontal disease.
+    </div>
+
+    <ul>
+      <li>The aim of oral hygiene practices is the <strong>disruption of oral biofilm</strong>.</li>
+      <li>Gingivitis typically develops within <strong>10–14 days</strong> in the absence of oral hygiene practices, but will resolve when recommenced (<strong>Löe et al. 1965</strong>).</li>
+      <li>Dental caries is a diet-related disease also associated with the accumulation of dental biofilm.</li>
+      <li>Major oral diseases may be prevented via thorough plaque removal, achieved using oral hygiene procedures.</li>
+      <li>Clinicians should be familiar with the oral care market.</li>
+    </ul>
+  </section>
+
+  <!-- 6.2 -->
+  <section id="oh-prevention">
+    <h2><span class="num">6.2</span>Prevention of Pathogenic Bacterial Accumulation (Supra/Subgingival)</h2>
+
+    <ul>
+      <li><strong>Waerhaug (1981):</strong> toothbrush bristles can penetrate up to <strong>0.9 mm</strong> below the gingival crevice.</li>
+    </ul>
+
+    <h3>Deep Pockets (&gt;6 mm)</h3>
+    <div class="card">
+      <p><em>Earlier studies: Cercek et al. 1983, Kho et al. 1985, Beltram et al. 1987, Loos et al. 1988</em></p>
+      <p>In <strong>deep periodontal pockets</strong>, a reduction in supragingival plaque <strong>may not significantly influence subgingival plaque</strong>. Therefore, supragingival cleaning alone is insufficient — it must be combined with <strong>professional instrumentation</strong> to provide significant clinical improvement.</p>
+    </div>
+
+    <h3>Shallow Pockets (&lt;6 mm)</h3>
+    <div class="card">
+      <p><em>Later studies: Dahlen et al. 1992, Katsanoulas et al. 1992, McNabb et al. 1992, Haffajee et al. 2001 (moderately deep sites)</em></p>
+      <p>In <strong>shallow pockets</strong>, meticulous oral hygiene <strong>can alter</strong> the subgingival microflora and consequently the periodontal condition.</p>
+    </div>
+  </section>
+
+  <!-- 6.3 -->
+  <section id="oh-maintenance">
+    <h2><span class="num">6.3</span>Maintenance of Healthy Clinical Parameters</h2>
+
+    <h3>Axelsson &amp; Lindhe (1978) — Pioneering Study</h3>
+    <ul>
+      <li>Long-term effects of repeated OHI and regular prophylaxis (every 2–3 months) in preventing periodontal disease and caries.</li>
+      <li>People (young, adults, old) who used proper OH techniques over a <strong>3-year period</strong> had <strong>negligible signs of gingivitis, no attachment loss, and rarely developed carious lesions</strong>.</li>
+      <li>In contrast, age-matched individuals receiving only symptomatic treatment and no formal OHI suffered gingivitis, attachment loss, and developed new and recurrent caries.</li>
+      <li><strong>Conclusion:</strong> bacterial plaque has a key role in aetiology/pathogenesis of periodontal disease, and a prophylactic program based on mechanical plaque control may successfully prevent it.</li>
+    </ul>
+
+    <h3>Follow-up Studies — Axelsson et al. (1991, 2004)</h3>
+    <ul>
+      <li>15-year (1991) and 30-year (2004) follow-ups.</li>
+      <li>Recall intervals extended from 2–3 months (first 6 years) to once or twice a year for most of the group.</li>
+      <li>Outcomes: <strong>low incidence of caries and tooth mortality, and almost no additional attachment loss</strong>.</li>
+    </ul>
+
+    <div class="callout tip">
+      <span class="callout-label">Key Finding</span>
+      Regular professional cleaning + consistent high standard of OH (<strong>&gt;80% surfaces plaque free</strong>) minimises recurrence of caries and periodontitis. Teeth that consistently demonstrated a <strong>plaque score &lt;20%</strong> corresponded with long-term, stable periodontal health.
+    </div>
+  </section>
+
+  <!-- 6.4 -->
+  <section id="oh-bone">
+    <h2><span class="num">6.4</span>Prevention of Radiographic Bone Loss</h2>
+
+    <h3>Schei et al. (1959)</h3>
+    <ul>
+      <li>Relationship between proficiency of OH and alveolar bone loss in 737 male workers in Oslo.</li>
+      <li>Subjects with "not good" plaque control had greater alveolar bone loss compared to "fairly good" and "good" groups.</li>
+    </ul>
+
+    <div class="callout key">
+      <span class="callout-label">Take-home</span>
+      <strong>Loss of alveolar bone increases with decreasing efficiency of oral hygiene.</strong>
+    </div>
+  </section>
+
+  <!-- 6.5 -->
+  <section id="oh-tb">
+    <h2><span class="num">6.5</span>Toothbrushing: Manual vs Powered</h2>
+
+    <p>Electric/powered toothbrushes are commercially available in several actions: circular, <strong>rotation-oscillation</strong>, counter-oscillation, sonic, ultrasonic, and ionic. Features that help: bristles going in different directions, soft bristles, smaller head.</p>
+
+    <p><strong>Rotation-oscillation:</strong> head rotates in one direction, then the other (e.g., Braun Oral-B Plak). Resembles professionally used rotatory instruments.</p>
+
+    <h3>Boyd et al. (1989) / Murray et al. (1989)</h3>
+    <ul>
+      <li>Electric TB equally as effective as the combination of conventional TB, floss, and toothpicks in controlling gingivitis and decreasing potential pathogenic microflora.</li>
+    </ul>
+
+    <h3>Van der Weijden et al. (1994)</h3>
+    <ul>
+      <li>Braun Plak Control (rotating-oscillating) = <strong>more effective vs manual TB</strong>.</li>
+      <li>More effective at cleaning the lingual interproximal and lingual surfaces.</li>
+    </ul>
+
+    <h3>Haffajee et al. (2001)</h3>
+    <ul>
+      <li>Electric TB (rotating-oscillating) <strong>significantly decreases BOP (82% vs 69%)</strong> and plaque index (77% vs 65%).</li>
+      <li>Greatest benefit = <strong>mandibular lingual surfaces</strong>.</li>
+    </ul>
+
+    <h3>Niederman (2003) — Cochrane Review</h3>
+    <ul>
+      <li>Meta-analysis: some powered toothbrushes with a <strong>rotation-oscillation action</strong> achieve a significant, but modest, reduction in plaque and gingivitis vs manual toothbrushes.</li>
+    </ul>
+
+    <h3>Deacon et al. (2010) — Cochrane Systematic Review</h3>
+    <ul>
+      <li>Only rotation-oscillation ETB reduced plaque and gingivitis significantly (<strong>11% and 6% respectively</strong>) in the short term; gingivitis decreased significantly by <strong>17% over 3 months</strong>.</li>
+      <li>Differences were small; clinical importance unclear (study duration too short).</li>
+      <li>Other toothbrushes did not yield statistically significant differences.</li>
+    </ul>
+
+    <h3>Van der Weijden et al. (2011) — Systematic Review</h3>
+    <ul>
+      <li>Oscillating-rotating toothbrushes are <strong>safe</strong> compared to manual toothbrushes and do not pose a clinically relevant concern to hard or soft tissues.</li>
+    </ul>
+  </section>
+
+  <!-- 6.6 -->
+  <section id="oh-tb-tech">
+    <h2><span class="num">6.6</span>Toothbrushing: Frequency, Force, Duration</h2>
+
+    <h3>Frequency</h3>
+    <ul>
+      <li><strong>2× daily activity advised.</strong></li>
+      <li>However, literature shows it takes longer than 12 hours for gingivitis to develop:
+        <ul>
+          <li><strong>Löe et al. (1965):</strong> 10–21 days for gingivitis to develop.</li>
+          <li><strong>Lang et al. (1973):</strong> effective OH at intervals of 48 hours was compatible with gingival health.</li>
+        </ul>
+      </li>
+      <li>The average person is <strong>not</strong> deemed an effective brusher (Westfelt 1996).</li>
+      <li><strong>De la Rosa et al. (1979):</strong> can leave up to <strong>60% plaque</strong> after supervised brushing.</li>
+      <li><strong>Morris et al. (2001)</strong> (1998 Adult Dental Health Survey): mean proportion of teeth with plaque deposits 30–44% <em>after</em> toothbrushing.</li>
+      <li><strong>'Modified Bass technique'</strong> with soft bristled toothbrush.</li>
+      <li><strong>Multi-level bristle tufts</strong> and angled bristle tufts are better vs traditional flat-trim configuration (<strong>Slots et al. 2012 review</strong>).</li>
+    </ul>
+
+    <h3>Force</h3>
+    <div class="callout key">
+      <span class="callout-label">Van der Weijden (1998)</span>
+      <strong>400 g</strong> of force is the optimal level for a manual toothbrush. Forces above this become <em>less</em> effective — likely related to brush filaments becoming splayed.
+    </div>
+
+    <h3>Duration</h3>
+    <h4>Van der Weijden et al. (1993)</h4>
+    <ul>
+      <li>Investigated ideal brushing times using 3 ETBs and 1 manual.</li>
+      <li>Efficacy of all 4 brushes increased with time; the <strong>major part of the effect was reached at 30 seconds per quadrant (i.e. 2 minutes total)</strong>.</li>
+      <li>Further increases with brushing time led to significant efficacy increases.</li>
+      <li>Manual TB removed <strong>~75% plaque in 90 seconds per quadrant</strong>; ETB removed <strong>92–94%</strong> in the same time.</li>
+    </ul>
+  </section>
+
+  <!-- 6.7 -->
+  <section id="oh-interdental">
+    <h2><span class="num">6.7</span>Interdental Cleaning</h2>
+
+    <ul>
+      <li><strong>Lang et al. (1973):</strong> plaque occurred <em>first</em> at interproximal areas of premolars/molars, then interproximal areas of anterior teeth, before any other surfaces.</li>
+      <li><strong>TB alone = ineffective</strong> around the central part of the interdental space (Waerhaug 1981a); therefore, <em>additional methods are required</em> to access interproximal spaces.</li>
+      <li>Range of products able to penetrate between adjacent teeth: <strong>floss, woodsticks, interdental brushes, single tufted brushes</strong>.</li>
+      <li>Interdental brushes = soft nylon filaments twisted into a fine stainless-steel wire; conical or tapered shape.</li>
+    </ul>
+  </section>
+
+  <!-- 6.8 -->
+  <section id="oh-floss">
+    <h2><span class="num">6.8</span>Interdental Cleaning: Floss</h2>
+
+    <ul>
+      <li>Demand for manual dexterity can be difficult and lead to <strong>poor compliance</strong>.</li>
+      <li>Used commonly in young adults and children, where papillae fill out interdental spaces.</li>
+    </ul>
+
+    <h3>Waerhaug (1981)</h3>
+    <ul>
+      <li>Floss could penetrate <strong>2 mm or more below the tip of the papilla</strong>, but never more than 3.5 mm, without causing discomfort.</li>
+      <li>Where floss was used, adhering JE cells were missing, but new epithelial cells reappeared after 3 days, repopulating to baseline by <strong>2 weeks</strong> → disruption to JE by floss is a more <em>physiological</em> event than a pathological condition.</li>
+    </ul>
+
+    <div class="callout tip">
+      <span class="callout-label">Practical Tip</span>
+      Daily floss use is safe, but it is <strong>needless to force floss as deeply as possible</strong> — there is simply no plaque there to remove.
+    </div>
+
+    <h3>Graves et al. (1989)</h3>
+    <ul>
+      <li>2-week clinical trial testing 3 types of dental floss (waxed, nonwaxed, dental tape) vs toothbrushing alone in reducing interdental bleeding.</li>
+      <li>Floss/tape group: mean interproximal bleeding reduction of <strong>~70%</strong>, vs <strong>~35%</strong> in the brushing-only group.</li>
+      <li>No difference in effectiveness between floss types.</li>
+      <li><strong>Flossing reduced gingival bleeding interproximally substantially more than brushing alone.</strong></li>
+    </ul>
+
+    <h3>Gjermo and Flotra (1970) — Floss vs Toothpicks (+ single tufted brush)</h3>
+    <ul>
+      <li>In young people, dental floss had greater plaque-removing effects than toothpicks, but took twice as long (4 mins).</li>
+      <li>Toothpicks + single tufted brush were found to be as effective as floss in removing interproximal plaque and took equally as long.</li>
+    </ul>
+  </section>
+
+  <!-- 6.9 -->
+  <section id="oh-idb">
+    <h2><span class="num">6.9</span>Interdental Cleaning: Interdental Brushes (IDB)</h2>
+
+    <ul>
+      <li>Useful in areas where papilla may not fully fill out the interproximal region — <strong>consistently better rate of plaque removal than flossing</strong>.</li>
+    </ul>
+
+    <h3>Christou et al. (1998) and Jackson et al. (2006)</h3>
+    <div class="callout key">
+      <span class="callout-label">Key Finding</span>
+      Interdental brushes were <strong>more effective than dental floss</strong> in the removal of plaque <em>and</em> in pocket reduction in patients with <strong>moderate to severe chronic periodontitis</strong>.
+    </div>
+
+    <h3>Slots et al. (2008) — Systematic Review</h3>
+    <p>Effectiveness of IDB as an adjunct to toothbrushing in plaque control and clinical parameters of periodontal inflammation, vs toothbrushing alone vs toothbrushing + floss/woodsticks:</p>
+    <ul>
+      <li>In <strong>young patients</strong>, where papilla fills out interdental spaces, dental floss is the only tool to reach the area.</li>
+      <li>As an adjunct to brushing, <strong>IDB removes more plaque than brushing alone</strong> — inconclusive evidence of effect on gingival inflammation.</li>
+      <li>IDB removed more plaque than floss and woodsticks, but no difference on parameters of gingival inflammation.</li>
+      <li><strong>More pocket reduction with IDB than floss.</strong></li>
+    </ul>
+  </section>
+
+  <!-- 6.10 -->
+  <section id="oh-conclusion">
+    <h2><span class="num">6.10</span>Conclusion</h2>
+    <ul>
+      <li>Periodontal disease is largely <strong>plaque-induced</strong>.</li>
+      <li>Instruction and enforcing OH plays a <strong>crucial role</strong> as a dental clinician.</li>
+      <li><strong>2× daily toothbrushing</strong> with electric or manual TB.</li>
+      <li>Supplemented with <strong>interproximal cleaning aids</strong>.</li>
+      <li>Apply <strong>preventive treatment protocols</strong>.</li>
+    </ul>
+    <div class="callout key">
+      <span class="callout-label">Final Principle</span>
+      The dental clinician should have an adequate understanding of the tools available to <strong>implement customized instructions per individual requirements</strong>.
+    </div>
+  </section>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!--                  PART 7 — CHEMICAL PLAQUE CONTROL                   -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div class="part chempc" id="part-chempc">
+  <div class="part-header">
+    <span class="part-number">PART 07</span>
+    <h2 class="part-title">Chemical Plaque Control</h2>
+    <span class="part-tag">Dr. Jake Ball · Adjunctive Therapy</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this part</div>
+    <ul>
+      <li><a href="#cp-rationale">Rationale</a></li>
+      <li><a href="#cp-mechanism">Mechanisms of Action</a></li>
+      <li><a href="#cp-vehicles">Delivery Vehicles</a></li>
+      <li><a href="#cp-chx">Chlorhexidine (CHX)</a></li>
+      <li><a href="#cp-phenol">Phenols / Essential Oils</a></li>
+      <li><a href="#cp-qac">Quaternary Ammonium Compounds</a></li>
+      <li><a href="#cp-enzyme">Enzymes</a></li>
+      <li><a href="#cp-amine">Amine Alcohols</a></li>
+      <li><a href="#cp-natural">Natural Products</a></li>
+      <li><a href="#cp-metal">Metal Salts</a></li>
+      <li><a href="#cp-other">Other Agents</a></li>
+      <li><a href="#cp-conclusion">Conclusion</a></li>
+    </ul>
+  </div>
+
+  <!-- 7.1 RATIONALE -->
+  <section id="cp-rationale">
+    <h2><span class="num">7.1</span>Rationale</h2>
+    <div class="callout key">
+      <span class="callout-label">Core Principle</span>
+      Plaque is the primary aetiological factor for gingival inflammation (Löe et al. 1965). Chemical plaque control is suggested as an <strong>adjunct</strong> to mechanical plaque removal — never a substitute.
+    </div>
+    <ul>
+      <li>Gingivitis and periodontitis lie on a continuum of the same inflammatory disease (Kinane et al. 2005).</li>
+      <li>Mechanical removal is effective but does not remove all plaque deposits — failure to comply, physical difficulties, and generally not-effective brushing technique all contribute.</li>
+      <li><strong>&lt;50%</strong> of plaque is removed after a single episode of brushing (De la Rosa et al. 1979).</li>
+      <li>Chemical agents support primary prevention of periodontitis and secondary prevention of recurrent periodontitis (Chapple et al. 2015 — EFP XI European Workshop in Periodontology, Prevention Workshop).</li>
+    </ul>
+  </section>
+
+  <!-- 7.2 MECHANISMS -->
+  <section id="cp-mechanism">
+    <h2><span class="num">7.2</span>Mechanisms of Action (Lang &amp; Lindhe 2008)</h2>
+    <p>Chemical agents act at four distinct points along the plaque maturation continuum (early/simple/G+ aerobic → late/complex/G− anaerobic):</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">1. Anti-adhesive</div>
+        <p>Prevent initial bacterial adhesion to the acquired pellicle. Earliest point of intervention.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">2. Antimicrobial</div>
+        <p>Bacteriostatic or bactericidal action against early colonisers in the developing biofilm.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">3. Alter Pathogenicity</div>
+        <p>Modulate the metabolism and virulence of established plaque without necessarily killing bacteria.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">4. Plaque Removal</div>
+        <p>Disrupt and detach mature biofilm. Latest point — overlaps with mechanical removal.</p>
+      </div>
+    </div>
+
+    <h3>Key Definitions (Lindhe et al. 1997)</h3>
+    <p>Four formal categories distinguish what a chemical agent does to plaque and to clinical outcomes:</p>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Antimicrobial Agents</div>
+        <p>Chemicals that have a bacteriostatic or bactericidal effect <em>in vitro</em> that <strong>alone cannot be extrapolated</strong> to a proven efficacy <em>in vivo</em> against plaque.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Plaque-Reducing / Inhibitory Agents</div>
+        <p>Chemicals that have only been shown to <strong>reduce the quantity and/or affect the quality of plaque</strong>, which may or may not be sufficient to influence gingivitis and/or caries.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Anti-plaque Agents</div>
+        <p>Chemicals that have an effect on plaque <strong>sufficient to benefit gingivitis and/or caries</strong>.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Anti-gingivitis Agents</div>
+        <p>Chemicals that <strong>reduce gingival inflammation without necessarily influencing bacterial plaque</strong> (includes anti-inflammatory agents).</p>
+      </div>
+    </div>
+    <div class="callout note">
+      <span class="callout-label">Why the distinction matters</span>
+      A compound shown to be antimicrobial in vitro is <em>not automatically</em> an anti-plaque or anti-gingivitis agent in vivo — each requires its own clinical evidence.
+    </div>
+  </section>
+
+  <!-- 7.3 VEHICLES -->
+  <section id="cp-vehicles">
+    <h2><span class="num">7.3</span>Delivery Vehicles</h2>
+    <p>Five common vehicles exist; each balances reach, dose, and patient compliance.</p>
+    <table>
+      <thead>
+        <tr><th>Vehicle</th><th>Composition / Use</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Toothpaste / Gel</strong></td><td>Ubiquitous. Contains abrasives, detergents, thickeners, sweeteners, humectants, flavours, and an active agent. Detergents are usually anionic (e.g. <strong>sodium lauryl sulphate</strong>). Common actives: fluoride, triclosan, stannous fluoride.</td><td>Difficult to formulate cationic compounds (e.g. CHX) with anionic detergents. Gels are similar but lack abrasives and detergents. Limitation: site access.</td></tr>
+        <tr><td><strong>Mouth Rinse / Irrigator</strong></td><td>Aqueous solutions of active ingredients with flavouring, colouring, and preservatives (sodium benzoate). Ethyl alcohol may stabilise actives.</td><td>Concerns with high alcohol content (Eley 1999): systemic toxicity from accidental ingestion (esp. children); false-positive breath test. Accesses intra-oral niches inaccessible to toothpastes.</td></tr>
+        <tr><td><strong>Spray</strong></td><td>Focused delivery at the required site.</td><td>Reduced dosage and side effects.</td></tr>
+        <tr><td><strong>Chewing Gum</strong></td><td>Stimulates saliva → anti-cariogenic effect. Has been used to deliver CHX.</td><td>Does not appear to improve plaque control at disease-prone sites as monotherapy.</td></tr>
+        <tr><td><strong>Varnish</strong></td><td>Used to deliver antiseptics for root caries prevention.</td><td>Use as a reservoir for plaque control has not been investigated.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout tip">
+      <span class="callout-label">Serrano et al. 2015</span>
+      Mouth rinses have more impact on clinical outcomes than dentifrices. Dentifrices are an ideal vehicle for the general population given convenience; mouth rinses are appropriate for high-risk patients or specific clinical scenarios.
+    </div>
+
+    <div class="callout note">
+      <span class="callout-label">Supra- &amp; Subgingival Irrigation (AAP Position Paper 2005)</span>
+      Conceptually, irrigation therapy may be of <strong>increased value when root planing is less than ideal</strong> due to anatomy or other factors. However, the greatest shortcoming of irrigation therapy is the <strong>quick elimination of subgingivally placed drugs</strong>.
+    </div>
+
+    <h3>Worked Example — NaF ppm calculation</h3>
+    <p>For a toothpaste declaring <strong>0.32% NaF</strong>:</p>
+    <ul>
+      <li>Atomic mass: F = 19; NaF = 42 → %F in NaF = 19 / 42 = <strong>45.24%</strong></li>
+      <li>0.32% NaF = 3.2 mg/g</li>
+      <li>3.2 × 0.4524 = <strong>1.45 mg/g F = 1,450 ppm F</strong></li>
+    </ul>
+  </section>
+
+  <!-- 7.4 CHLORHEXIDINE -->
+  <section id="cp-chx">
+    <h2><span class="num">7.4</span>Chlorhexidine (CHX) — the Gold Standard</h2>
+
+    <h3>Chemistry &amp; Mode of Action (Jones 1997)</h3>
+    <ul>
+      <li><strong>Cationic bisbiguanide</strong> with broad antimicrobial and anti-plaque activity.</li>
+      <li>Targets the inner cytoplasmic membrane; affects bacterial metabolism.</li>
+      <li>Effective against Gram +ve, Gram −ve bacteria, yeasts, dermatophytes, and lipophilic viruses.</li>
+      <li>Low mammalian toxicity. Strong affinity for epithelial surfaces.</li>
+      <li>Bacterial cell surface is typically negatively charged; CHX is attracted to phosphate-containing compounds → integrity of cell membrane disrupted → increased permeability and leakage of low-molecular-weight components (e.g. ions).</li>
+      <li><strong>Bacteriostatic at low concentrations; bactericidal at high concentrations.</strong> Irreversible damage = coagulation/precipitation of cytoplasm with phosphate complexes (e.g. ATP, nucleic acids).</li>
+    </ul>
+
+    <h3>Antimicrobial Effects — Key Studies</h3>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Briner et al. 1986 — supragingival</div>
+        <p>15 mL of 0.15% CHX bd in gingivitis patients (n = 430 adults). Significant reduction of <em>Actinomyces</em> (<strong>85–97%</strong>); no detectable shift in microbial species; microflora returned to baseline 3 months post-experiment.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Wade &amp; Addy 1989 — subgingival in vitro</div>
+        <p>n = 9 chronic periodontitis patients; 0.2% CHX. Majority of subgingival bacteria affected. <strong>Resistance:</strong> <em>S. mitior</em>, <em>S. sanguis</em>, <em>Capnocytophaga</em>. Possible reasons for limited in vivo subgingival action: GCF proteins inhibit CHX; poor penetration into calculus/cementum/dentine; limited reach in CT.</p>
+      </div>
+    </div>
+
+    <h3>Anti-plaque Effects &amp; Substantivity</h3>
+    <ul>
+      <li>Positive charge distributed over nitrogen atoms either side of the hexamethylene bridge → strong substantivity.</li>
+      <li><strong>Roberts &amp; Addy 1981:</strong> antibacterial activity observed for up to <strong>5 hours</strong> after rinsing for 60 s with 10 mL of 0.2% CHX.</li>
+      <li><strong>Jenkins et al. 1988:</strong> 0.2% CHX on enamel inserts (electron microscopy) — immediate bactericidal effect; prolonged bacteriostatic effect.</li>
+      <li>Tooth-bound CHX prevents plaque formation; overall mucosa-bound quantity reduces salivary bacterial challenge; aids post-operative healing (Jones 1997).</li>
+    </ul>
+
+    <h3>Optimal Dose &amp; Efficacy</h3>
+    <div class="callout key">
+      <span class="callout-label">Optimal Dose (Jones 1997)</span>
+      <strong>40 mg of chlorhexidine</strong> per dose — delivered as either <strong>10 mL of 0.2%</strong> bd <em>or</em> <strong>15 mL of 0.15%</strong> bd. Reductions in this dose = reductions in clinical effectiveness.
+    </div>
+    <ul>
+      <li><strong>Berchier et al. 2010</strong> — systematic review: 409 titles screened, 8 eligible, 7 used for meta-analysis (same plaque index). <strong>Small but significant difference in favour of 0.2% over 0.12%.</strong> Difficult to determine efficacy of gel formulations (penetration uncertain).</li>
+    </ul>
+
+    <h3>Side Effects</h3>
+    <ul>
+      <li><strong>Löe et al. 1976</strong> (2-year daily use, n = 120 students, 10 mL of 0.2% daily): no systemic side effects; minute shift in salivary microflora toward less-sensitive species (returned to control levels after cessation). Limited GIT absorption due to cationic structure. <strong>Stained teeth</strong> and <strong>increased supragingival calculus</strong> noted.</li>
+      <li><strong>Mariotti &amp; Rumpf 1999:</strong> reduced human gingival fibroblast proliferation <em>in vitro</em>; low <em>in vivo</em> toxicity attributed to low free-CHX concentration and poor epithelial absorption. Authors discouraged CHX peri-operatively, especially during regenerative and surgical procedures.</li>
+      <li>No reports of systemic toxicity from topical application or ingestion; no teratogenicity in animal models; accidental IV infusions documented with no serious consequences; hypersensitivity reports inconclusive (Lang &amp; Lindhe 2008).</li>
+    </ul>
+    <table>
+      <thead>
+        <tr><th>Side Effect</th><th>Mechanism</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Staining</td><td>Precipitation of extrinsic chromogens onto surface-bound CHX</td></tr>
+        <tr><td>Increased calculus formation</td><td>Precipitation of salivary proteins / organic salts</td></tr>
+        <tr><td>Taste disturbances</td><td>—</td></tr>
+        <tr><td>Mucosal erosions</td><td>—</td></tr>
+        <tr><td>Parotid swellings</td><td>Extremely rare</td></tr>
+      </tbody>
+    </table>
+    <p class="muted-source" style="font-size:0.78rem; color: var(--muted); margin-top:0.4rem;">Lang &amp; Lindhe 2008; McCoy et al. 2008</p>
+  </section>
+
+  <!-- 7.5 PHENOLS / ESSENTIAL OILS -->
+  <section id="cp-phenol">
+    <h2><span class="num">7.5</span>Phenols / Essential Oils</h2>
+
+    <h3>Triclosan</h3>
+    <ul>
+      <li><strong>Trichloro-2-hydroxyphenyl ether</strong> — aromatic hydrocarbon with hydroxyl group; <strong>non-ionic phenol</strong>.</li>
+      <li>Interferes with enzymatic function of target cells; adsorbs to lipid portion of cells and interferes with cell transport.</li>
+      <li>Used in toothpastes, mouth rinses, anti-perspirants, soaps.</li>
+      <li><strong>No staining</strong> — due to non-ionic nature.</li>
+      <li>Jenkins et al. 1991: anti-plaque effects ≤ SLS, significantly inferior to CHX.</li>
+      <li>Usually formulated with <strong>zinc citrate</strong> or <strong>Gantrez™</strong> (PVM/MA copolymer):
+        <ul>
+          <li>Gantrez™ ↑ adsorption of triclosan onto saliva-coated hydroxyapatite <em>in vitro</em> (Nabi et al. 1989).</li>
+          <li>Zinc citrate + triclosan exerts greater plaque inhibition on surfaces with moderate plaque compared to clean surfaces (Saxton et al. 1988): zinc citrate inhibits bacterial proliferation; triclosan greatest effect on plaque-free surfaces.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Listerine® (Essential Oils)</h3>
+    <ul>
+      <li>Concentrated hydrophobic liquids of volatile aromatic plant compounds: <strong>eucalyptol, menthol, and methyl salicylate</strong>.</li>
+      <li>Anti-gingivitis effect due to antioxidative activity of the essential oils (Firatli et al. 1994).</li>
+      <li><strong>Walker et al. 1989:</strong> daily use for 6 months as an adjunct → ↓ total microflora and reduced anaerobic/facultative cell ratio; long-term use ↓ total supragingival plaque without detrimental shift in community.</li>
+      <li><strong>Lamster et al. 1983:</strong> 6-month double-blind RCT (n = 145) — plaque score ↓ 20.8% vs vehicle, 22.2% vs H₂O; gingivitis ↓ 27.7% vs vehicle, 28.2% vs H₂O. Gordon et al. 1985 (n = 144, 9 mo) replicated.</li>
+      <li><strong>Van Leeuwen et al. 2011</strong> — systematic review (19/390 articles): CHX provided <strong>superior plaque control</strong> vs essential oils; <strong>no significant difference</strong> in reduction of gingival inflammation.</li>
+      <li>Poor oral substantivity (Eley 1999). Weak associations with oral cancer have been reported (McCullough &amp; Farah 2008).</li>
+    </ul>
+  </section>
+
+  <!-- 7.6 QAC -->
+  <section id="cp-qac">
+    <h2><span class="num">7.6</span>Quaternary Ammonium Compounds (QAC)</h2>
+    <ul>
+      <li>Salts of quaternary ammonium cations (NR₄⁺). Anti-plaque and antimicrobial — disrupt cell membrane.</li>
+      <li>Examples: <strong>benzalkonium chloride</strong>, <strong>cetylpyridinium chloride (CPC)</strong>.</li>
+      <li>0.05% CPC readily adsorbed onto oral surfaces at oral pH.</li>
+      <li><strong>Disappointing substantivity: 3–5 hours</strong> (cf. CHX). Possible reasons: rapid resorption; loss of activity when desorbed (monocationic structure, unlike CHX's bicationic structure).</li>
+      <li>May be overcome by increasing frequency of use → compliance concerns. Lozenge vehicles have been developed.</li>
+      <li>Evidence for anti-gingivitis effect equivocal, especially when used alongside toothbrush + toothpaste.</li>
+      <li><strong>Vandekerckhove et al. 1995:</strong> compared CPC mouth rinse vs CPC lozenge vs CHX mouth rinse — most profound effects with CHX; no difference between CPC formulations.</li>
+    </ul>
+  </section>
+
+  <!-- 7.7 ENZYMES -->
+  <section id="cp-enzyme">
+    <h2><span class="num">7.7</span>Enzymes (Lang &amp; Lindhe 2008)</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">1. Plaque-Removing Enzymes</div>
+        <p>Disrupt the early plaque matrix. Examples: <strong>dextranase, mutanase</strong>. <strong>Abandoned</strong> due to poor substantivity and reports of mucosal erosion.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">2. Host-Defence-Enhancing Enzymes</div>
+        <p>Catalyse conversion of fermentable carbohydrates → H₂O₂ → converts thiocyanate to hypothiocyanite, which interferes with oral bacterial metabolism. Examples: <strong>glucose oxidase, amyloglucosidase</strong>. Inconclusive anti-gingivitis results; no convincing long-term studies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7.8 AMINE ALCOHOLS -->
+  <section id="cp-amine">
+    <h2><span class="num">7.8</span>Amine Alcohols</h2>
+    <ul>
+      <li><strong>Anti-plaque with minimal antimicrobial effect</strong> — interfere with plaque matrix formation and bacterial adherence.</li>
+      <li><strong>Octopinol</strong> was the first compound to demonstrate anti-plaque efficacy.</li>
+      <li><strong>Withdrawn</strong> over concerns of toxicity.</li>
+      <li>Available overseas as a mouth rinse.</li>
+      <li>Available in Australia as a dental hygiene chew for canines.</li>
+    </ul>
+  </section>
+
+  <!-- 7.9 NATURAL PRODUCTS -->
+  <section id="cp-natural">
+    <h2><span class="num">7.9</span>Natural Products</h2>
+
+    <h3>Sanguinarine</h3>
+    <ul>
+      <li>Extract of <em>Sanguinaria canadensis</em> (blood-root). Antimicrobial effect likely due to ammonium ions.</li>
+      <li>Retained in plaque for hours; poorly absorbed from GIT. Formulated into toothpaste and mouth rinses, often with zinc salts.</li>
+      <li>Efficacy difficult to evaluate. <strong>Mascarenhas et al. 2002:</strong> associations reported with <strong>oral precancerous lesions</strong>.</li>
+    </ul>
+
+    <h3>Propolis</h3>
+    <ul>
+      <li>Bee product consisting of wax and plant extracts (flavones, flavanones, flavanols).</li>
+      <li>Used in homeopathic therapy as antiseptic, anti-inflammatory, anti-mycotic, bacteriostatic agent.</li>
+      <li><strong>Murray et al. 1997:</strong> clinical efficacy as mouth rinse not shown; not significantly better at inhibiting <em>de novo</em> plaque growth than control.</li>
+    </ul>
+
+    <h3>Oil Pulling</h3>
+    <ul>
+      <li>Swishing edible oil between interdental spaces for 10–15 minutes on an empty stomach.</li>
+      <li>Used in traditional Indian folk therapy (headache, migraine, diabetes, asthma; caries, oral malodour, bleeding gums, dryness, cracked lips; "strengthens teeth, gums, jaws").</li>
+      <li><strong>Kensche et al. 2013:</strong> edible oils may modulate plaque surface to impede adherence (↑ hydrophobicity); no evidence of substantivity. Significant binding of edible oils onto plaque is unlikely given the highly selective process of plaque formation.</li>
+      <li class="muted"><em>Explanation for the effects of lipids is theoretical rather than evidence-based.</em></li>
+    </ul>
+  </section>
+
+  <!-- 7.10 METAL SALTS -->
+  <section id="cp-metal">
+    <h2><span class="num">7.10</span>Metal Salts</h2>
+    <p>Inhibit plaque formation by interfering with bacterial glycolysis. Research results are mostly inconclusive.</p>
+    <table>
+      <thead>
+        <tr><th>Metal</th><th>Properties</th><th>Limitations</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Copper (Cu)</strong></td><td>Most potent inhibitor of plaque formation.</td><td>Unpleasant taste, staining, toxicity (Jackson 1997).</td></tr>
+        <tr><td><strong>Zinc (Zn)</strong></td><td>Synergistic antimicrobial effects with other antiseptics. Retained in plaque and disrupts ecology (Ingram et al. 1992).</td><td>Used mostly as an adjunct.</td></tr>
+        <tr><td><strong>Tin (Stannous fluoride, SnF₂)</strong></td><td>First fluoride agent successfully formulated into dentifrices. Anti-plaque <em>and</em> anti-caries (all-in-one). Dentifrice formulations more successful than mouth rinses (rinse hydrolyses in water).</td><td><strong>Staining</strong> is a common side effect (similar mechanism to CHX). Disappointing anti-plaque activity weakened its potential as an all-in-one therapeutic agent.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout note">
+      <span class="callout-label">Perlich et al. 1995 — SnF₂</span>
+      ↓ gingivitis by <strong>20.5%</strong> and ↓ gingival bleeding by <strong>33.4%</strong>, with <em>no</em> corresponding reduction in plaque score. Improvement is thought to be via reduction in plaque virulence from inhibition of bacterial metabolism rather than plaque removal.
+    </div>
+  </section>
+
+  <!-- 7.11 OTHER AGENTS -->
+  <section id="cp-other">
+    <h2><span class="num">7.11</span>Other Agents</h2>
+
+    <h3>Povidone-Iodine (PVP-I)</h3>
+    <ul>
+      <li>Broad-spectrum antiseptic; used to treat and prevent wound infections.</li>
+      <li><strong>Disappointing substantivity (≈1 hour with 1%)</strong> and disappointing plaque inhibitory effects.</li>
+      <li>Concerns with absorption through oral mucosa in iodine-sensitised patients (Eley 1999).</li>
+    </ul>
+
+    <h3>Sensitive-Toothpaste Chemicals (Walters et al. 2005)</h3>
+    <p>Two main mechanism types:</p>
+    <ol>
+      <li><strong>Potassium-containing</strong> toothpastes — depolarising effect on nerve conduction.</li>
+      <li><strong>Tubule-blocking</strong> toothpastes — strontium chloride, stannous fluoride, calcium sodium phosphosilicate, arginine — block exposed dentine tubules and interrupt external stimulation to achieve a desensitising effect.</li>
+    </ol>
+  </section>
+
+  <!-- 7.12 CONCLUSION -->
+  <section id="cp-conclusion">
+    <h2><span class="num">7.12</span>Conclusion</h2>
+    <div class="callout key">
+      <span class="callout-label">Take-Home (Chapple et al. 2015)</span>
+      The <strong>mechanical disruption</strong> of dental plaque is the gold standard for the prevention of plaque-related diseases. Chemical agents are recommended <strong>to support mechanical biofilm removal</strong> and when additional improvement in a patient's plaque control is required.
+    </div>
+    <h3>Practical Hierarchy of Evidence</h3>
+    <ul>
+      <li><strong>Chlorhexidine</strong> remains the gold-standard chemical agent — best substantivity and broadest spectrum — but staining/taste effects limit long-term use.</li>
+      <li><strong>Essential oils</strong> (Listerine) provide a useful long-term alternative with no staining.</li>
+      <li><strong>Triclosan</strong>-containing dentifrices (with zinc citrate or Gantrez™) are convenient daily-use options.</li>
+      <li><strong>CPC, stannous fluoride, sanguinarine, propolis, oil pulling</strong> — inferior to CHX or with insufficient evidence.</li>
+      <li>No chemical agent replaces toothbrushing and interdental cleaning.</li>
+    </ul>
+  </section>
+</div>
+
+</main>
+
+<footer>
+  <div>DOH 256 · Master Study Notes · Periodontics &amp; Endodontics</div>
+  <div class="source">Compiled from Dr. Jake Ball lecture series · 2017 AAP/EFP World Workshop · AAE Consensus 2008 · CSU School of Dentistry &amp; Health Sciences</div>
+</footer>
+
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:system-ui,-apple-system,sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>
