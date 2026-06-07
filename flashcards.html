@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH256 Flashcards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+
+<!--
+=============================================================================
+  HOW TO ADD / EDIT CARDS & DECKS
+=============================================================================
+  Scroll to the DECKS object below. It's organised as:
+
+    const DECKS = {
+      "deck-id": {
+        name: "Display Name",
+        cards: [
+          { front:"Q", back:"A", tags:"topic",
+            frontImage:"images/x.png", backImage:"images/y.png" },
+          ...
+        ]
+      },
+      ...
+    };
+
+  - To add a card: add an object to that deck's "cards" array.
+  - To add a whole new deck: add a new "deck-id": { name, cards } block.
+
+  IMAGES — three options:
+    1. RELATIVE PATH (best for GitHub): put images in an "images/" folder
+       next to this file, then:  frontImage: "images/opg.png"
+    2. WEB URL:  frontImage: "https://example.com/pic.jpg"
+    3. EMBEDDED: frontImage: "data:image/png;base64,...."  (bloats the file)
+
+  You can use HTML in front/back text: <b>, <br>, <i>, <ul><li>, etc.
+
+  Progress (your ratings/schedule) is saved per-deck in your browser.
+=============================================================================
+-->
+
+<style>
+  :root {
+    --bg:#faf7f0; --paper:#fffdf8; --ink:#2a2620; --ink-soft:#6b6357;
+    --ink-faint:#9c9484; --line:#e8e1d3; --line-soft:#f0ebe0;
+    --accent:#b5491f; --accent-soft:#f5e6df; --gold:#a8842c;
+    --again:#c0392b; --hard:#c97c1a; --medium:#5b8c3e; --easy:#2f7d6b;
+    --r-sm:8px; --r-md:12px; --r-lg:18px;
+    --shadow:0 1px 2px rgba(42,38,32,0.04), 0 8px 28px rgba(42,38,32,0.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(181,73,31,0.035), transparent 42%),
+      radial-gradient(circle at 88% 92%, rgba(168,132,44,0.04), transparent 45%);
+    color:var(--ink); font-family:'Newsreader',Georgia,serif; line-height:1.6;
+    min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:2.5rem 1.25rem 5rem;}
+
+  header{display:flex;align-items:flex-end;justify-content:space-between;
+    flex-wrap:wrap;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;
+    border-bottom:1px solid var(--line);}
+  .title-block h1{font-family:'Fraunces',serif;font-weight:600;font-size:2rem;
+    letter-spacing:-0.01em;line-height:1.05;}
+  .title-block .sub{font-size:0.92rem;color:var(--ink-soft);font-style:italic;margin-top:2px;}
+  .stats{display:flex;gap:8px;}
+  .stat{text-align:center;background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-md);padding:8px 14px;min-width:58px;}
+  .stat .num{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;line-height:1;}
+  .stat .lbl{font-size:0.66rem;text-transform:uppercase;letter-spacing:0.08em;
+    color:var(--ink-faint);margin-top:3px;}
+  .stat.due .num{color:var(--accent);}
+
+  /* deck picker */
+  .deck-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:10px;margin-bottom:1.5rem;}
+  .deck-card{background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-lg);padding:16px 18px;cursor:pointer;text-align:left;
+    transition:all 0.15s ease;position:relative;overflow:hidden;}
+  .deck-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--accent),var(--gold));opacity:0.8;}
+  .deck-card:hover{border-color:var(--ink-faint);transform:translateY(-2px);
+    box-shadow:var(--shadow);}
+  .deck-card .dk-cat{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;
+    color:var(--accent);margin-bottom:6px;}
+  .deck-card .dk-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;
+    line-height:1.2;margin-bottom:10px;}
+  .deck-card .dk-meta{font-size:0.8rem;color:var(--ink-soft);
+    display:flex;gap:12px;flex-wrap:wrap;}
+  .deck-card .dk-due{color:var(--accent);font-weight:500;}
+
+  .back-link{background:none;border:none;color:var(--ink-soft);cursor:pointer;
+    font-family:'Newsreader',serif;font-size:0.9rem;padding:0;margin-bottom:1rem;}
+  .back-link:hover{color:var(--accent);}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.5rem;align-items:center;}
+  button{font-family:'Newsreader',serif;cursor:pointer;border:1px solid var(--line);
+    background:var(--paper);color:var(--ink);border-radius:var(--r-sm);
+    padding:7px 14px;font-size:0.9rem;transition:all 0.15s ease;}
+  button:hover{border-color:var(--ink-faint);background:#fff;}
+  button:active{transform:translateY(1px);}
+  .tool-spacer{flex:1;}
+  .ghost{background:transparent;border-color:transparent;color:var(--ink-soft);}
+  .ghost:hover{background:var(--paper);border-color:var(--line);}
+
+  .card-stage{margin-bottom:1.25rem;}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);
+    box-shadow:var(--shadow);min-height:320px;padding:2.5rem 2.25rem;display:flex;
+    flex-direction:column;cursor:pointer;position:relative;overflow:hidden;
+    transition:box-shadow 0.2s ease;}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--accent),var(--gold));opacity:0.85;}
+  .card:hover{box-shadow:0 2px 4px rgba(42,38,32,0.05),0 14px 38px rgba(42,38,32,0.1);}
+  .card-tag{align-self:flex-start;font-size:0.72rem;text-transform:uppercase;
+    letter-spacing:0.1em;color:var(--accent);background:var(--accent-soft);
+    padding:3px 10px;border-radius:999px;margin-bottom:1.25rem;}
+  .face{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .face-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.14em;
+    color:var(--ink-faint);margin-bottom:0.85rem;}
+  .face-text{font-size:1.4rem;line-height:1.45;color:var(--ink);}
+  .face-text.answer{font-size:1.15rem;line-height:1.6;}
+  .face-text ul{margin:0.4rem 0 0 1.1rem;}
+  .face-text li{margin-bottom:0.25rem;}
+  .face img{max-width:100%;max-height:260px;border-radius:var(--r-md);margin-top:1rem;
+    border:1px solid var(--line);display:block;}
+  .divider{border:none;border-top:1px dashed var(--line);margin:1.5rem 0;}
+  .flip-hint{text-align:center;color:var(--ink-faint);font-size:0.82rem;
+    font-style:italic;margin-top:1.5rem;}
+
+  .ratings{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:0.5rem;}
+  .rate-btn{border:1px solid var(--line);border-radius:var(--r-md);
+    padding:12px 6px 10px;text-align:center;background:var(--paper);
+    transition:all 0.12s ease;cursor:pointer;}
+  .rate-btn:hover{transform:translateY(-2px);}
+  .rate-btn .key{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;display:block;}
+  .rate-btn .word{font-size:0.78rem;letter-spacing:0.04em;text-transform:uppercase;
+    display:block;margin:3px 0;}
+  .rate-btn .when{font-size:0.7rem;color:var(--ink-faint);display:block;}
+  .rate-btn[data-r="1"]{border-bottom:3px solid var(--easy);}
+  .rate-btn[data-r="1"] .key,.rate-btn[data-r="1"] .word{color:var(--easy);}
+  .rate-btn[data-r="2"]{border-bottom:3px solid var(--medium);}
+  .rate-btn[data-r="2"] .key,.rate-btn[data-r="2"] .word{color:var(--medium);}
+  .rate-btn[data-r="3"]{border-bottom:3px solid var(--hard);}
+  .rate-btn[data-r="3"] .key,.rate-btn[data-r="3"] .word{color:var(--hard);}
+  .rate-btn[data-r="4"]{border-bottom:3px solid var(--again);}
+  .rate-btn[data-r="4"] .key,.rate-btn[data-r="4"] .word{color:var(--again);}
+  .ratings.hidden{display:none;}
+
+  .empty-msg{text-align:center;padding:3rem 1rem;color:var(--ink-soft);}
+  .empty-msg .big{font-family:'Fraunces',serif;font-size:1.6rem;margin-bottom:0.5rem;color:var(--ink);}
+
+  .list-toggle{width:100%;text-align:left;margin-top:2rem;padding:14px 18px;
+    background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);
+    font-size:0.95rem;display:flex;justify-content:space-between;align-items:center;
+    font-family:'Fraunces',serif;font-weight:500;}
+  .list-toggle .chev{transition:transform 0.25s ease;color:var(--ink-faint);}
+  .list-toggle.open .chev{transform:rotate(180deg);}
+  .card-list{max-height:0;overflow:hidden;transition:max-height 0.35s ease;}
+  .card-list.open{max-height:6000px;}
+  .list-inner{padding-top:12px;}
+  .list-search{width:100%;padding:9px 14px;border:1px solid var(--line);
+    border-radius:var(--r-sm);font-family:'Newsreader',serif;font-size:0.9rem;
+    margin-bottom:12px;background:var(--paper);color:var(--ink);}
+  .list-search:focus{outline:none;border-color:var(--accent);}
+  .list-item{border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:6px;
+    background:var(--paper);overflow:hidden;}
+  .li-head{padding:11px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;font-size:0.92rem;}
+  .li-head:hover{background:#fff;}
+  .li-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;background:var(--ink-faint);}
+  .li-dot.s-easy{background:var(--easy);} .li-dot.s-medium{background:var(--medium);}
+  .li-dot.s-hard{background:var(--hard);} .li-dot.s-again{background:var(--again);}
+  .li-q{flex:1;} .li-meta{font-size:0.72rem;color:var(--ink-faint);white-space:nowrap;}
+  .li-body{display:none;padding:0 14px 13px 33px;font-size:0.88rem;color:var(--ink-soft);line-height:1.55;}
+  .li-body.open{display:block;}
+  .li-body img{max-width:220px;border-radius:var(--r-sm);margin-top:8px;border:1px solid var(--line);display:block;}
+
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:0.74rem;color:var(--ink-soft);margin:10px 2px 4px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .legend .d{width:8px;height:8px;border-radius:50%;}
+
+  footer{text-align:center;color:var(--ink-faint);font-size:0.8rem;margin-top:3rem;font-style:italic;}
+  kbd{font-family:'Newsreader',serif;background:var(--line-soft);border:1px solid var(--line);
+    border-radius:4px;padding:1px 6px;font-size:0.82rem;}
+  .hidden{display:none !important;}
+
+  @media (max-width:560px){
+    .face-text{font-size:1.18rem;}
+    .card{padding:1.75rem 1.4rem;min-height:280px;}
+    .stat{min-width:48px;padding:6px 10px;}
+    .rate-btn .when{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="title-block">
+      <h1>DOH256 Flashcards</h1>
+      <div class="sub" id="subtitle">choose a deck to begin</div>
+    </div>
+    <div class="stats" id="stats" style="display:none;">
+      <div class="stat due"><div class="num" id="stat-due">0</div><div class="lbl">Due</div></div>
+      <div class="stat"><div class="num" id="stat-done">0</div><div class="lbl">Done</div></div>
+      <div class="stat"><div class="num" id="stat-total">0</div><div class="lbl">Total</div></div>
+    </div>
+  </header>
+
+  <!-- DECK PICKER -->
+  <div id="picker">
+    <div class="deck-grid" id="deckGrid"></div>
+  </div>
+
+  <!-- STUDY VIEW -->
+  <div id="study" class="hidden">
+    <button class="back-link" id="backBtn">← all decks</button>
+    <div class="toolbar">
+      <button id="shuffleBtn">↻ Shuffle</button>
+      <button id="flipBtn">⤺ Flip</button>
+      <div class="tool-spacer"></div>
+      <button class="ghost" id="resetBtn">Reset this deck</button>
+    </div>
+
+    <div class="card-stage"><div class="card" id="card"></div></div>
+
+    <div class="ratings hidden" id="ratings">
+      <div class="rate-btn" data-r="1"><span class="key">1</span><span class="word">Easy</span><span class="when" id="w1">—</span></div>
+      <div class="rate-btn" data-r="2"><span class="key">2</span><span class="word">Medium</span><span class="when" id="w2">—</span></div>
+      <div class="rate-btn" data-r="3"><span class="key">3</span><span class="word">Hard</span><span class="when" id="w3">—</span></div>
+      <div class="rate-btn" data-r="4"><span class="key">4</span><span class="word">Again</span><span class="when" id="w4">—</span></div>
+    </div>
+
+    <button class="list-toggle" id="listToggle">
+      <span>Browse all cards in this deck</span><span class="chev">▾</span>
+    </button>
+    <div class="card-list" id="cardList">
+      <div class="list-inner">
+        <div class="legend">
+          <span><span class="d" style="background:var(--ink-faint)"></span>New</span>
+          <span><span class="d" style="background:var(--easy)"></span>Easy</span>
+          <span><span class="d" style="background:var(--medium)"></span>Medium</span>
+          <span><span class="d" style="background:var(--hard)"></span>Hard</span>
+          <span><span class="d" style="background:var(--again)"></span>Again</span>
+        </div>
+        <input class="list-search" id="listSearch" placeholder="Search this deck...">
+        <div id="listItems"></div>
+      </div>
+    </div>
+
+    <footer>
+      <kbd>Space</kbd> flip · <kbd>1</kbd>–<kbd>4</kbd> rate · <kbd>S</kbd> shuffle · progress saved in your browser
+    </footer>
+  </div>
+
+</div>
+
+<script>
+/* =========================================================================
+   THE DECKS — edit / add cards here (see comment block in <head>)
+   ========================================================================= */
+const DECKS = {
+
+  /* ----------------------------- OCCLUSION ------------------------------- */
+  "occlusion": {
+    name:"Occlusion", category:"Oral Biology",
+    cards:[
+      {tags:"definitions", front:"What is occlusion? Give the simple clinical definition.", back:"\"The contact between teeth.\" (Davies and Gray, 2001). The formal GPT-9 definition: \"the static relationship between the incising or masticating surfaces of the maxillary or mandibular teeth or tooth analogues.\""},
+      {tags:"definitions", front:"Why did Christensen (1905) prefer the word 'bite'?", back:"He believed it was simpler and more natural terminology — a general term for all forms of contact in which teeth meet, encompassing occlusion and articulation."},
+      {tags:"definitions", front:"What is malocclusion? Give three definitions.", back:"<b>Dental Practice Board:</b> an abnormal occlusion where teeth are not in normal position relative to adjacent teeth in the same jaw and/or opposing teeth when jaws close.<br><b>Orthodontists:</b> an appreciable deviation from ideal occlusion.<br><b>Medline:</b> the teeth are not aligned correctly."},
+      {tags:"CR vs CO", front:"Define centric relation (CR).", back:"The relationship of the <b>mandible to the skull</b> as it rotates around the hinge axis, before any translatory condyle movement — condyles in their upper-most, mid-most position. <i>Irrespective of tooth position or vertical dimension.</i>"},
+      {tags:"CR vs CO", front:"Define centric occlusion (CO).", back:"The relationship of the <b>mandible to the maxilla</b> when the teeth are in maximum occlusal contact. <i>Irrespective of the position or alignment of the condyle–disk assemblies.</i>"},
+      {tags:"CR vs CO", front:"CR vs CO — what's the key difference in one line?", back:"CR is a <b>jaw-joint</b> position (mandible to skull); CO is a <b>tooth-contact</b> position (mandible to maxilla at maximum intercuspation). A discrepancy between them is called a 'slide'."},
+      {tags:"ideal occlusion", front:"What are the three principles of ideal occlusion?", back:"1) <b>Point contacts:</b> maxillary posterior lingual cusp tips and mandibular posterior buccal cusp tips meet opposing central fossae or marginal ridges.<br>2) <b>Axial loading:</b> forces on posterior teeth directed through the long axis of each tooth.<br>3) <b>Buccal position:</b> maxillary buccal cusps sit buccal to (outside) the mandibular teeth."},
+      {tags:"Andrews", front:"Andrews' Six Keys to Occlusion (1979) — list all six.", back:"1) Molar relationship<br>2) Crown angulation (mesio-distal tip)<br>3) Crown inclination (labio/bucco-lingual torque)<br>4) No rotations<br>5) No spaces<br>6) Flat occlusal plane (minimal curve of Spee)"},
+      {tags:"Andrews", front:"Describe Andrews' Key 1 — the molar relationship.", back:"The distal surface of the disto-buccal cusp of the upper first permanent molar occludes with the mesial surface of the mesio-buccal cusp of the lower second permanent molar."},
+      {tags:"Andrews", front:"Describe Andrews' Key 2 and 3 (crown angulation and inclination).", back:"<b>Key 2 — Crown angulation (tip):</b> the gingival portion of each crown is distal to the incisal portion; degree of tip varies by tooth type.<br><b>Key 3 — Crown inclination (torque):</b> upper anteriors inclined enough to prevent over-eruption; upper posterior lingual tip constant from 3–5, increases in molars; lower posterior lingual tip increases progressively toward molars."},
+      {tags:"stable occlusion", front:"What are the five requirements of a stable occlusion?", back:"1) Stable stops on all teeth when condyles are in CR.<br>2) Correct contact points (upper lingual cusp tips, lower buccal cusp tips, central pits/marginal ridges, lower incisal edges, upper lingual surfaces).<br>3) Anterior guidance in harmony with the envelope of function.<br>4) Posterior disclusion in protrusion by the anterior teeth.<br>5) Posterior disclusion on both working and non-working sides in lateral excursion."},
+      {tags:"stable occlusion", front:"What is canine guidance?", back:"The vertical and horizontal overlap of the canine teeth causes disengagement (disclusion) of all posterior teeth during lateral movement — this is <b>mutually protected occlusion</b>."},
+      {tags:"stable occlusion", front:"What is group function and why is it a risk in restorative work?", back:"Multiple teeth on the working side contact simultaneously during lateral movement, distributing occlusal forces. It's a risk factor in restorative work because it can cause wear across multiple restored teeth simultaneously."},
+      {tags:"stable occlusion", front:"What is incisal guidance?", back:"The upper and lower front teeth guide the mandible during protrusive (forward) movement; the incline of the upper lingual surfaces determines how the lower jaw moves down and back, discluding the posterior teeth."},
+      {tags:"curves", front:"What is the Curve of Spee?", back:"The <b>anteroposterior</b> (front-to-back) curvature of occlusal surfaces. Begins at the lower canine tip, runs through all mandibular posterior buccal cusp tips to the anterior border of the ramus. In ideal occlusion, extending the arc passes through the condyles. Average radius ~4 inches."},
+      {tags:"curves", front:"What is the Curve of Wilson and what is its functional purpose?", back:"The <b>mediolateral</b> (side-to-side) curve through buccal and lingual cusp tips. Lower posteriors tip lingually (lingual cusps lower); upper posteriors tip buccally (buccal cusps higher). Function: the taller buccal cusps stop food from slipping past the chewing surface — food stays in the midline on the occlusal table."},
+      {tags:"curves", front:"Memory cue: Spee vs Wilson direction?", back:"<b>Spee</b> = front-to-back (sagittal/anteroposterior).<br><b>Wilson</b> = side-to-side (coronal/mediolateral)."},
+      {tags:"arches & overlap", front:"Why does the maxillary arch overhang the mandibular arch?", back:"The maxillary arch is larger than the mandibular arch, so upper teeth overhang lower teeth — this permits the overbite and overjet relationship."},
+      {tags:"arches & overlap", front:"Define overbite and overjet and give the function of each.", back:"<b>Overbite</b> (vertical): how much the upper anteriors overlap the lower anteriors vertically in CO. Enables posterior disclusion during incision; increases efficiency of anterior teeth in biting.<br><b>Overjet</b> (horizontal): how far the upper anteriors project horizontally beyond the lower in CO. Increases duration of occlusal contact in protrusive and lateral movements during incision and mastication."},
+      {tags:"classification", front:"Angle Class I — describe the molar and canine relationships.", back:"<b>Molar:</b> mesiobuccal cusp of the upper first molar occludes with the mesiobuccal groove of the lower first molar.<br><b>Canine:</b> upper canine occludes with the distal half of the lower canine and mesial half of the lower first premolar.<br><b>Incisors:</b> lower incisors occlude at or below the upper incisor cingulum."},
+      {tags:"classification", front:"Angle Class II — what defines it and what are the two divisions?", back:"Mesiobuccal groove of the lower first molar is positioned <b>distal</b> to the upper mesiobuccal cusp (mandible relatively retruded).<br><b>Div 1:</b> upper anteriors proclined, large overjet.<br><b>Div 2:</b> upper anteriors retroclined, deep overbite."},
+      {tags:"classification", front:"Angle Class III — describe it.", back:"The lower molar is positioned forward (mesially) relative to the upper — the distal cusp of the lower molar contacts the mesial cusp of the upper molar. May present clinically as an underbite."},
+      {tags:"clinical issues", front:"What causes an anterior open bite?", back:"Commonly prolonged thumb sucking and/or tongue thrust — the digit or tongue physically occupies the space and prevents the incisors from erupting to their normal position."},
+      {tags:"clinical issues", front:"What is loss of vertical dimension ('collapsed occlusion') and how is it managed?", back:"Severe tooth wear shortens teeth, but teeth keep erupting to maintain contact — the occlusion 'collapses.' If teeth over-erupt trying to compensate, <b>crown lengthening surgery</b> may be needed to expose adequate tooth structure before restoring."},
+      {tags:"clinical issues", front:"Define the three smile lines.", back:"<b>High</b> — excessive gingival display when smiling ('gummy smile').<br><b>Medium</b> — gingival margin at or just below the lip line; most common.<br><b>Low</b> — lip covers the gingival margin entirely."},
+      {tags:"clinical issues", front:"What dental problems does chronic mouth breathing cause?", back:"Creates lip traps and malocclusion (disrupted muscle balance → narrow arch, increased overjet); associated with breathing difficulty and sinus issues. Often caused by nasal obstruction."},
+      {tags:"clinical issues", front:"What is tongue thrust, what does it cause, and how is it treated?", back:"An abnormal swallowing pattern where the tongue pushes forward against or between the front teeth (instead of resting on the palate). Prevents incisor eruption and maintains/worsens an anterior open bite. Treatment: myofunctional therapy and/or appliances to prevent the tongue protruding."},
+      {tags:"clinical issues", front:"Is a midline shift a 'deal breaker'?", back:"No — a midline discrepancy (central incisors not aligned to facial symmetry) is not automatically a treatment priority. It must be assessed in clinical context."},
+    ]
+  },
+
+  /* ----------------------------- RADIOGRAPHY ----------------------------- */
+  "radiography": {
+    name:"Radiography", category:"Imaging",
+    cards:[
+      {tags:"x-ray physics", front:"List the key properties of X-rays.", back:"Invisible & weightless; very short wavelength (~0.01–0.05 nm); travel in straight lines from a point source; cannot be focused; travel at the speed of light; differently absorbed by matter; can be deflected; cause some substances to fluoresce; produce biological changes in living tissue; can ionise gases."},
+      {tags:"x-ray tube", front:"How are X-rays produced in the X-ray tube?", back:"The cathode (tungsten filament) is heated, releasing electrons that accelerate toward the anode. They strike the tungsten target plate; the collision produces photons (X-rays) and a large amount of heat. The photon exits the tube window, passes through the tissue, and reaches the receptor/plate."},
+      {tags:"intraoral views", front:"Name the three main intra-oral image types and their focus.", back:"<b>Periapical</b> — focused on the root and surrounding apical tissue.<br><b>Bitewing</b> — patient bites a 'wing'; crowns of upper & lower teeth on one film.<br><b>Occlusal</b> — useful to locate trauma or fragments displaced into soft tissue."},
+      {tags:"extraoral views", front:"What is an OPG and what is it good for?", back:"Orthopantomogram — a panoramic image (machine moves in a spiralling arc) showing all 4 quadrants. Good for an overview: count teeth, assess bone loss, then teeth. Taken while static so beam angulation doesn't affect it (unlike intra-oral). Gives more info but <b>less resolution / detail</b> than a bitewing."},
+      {tags:"extraoral views", front:"What are cephalometric and lateral oblique radiographs used for?", back:"Cephalometric: used in orthodontics for assessing jaw alignment/relationships. Lateral oblique: an extra-oral view of the mandible/jaw."},
+      {tags:"image quality", front:"Define sharpness, resolution, magnification and contrast.", back:"<b>Sharpness:</b> how well a boundary between two areas of different radiodensity is revealed.<br><b>Resolution:</b> how well small objects close together are revealed.<br><b>Magnification:</b> increase in image size vs the actual object.<br><b>Contrast:</b> difference in density between image areas — dark vs light = high contrast; grays = low contrast."},
+      {tags:"radiation units", front:"Distinguish exposure, absorbed dose, equivalent dose and effective dose.", back:"<b>Exposure:</b> radiation quantity — capacity to ionise air.<br><b>Absorbed dose:</b> energy absorbed per unit mass (Gy = 1 J/kg).<br><b>Equivalent dose (H<sub>T</sub>):</b> compares biological effects of different radiation types on a tissue/organ (Sv).<br><b>Effective dose (E):</b> estimates overall risk in humans (Sv)."},
+      {tags:"radiation risk", front:"What is the Linear Non-Threshold (LNT) hypothesis?", back:"It assumes a direct relationship between dose and the risk of inducing a new cancer, with <b>no safe threshold</b> — so radiation should be minimised wherever possible."},
+      {tags:"radiation risk", front:"Which head & neck structures are most radiosensitive, and what tumours are linked to dental exposure?", back:"Radiosensitive: thyroid gland, salivary glands, bone marrow (leukaemia risk) and brain. Dental exposure has been specifically linked to meningiomas, salivary gland tumours and thyroid tumours."},
+      {tags:"biological effects", front:"Deterministic vs stochastic effects — which matters in dentistry?", back:"<b>Deterministic</b> (tissue reactions): occur above a threshold dose, severity rises with dose (e.g. burns, cataracts) — kills many cells; not relevant at dental doses.<br><b>Stochastic</b>: probabilistic, no threshold, likelihood rises with dose (e.g. cancer, hereditary mutations) — from sublethal DNA damage. This is the one relevant to dentistry."},
+      {tags:"protection", front:"What does ALARA stand for and what does justification require?", back:"ALARA = <b>As Low As Reasonably Achievable</b>. Every exposure must be justified — the examination must be appropriate, and there must be a clear reason known to both supervisor and patient. Only retake when diagnostic criteria aren't met, and record retakes (type of X-ray, error, cause)."},
+      {tags:"legislation", front:"What are the legal requirements around dental radiographs?", back:"You need a licence to take radiographs; the practitioner who recorded them is responsible for them; radiographs must be stored for at least 7–10 years."},
+      {tags:"bitewings", front:"When are bitewings indicated?", back:"Part of the routine exam and a caries baseline; for any caries suspicion; after dietary change; to investigate periodontal status (a pocket ≥5 mm is good reason for a periapical; ≥4 mm with bleeding also warrants assessment)."},
+      {tags:"bitewings", front:"What are the ideal outcomes for a bitewing radiograph?", back:"Adequate image quality; ~2 mm of root apical to the CEJ visible; minimal crown overlap; teeth extending anteriorly from the distal of the lower canine back to the posterior teeth."},
+      {tags:"pitfall", front:"What is cervical burnout / translucency, and why does it matter?", back:"A radiolucent band near the cervical area that mimics caries but is <b>not</b> caries — an artefact of varying tissue thickness. Always confirm with clinical examination before diagnosing root/cervical caries."},
+      {tags:"bitewing technique", front:"Key technique points for bitewing positioning.", back:"Bite platform on the middle of the film, parallel to its upper/lower edges; film horizontal for posterior, vertical for anterior bitewings; teeth and film in contact/as close as possible and parallel; horizontal beam aimed at right angles through the contact area; vertical beam angled downward ~5–8°."},
+      {tags:"bitewing technique", front:"Two main bitewing positioning techniques — and which is better?", back:"(1) <b>Tab</b> attached to the film, aligning the tube head by eye. (2) <b>Film holder with beam-aiming device</b>. The holder makes positioning less operator-dependent and reduces the chance of cone-cutting — but holders aren't usually suitable for children."},
+      {tags:"periapical", front:"What is a periapical radiograph and what does it show?", back:"An intra-oral technique designed to show individual teeth and the tissue around the apices. Each film usually shows 2–4 teeth with detailed information about the teeth and surrounding alveolar bone."},
+      {tags:"periapical", front:"Clinical indications for periapical radiography.", back:"Detection of apical infection/inflammation; assessment of periodontal status; post-trauma assessment of teeth & alveolar bone; presence/absence/position of unerupted teeth; root morphology; post-op implant evaluation; apical cysts and other lesions within alveolar bone."},
+      {tags:"periapical", front:"Ideal positioning requirements for a periapical.", back:"Tooth and film parallel; film long-axis vertical for incisors/canines, horizontal for premolars/molars; tooth under investigation plus both neighbours visible; <b>2 mm beyond the apices visible</b>; beam at right angles to tooth and film in both planes; reproducible; dot placed toward the occlusal/incisal aspect."},
+      {tags:"periapical technique", front:"Parallel technique — method and main advantage.", back:"Film held in a holder parallel to the tooth's long axis; cone aimed at right angles to both tooth and film. Main advantage: the holder makes it <b>reproducible</b> and geometrically almost accurate, with periodontal bone levels and peri-apical tissue well represented."},
+      {tags:"periapical technique", front:"Advantages and disadvantages of the parallel technique.", back:"<b>Advantages:</b> geometrically almost accurate; zygomatic buttress shadow appears above molar apices; periodontal bone levels & peri-apical tissue accurately shown; low cone-cut risk; reproducible.<br><b>Disadvantages:</b> film placement can be uncomfortable / cause gagging; difficult for inexperienced operators; mouth anatomy can make it impossible; holders need sterilising/disposing (if dropped, don't reuse)."},
+      {tags:"periapical technique", front:"How does the bisecting angle technique work?", back:"Film placed close to the tooth without bending; the angle between the long axis of the tooth and long axis of the film is mentally bisected; the tube head is aimed at right angles to that bisecting line. Used when the parallel technique isn't possible. Requires patient cooperation."},
+      {tags:"periapical technique", front:"Disadvantages of the bisecting angle technique.", back:"Too many variables → image distortion; incorrect vertical angulation causes foreshortening/elongation, incorrect horizontal causes overlap; angles must be re-assessed per patient (skill needed); zygomatic buttress often overlies upper molar roots; not reproducible; cone-cut possible; proximal caries can be hard to detect; additional radiation to the patient's finger (if finger-held)."},
+      {tags:"angulation", front:"Define vertical and horizontal angulation.", back:"<b>Vertical angulation:</b> the angle formed by the continuing line of the central ray where it meets the occlusal plane.<br><b>Horizontal angulation:</b> in the horizontal plane the ray should aim through the interproximal contact area to avoid overlapping teeth."},
+      {tags:"occlusal", front:"Indications for an upper standard (anterior) occlusal radiograph.", back:"Periapical evaluation of upper anteriors when periapical holders can't be tolerated; identifying unerupted canines, odontomes, supernumeraries; midline view for the parallax method locating maxillary canines bucco-palatally; assessing cysts/tumours in the anterior maxilla; assessing fractures of anterior teeth & alveolar bone."},
+      {tags:"occlusal", front:"Indications for a lower 90° occlusal radiograph.", back:"Detect presence/position of radiopaque calculi in submandibular salivary ducts; assess bucco-lingual position of unerupted mandibular teeth; assess bucco-lingual expansion of the mandible by cysts/tumours/lesions; assess displaced fractures of the anterior mandible in the horizontal plane."},
+      {tags:"SLOB rule", front:"State and explain the SLOB rule.", back:"<b>Same Lingual, Opposite Buccal</b> — used to localise an object (impacted tooth, root canal) relative to a reference tooth across two angled views. If the object moves the <b>same</b> direction as the tube head → it's <b>lingual</b>. If it moves the <b>opposite</b> direction → it's <b>buccal</b>."},
+      {tags:"perio charting", front:"How is clinical attachment loss calculated from a perio chart?", back:"<b>Probing depth + recession = clinical attachment loss (CAL).</b> Probing depth = gum line to base of pocket. Recession = CEJ to gum line. If there's no difference between CEJ and gum line, there's no recession."},
+      {tags:"perio charting", front:"Describe 6-point pocket charting and when BOP is recorded.", back:"Six sites per tooth — buccal: disto-buccal, mid-buccal, mesio-buccal; lingual: disto-lingual, mid-lingual, mesio-lingual. Bleeding on probing (BOP) is checked at all 6 points, recorded <b>after</b> probing depth and recession are done."},
+      {tags:"furcation & mobility", front:"Where are furcations checked, and how is mobility graded?", back:"<b>Furcation</b> — upper: mid-buccal, mesio-palatal, disto-palatal; lower: mid-buccal, mid-lingual; graded Class 1, 2, 3. <b>Mobility</b> — apply horizontal force per tooth; significant movement is >1 mm; graded Grade 1, 2, 3."},
+    ]
+  },
+
+  /* ----------------------------- ULTRASONIC ------------------------------ */
+  "ultrasonic": {
+    name:"Ultrasonic Devices", category:"Periodontics",
+    cards:[
+      {tags:"basics", front:"What are ultrasonic scalers and how do they work?", back:"Dental instruments that use high-frequency mechanical vibrations (typically 25–50 kHz) to remove plaque, calculus and bacterial biofilm from teeth, especially subgingivally. Two types: <b>piezoelectric</b> and <b>magnetostrictive</b>."},
+      {tags:"mode of action", front:"Name the four mechanisms by which ultrasonic scalers clean.", back:"<b>Mechanical vibration</b> — dislodges deposits. <b>Cavitation</b> — micro-bubbles form and implode, disrupting biofilm via shockwaves. <b>Acoustic microstreaming</b> — shear forces in surrounding fluid clean beyond the tip's reach. <b>Water cooling</b> — prevents overheating and provides lavage."},
+      {tags:"piezoelectric", front:"Key features of piezoelectric scalers (e.g. EMS).", back:"Crystals create <b>linear</b> tip movement; only the <b>lateral sides</b> are active; higher frequency (~30–50 kHz); quieter operation."},
+      {tags:"magnetostrictive", front:"Key features of magnetostrictive scalers (e.g. Cavitron).", back:"A magnetic stack causes <b>elliptical</b> tip motion — more versatile (works in more directions); <b>all sides active</b> with the point most powerful; frequencies ~20–40 kHz."},
+      {tags:"evidence", front:"Are piezo and magnetostrictive scalers clinically different in effectiveness?", back:"Busslinger (2002): piezo removed calculus more efficiently but left a rougher surface. Singh et al. (2009): both produce similar surface roughness, so efficacy for a biologically compatible surface is similar. Bottom line: both are equally effective clinically — choice comes down to preference (patients often prefer the quieter piezo)."},
+      {tags:"technique", front:"Correct tip angulation, pressure and motion.", back:"Angulation <b>0–15°</b>; use the <b>lateral surfaces only</b>; <b>feather-light</b> pressure; keep the tip <b>constantly moving</b>; use the correct power setting; avoid root gouging."},
+      {tags:"contraindications", front:"What are the contraindications to ultrasonic scaling?", back:"Older <b>unshielded pacemakers</b> (can be affected by magnetostrictive scalers & their cable); high-risk patients with severe respiratory illness; severely immunocompromised patients; patients at high risk of infective endocarditis without antibiotic cover."},
+      {tags:"cautions", front:"Why prefer piezo for pacemaker patients, and what's the bracket-tray warning?", back:"As a precaution for pacemaker patients, <b>piezo scalers are preferred</b> (less electromagnetic interference). Note: the bracket tray contains a magnet that can interfere with pacemaker activity — <b>do not place it over the patient's chest</b>."},
+      {tags:"cautions", front:"Other situations requiring caution with ultrasonics.", back:"Respiratory disease, strong gag reflex, swallowing difficulty; demineralised tooth surfaces; existing restorations (crowns, bridges, veneers); children (use a lower power setting); infective-endocarditis-risk patients may need antibiotic cover."},
+      {tags:"infection control", front:"What infection-control measures apply during ultrasonic scaling?", back:"Use High Volume Evacuator (HVE) suction; pre-rinse (e.g. chlorhexidine mouthwash) to reduce aerosol bacterial load; PPE for aerosol control."},
+      {tags:"hazards", front:"What damage can ultrasonics cause and how is it prevented?", back:"Root & restoration damage, soft-tissue thermal injury, gingival trauma. Most heat is generated near the <b>base</b> of the tip. Prevent with proper technique, keep moving, and ensure proper cheek retraction when accessing molars. Iatrogenic risks include damage to porcelain veneers and lingual retainers."},
+      {tags:"peri-implant health", front:"Define peri-implant health.", back:"No bleeding on probing (a single bleeding 'spot' is permitted in the updated criteria) and no marginal bone loss: absence of soft-tissue inflammation signs (redness, swelling, profuse BOP) and absence of further bone loss following initial healing."},
+      {tags:"peri-implant disease", front:"Define peri-implant mucositis.", back:"Signs of inflammation — ≥2 BOP sites, or ≥1 site with profuse BOP (redness, swelling, line/drop of bleeding within 30 s of probing) — <b>combined with no additional bone loss</b> following initial healing."},
+      {tags:"peri-implant disease", front:"Define peri-implantitis.", back:"Signs of inflammation + radiographic bone loss following initial healing + increasing probing depth vs baseline after the prosthesis was placed. With no prior radiographs: radiographic bone level ≥3 mm + BOP + probing depths ≥6 mm is indicative."},
+      {tags:"implant examination", front:"How should implant pockets be probed?", back:"A normal metal or plastic probe is suitable; probe with <b>light force (~0.25 N)</b>; peri-implant probing depths should generally be ≤5 mm — though depths vary with how deep the implant was placed in bone."},
+      {tags:"implant maintenance", front:"What are the risk factors for peri-implant disease, and recommended maintenance frequency?", back:"Risk factors: history of periodontitis, poor oral hygiene, smoking, diabetes, inadequate prosthetic design, lack of regular maintenance. Maintenance: low risk every 6–12 months; higher risk (perio history, poor plaque control) every 3–4 months."},
+      {tags:"implant hygiene", front:"What oral-hygiene advice is best for implants?", back:"<b>Interdental brushes are often superior to floss</b> for implants; recommend electric toothbrushes and low-abrasive toothpastes. For professional cleaning consider air polishing with low-abrasive powders (e.g. glycine)."},
+    ]
+  },
+
+  /* --------------------- PERIO 1: ANATOMY (Jake Ball) -------------------- */
+  "perio-anatomy": {
+    name:"Perio: Anatomy of the Periodontium", category:"Periodontics · Dr Jake Ball",
+    cards:[
+      {tags:"overview", front:"What is the periodontium and what are its four components?", back:"The supporting apparatus of the teeth. Composed of: <b>gingiva</b>, <b>periodontal ligament</b>, <b>cementum</b> and <b>alveolar bone</b>."},
+      {tags:"embryology", front:"What two structures does the primary epithelial band form?", back:"The <b>dental lamina</b> (gives rise to the enamel organ / future teeth) and the <b>vestibular lamina</b>. Along each dental lamina, 10 epithelial ingrowths form (one per deciduous tooth)."},
+      {tags:"embryology", front:"What do the dental papilla and dental follicle each give rise to?", back:"<b>Dental papilla</b> → dentine and pulp. <b>Dental follicle</b> → cementum, periodontal ligament and alveolar bone."},
+      {tags:"embryology", front:"Name the three stages of tooth development and their approximate timing.", back:"<b>Bud stage</b> (~8 weeks) — undifferentiated epithelial cells. <b>Cap stage</b> (~11 weeks) — enamel organ forms (OEE + IEE), stellate reticulum, enamel knot. <b>Bell stage</b> (~14 weeks) — morphodifferentiation then histodifferentiation."},
+      {tags:"embryology", front:"What is Hertwig's epithelial root sheath (HERS) and its role?", back:"Formed from inner + outer enamel epithelium in the late bell stage once dentine reaches the cervix. It grows apically then horizontally; the horizontal projection (epithelial diaphragm) outlines the future apical foramen and initiates root dentine & cementum formation."},
+      {tags:"gingiva development", front:"How does junctional epithelium form?", back:"After enamel formation, the crown is covered by reduced enamel epithelium (REE) attached via a basal lamina + hemidesmosomes. As the tooth erupts, REE unites with oral mucosa and transforms into <b>junctional epithelium</b>, which migrates apically; the gingival sulcus deepens and the JE settles at the CEJ."},
+      {tags:"gingiva anatomy", front:"Name the clinical landmarks of the gingiva.", back:"Free gingival margin, free gingival groove, attached gingiva, mucogingival junction, alveolar mucosa, and the interdental papilla."},
+      {tags:"gingiva histology", front:"What three epithelia make up the gingival epithelium?", back:"<b>Oral epithelium</b> (keratinised, faces the mouth), <b>oral sulcular epithelium</b> (non-keratinised, lines the sulcus) and <b>junctional epithelium</b> (non-keratinised, attaches to the tooth)."},
+      {tags:"oral epithelium", front:"List the four layers of the keratinised oral epithelium.", back:"Stratum basale (basal layer), stratum spinosum (prickle cell layer), stratum granulosum (granular layer), stratum corneum (keratinised layer). Keratinocytes are ~90%; non-keratinocytes include melanocytes (basale), Langerhans cells (spinosum) and Merkel cells (sensory, at rete-ridge tips)."},
+      {tags:"junctional epithelium", front:"Describe the key features of junctional epithelium (JE).", back:"Non-keratinised; ~15–30 cells thick coronally, tapering to 1–3 cells apically; very high turnover (every 4–6 days); attaches to the tooth via hemidesmosomes & an internal basal lamina; wide intercellular spaces make it permeable; few desmosomes. Together with the gingival fibres it forms the <b>dentogingival unit</b>."},
+      {tags:"junctional epithelium", front:"What are the functions of junctional epithelium?", back:"Forms an epithelial barrier against plaque; allows passage of gingival crevicular fluid, inflammatory cells and immune defence components to the gingival margin; rapid turnover supports host–parasite equilibrium and quick repair of damaged tissue."},
+      {tags:"GCF", front:"What is gingival crevicular fluid and what does it do?", back:"A transudate in health / exudate in disease; small quantity in health, greater in disease. It cleanses the sulcus, contains plasma proteins that may improve epithelial adhesion, has antimicrobial properties and exerts antibody activity to defend the gingiva. Diffuses through the basement membrane and wide JE intercellular spaces into the sulcus."},
+      {tags:"lamina propria", front:"What is the composition of the gingival lamina propria (connective tissue)?", back:"~60% collagen (predominantly type I and III), ~35% ground substance & vascular plexus, ~5% fibroblasts. Divided into a superficial papillary layer and a deep reticular layer. Binds attached gingiva to bone and supports free gingiva."},
+      {tags:"biologic width", front:"What is the biologic width and its approximate dimensions?", back:"Connective tissue attachment (~1.07 mm) + junctional epithelial attachment (~0.97 mm) ≈ <b>2.04 mm</b> (Gargiulo 1961; term coined by Cohen 1962). Sulcus depth ~0.69 mm. CEJ to bone crest is ~1.5–2.0 mm."},
+      {tags:"PDL", front:"What is the periodontal ligament and what are its functions?", back:"A highly cellular, vascular connective tissue (~0.2 mm wide, hour-glass shape narrowest mid-root) joining cementum to alveolar bone. Functions: transmits masticatory forces, contains cells to maintain/repair bone & cementum, permits tooth mobility, and provides mechanoreception controlling mastication."},
+      {tags:"PDL fibres", front:"Name the principal PDL fibre groups.", back:"Alveolar crest, horizontal, oblique, apical, and inter-radicular groups (plus oxytalan fibres). Terminal portions inserting into cementum and bone are called <b>Sharpey's fibres</b>."},
+      {tags:"PDL cells", front:"What are the main cell types in the PDL?", back:"Principal cells are <b>fibroblasts</b> (maintain width, metabolise extracellular matrix). Also osteoblasts/osteoclasts/cementoblasts (functionally tied to bone & cementum), epithelial <b>cell rests of Malassez</b> (HERS remnants), and perivascular undifferentiated mesenchymal cells."},
+      {tags:"cementum", front:"What is cementum? Give its composition by weight.", back:"A thin, mineralised, avascular connective tissue with no innervation covering the root. By weight: ~65% inorganic (hydroxyapatite), ~23% organic (≈90% type I collagen), ~12% water. Pale yellow, softer & more permeable than dentine; permeability increases with age."},
+      {tags:"cementum types", front:"Name the four types of cementum by cells & matrix origin.", back:"Acellular extrinsic fibre cementum (attachment, CEJ→apical 2/3, 30–50 µm), cellular intrinsic fibre cementum (secondary; apical 1/3 & furcation; repair; 50–200 µm), cellular mixed stratified cementum, and acellular afibrillar cementum (covers enamel at CEJ, no attachment role)."},
+      {tags:"CEJ", front:"What are the three possible CEJ relationships and their frequencies?", back:"Cementum overlaps enamel (~60–65%); cementum meets enamel edge-to-edge in a butt joint (~30%); cementum falls short of enamel, leaving exposed dentine (~5–10%)."},
+      {tags:"alveolar bone", front:"What three parts make up the alveolar process?", back:"<b>Cortical plates</b>, <b>spongiosa</b> (trabecular bone) and <b>alveolar bone proper</b> (bundle bone). The cortical plate and alveolar bone proper meet at the alveolar crest, ~1.5–2 mm below the CEJ."},
+      {tags:"alveolar bone", front:"What is alveolar bone proper (bundle bone) and how does it appear radiographically?", back:"The socket wall — thin cortical bone (~0.1–0.4 mm) with perforations (Volkmann's canals) for vessels/nerves; provides attachment for Sharpey's fibres. Radiographically it appears as the <b>lamina dura</b> (a.k.a. cribriform plate)."},
+      {tags:"alveolar bone", front:"What is the functional unit of cortical bone and its structure?", back:"The <b>osteon</b>: a central Haversian canal (vessels, runs parallel to surface) with concentric rings of lamellae housing osteocytes in lacunae, connected by canaliculi. Volkmann's canals run perpendicular, supplying marrow. Interstitial and circumferential lamellae fill the remaining spaces."},
+      {tags:"nerve supply", front:"Which nerve supplies the periodontium?", back:"The <b>trigeminal nerve</b> — maxillary division (anterior/middle/posterior superior alveolar, infra-orbital, greater palatine, nasopalatine nerves) and mandibular division (inferior alveolar, long buccal, mental, lingual nerves)."},
+    ]
+  },
+
+  /* ---------------- PERIO 2: AETIOLOGY / PLAQUE (Jake Ball) -------------- */
+  "perio-aetiology": {
+    name:"Perio: Aetiology, Plaque & Biofilm", category:"Periodontics · Dr Jake Ball",
+    cards:[
+      {tags:"deposits", front:"Classify the types of tooth deposit.", back:"<b>Soft:</b> plaque (supra- & sub-gingival), materia alba, food remnants. <b>Hard:</b> calculus (supra- & sub-gingival). <b>Discolouration/staining:</b> extrinsic (surface) and intrinsic (structural)."},
+      {tags:"supra vs sub", front:"Supragingival vs subgingival deposits — where is each found?", back:"<b>Supragingival:</b> at or above the gingival margin. <b>Subgingival:</b> below the gingival margin, located between the tooth and the pocket epithelium."},
+      {tags:"plaque", front:"Characterise dental plaque (appearance, composition, removal).", back:"Clear to yellow-grayish; primarily bacteria in a matrix of salivary glycoproteins and extracellular polysaccharides; histologically structured; <b>cannot be removed by rinsing</b> — requires mechanical disruption."},
+      {tags:"materia alba", front:"How does materia alba differ from plaque?", back:"White, cheese-like accumulation of salivary proteins, some bacteria, desquamated epithelial cells and food debris; <b>lacks organised structure</b>; easily displaced with a water spray (unlike plaque)."},
+      {tags:"calculus", front:"What is calculus?", back:"A hard deposit formed by the <b>mineralisation of dental plaque</b>, covered by a layer of unmineralised (living) plaque. Histologically structured; impossible to remove by rinsing."},
+      {tags:"staining", front:"Distinguish extrinsic from intrinsic discolouration with examples.", back:"<b>Extrinsic</b> (on the surface/pellicle): metallic (iron supplements, stannous fluoride, chlorhexidine) or non-metallic (tobacco, food/drink). <b>Intrinsic</b> (within enamel/dentine): developmental (amelogenesis/dentinogenesis imperfecta) or acquired (caries, endodontics, restorative materials, tooth wear)."},
+      {tags:"Lang 1973", front:"What did Lang et al. (1973) show about plaque and gingivitis?", back:"In 32 dental students with healthy gingiva, plaque control every 12 or 48 hours maintained health, but only those cleaning every <b>72 or 96 hours developed gingivitis</b>. Plaque began interproximally at premolars/molars; oral surfaces accumulated least."},
+      {tags:"microbial acquisition", front:"How is the oral cavity first colonised by microbes?", back:"Within hours of birth, low numbers of facultative/aerobic bacteria colonise (resembling the mother's vaginal canal, or skin for C-sections); anaerobes appear by day 2. <b>Streptococcus salivarius and S. mitis</b> are the first and most dominant colonisers. Diversity increases as teeth erupt."},
+      {tags:"transmission", front:"Are periodontal infections contagious?", back:"Bacteria can be transmitted between people (kissing/saliva is the main route), but transmission ≠ contagious. There's little evidence periodontal infections are communicable because they are <b>host-mediated</b> diseases."},
+      {tags:"niches", front:"Name the six major oral ecological niches.", back:"1) Supragingival hard surfaces (teeth, implants, restorations, prostheses), 2) subgingival regions (pocket), 3) buccal/palatal/floor-of-mouth epithelium, 4) dorsum of the tongue, 5) tonsils, 6) saliva."},
+      {tags:"biofilm", front:"Define a biofilm and state the three components every biofilm has.", back:"A co-operative ecosystem of matrix-enclosed microbial communities adherent to each other and/or to surfaces (Costerton 1994). Three components (Socransky & Haffajee 2005): a surface for attachment, the biofilm itself, and the bulk fluid passing over it (nutrients in, waste out, cells to new sites)."},
+      {tags:"biofilm characteristics", front:"What are the four key characteristics of biofilms?", back:"1) Complex dynamic communities — heterogeneous microcolonies (15–20% volume) in a glycocalyx matrix (75–80%) with water channels. 2) Altered gene expression vs planktonic cells (up/down-regulation). 3) Coordinated behaviour via chemical signalling — <b>quorum sensing</b>. 4) Reduced susceptibility to antimicrobials."},
+      {tags:"quorum sensing", front:"What is quorum sensing?", back:"Cell-to-cell chemical signalling whereby microbes activate certain genes only once their population is large enough — e.g. some bacteria won't produce toxins until numbers are sufficient to survive host defences. Biofilms concentrate the signal molecules enough to trigger this (planktonic cells can't)."},
+      {tags:"antibiotic resistance", front:"Why are biofilm bacteria less susceptible to antimicrobials?", back:"Altered microenvironment pushes cells into a non-growing (quiescent) state; effective stress-response deployment (some cells sacrificed); slow penetration as the glycocalyx restricts diffusion and binds antimicrobials; and a higher frequency of dormant <b>persister cells</b> that are physically retained."},
+      {tags:"plaque formation", front:"List the stages of dental plaque biofilm formation (Marsh & Bradshaw 1995).", back:"1) Conditioning film (acquired pellicle) forms. 2) Non-specific reversible attachment of salivary bacteria. 3) Short-range specific adhesin–receptor interactions of primary colonisers. 4) Co-aggregation of secondary colonisers. 5) Horizontal/vertical stratification & bacterial succession. 6) Growth into a climax community."},
+      {tags:"pellicle", front:"What is the acquired pellicle?", back:"A conditioning film that forms as soon as a tooth is cleaned, from selectively adsorbed host molecules (mucins, antibodies, proline-rich protein, amylase, statherin, lysozyme) and bacterial molecules. <1 µm thick, plateaus in ~90–120 min. It provides receptors/adhesins for microbial colonisation."},
+      {tags:"colonisers", front:"Who are the primary colonisers and what is co-aggregation?", back:"Primary colonisers are mainly <b>streptococci and Actinomyces</b> spp. (using fibrils/fimbriae adhesins). <b>Co-aggregation</b> is cell-to-cell recognition between genetically distinct cells via adhesin–receptor pairs; <b>Fusobacteria</b> act as bridges linking early and late colonisers."},
+      {tags:"succession", front:"How does plaque bacterial composition change over time?", back:"Minutes–4 h: free-floating Gram+ cocci (S. sanguis, S. oralis, S. mitis). 1–2 days: Gram+ rods & filaments (mainly Actinomyces) begin to outnumber streptococci. 2–3 weeks: climax community with more obligate anaerobes (Fusobacterium, Prevotella, Veillonella, etc.), many proteolytic/asaccharolytic."},
+    ]
+  },
+
+  /* -------------- PERIO 3: CLASSIFICATION (Jake Ball) -------------------- */
+  "perio-classification": {
+    name:"Perio: Classification of Diseases", category:"Periodontics · Dr Jake Ball",
+    cards:[
+      {tags:"epidemiology", front:"Roughly how common is periodontitis in adults (Eke et al. 2012)?", back:"In US adults 30+, over <b>47%</b> had periodontitis (8.7% mild, 30% moderate, 8.5% severe). Prevalence rose with age — ~24% at 30–34 vs ~70% at ≥65 years. 86% had ≥1 site with ≥3 mm attachment loss."},
+      {tags:"purpose", front:"Why do we classify periodontal diseases?", back:"To provide a framework for studying aetiology, pathogenesis and treatment; to give the international health-care community a common language; and to help organise and execute treatment strategies for individual patients."},
+      {tags:"current system", front:"What classification system is currently used?", back:"The <b>AAP/EFP 2017</b> (published 2018) Classification of Periodontal and Peri-Implant Diseases and Conditions. Its three broad health/disease states are periodontal health, gingivitis and periodontitis."},
+      {tags:"health", front:"How is clinical periodontal health defined (case level)?", back:"A case of gingival health = <b><10% bleeding sites with probing depths ≤3 mm</b>. 'Pristine' health (total absence of inflammation + immune surveillance) is essentially not seen clinically; clinical health allows minimal inflammation with low numbers of immune-surveillance cells."},
+      {tags:"health on reduced periodontium", front:"Can a treated periodontitis patient have 'gingival health'?", back:"Yes — clinical gingival health on a <b>reduced periodontium</b>. In a stable treated periodontitis patient: pre-existing attachment loss, <10% BOP, PPD ≤3 mm (≤4 mm with no BOP at 4 mm in the periodontitis 'stable' definition). The same applies to non-periodontitis reduced periodontium (e.g. after crown lengthening/recession)."},
+      {tags:"gingivitis", front:"Define dental plaque-induced gingivitis.", back:"An inflammatory lesion from interactions between the plaque biofilm and the host immune-inflammatory response that <b>remains within the gingiva and does not extend to the periodontal attachment — and is reversible</b> (Chapple et al. 2018)."},
+      {tags:"gingivitis extent", front:"How is gingivitis quantified and described by extent?", back:"<b>BOP is the only objective measure</b> and severity cannot be measured — so it's described by extent: <b>localised = 10–30% BOP</b>, <b>generalised = >30% BOP</b>, with PPD ≤3 mm (intact periodontium)."},
+      {tags:"periodontitis definition", front:"Define periodontitis.", back:"A chronic, multifactorial, host-mediated inflammatory disease associated with bacterial dysbiosis and characterised by <b>progressive destruction of the tooth-supporting structures</b>."},
+      {tags:"case definition", front:"What is the case definition of periodontitis?", back:"Interdental clinical attachment loss (CAL) detectable at <b>≥2 non-adjacent teeth</b>; OR buccal/oral CAL ≥3 mm with pocketing >3 mm at ≥2 teeth — provided the CAL can't be attributed to non-periodontal causes."},
+      {tags:"case definition", front:"What non-periodontal causes of attachment loss must be excluded?", back:"Gingival recession of traumatic origin; cervical caries; endodontic lesions draining through the marginal periodontium or vertical root fractures; and impacted wisdom teeth causing localised attachment loss on the distal of the second molar."},
+      {tags:"1999 vs 2018", front:"What changed between the AAP 1999 and EFP/AAP 2018 classifications?", back:"1999 differentiated chronic vs aggressive periodontitis and emphasised severity. 2018 <b>removed 'aggressive' periodontitis</b> and introduced the concepts of <b>staging and grading</b>."},
+      {tags:"staging", front:"What are the four stages of periodontitis and what do they reflect?", back:"<b>Stage I</b> incipient, <b>Stage II</b> moderate, <b>Stage III</b> severe with potential for additional tooth loss, <b>Stage IV</b> advanced with extensive tooth loss & potential loss of dentition. Stage reflects <b>severity and complexity of management</b>. (Stage III = ≤4 teeth lost; Stage IV = ≥5 teeth lost to periodontitis.)"},
+      {tags:"grading", front:"What are the grades of periodontitis and what do they capture?", back:"<b>Grade A</b> (slow), <b>Grade B</b> (moderate), <b>Grade C</b> (rapid). Grade reflects evidence/risk of <b>rapid progression</b>, anticipated treatment response and the presence of well-established risk factors (e.g. smoking ≥10/day or diabetes upgrade to Grade C)."},
+      {tags:"staging vs grading", front:"In one line, what's the difference between stage and grade?", back:"<b>Stage</b> = how bad it is now (severity + management complexity). <b>Grade</b> = how fast it's likely to get worse (rate of progression + risk factors)."},
+      {tags:"exam tips", front:"Key practical points about applying staging & grading.", back:"You don't have to populate every cell of the grid to assign stage and grade; stage can be revised <b>up</b> if the condition worsens; grade can be revised after assessing initial treatment response, compliance and risk-factor control."},
+    ]
+  },
+
+  /* ------------- PERIO 4: HISTOPATHOLOGY (Jake Ball) --------------------- */
+  "perio-histopath": {
+    name:"Perio: Histopathology of Disease", category:"Periodontics · Dr Jake Ball",
+    cards:[
+      {tags:"healthy tissue", front:"Describe healthy gingival tissue histologically.", back:"Highly collagenous connective tissue; well-keratinised oral epithelium and smooth junctional epithelium attached via hemidesmosomes; a thin, delicate plexus of blood vessels; gingival sulcus depth ~0.39 mm (Schröder 1970)."},
+      {tags:"healthy cells", front:"What cells dominate healthy gingiva?", back:"In the leukocyte population, <b>PMNs (neutrophils) ~95–97%</b>, lymphocytes 1–2%, monocytes 2–3% (Attström 1971). In the tissue overall, fibroblasts predominate (~71%)."},
+      {tags:"stages", front:"Name Page & Schröder's (1976) four stages of periodontal histopathology.", back:"<b>Initial lesion → Early lesion → Established lesion → Advanced lesion.</b> Note: there is a lack of correlation between these histological stages and clinical signs/symptoms."},
+      {tags:"initial lesion", front:"Characterise the initial lesion.", back:"Onset 0–4 days; subclinical; infiltrate confined to 5–10% of the JE connective tissue; proliferation of JE; accumulation of leukocytes (PMNs, some lymphocytes/macrophages); perivascular collagen breakdown; increased GCF; activated complement & mast cells; <b>no tissue damage</b>; PMN migration with 'abortive phagocytosis' and NETosis."},
+      {tags:"early lesion", front:"Characterise the early lesion.", back:"Onset 4–7 days; infiltrate occupies 5–15% of CT; dense lymphoid infiltrate (~70–75% of infiltrate, lymphocytes & macrophages); 60–70% collagen loss; altered fibroblasts; PMNs increase ~4× within JE; resembles a type IV delayed hypersensitivity reaction; CD4:CD8 ≈ 2:1; <b>no attachment loss yet</b>."},
+      {tags:"established lesion", front:"Characterise the established lesion.", back:"Onset ~2–3 weeks; <b>plasma cells predominate</b> (B-cell response); IgG (some IgA; IgM rare); IL-1 & IL-6 predominance; pocket epithelium forms with apical migration of JE → periodontal pocket; vascular proliferation; collagen loss/scarring. Reversibility/progression uncertain."},
+      {tags:"advanced lesion", front:"Characterise the advanced lesion.", back:"Undefined timeframe; <b>significant attachment loss and bone destruction</b>; dense leukocyte infiltrate with increased plasma-cell degeneration; matrix metalloproteinases; inflammatory cytokines stimulate fibroblasts & macrophages; a non-infiltrated fibrous band encapsulates the lesion; dense surrounding fibrosis."},
+      {tags:"vascular changes", front:"What early vascular changes occur in gingival inflammation?", back:"Increased microvasculature and vasodilation (Lindhe & Rylander 1975); vessels become more irritable and fragile (Egelberg 1967) — explaining bleeding on probing."},
+      {tags:"adhesion molecules", front:"Which adhesion molecules are involved, and what did Kinane et al. (1991) find?", back:"<b>ELAM-1</b> (endothelial leukocyte adhesion molecule, now E-selectin) and <b>ICAM-1</b> (intercellular adhesion molecule). Kinane (1991): IL-1, ELAM-1 and ICAM-1 all peaked at ~7 days. ICAM-1 is greatest coronally in the JE."},
+      {tags:"cellular shift", front:"What is the overall cellular shift from health to established disease?", back:"Health/initial & early lesions: <b>PMN/neutrophil-dominated</b>, then increasing lymphocytes & macrophages (T-cell, type IV hypersensitivity-like). Established/advanced: shift to a <b>B-cell / plasma-cell-dominated</b> response."},
+      {tags:"NETosis", front:"What are 'abortive phagocytosis' and NETosis in the initial lesion?", back:"PMNs migrate to the site but may fail to fully clear bacteria ('abortive phagocytosis'); NETosis is the release of neutrophil extracellular traps (NETs) to ensnare microbes — strongly stimulated by IL-8 from epithelial cells in the early lesion."},
+    ]
+  },
+
+  /* ----------------- PERIO 5: ORAL HYGIENE (Jake Ball) ------------------- */
+  "perio-hygiene": {
+    name:"Perio: Oral Hygiene Procedures", category:"Periodontics · Dr Jake Ball",
+    cards:[
+      {tags:"aim", front:"What is the aim of oral hygiene practices?", back:"<b>Disruption of the oral biofilm.</b> Without OH, gingivitis develops within ~10–14 days but resolves when OH is recommenced (Löe et al. 1965). Thorough plaque removal can prevent the major oral diseases (periodontal disease and caries)."},
+      {tags:"subgingival reach", front:"How far below the gingival margin can a toothbrush reach, and what's the implication for deep pockets?", back:"Waerhaug (1981): toothbrush bristles penetrate up to ~0.9 mm below the gingival crevice. In <b>deep pockets (>6 mm)</b> supragingival cleaning alone is insufficient — professional instrumentation is needed. In <b>shallow pockets (<6 mm)</b> meticulous OH can alter the subgingival microflora and improve the condition."},
+      {tags:"Axelsson & Lindhe", front:"What did Axelsson & Lindhe (1978) demonstrate?", back:"A landmark study: repeated OHI plus regular professional prophylaxis (every 2–3 months) over 3 years gave negligible gingivitis, no attachment loss and rarely any caries — whereas controls (symptomatic treatment, no OHI) developed gingivitis, attachment loss and recurrent caries. Mechanical plaque control can prevent periodontal disease."},
+      {tags:"Axelsson long-term", front:"What did the 15- and 30-year Axelsson follow-ups show?", back:"Even when recalls were reduced to once/twice a year, there was a low incidence of caries and tooth loss and almost no additional attachment loss. Teeth that consistently kept a <b>plaque score <20%</b> corresponded with long-term stable periodontal health."},
+      {tags:"bone loss", front:"What did Schei et al. (1959) find about oral hygiene and bone loss?", back:"In 737 men, those with 'not good' plaque control had greater alveolar bone loss than 'fairly good' and 'good' groups — i.e. alveolar bone loss increases with decreasing oral-hygiene efficiency."},
+      {tags:"manual vs powered", front:"Manual vs powered toothbrushes — what does the evidence say?", back:"Cochrane reviews (Niederman 2003; Deacon 2010): only <b>rotation-oscillation</b> powered brushes give a significant but modest reduction in plaque and gingivitis (≈11% plaque, ≈17% gingivitis over 3 months); differences are small and clinical importance unclear. Powered brushes are safe for hard/soft tissues (Van der Weijden 2011)."},
+      {tags:"frequency", front:"What brushing frequency is advised, and what does the literature say about it?", back:"Advise <b>2× daily</b>. However it takes >12 hours (literature: 10–21 days, Löe 1965) for gingivitis to develop, and Lang (1973) found effective OH at 48-hour intervals was compatible with gingival health. Most people are not effective brushers, leaving substantial plaque."},
+      {tags:"technique", front:"What brushing technique and brush design are recommended?", back:"The <b>Modified Bass technique</b> with a soft-bristled toothbrush. Multi-level and angled bristle tufts perform better than a traditional flat-trim configuration (Slots et al. 2012)."},
+      {tags:"force & duration", front:"What is the optimal brushing force and duration?", back:"<b>Force:</b> ~400 g is optimal for a manual brush; above this it becomes less effective (filaments splay). <b>Duration:</b> ~30 s per quadrant (≈2 min total) reaches most of the effect; manual removes ~75% plaque in 90 s/quadrant vs 92–94% for a powered brush."},
+      {tags:"interdental", front:"Why is interdental cleaning necessary, and what options exist?", back:"Plaque forms first interproximally (Lang 1973) and a toothbrush alone is ineffective in the central interdental space (Waerhaug 1981), so additional aids are required: floss, woodsticks, interdental brushes, single-tufted brushes."},
+      {tags:"floss", front:"What does the evidence say about flossing?", back:"Floss can penetrate ~2 mm (up to ~3.5 mm) below the papilla tip without discomfort. Graves (1989): floss reduced interproximal bleeding ~70% vs ~35% for brushing alone — no difference between floss types. High manual dexterity demand → poor compliance; best in young adults/children where papillae fill the spaces."},
+      {tags:"interdental brushes", front:"When are interdental brushes preferred over floss?", back:"Where papillae don't fully fill the interproximal space, IDBs consistently remove more plaque than floss and achieve more pocket reduction (Christou 1998; Jackson 2006 — more effective in moderate–severe chronic periodontitis). Evidence on gingival inflammation is inconclusive. Floss is the only tool that reaches where papillae fully fill the space (young patients)."},
+      {tags:"summary", front:"Summarise best-practice oral hygiene advice.", back:"Periodontal disease is largely plaque-induced, so OH instruction is a crucial clinician role: brush <b>2× daily</b> (electric or manual), supplement with interproximal cleaning aids, follow preventive protocols, and customise instructions to the individual's needs."},
+    ]
+  },
+
+};
+
+/* =========================================================================
+   SPACED-REPETITION ENGINE  (SM-2 inspired — your rating scheme)
+   1 Easy · 2 Medium · 3 Hard · 4 Again. Lower ratings return sooner.
+   Progress saved per-deck in localStorage.
+   ========================================================================= */
+const DAY = 86400000;
+const now = () => Date.now();
+
+let currentDeckId = null;
+let DECK = [];           // active deck's cards
+let state = [];          // scheduling records for active deck
+let session = [];
+let current = null;
+let flipped = false;
+let doneCount = 0;
+
+function storeKey(id){ return "doh256_flashcards_v1__" + id; }
+
+function loadState(id, cards){
+  let saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(storeKey(id))) || {}; }catch(e){}
+  return cards.map((c,i)=>{
+    const s = saved[i] || {};
+    return { ease:s.ease??2.5, interval:s.interval??0, reps:s.reps??0, due:s.due??0, last:s.last??null };
+  });
+}
+function saveState(){
+  const out = {};
+  state.forEach((s,i)=>{ out[i]=s; });
+  try{ localStorage.setItem(storeKey(currentDeckId), JSON.stringify(out)); }catch(e){}
+}
+
+/* count due cards for a deck without loading it as active */
+function dueCountFor(id, cards){
+  const st = loadState(id, cards);
+  const t = now();
+  return st.filter(s=>s.due<=t).length;
+}
+
+function rate(r){
+  const s = state[current];
+  let label;
+  switch(r){
+    case 1: s.reps++; s.ease=Math.min(3.0,s.ease+0.15);
+      s.interval = s.interval<1 ? 4 : Math.round(s.interval*s.ease*1.3); label="easy"; break;
+    case 2: s.reps++;
+      s.interval = s.interval<1 ? 1 : Math.round(s.interval*s.ease); label="medium"; break;
+    case 3: s.reps++; s.ease=Math.max(1.3,s.ease-0.15);
+      s.interval = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*1.2)); label="hard"; break;
+    case 4: s.ease=Math.max(1.3,s.ease-0.2); s.interval=0; s.reps=0; label="again"; break;
+  }
+  s.last=label;
+  s.due = s.interval>0 ? now()+s.interval*DAY : now();
+  saveState();
+  doneCount++;
+  if(r===4){ const pos=Math.min(session.length,3); session.splice(pos,0,current); }
+  next(); renderStats(); renderList();
+}
+
+function buildSession(){
+  const t=now();
+  session = state.map((s,i)=>({i,s}))
+    .filter(x=>x.s.due<=t)
+    .sort((a,b)=>order(a.s.last)-order(b.s.last))
+    .map(x=>x.i);
+  doneCount=0;
+}
+function order(label){ return ({again:0,hard:1,medium:2,new:3,easy:4})[label] ?? 3; }
+
+function shuffle(){
+  for(let k=session.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [session[k],session[j]]=[session[j],session[k]]; }
+  next();
+}
+function next(){
+  flipped=false;
+  if(session.length===0){ current=null; renderEmpty(); return; }
+  current=session.shift(); renderCard();
+}
+
+function previewInterval(r){
+  const s=state[current]; let iv;
+  switch(r){
+    case 1: iv = s.interval<1 ? 4 : Math.round(s.interval*Math.min(3.0,s.ease+0.15)*1.3); break;
+    case 2: iv = s.interval<1 ? 1 : Math.round(s.interval*s.ease); break;
+    case 3: iv = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*1.2)); break;
+    case 4: return "soon";
+  }
+  if(iv<1) return "<1d";
+  if(iv<30) return iv+"d";
+  if(iv<365) return Math.round(iv/30)+"mo";
+  return (iv/365).toFixed(1)+"y";
+}
+
+/* ============================ RENDERING ============================ */
+const cardEl=document.getElementById('card');
+const ratingsEl=document.getElementById('ratings');
+
+function renderCard(){
+  const c=DECK[current];
+  const tag=c.tags?`<div class="card-tag">${c.tags}</div>`:"";
+  if(!flipped){
+    cardEl.innerHTML=`${tag}
+      <div class="face"><div class="face-label">Question</div>
+      <div class="face-text">${c.front}</div>
+      ${c.frontImage?`<img src="${c.frontImage}" alt="">`:""}</div>
+      <div class="flip-hint">click or press space to reveal</div>`;
+    ratingsEl.classList.add('hidden');
+  } else {
+    cardEl.innerHTML=`${tag}
+      <div class="face">
+        <div class="face-label">Question</div>
+        <div class="face-text" style="font-size:1.1rem;color:var(--ink-soft)">${c.front}</div>
+        ${c.frontImage?`<img src="${c.frontImage}" alt="">`:""}
+        <hr class="divider">
+        <div class="face-label">Answer</div>
+        <div class="face-text answer">${c.back}</div>
+        ${c.backImage?`<img src="${c.backImage}" alt="">`:""}
+      </div>`;
+    ratingsEl.classList.remove('hidden');
+    document.getElementById('w1').textContent=previewInterval(1);
+    document.getElementById('w2').textContent=previewInterval(2);
+    document.getElementById('w3').textContent=previewInterval(3);
+    document.getElementById('w4').textContent=previewInterval(4);
+  }
+}
+function renderEmpty(){
+  ratingsEl.classList.add('hidden');
+  cardEl.innerHTML=`<div class="empty-msg">
+    <div class="big">All caught up 🎉</div>
+    <div>You've reviewed every card due in this deck right now.</div>
+    <div style="margin-top:1rem"><button id="studyAllBtn">Study all ${DECK.length} cards again</button></div>
+  </div>`;
+  document.getElementById('studyAllBtn').onclick=()=>{ session=DECK.map((_,i)=>i); shuffle(); };
+}
+function flip(){ if(current===null) return; flipped=!flipped; renderCard(); }
+
+function renderStats(){
+  document.getElementById('stat-due').textContent=session.length;
+  document.getElementById('stat-done').textContent=doneCount;
+  document.getElementById('stat-total').textContent=DECK.length;
+}
+
+function renderList(filter=""){
+  const box=document.getElementById('listItems');
+  const f=filter.trim().toLowerCase();
+  box.innerHTML=DECK.map((c,i)=>{
+    const text=(c.front+" "+c.back+" "+(c.tags||"")).toLowerCase();
+    if(f && !text.includes(f)) return "";
+    const s=state[i];
+    const status=s.last||"new";
+    const ivLabel = s.due===0 ? "new" : (s.interval<1?"due":s.interval+"d");
+    return `<div class="list-item">
+      <div class="li-head" onclick="this.nextElementSibling.classList.toggle('open')">
+        <span class="li-dot s-${status}"></span>
+        <span class="li-q">${c.front}</span>
+        <span class="li-meta">${c.tags||""} · ${ivLabel}</span>
+      </div>
+      <div class="li-body">
+        ${c.frontImage?`<img src="${c.frontImage}" alt="">`:""}
+        <b>A:</b> ${c.back}
+        ${c.backImage?`<img src="${c.backImage}" alt="">`:""}
+      </div></div>`;
+  }).join("");
+}
+
+/* ====================== DECK PICKER ====================== */
+function renderPicker(){
+  const grid=document.getElementById('deckGrid');
+  grid.innerHTML=Object.entries(DECKS).map(([id,d])=>{
+    const due=dueCountFor(id,d.cards);
+    return `<button class="deck-card" onclick="openDeck('${id}')">
+      <div class="dk-cat">${d.category||""}</div>
+      <div class="dk-name">${d.name}</div>
+      <div class="dk-meta">
+        <span>${d.cards.length} cards</span>
+        ${due>0?`<span class="dk-due">${due} due</span>`:`<span>all reviewed</span>`}
+      </div>
+    </button>`;
+  }).join("");
+}
+
+function openDeck(id){
+  currentDeckId=id;
+  DECK=DECKS[id].cards;
+  state=loadState(id,DECK);
+  buildSession();
+  if(session.length===0) session=DECK.map((_,i)=>i);
+  document.getElementById('subtitle').textContent=DECKS[id].name;
+  document.getElementById('stats').style.display='flex';
+  document.getElementById('picker').classList.add('hidden');
+  document.getElementById('study').classList.remove('hidden');
+  document.getElementById('listToggle').classList.remove('open');
+  document.getElementById('cardList').classList.remove('open');
+  document.getElementById('listSearch').value="";
+  shuffle(); renderStats(); renderList();
+  window.scrollTo(0,0);
+}
+function backToPicker(){
+  document.getElementById('study').classList.add('hidden');
+  document.getElementById('picker').classList.remove('hidden');
+  document.getElementById('stats').style.display='none';
+  document.getElementById('subtitle').textContent='choose a deck to begin';
+  renderPicker();
+  window.scrollTo(0,0);
+}
+
+/* ============================ EVENTS ============================ */
+cardEl.addEventListener('click',flip);
+document.getElementById('flipBtn').onclick=flip;
+document.getElementById('shuffleBtn').onclick=()=>{ if(session.length) shuffle(); };
+document.getElementById('backBtn').onclick=backToPicker;
+document.getElementById('resetBtn').onclick=()=>{
+  if(confirm("Reset progress for this deck? This clears your ratings and schedule for "+DECKS[currentDeckId].name+".")){
+    localStorage.removeItem(storeKey(currentDeckId));
+    state=loadState(currentDeckId,DECK);
+    buildSession(); if(session.length===0) session=DECK.map((_,i)=>i);
+    shuffle(); renderStats(); renderList();
+  }
+};
+ratingsEl.querySelectorAll('.rate-btn').forEach(b=>
+  b.onclick=()=>{ if(flipped) rate(parseInt(b.dataset.r)); });
+document.getElementById('listToggle').onclick=function(){
+  this.classList.toggle('open');
+  document.getElementById('cardList').classList.toggle('open');
+};
+document.getElementById('listSearch').addEventListener('input',e=>renderList(e.target.value));
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('study').classList.contains('hidden')) return;
+  if(e.target.tagName==='INPUT') return;
+  if(e.code==='Space'){ e.preventDefault(); flip(); }
+  else if(e.key==='s'||e.key==='S'){ if(session.length) shuffle(); }
+  else if(['1','2','3','4'].includes(e.key) && flipped) rate(parseInt(e.key));
+});
+
+/* ============================ INIT ============================ */
+renderPicker();
+</script>
+<!-- DOH256 Study Hub Nav -->
+<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:system-ui,-apple-system,sans-serif">
+  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
+  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
+  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'"
+  onmouseout="this.style.background='#1a1d27'">
+    🏠 Study Hub
+  </a>
+</div>
+</body>
+</html>
