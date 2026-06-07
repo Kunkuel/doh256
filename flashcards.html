@@ -112,6 +112,8 @@
     padding:7px 14px;font-size:0.9rem;transition:all 0.15s ease;}
   button:hover{border-color:var(--ink-faint);background:#fff;}
   button:active{transform:translateY(1px);}
+  button:disabled{opacity:0.4;cursor:default;}
+  button:disabled:hover{border-color:var(--line);background:var(--paper);transform:none;}
   .tool-spacer{flex:1;}
   .ghost{background:transparent;border-color:transparent;color:var(--ink-soft);}
   .ghost:hover{background:var(--paper);border-color:var(--line);}
@@ -228,6 +230,7 @@
     <div class="toolbar">
       <button id="shuffleBtn">↻ Shuffle</button>
       <button id="flipBtn">⤺ Flip</button>
+      <button id="undoBtn" title="Undo last rating (Ctrl+Z)">↶ Undo</button>
       <div class="tool-spacer"></div>
       <button class="ghost" id="resetBtn">Reset this deck</button>
     </div>
@@ -259,7 +262,7 @@
     </div>
 
     <footer>
-      <kbd>Space</kbd> flip · <kbd>1</kbd>–<kbd>4</kbd> rate · <kbd>S</kbd> shuffle · progress saved in your browser
+      <kbd>Space</kbd> flip · <kbd>1</kbd>–<kbd>4</kbd> rate · <kbd>Ctrl</kbd>+<kbd>Z</kbd> undo · <kbd>S</kbd> shuffle · progress saved in your browser
     </footer>
   </div>
 
@@ -528,6 +531,7 @@ let session = [];
 let current = null;
 let flipped = false;
 let doneCount = 0;
+let undoStack = [];      // snapshots for Ctrl+Z undo
 
 function storeKey(id){ return "doh256_flashcards_v1__" + id; }
 
@@ -554,22 +558,43 @@ function dueCountFor(id, cards){
 
 function rate(r){
   const s = state[current];
-  let label;
+  // snapshot BEFORE any change so Ctrl+Z can rewind this exact rating
+  undoStack.push({ idx:current, rec:{...s}, sess:[...session], done:doneCount });
+  if(undoStack.length>60) undoStack.shift();
+
+  let label, reinsertPos=null;
   switch(r){
-    case 1: s.reps++; s.ease=Math.min(3.0,s.ease+0.15);
-      s.interval = s.interval<1 ? 4 : Math.round(s.interval*s.ease*1.3); label="easy"; break;
-    case 2: s.reps++;
-      s.interval = s.interval<1 ? 1 : Math.round(s.interval*s.ease); label="medium"; break;
-    case 3: s.reps++; s.ease=Math.max(1.3,s.ease-0.15);
-      s.interval = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*1.2)); label="hard"; break;
-    case 4: s.ease=Math.max(1.3,s.ease-0.2); s.interval=0; s.reps=0; label="again"; break;
+    case 1: // EASY — graduates, comes back a little sooner than before
+      s.reps++; s.ease=Math.min(3.0,s.ease+0.15);
+      s.interval = s.interval<1 ? 3 : Math.round(s.interval*s.ease*1.15); label="easy"; break;
+    case 2: // MEDIUM — graduates, slightly sooner multiplier
+      s.reps++;
+      s.interval = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*s.ease*0.85)); label="medium"; break;
+    case 3: // HARD — recycles within THIS session (due now), small ease drop
+      s.ease=Math.max(1.3,s.ease-0.12); s.interval=0; label="hard";
+      reinsertPos=Math.min(session.length,7); break;
+    case 4: // AGAIN — recycles very soon this session
+      s.ease=Math.max(1.3,s.ease-0.2); s.interval=0; s.reps=0; label="again";
+      reinsertPos=Math.min(session.length,2); break;
   }
   s.last=label;
   s.due = s.interval>0 ? now()+s.interval*DAY : now();
   saveState();
   doneCount++;
-  if(r===4){ const pos=Math.min(session.length,3); session.splice(pos,0,current); }
+  if(reinsertPos!==null){ session.splice(reinsertPos,0,current); }
   next(); renderStats(); renderList();
+}
+
+function undo(){
+  if(undoStack.length===0) return;
+  const snap = undoStack.pop();
+  state[snap.idx] = snap.rec;       // restore the card's schedule
+  saveState();
+  session = snap.sess;              // restore the queue as it was
+  doneCount = snap.done;
+  current = snap.idx;
+  flipped = true;                   // show it answered so you can re-rate immediately
+  renderCard(); renderStats(); renderList();
 }
 
 function buildSession(){
@@ -583,8 +608,10 @@ function buildSession(){
 function order(label){ return ({again:0,hard:1,medium:2,new:3,easy:4})[label] ?? 3; }
 
 function shuffle(){
+  undoStack=[];
   for(let k=session.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [session[k],session[j]]=[session[j],session[k]]; }
   next();
+  renderStats();
 }
 function next(){
   flipped=false;
@@ -595,9 +622,9 @@ function next(){
 function previewInterval(r){
   const s=state[current]; let iv;
   switch(r){
-    case 1: iv = s.interval<1 ? 4 : Math.round(s.interval*Math.min(3.0,s.ease+0.15)*1.3); break;
-    case 2: iv = s.interval<1 ? 1 : Math.round(s.interval*s.ease); break;
-    case 3: iv = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*1.2)); break;
+    case 1: iv = s.interval<1 ? 3 : Math.round(s.interval*Math.min(3.0,s.ease+0.15)*1.15); break;
+    case 2: iv = s.interval<1 ? 1 : Math.max(1,Math.round(s.interval*s.ease*0.85)); break;
+    case 3: return "this session";
     case 4: return "soon";
   }
   if(iv<1) return "<1d";
@@ -653,6 +680,8 @@ function renderStats(){
   document.getElementById('stat-due').textContent=session.length;
   document.getElementById('stat-done').textContent=doneCount;
   document.getElementById('stat-total').textContent=DECK.length;
+  const ub=document.getElementById('undoBtn');
+  if(ub) ub.disabled = undoStack.length===0;
 }
 
 function renderList(filter=""){
@@ -758,6 +787,7 @@ function backToPicker(){
 /* ============================ EVENTS ============================ */
 cardEl.addEventListener('click',flip);
 document.getElementById('flipBtn').onclick=flip;
+document.getElementById('undoBtn').onclick=undo;
 document.getElementById('shuffleBtn').onclick=()=>{ if(session.length) shuffle(); };
 document.getElementById('backBtn').onclick=backToPicker;
 document.getElementById('resetBtn').onclick=()=>{
@@ -778,6 +808,7 @@ document.getElementById('listSearch').addEventListener('input',e=>renderList(e.t
 document.addEventListener('keydown',e=>{
   if(document.getElementById('study').classList.contains('hidden')) return;
   if(e.target.tagName==='INPUT') return;
+  if((e.ctrlKey||e.metaKey) && (e.key==='z'||e.key==='Z')){ e.preventDefault(); undo(); return; }
   if(e.code==='Space'){ e.preventDefault(); flip(); }
   else if(e.key==='s'||e.key==='S'){ if(session.length) shuffle(); }
   else if(['1','2','3','4'].includes(e.key) && flipped) rate(parseInt(e.key));
@@ -786,15 +817,5 @@ document.addEventListener('keydown',e=>{
 /* ============================ INIT ============================ */
 renderPicker();
 </script>
-<!-- DOH256 Study Hub Nav -->
-<div id="hub-nav" style="position:fixed;bottom:20px;right:20px;z-index:9999;font-family:system-ui,-apple-system,sans-serif">
-  <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
-  border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
-  border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
-  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'"
-  onmouseout="this.style.background='#1a1d27'">
-    🏠 Study Hub
-  </a>
-</div>
 </body>
 </html>
