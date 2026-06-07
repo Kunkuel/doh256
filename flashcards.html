@@ -76,22 +76,31 @@
   .stat.due .num{color:var(--accent);}
 
   /* deck picker */
+  .section-head{display:flex;align-items:center;gap:10px;margin:1.6rem 0 0.85rem;}
+  .section-head:first-child{margin-top:0.4rem;}
+  .section-head .sh-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;}
+  .section-head .sh-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;
+    color:var(--ink);}
+  .section-head .sh-rule{flex:1;height:1px;background:var(--line);}
+  .section-head .sh-count{font-size:0.78rem;color:var(--ink-faint);}
+
   .deck-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
-    gap:10px;margin-bottom:1.5rem;}
+    gap:10px;margin-bottom:0.5rem;}
+  /* each deck carries its own --dk colour via inline style */
   .deck-card{background:var(--paper);border:1px solid var(--line);
     border-radius:var(--r-lg);padding:16px 18px;cursor:pointer;text-align:left;
     transition:all 0.15s ease;position:relative;overflow:hidden;}
   .deck-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;
-    background:linear-gradient(90deg,var(--accent),var(--gold));opacity:0.8;}
-  .deck-card:hover{border-color:var(--ink-faint);transform:translateY(-2px);
+    background:var(--dk,var(--accent));opacity:0.9;}
+  .deck-card:hover{border-color:var(--dk,var(--ink-faint));transform:translateY(-2px);
     box-shadow:var(--shadow);}
   .deck-card .dk-cat{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;
-    color:var(--accent);margin-bottom:6px;}
+    color:var(--dk,var(--accent));margin-bottom:6px;}
   .deck-card .dk-name{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;
     line-height:1.2;margin-bottom:10px;}
   .deck-card .dk-meta{font-size:0.8rem;color:var(--ink-soft);
     display:flex;gap:12px;flex-wrap:wrap;}
-  .deck-card .dk-due{color:var(--accent);font-weight:500;}
+  .deck-card .dk-due{color:var(--dk,var(--accent));font-weight:500;}
 
   .back-link{background:none;border:none;color:var(--ink-soft);cursor:pointer;
     font-family:'Newsreader',serif;font-size:0.9rem;padding:0;margin-bottom:1rem;}
@@ -211,9 +220,7 @@
   </header>
 
   <!-- DECK PICKER -->
-  <div id="picker">
-    <div class="deck-grid" id="deckGrid"></div>
-  </div>
+  <div id="picker"></div>
 
   <!-- STUDY VIEW -->
   <div id="study" class="hidden">
@@ -266,7 +273,7 @@ const DECKS = {
 
   /* ----------------------------- OCCLUSION ------------------------------- */
   "occlusion": {
-    name:"Occlusion", category:"Oral Biology",
+    name:"Occlusion", category:"Oral Biology", group:"General", color:"#2f7d6b",
     cards:[
       {tags:"definitions", front:"What is occlusion? Give the simple clinical definition.", back:"\"The contact between teeth.\" (Davies and Gray, 2001). The formal GPT-9 definition: \"the static relationship between the incising or masticating surfaces of the maxillary or mandibular teeth or tooth analogues.\""},
       {tags:"definitions", front:"Why did Christensen (1905) prefer the word 'bite'?", back:"He believed it was simpler and more natural terminology — a general term for all forms of contact in which teeth meet, encompassing occlusion and articulation."},
@@ -301,7 +308,7 @@ const DECKS = {
 
   /* ----------------------------- RADIOGRAPHY ----------------------------- */
   "radiography": {
-    name:"Radiography", category:"Imaging",
+    name:"Radiography", category:"Imaging", group:"General", color:"#185FA5",
     cards:[
       {tags:"x-ray physics", front:"List the key properties of X-rays.", back:"Invisible & weightless; very short wavelength (~0.01–0.05 nm); travel in straight lines from a point source; cannot be focused; travel at the speed of light; differently absorbed by matter; can be deflected; cause some substances to fluoresce; produce biological changes in living tissue; can ionise gases."},
       {tags:"x-ray tube", front:"How are X-rays produced in the X-ray tube?", back:"The cathode (tungsten filament) is heated, releasing electrons that accelerate toward the anode. They strike the tungsten target plate; the collision produces photons (X-rays) and a large amount of heat. The photon exits the tube window, passes through the tissue, and reaches the receptor/plate."},
@@ -339,7 +346,7 @@ const DECKS = {
 
   /* ----------------------------- ULTRASONIC ------------------------------ */
   "ultrasonic": {
-    name:"Ultrasonic Devices", category:"Periodontics",
+    name:"Ultrasonic Devices", category:"Clinical Skills", group:"General", color:"#8a5cc4",
     cards:[
       {tags:"basics", front:"What are ultrasonic scalers and how do they work?", back:"Dental instruments that use high-frequency mechanical vibrations (typically 25–50 kHz) to remove plaque, calculus and bacterial biofilm from teeth, especially subgingivally. Two types: <b>piezoelectric</b> and <b>magnetostrictive</b>."},
       {tags:"mode of action", front:"Name the four mechanisms by which ultrasonic scalers clean.", back:"<b>Mechanical vibration</b> — dislodges deposits. <b>Cavitation</b> — micro-bubbles form and implode, disrupting biofilm via shockwaves. <b>Acoustic microstreaming</b> — shear forces in surrounding fluid clean beyond the tip's reach. <b>Water cooling</b> — prevents overheating and provides lavage."},
@@ -363,7 +370,7 @@ const DECKS = {
 
   /* --------------------- PERIO 1: ANATOMY (Jake Ball) -------------------- */
   "perio-anatomy": {
-    name:"Perio: Anatomy of the Periodontium", category:"Periodontics · Dr Jake Ball",
+    name:"Perio: Anatomy of the Periodontium", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
     cards:[
       {tags:"overview", front:"What is the periodontium and what are its four components?", back:"The supporting apparatus of the teeth. Composed of: <b>gingiva</b>, <b>periodontal ligament</b>, <b>cementum</b> and <b>alveolar bone</b>."},
       {tags:"embryology", front:"What two structures does the primary epithelial band form?", back:"The <b>dental lamina</b> (gives rise to the enamel organ / future teeth) and the <b>vestibular lamina</b>. Along each dental lamina, 10 epithelial ingrowths form (one per deciduous tooth)."},
@@ -394,7 +401,7 @@ const DECKS = {
 
   /* ---------------- PERIO 2: AETIOLOGY / PLAQUE (Jake Ball) -------------- */
   "perio-aetiology": {
-    name:"Perio: Aetiology, Plaque & Biofilm", category:"Periodontics · Dr Jake Ball",
+    name:"Perio: Aetiology, Plaque & Biofilm", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
     cards:[
       {tags:"deposits", front:"Classify the types of tooth deposit.", back:"<b>Soft:</b> plaque (supra- & sub-gingival), materia alba, food remnants. <b>Hard:</b> calculus (supra- & sub-gingival). <b>Discolouration/staining:</b> extrinsic (surface) and intrinsic (structural)."},
       {tags:"supra vs sub", front:"Supragingival vs subgingival deposits — where is each found?", back:"<b>Supragingival:</b> at or above the gingival margin. <b>Subgingival:</b> below the gingival margin, located between the tooth and the pocket epithelium."},
@@ -419,7 +426,7 @@ const DECKS = {
 
   /* -------------- PERIO 3: CLASSIFICATION (Jake Ball) -------------------- */
   "perio-classification": {
-    name:"Perio: Classification of Diseases", category:"Periodontics · Dr Jake Ball",
+    name:"Perio: Classification of Diseases", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
     cards:[
       {tags:"epidemiology", front:"Roughly how common is periodontitis in adults (Eke et al. 2012)?", back:"In US adults 30+, over <b>47%</b> had periodontitis (8.7% mild, 30% moderate, 8.5% severe). Prevalence rose with age — ~24% at 30–34 vs ~70% at ≥65 years. 86% had ≥1 site with ≥3 mm attachment loss."},
       {tags:"purpose", front:"Why do we classify periodontal diseases?", back:"To provide a framework for studying aetiology, pathogenesis and treatment; to give the international health-care community a common language; and to help organise and execute treatment strategies for individual patients."},
@@ -441,7 +448,7 @@ const DECKS = {
 
   /* ------------- PERIO 4: HISTOPATHOLOGY (Jake Ball) --------------------- */
   "perio-histopath": {
-    name:"Perio: Histopathology of Disease", category:"Periodontics · Dr Jake Ball",
+    name:"Perio: Histopathology of Disease", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
     cards:[
       {tags:"healthy tissue", front:"Describe healthy gingival tissue histologically.", back:"Highly collagenous connective tissue; well-keratinised oral epithelium and smooth junctional epithelium attached via hemidesmosomes; a thin, delicate plexus of blood vessels; gingival sulcus depth ~0.39 mm (Schröder 1970)."},
       {tags:"healthy cells", front:"What cells dominate healthy gingiva?", back:"In the leukocyte population, <b>PMNs (neutrophils) ~95–97%</b>, lymphocytes 1–2%, monocytes 2–3% (Attström 1971). In the tissue overall, fibroblasts predominate (~71%)."},
@@ -459,7 +466,7 @@ const DECKS = {
 
   /* ----------------- PERIO 5: ORAL HYGIENE (Jake Ball) ------------------- */
   "perio-hygiene": {
-    name:"Perio: Oral Hygiene Procedures", category:"Periodontics · Dr Jake Ball",
+    name:"Perio: Oral Hygiene Procedures", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
     cards:[
       {tags:"aim", front:"What is the aim of oral hygiene practices?", back:"<b>Disruption of the oral biofilm.</b> Without OH, gingivitis develops within ~10–14 days but resolves when OH is recommenced (Löe et al. 1965). Thorough plaque removal can prevent the major oral diseases (periodontal disease and caries)."},
       {tags:"subgingival reach", front:"How far below the gingival margin can a toothbrush reach, and what's the implication for deep pockets?", back:"Waerhaug (1981): toothbrush bristles penetrate up to ~0.9 mm below the gingival crevice. In <b>deep pockets (>6 mm)</b> supragingival cleaning alone is insufficient — professional instrumentation is needed. In <b>shallow pockets (<6 mm)</b> meticulous OH can alter the subgingival microflora and improve the condition."},
@@ -474,6 +481,33 @@ const DECKS = {
       {tags:"floss", front:"What does the evidence say about flossing?", back:"Floss can penetrate ~2 mm (up to ~3.5 mm) below the papilla tip without discomfort. Graves (1989): floss reduced interproximal bleeding ~70% vs ~35% for brushing alone — no difference between floss types. High manual dexterity demand → poor compliance; best in young adults/children where papillae fill the spaces."},
       {tags:"interdental brushes", front:"When are interdental brushes preferred over floss?", back:"Where papillae don't fully fill the interproximal space, IDBs consistently remove more plaque than floss and achieve more pocket reduction (Christou 1998; Jackson 2006 — more effective in moderate–severe chronic periodontitis). Evidence on gingival inflammation is inconclusive. Floss is the only tool that reaches where papillae fully fill the space (young patients)."},
       {tags:"summary", front:"Summarise best-practice oral hygiene advice.", back:"Periodontal disease is largely plaque-induced, so OH instruction is a crucial clinician role: brush <b>2× daily</b> (electric or manual), supplement with interproximal cleaning aids, follow preventive protocols, and customise instructions to the individual's needs."},
+    ]
+  },
+
+  /* ------------- PERIO 6: CHEMICAL PLAQUE CONTROL (Jake Ball) ------------ */
+  "perio-chemical": {
+    name:"Perio: Chemical Plaque Control", category:"Periodontics · Dr Jake Ball", group:"Periodontics", color:"#c0392b",
+    cards:[
+      {tags:"rationale", front:"What is the rationale for chemical plaque control?", back:"Plaque is the primary aetiologic factor for gingival inflammation (Löe 1965), and gingivitis & periodontitis are a continuum of the same disease. Chemical agents help <b>manage gingivitis</b>, provide <b>primary prevention</b> of periodontitis and <b>secondary prevention</b> of recurrent periodontitis."},
+      {tags:"rationale", front:"Why is chemical control needed if mechanical removal works?", back:"Mechanical removal is effective but doesn't remove all plaque — patients fail to comply or have physical difficulties, and <50% of plaque is removed in a single brushing episode (De la Rosa 1979). So chemical control is recommended as an <b>adjunct</b> to mechanical removal, not a replacement."},
+      {tags:"key principle", front:"What is the gold standard for preventing plaque-related disease, and where do chemical agents fit?", back:"<b>Mechanical disruption of plaque is the gold standard.</b> Chemical agents are recommended only to <b>support</b> mechanical biofilm removal and at times when a patient needs additional improvement in plaque control (Chapple et al. 2015) — never as a substitute."},
+      {tags:"classification", front:"How are chemical agents classified by their level of proven effect?", back:"<b>Antimicrobial agents</b> — kill/inhibit bacteria in vitro, but this alone doesn't prove in vivo efficacy against plaque.<br><b>Plaque-reducing/inhibitory agents</b> — shown to reduce quantity/quality of plaque, may or may not be enough to affect gingivitis/caries.<br><b>Antiplaque agents</b> — affect plaque enough to benefit gingivitis and/or caries.<br><b>Antigingivitis agents</b> — reduce gingival inflammation without necessarily affecting plaque (includes anti-inflammatory agents)."},
+      {tags:"delivery vehicles", front:"Name the vehicles used to deliver chemical agents.", back:"Toothpaste/gel, mouth rinse/irrigator, spray, chewing gum, and varnish."},
+      {tags:"delivery vehicles", front:"Toothpaste vs mouth rinse — strengths and limitations as vehicles.", back:"<b>Toothpaste:</b> ubiquitous and convenient (ideal for the general population); contains abrasives, detergents (often anionic e.g. SLS), but cationic agents like CHX are hard to formulate with detergents; limited site access. <b>Mouth rinse:</b> reaches intra-oral niches toothpaste can't, and has more impact on clinical outcomes (Serrano 2015) — best for high-risk patients or specific scenarios."},
+      {tags:"delivery vehicles", front:"What are the concerns with alcohol in mouth rinses (Eley 1999)?", back:"Ethyl alcohol is used to stabilise active ingredients and as a preservative, but high alcohol content raises concerns: systemic toxicity from accidental ingestion (especially children) and false-positive breath tests."},
+      {tags:"chlorhexidine", front:"What is chlorhexidine (CHX) and what is its spectrum?", back:"A cationic bisbiguanide with broad antimicrobial & anti-plaque activity. It targets the inner cytoplasmic membrane and affects bacterial metabolism. Effective against Gram +ve and −ve bacteria, yeasts, dermatophytes and lipophilic viruses; low mammalian toxicity; strong affinity for epithelial surfaces."},
+      {tags:"chlorhexidine", front:"Describe CHX's antimicrobial mechanism of action.", back:"The negatively-charged bacterial cell surface attracts the cationic CHX (drawn to phosphate-containing compounds); CHX binds the inner membrane, disrupting integrity and increasing permeability → leakage of low-molecular-weight components. <b>Bacteriostatic at low</b> concentrations, <b>bactericidal at high</b> concentrations (irreversible cytoplasm coagulation/precipitation)."},
+      {tags:"chlorhexidine", front:"What is substantivity, and how long does CHX last?", back:"Substantivity = prolonged retention and slow release on oral surfaces. CHX has positive charge distributed over nitrogen atoms either side of its hexamethylene bridge, allowing adsorption onto negatively-charged pellicle-coated tooth & mucosal surfaces — antibacterial activity persists up to <b>~5 hours</b> after a 60-second rinse (Roberts & Addy 1981). This high substantivity is its key advantage."},
+      {tags:"chlorhexidine", front:"What is the optimal dose of CHX and the evidence on concentration?", back:"Optimal quantity ~40 mg per dose: <b>10 mL of 0.2% twice daily</b>, or <b>15 mL of 0.15% twice daily</b>. Reductions from this dose reduce clinical effectiveness. A meta-analysis (Berchier 2010) found a small but significant difference favouring 0.2%; gel efficacy is hard to determine (penetration uncertain)."},
+      {tags:"chlorhexidine", front:"What are the main side effects of CHX?", back:"<b>Tooth staining</b> (precipitation of extrinsic chromogens onto surface-bound CHX); <b>increased calculus</b> formation; taste disturbance; mucosal erosion; very rarely parotid swelling. No reports of systemic toxicity from topical use/ingestion (poor GIT absorption, cationic). Mariotti & Rumpf (1999) discouraged peri-operative use during regenerative/surgical procedures (reduced fibroblast proliferation in vitro)."},
+      {tags:"chlorhexidine", front:"What did the 2-year CHX study (Löe et al. 1976) show?", back:"Compared to placebo, daily 0.2% CHX reduced plaque and gingivitis but tended to stain teeth and produced more supragingival calculus. Stains were easily removed by routine prophylaxis. No other local side effects on mucosa, tongue, salivary glands or pharynx after prolonged use."},
+      {tags:"triclosan", front:"What is triclosan and how effective is it?", back:"A non-ionic phenol (trichloro-2-hydroxyphenyl ether) that interferes with cell enzymatic function and transport. <b>No staining</b> (non-ionic). It's no better than SLS and is significantly inferior to CHX (Jenkins 1991). Usually combined with zinc citrate or Gantrez™ (PVM/MA copolymer), which improves its adsorption and retention."},
+      {tags:"essential oils", front:"What are essential oils (e.g. Listerine®) and how do they work?", back:"Concentrated hydrophobic liquids of volatile aromatic plant compounds — Listerine® = eucalyptol, menthol and methyl salicylate. Anti-gingivitis effect attributed to antioxidative activity. Van Leeuwen (2011): CHX gives superior plaque control, but there's no significant difference between CHX and essential oils for reducing gingival inflammation. Poor substantivity; weak associations with oral cancer noted."},
+      {tags:"QAC", front:"What are quaternary ammonium compounds (e.g. CPC) and their main limitation?", back:"Salts of quaternary ammonium cations (e.g. cetylpyridinium chloride, benzalkonium chloride) that disrupt the cell membrane. 0.05% CPC adsorbs readily at oral pH but has <b>disappointing substantivity (3–5 h)</b> — likely rapid desorption and loss of activity (monocationic). CHX outperforms CPC; anti-gingivitis evidence is equivocal."},
+      {tags:"enzymes", front:"What are the two categories of enzyme agents?", back:"<b>1. Plaque-removing</b> (e.g. dextranase, mutanase) — disrupt the early plaque matrix; abandoned due to poor substantivity and mucosal erosion. <b>2. Host-defence enhancing</b> (e.g. glucose oxidase, amyloglucosidase) — convert carbohydrates to H₂O₂, which converts thiocyanate to hypothiocyanite, interfering with bacterial metabolism. Anti-gingivitis evidence inconclusive."},
+      {tags:"metal salts", front:"How do metal salts work, and what are copper, zinc and tin (stannous fluoride)?", back:"They inhibit plaque formation by interfering with glycolysis. <b>Copper</b>: most potent inhibitor but unpleasant taste, staining, toxicity. <b>Zinc</b>: synergistic with other antiseptics, retained in plaque. <b>Tin (stannous fluoride)</b>: an 'all-in-one' anti-plaque + anti-caries agent (better as dentifrice), but staining and disappointing anti-plaque activity limit it — Perlich (1995): reduced gingivitis 20.5% and bleeding 33.4% with no matching plaque-score drop."},
+      {tags:"natural products", front:"What natural-product agents exist, and are they effective?", back:"Sanguinarine (bloodroot extract — linked to oral precancerous lesions), propolis (bee product — no proven clinical efficacy as a rinse), and oil pulling (swishing edible oil; effects are theoretical rather than evidence-based, with no demonstrated substantivity). Generally limited or unproven efficacy."},
+      {tags:"sensitivity", front:"What are the two types of desensitising toothpaste chemicals?", back:"<b>1. Potassium-containing</b> — depolarising effect on nerve conduction. <b>2. Tubule-blocking</b> (strontium chloride, stannous fluoride, calcium sodium phosphosilicate, arginine) — occlude exposed dentine tubules to interrupt external stimulation."},
     ]
   },
 
@@ -645,25 +679,60 @@ function renderList(filter=""){
 }
 
 /* ====================== DECK PICKER ====================== */
+/* Section definitions: order, title, and the colour of the section dot.
+   Decks are placed into sections by their `group` field. */
+const SECTIONS = [
+  { group:"General",      title:"General & Clinical",  color:"#185FA5" },
+  { group:"Periodontics", title:"Periodontics — Dr Jake Ball", color:"#c0392b" },
+];
+
+function deckCardHTML(id, d){
+  const due=dueCountFor(id,d.cards);
+  const col=d.color||"var(--accent)";
+  return `<button class="deck-card" style="--dk:${col}" onclick="openDeck('${id}')">
+    <div class="dk-cat">${d.category||""}</div>
+    <div class="dk-name">${d.name}</div>
+    <div class="dk-meta">
+      <span>${d.cards.length} cards</span>
+      ${due>0?`<span class="dk-due">${due} due</span>`:`<span>all reviewed</span>`}
+    </div>
+  </button>`;
+}
+
 function renderPicker(){
-  const grid=document.getElementById('deckGrid');
-  grid.innerHTML=Object.entries(DECKS).map(([id,d])=>{
-    const due=dueCountFor(id,d.cards);
-    return `<button class="deck-card" onclick="openDeck('${id}')">
-      <div class="dk-cat">${d.category||""}</div>
-      <div class="dk-name">${d.name}</div>
-      <div class="dk-meta">
-        <span>${d.cards.length} cards</span>
-        ${due>0?`<span class="dk-due">${due} due</span>`:`<span>all reviewed</span>`}
-      </div>
-    </button>`;
-  }).join("");
+  const picker=document.getElementById('picker');
+  let html="";
+  const placed=new Set();
+
+  SECTIONS.forEach(sec=>{
+    const entries=Object.entries(DECKS).filter(([id,d])=>(d.group||"General")===sec.group);
+    if(entries.length===0) return;
+    const cardCount=entries.reduce((n,[,d])=>n+d.cards.length,0);
+    html+=`<div class="section-head">
+      <span class="sh-dot" style="background:${sec.color}"></span>
+      <span class="sh-title">${sec.title}</span>
+      <span class="sh-rule"></span>
+      <span class="sh-count">${entries.length} decks · ${cardCount} cards</span>
+    </div>
+    <div class="deck-grid">${entries.map(([id,d])=>{ placed.add(id); return deckCardHTML(id,d); }).join("")}</div>`;
+  });
+
+  /* any deck whose group isn't in SECTIONS still gets shown */
+  const leftovers=Object.entries(DECKS).filter(([id])=>!placed.has(id));
+  if(leftovers.length){
+    html+=`<div class="section-head"><span class="sh-dot" style="background:var(--ink-faint)"></span>
+      <span class="sh-title">Other</span><span class="sh-rule"></span></div>
+      <div class="deck-grid">${leftovers.map(([id,d])=>deckCardHTML(id,d)).join("")}</div>`;
+  }
+  picker.innerHTML=html;
 }
 
 function openDeck(id){
   currentDeckId=id;
   DECK=DECKS[id].cards;
   state=loadState(id,DECK);
+  /* theme the study view with this deck's colour */
+  document.documentElement.style.setProperty('--accent', DECKS[id].color || '#b5491f');
   buildSession();
   if(session.length===0) session=DECK.map((_,i)=>i);
   document.getElementById('subtitle').textContent=DECKS[id].name;
@@ -677,6 +746,7 @@ function openDeck(id){
   window.scrollTo(0,0);
 }
 function backToPicker(){
+  document.documentElement.style.setProperty('--accent', '#b5491f');
   document.getElementById('study').classList.add('hidden');
   document.getElementById('picker').classList.remove('hidden');
   document.getElementById('stats').style.display='none';
