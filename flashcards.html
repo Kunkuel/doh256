@@ -609,6 +609,7 @@ function order(label){ return ({again:0,hard:1,medium:2,new:3,easy:4})[label] ??
 
 function shuffle(){
   undoStack=[];
+  if(current!==null) session.unshift(current); // put the on-screen card back so it isn't lost
   for(let k=session.length-1;k>0;k--){ const j=Math.floor(Math.random()*(k+1)); [session[k],session[j]]=[session[j],session[k]]; }
   next();
   renderStats();
@@ -677,7 +678,7 @@ function renderEmpty(){
 function flip(){ if(current===null) return; flipped=!flipped; renderCard(); }
 
 function renderStats(){
-  document.getElementById('stat-due').textContent=session.length;
+  document.getElementById('stat-due').textContent=session.length + (current!==null?1:0);
   document.getElementById('stat-done').textContent=doneCount;
   document.getElementById('stat-total').textContent=DECK.length;
   const ub=document.getElementById('undoBtn');
@@ -759,6 +760,7 @@ function renderPicker(){
 function openDeck(id){
   currentDeckId=id;
   DECK=DECKS[id].cards;
+  current=null; undoStack=[];   // clear any leftover state from a previous deck
   state=loadState(id,DECK);
   /* theme the study view with this deck's colour */
   document.documentElement.style.setProperty('--accent', DECKS[id].color || '#b5491f');
