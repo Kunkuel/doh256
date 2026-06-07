@@ -15,6 +15,33 @@
     * { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); line-height:1.6; min-height:100vh; }
 
+    /* PASSWORD GATE */
+    #gate {
+      position:fixed; inset:0; background:var(--bg); z-index:99999;
+      display:flex; align-items:center; justify-content:center;
+    }
+    #gate.unlocked { display:none; }
+    .gate-box {
+      background:var(--surface); border:1px solid var(--border); border-radius:16px;
+      padding:2.5rem 2rem; width:100%; max-width:340px; text-align:center;
+    }
+    .gate-box h2 { font-family:'Syne',sans-serif; font-size:1.4rem; margin-bottom:0.4rem; }
+    .gate-box p { color:var(--muted); font-size:0.85rem; margin-bottom:1.5rem; }
+    #pw-input {
+      width:100%; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; color:var(--text); font-family:'DM Mono',monospace;
+      font-size:1rem; padding:0.7rem 1rem; outline:none; text-align:center;
+      letter-spacing:0.1em; transition:border-color 0.2s; margin-bottom:0.8rem;
+    }
+    #pw-input:focus { border-color:var(--blue); }
+    #pw-btn {
+      width:100%; background:var(--blue); color:#000; border:none; border-radius:8px;
+      font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.95rem;
+      padding:0.7rem; cursor:pointer; transition:opacity 0.2s;
+    }
+    #pw-btn:hover { opacity:0.85; }
+    #pw-error { color:var(--red); font-size:0.8rem; margin-top:0.6rem; min-height:1.2rem; font-family:'DM Mono',monospace; }
+
     .header { padding:2.5rem 2rem 2rem; border-bottom:1px solid var(--border); max-width:880px; margin:0 auto; }
     .header-top { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.2rem; }
     .title-block h1 { font-family:'Syne',sans-serif; font-size:1.8rem; font-weight:800; line-height:1.1; }
@@ -57,6 +84,19 @@
   </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div style="font-size:2rem;margin-bottom:0.8rem">🦷</div>
+    <h2>DOH 256 Study Hub</h2>
+    <p>Enter the password to access</p>
+    <input type="password" id="pw-input" placeholder="••••••••" autofocus
+      onkeydown="if(event.key==='Enter')checkPw()">
+    <button id="pw-btn" onclick="checkPw()">Unlock</button>
+    <div id="pw-error"></div>
+  </div>
+</div>
 
 <div class="header">
   <div class="header-top">
@@ -273,6 +313,29 @@
       folder.classList.toggle('all-hidden', q.length > 1 && !visible);
     });
   });
+</script>
+
+
+<script>
+  // Change the password below — share it with your friends
+  const PASSWORD = "ILoveProfBryant2026";
+
+  function checkPw() {
+    const val = document.getElementById('pw-input').value;
+    if (val === PASSWORD) {
+      document.getElementById('gate').classList.add('unlocked');
+      sessionStorage.setItem('doh256_auth', '1');
+    } else {
+      document.getElementById('pw-error').textContent = 'Incorrect password.';
+      document.getElementById('pw-input').value = '';
+      document.getElementById('pw-input').focus();
+    }
+  }
+
+  // Stay unlocked for the session (no re-prompt on refresh)
+  if (sessionStorage.getItem('doh256_auth') === '1') {
+    document.getElementById('gate').classList.add('unlocked');
+  }
 </script>
 
 </body>
