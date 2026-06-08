@@ -929,52 +929,97 @@
     </table>
 
     <figure class="diagram">
-      <svg viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Angle classification I II III">
-        <rect x="1" y="1" width="658" height="198" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
-        <!-- helper to draw upper(fixed) and lower(shifted) molars -->
-        <!-- CLASS I -->
-        <text x="110" y="30" text-anchor="middle" class="dgm-title">Class I</text>
-        <g stroke="#1a1d24" stroke-width="1.3" fill="#fff">
-          <path d="M70 60 q12 -8 24 0 q12 -8 24 0 l0 22 l-48 0 z"/>
-          <path d="M74 110 q12 8 24 0 q12 8 24 0 l0 -22 l-48 0 z"/>
-        </g>
-        <line x1="96" y1="84" x2="96" y2="86" stroke="#1f5e3d" stroke-width="2"/>
-        <text x="110" y="150" text-anchor="middle" class="dgm-small">MB cusp → MB groove</text>
-        <line x1="220" y1="40" x2="220" y2="160" stroke="#e5e3da"/>
-        <!-- CLASS II (lower shifted distal/right) -->
-        <text x="330" y="30" text-anchor="middle" class="dgm-title">Class II</text>
-        <g stroke="#1a1d24" stroke-width="1.3" fill="#fff">
-          <path d="M290 60 q12 -8 24 0 q12 -8 24 0 l0 22 l-48 0 z"/>
-          <path d="M306 110 q12 8 24 0 q12 8 24 0 l0 -22 l-48 0 z"/>
-        </g>
-        <line x1="338" y1="92" x2="354" y2="92" stroke="#9a3b1f" stroke-width="2"/>
-        <polygon points="354,92 346,88 346,96" fill="#9a3b1f"/>
-        <text x="330" y="150" text-anchor="middle" class="dgm-small">lower molar distal</text>
-        <line x1="440" y1="40" x2="440" y2="160" stroke="#e5e3da"/>
-        <!-- CLASS III (lower shifted mesial/left) -->
-        <text x="550" y="30" text-anchor="middle" class="dgm-title">Class III</text>
-        <g stroke="#1a1d24" stroke-width="1.3" fill="#fff">
-          <path d="M510 60 q12 -8 24 0 q12 -8 24 0 l0 22 l-48 0 z"/>
-          <path d="M494 110 q12 8 24 0 q12 8 24 0 l0 -22 l-48 0 z"/>
-        </g>
-        <line x1="514" y1="92" x2="498" y2="92" stroke="#1d5b8a" stroke-width="2"/>
-        <polygon points="498,92 506,88 506,96" fill="#1d5b8a"/>
-        <text x="550" y="150" text-anchor="middle" class="dgm-small">lower molar mesial</text>
+      <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Angle classification I II III by molar relationship">
+        <rect x="1" y="1" width="698" height="298" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+
+        <!-- ===================== CLASS I ===================== -->
+        <text x="125" y="26" text-anchor="middle" class="dgm-title" fill="#1f5e3d">CLASS I — neutrocclusion</text>
+        <text x="125" y="56" text-anchor="middle" class="dgm-small">(maxillary)</text>
+        <!-- upper molar, MB cusp tip at x=111 -->
+        <path d="M95 90 L95 112 L111 132 L125 118 L139 132 L155 112 L155 90 L145 90 L141 68 L133 90 L117 90 L113 68 L105 90 Z" fill="#f3eef5" stroke="#1a1d24" stroke-width="1.4"/>
+        <!-- lower molar, buccal groove at x=111 -->
+        <path d="M81 166 L96 150 L111 164 L126 150 L141 166 L141 198 L131 198 L127 220 L119 198 L103 198 L99 220 L91 198 L81 198 Z" fill="#fff" stroke="#1a1d24" stroke-width="1.4"/>
+        <text x="125" y="240" text-anchor="middle" class="dgm-small">(mandibular)</text>
+        <!-- alignment line -->
+        <line x1="111" y1="134" x2="111" y2="206" stroke="#6e2a6e" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <!-- MB cusp marker -->
+        <circle cx="111" cy="132" r="4.5" fill="#6e2a6e"/>
+        <!-- buccal groove marker -->
+        <circle cx="111" cy="164" r="4.5" fill="none" stroke="#1d5b8a" stroke-width="2"/>
+        <!-- labels with leaders -->
+        <line x1="150" y1="120" x2="116" y2="131" stroke="#9ca3af" stroke-width="0.8"/>
+        <text x="153" y="123" class="dgm-small" fill="#6e2a6e">MB cusp</text>
+        <line x1="150" y1="176" x2="115" y2="165" stroke="#9ca3af" stroke-width="0.8"/>
+        <text x="153" y="179" class="dgm-small" fill="#1d5b8a">buccal groove</text>
+        <text x="125" y="266" text-anchor="middle" class="dgm-small">MB cusp sits in the groove</text>
+
+        <line x1="237" y1="44" x2="237" y2="276" stroke="#e5e3da"/>
+
+        <!-- ===================== CLASS II ===================== -->
+        <text x="350" y="26" text-anchor="middle" class="dgm-title" fill="#9a3b1f">CLASS II — distocclusion</text>
+        <!-- upper molar fixed, MB cusp tip at x=336 -->
+        <path d="M320 90 L320 112 L336 132 L350 118 L364 132 L380 112 L380 90 L370 90 L366 68 L358 90 L342 90 L338 68 L330 90 Z" fill="#f3eef5" stroke="#1a1d24" stroke-width="1.4"/>
+        <!-- lower molar shifted DISTAL (right), groove at x=352 -->
+        <path d="M322 166 L337 150 L352 164 L367 150 L382 166 L382 198 L372 198 L368 220 L360 198 L344 198 L340 220 L332 198 L322 198 Z" fill="#fff" stroke="#1a1d24" stroke-width="1.4"/>
+        <line x1="336" y1="134" x2="336" y2="206" stroke="#6e2a6e" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <circle cx="336" cy="132" r="4.5" fill="#6e2a6e"/>
+        <circle cx="352" cy="164" r="4.5" fill="none" stroke="#1d5b8a" stroke-width="2"/>
+        <!-- shift arrow distal -->
+        <line x1="326" y1="236" x2="372" y2="236" stroke="#9a3b1f" stroke-width="1.6"/>
+        <polygon points="372,236 363,232 363,240" fill="#9a3b1f"/>
+        <text x="349" y="252" text-anchor="middle" class="dgm-small" fill="#9a3b1f">lower molar shifted distally</text>
+        <text x="350" y="270" text-anchor="middle" class="dgm-small">cusp falls mesial to groove</text>
+
+        <line x1="462" y1="44" x2="462" y2="276" stroke="#e5e3da"/>
+
+        <!-- ===================== CLASS III ===================== -->
+        <text x="575" y="26" text-anchor="middle" class="dgm-title" fill="#1d5b8a">CLASS III — mesiocclusion</text>
+        <!-- upper molar fixed, MB cusp tip at x=561 -->
+        <path d="M545 90 L545 112 L561 132 L575 118 L589 132 L605 112 L605 90 L595 90 L591 68 L583 90 L567 90 L563 68 L555 90 Z" fill="#f3eef5" stroke="#1a1d24" stroke-width="1.4"/>
+        <!-- lower molar shifted MESIAL (left), groove at x=545 -->
+        <path d="M515 166 L530 150 L545 164 L560 150 L575 166 L575 198 L565 198 L561 220 L553 198 L537 198 L533 220 L525 198 L515 198 Z" fill="#fff" stroke="#1a1d24" stroke-width="1.4"/>
+        <line x1="561" y1="134" x2="561" y2="206" stroke="#6e2a6e" stroke-width="1.3" stroke-dasharray="4 3"/>
+        <circle cx="561" cy="132" r="4.5" fill="#6e2a6e"/>
+        <circle cx="545" cy="164" r="4.5" fill="none" stroke="#1d5b8a" stroke-width="2"/>
+        <!-- shift arrow mesial -->
+        <line x1="588" y1="236" x2="542" y2="236" stroke="#1d5b8a" stroke-width="1.6"/>
+        <polygon points="542,236 551,232 551,240" fill="#1d5b8a"/>
+        <text x="565" y="252" text-anchor="middle" class="dgm-small" fill="#1d5b8a">lower molar shifted mesially</text>
+        <text x="575" y="270" text-anchor="middle" class="dgm-small">cusp falls distal to groove</text>
+
+        <!-- orientation -->
+        <text x="350" y="292" text-anchor="middle" class="dgm-mono">← MESIAL (front)        DISTAL (back) →</text>
       </svg>
-      <figcaption>Position of the <b>lower</b> first molar relative to the upper defines the class: aligned (I), shifted distally (II), or shifted mesially (III).</figcaption>
+      <figcaption>Hold the <b>maxillary</b> molar (purple cusp) fixed and watch the <b>mandibular</b> molar (blue groove). <b>Class I:</b> the maxillary mesiobuccal cusp drops into the mandibular buccal groove. <b>Class II:</b> the mandibular molar sits distally, so the cusp falls mesial to the groove. <b>Class III:</b> the mandibular molar sits mesially, so the cusp falls distal to the groove.</figcaption>
     </figure>
   </section>
 
   <section id="oc-mal">
     <h2><span class="num">8</span>Other Malocclusions &amp; Clinical Features</h2>
+
+    <h3>Crossbite vs Open Bite</h3>
+    <div class="callout key">
+      <span class="callout-label">Don't confuse the two</span>
+      A <strong>crossbite</strong> is a reversed <strong>horizontal (transverse / antero-posterior)</strong> relationship — a tooth bites on the wrong (inner) side of its opponent. An <strong>open bite</strong> is an absent <strong>vertical</strong> contact — a gap where opposing teeth fail to meet. They are different problems and can occur together.
+    </div>
+
+    
+
     <dl class="defs">
-      <dt>Crossbite</dt><dd><strong>Anterior open bite</strong> — often from thumb-sucking. <strong>Posterior crossbite</strong> — buccolingual discrepancy.</dd>
-      <dt>Spaces / diastemas</dt><dd>Gaps between teeth.</dd>
-      <dt>Loss of vertical dimension (collapsed occlusion)</dt><dd>Teeth maintain contact even when shortened (they continue erupting). Management may include <strong>crown-lengthening surgery</strong>.</dd>
-      <dt>Smile line</dt><dd>Amount of gingiva exposed on smiling — high / medium / low.</dd>
-      <dt>Mouth breathers</dt><dd>Can create lip traps and malocclusion, breathing difficulty, sinus issues.</dd>
-      <dt>Midline shift</dt><dd>Central incisors not aligned to facial symmetry — usually not a deal-breaker.</dd>
-      <dt>Tongue thrust</dt><dd>Linked with thumb-sucking and anterior open bite; the tongue prevents incisor eruption. Management aims to stop tongue protrusion.</dd>
+      <dt>Anterior crossbite</dt><dd>One or more <strong>maxillary anterior teeth occlude lingual (palatal) to the mandibular anteriors</strong> — the lower incisors sit in front of the uppers (<strong>reverse overjet</strong>). May be purely <em>dental</em> (tooth tipping) or reflect a <em>skeletal</em> Class III tendency.</dd>
+      <dt>Posterior crossbite</dt><dd>The <strong>buccal cusps of the maxillary posterior teeth occlude lingual to the buccal cusps of the mandibular posterior teeth</strong> (the upper bites inside the lower). Usually a <strong>narrow maxilla</strong>; can be unilateral or bilateral and may force a <strong>functional mandibular shift</strong>.</dd>
+      <dt>Anterior open bite (AOB)</dt><dd><strong>No vertical overlap/contact of the incisors</strong> while the posterior teeth are in occlusion. Causes: <strong>thumb/digit sucking, tongue thrust</strong>, prolonged dummy use, or a skeletal pattern (increased lower-face height).</dd>
+      <dt>Posterior open bite (POB)</dt><dd><strong>One or more posterior teeth fail to meet</strong> the opposing teeth when the mouth is closed. Causes: <strong>lateral tongue thrust, failed/arrested eruption, or ankylosis</strong> of a tooth.</dd>
+    </dl>
+
+    <h3>Other features</h3>
+    <dl class="defs">
+      <dt>Spaces / diastemas</dt><dd>Gaps between teeth; the <strong>midline diastema</strong> between the maxillary central incisors is the classic example.</dd>
+      <dt>Loss of vertical dimension (collapsed occlusion)</dt><dd>As teeth wear/shorten they keep erupting (dento-alveolar compensation), so they <strong>maintain contact but the clinical crowns shorten</strong>. Restoring worn teeth may require regaining space — <strong>crown-lengthening surgery</strong> is one option to expose more crown height.</dd>
+      <dt>Smile line</dt><dd>Amount of tooth/gingiva shown on smiling — <strong>high</strong> (gummy) / <strong>medium</strong> / <strong>low</strong>.</dd>
+      <dt>Mouth breathing</dt><dd>Associated with <strong>lip traps / incompetent lips</strong> and malocclusion, breathing difficulty and sinus issues.</dd>
+      <dt>Midline shift</dt><dd>Central incisors not coincident with the facial midline — often not clinically significant on its own.</dd>
+      <dt>Tongue thrust</dt><dd>Linked with digit sucking and <strong>anterior open bite</strong>; the tongue prevents incisor eruption. Management aims to stop tongue protrusion.</dd>
     </dl>
   </section>
 </div>
