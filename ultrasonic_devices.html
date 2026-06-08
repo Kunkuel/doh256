@@ -795,22 +795,38 @@
     </table>
 
     <figure class="diagram">
-      <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piezo linear vs magnetostrictive elliptical tip motion">
-        <rect x="1" y="1" width="558" height="198" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
-        <text x="150" y="30" text-anchor="middle" class="dgm-title" fill="#0e6b7a">Piezoelectric — LINEAR</text>
-        <line x1="100" y1="60" x2="180" y2="120" stroke="#0e6b7a" stroke-width="6" stroke-linecap="round"/>
-        <!-- linear motion double arrow along lateral -->
-        <line x1="120" y1="72" x2="160" y2="108" stroke="#9a3b1f" stroke-width="1.6"/>
-        <polygon points="120,72 124,82 130,75" fill="#9a3b1f"/><polygon points="160,108 156,98 150,105" fill="#9a3b1f"/>
-        <text x="150" y="160" text-anchor="middle" class="dgm-small">back-and-forth · lateral sides active</text>
-        <line x1="290" y1="40" x2="290" y2="175" stroke="#e5e3da"/>
-        <text x="420" y="30" text-anchor="middle" class="dgm-title" fill="#6e2a6e">Magnetostrictive — ELLIPTICAL</text>
-        <line x1="380" y1="60" x2="460" y2="120" stroke="#6e2a6e" stroke-width="6" stroke-linecap="round"/>
-        <!-- ellipse at tip -->
-        <ellipse cx="460" cy="120" rx="16" ry="9" fill="none" stroke="#9a3b1f" stroke-width="1.6" transform="rotate(35 460 120)"/>
-        <text x="420" y="160" text-anchor="middle" class="dgm-small">orbital · all sides active (point strongest)</text>
+      <svg viewBox="0 0 560 215" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Piezoelectric linear vs magnetostrictive elliptical tip motion">
+        <rect x="1" y="1" width="558" height="213" rx="6" class="dgm-fill-card" stroke="#e5e3da"/>
+
+        <!-- ===== Piezoelectric ===== -->
+        <text x="140" y="28" text-anchor="middle" class="dgm-title" fill="#0e6b7a">Piezoelectric — LINEAR</text>
+        <!-- scaler tip pointing down -->
+        <path d="M132 46 L148 46 L145 96 C144 120 142 138 140 150 C138 138 136 120 135 96 Z" fill="#0e6b7a" fill-opacity="0.85" stroke="#0a4f5a" stroke-width="1"/>
+        <!-- lateral-side markers -->
+        <text x="92" y="104" class="dgm-small" fill="#0e6b7a">active</text>
+        <text x="92" y="117" class="dgm-small" fill="#0e6b7a">sides</text>
+        <line x1="118" y1="110" x2="134" y2="110" stroke="#0e6b7a" stroke-width="1"/>
+        <line x1="146" y1="110" x2="170" y2="110" stroke="#0e6b7a" stroke-width="1"/>
+        <text x="176" y="113" class="dgm-small" fill="#0e6b7a">active</text>
+        <!-- linear side-to-side motion arrow, below the tip point -->
+        <line x1="108" y1="166" x2="172" y2="166" stroke="#9a3b1f" stroke-width="2"/>
+        <polygon points="108,166 118,161 118,171" fill="#9a3b1f"/>
+        <polygon points="172,166 162,161 162,171" fill="#9a3b1f"/>
+        <text x="140" y="192" text-anchor="middle" class="dgm-small">straight back-and-forth · 2 sides work</text>
+
+        <line x1="280" y1="42" x2="280" y2="202" stroke="#e5e3da"/>
+
+        <!-- ===== Magnetostrictive ===== -->
+        <text x="420" y="28" text-anchor="middle" class="dgm-title" fill="#6e2a6e">Magnetostrictive — ELLIPTICAL</text>
+        <path d="M412 46 L428 46 L425 96 C424 120 422 138 420 150 C418 138 416 120 415 96 Z" fill="#6e2a6e" fill-opacity="0.85" stroke="#4d1d4d" stroke-width="1"/>
+        <!-- orbital path around the working end -->
+        <ellipse cx="420" cy="142" rx="24" ry="13" fill="none" stroke="#9a3b1f" stroke-width="2" stroke-dasharray="5 3" transform="rotate(20 420 142)"/>
+        <!-- direction arrowhead on the orbit -->
+        <polygon points="441,150 433,147 439,140" fill="#9a3b1f"/>
+        <text x="468" y="140" class="dgm-small" fill="#9a3b1f">all sides</text>
+        <text x="420" y="192" text-anchor="middle" class="dgm-small">orbital loop · all sides work (point strongest)</text>
       </svg>
-      <figcaption>The driver determines the tip's path: piezo crystals give a straight back-and-forth (use the sides), while a magnetostrictive stack gives an orbital path (all surfaces work).</figcaption>
+      <figcaption>The driver sets the tip's path. A <b>piezoelectric</b> tip oscillates <b>linearly</b> (straight back-and-forth in one plane), so only its <b>two lateral surfaces</b> do the work. A <b>magnetostrictive</b> tip traces an <b>elliptical / orbital</b> path, so <b>all surfaces</b> are active — with the point being the most powerful.</figcaption>
     </figure>
   </section>
 
@@ -884,12 +900,32 @@
     <h3>Risk factors</h3>
     <p>History of periodontitis · poor oral hygiene · smoking · diabetes · inadequate prosthetic design · lack of regular maintenance.</p>
     <h3>Management &amp; maintenance</h3>
-    <ul>
-      <li><strong>Patient education:</strong> tailor OHI — <strong>interdental brushes are often superior to floss</strong> for implants; recommend electric toothbrushes &amp; low-abrasive toothpaste.</li>
-      <li><strong>PMPR (professional mechanical plaque removal):</strong> focus on interdental brushes; consider <strong>air-polishing with low-abrasive powders (e.g. glycine)</strong> if available.</li>
-      <li><strong>Monitoring:</strong> record PD, BOP, suppuration; take radiographs for marginal bone levels; track inflammation.</li>
-      <li><strong>Maintenance frequency:</strong> low risk <strong>6–12 months</strong>; higher risk (perio history, poor plaque control) <strong>3–4 months</strong>.</li>
-    </ul>
+    <p>General principles across all three states: <strong>patient education</strong> (tailored OHI — interdental brushes are often superior to floss for implants; electric toothbrush &amp; low-abrasive toothpaste), <strong>PMPR</strong> (professional mechanical plaque removal; consider air-polishing with low-abrasive glycine powder), and <strong>monitoring</strong> (PD, BOP, suppuration, and marginal bone-level radiographs).</p>
+    <table>
+      <thead><tr><th>Status</th><th>Management</th><th>Maintenance — supportive peri-implant care (SPIC)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Health</strong></td><td>Reinforce daily biofilm control (brushing + interdental cleaning); routine PMPR. Goal = <strong>prevent mucositis</strong>.</td><td>Individually tailored recall — low-risk patients often <strong>6–12 months</strong>.</td></tr>
+        <tr><td><strong>Mucositis</strong></td><td><strong>Mechanical biofilm removal is the cornerstone</strong> — professional PMPR <em>plus</em> reinforced, patient-demonstrated OH. <strong>Reversible</strong> if biofilm is controlled.</td><td>More frequent SPIC until inflammation resolves, then tailored (higher-risk ≈ <strong>3–4 months</strong>).</td></tr>
+        <tr><td><strong>Peri-implantitis</strong></td><td>Active treatment (non-surgical debridement ± surgical therapy) to arrest bone loss; followed by intensive oral hygiene (see below).</td><td><strong>Every 3–4 months for the first 12 months</strong> after treatment, thereafter <strong>individually tailored</strong>.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout key">
+      <span class="callout-label">Oral hygiene after treatment of peri-implantitis</span>
+      <ul style="margin:.3rem 0 0 1rem;">
+        <li><strong>Toothbrushing twice daily.</strong></li>
+        <li><strong>Interdental brush daily.</strong></li>
+        <li><strong>Individually tailored prosthesis care</strong> is recommended.</li>
+        <li>Oral-hygiene methods should be <strong>demonstrated by the patient</strong> to the oral-healthcare professional and <strong>periodically reinforced</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>PMPR modalities &amp; oral-hygiene adjuncts</h3>
+    <p><strong>OH as an adjunct to PMPR:</strong> self-performed effective oral hygiene <em>alongside</em> professional mechanical plaque removal is recommended; self-use of <strong>oral-irrigation devices with water</strong> may be considered as an adjunct.</p>
+    <div class="callout note">
+      <span class="callout-label">PMPR in peri-implant mucositis — use a single mode</span>
+      Any <strong>one</strong> of these may be considered: <strong>plastic-coated ultrasonic tips</strong>, <strong>glycine air-polishing</strong>, <strong>titanium curettes</strong>, or <strong>chitosan brushes</strong>. It is suggested <strong>not to add</strong> air-polishing devices or diode lasers <em>on top of</em> conventional PMPR (curettes, ultrasonics, or both). <em>(For ultrasonics on an implant, use the <strong>plastic-coated tip</strong> — bare metal tips scratch the titanium surface.)</em>
+    </div>
+    <p><strong>In peri-implantitis</strong>, by contrast, treatment is more intensive — single <em>and combined</em> modalities are used, with surgical access where indicated. The "don't combine" caution above is specific to <strong>mucositis</strong>.</p>
   </section>
 
   <section id="us-summary">
@@ -914,7 +950,7 @@
   <a href="index.html" style="display:flex;align-items:center;gap:8px;background:#1a1d27;
   border:1px solid #4a9eff44;color:#4a9eff;text-decoration:none;padding:10px 16px;
   border-radius:10px;font-size:0.82rem;font-weight:600;box-shadow:0 4px 20px #0008;
-  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'" 
+  transition:all 0.2s" onmouseover="this.style.background='#0d1f3a'"
   onmouseout="this.style.background='#1a1d27'">
     🏠 Study Hub
   </a>
