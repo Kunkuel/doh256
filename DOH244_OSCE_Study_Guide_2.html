@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 244 — OSCE Study Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Spectral:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f2ea; --paper2:#efe9dd; --ink:#1d2926; --ink-soft:#46544f;
+  --teal:#0f5e5a; --teal-d:#0a3f3c; --teal-l:#dceae8; --teal-bd:#bcd6d2;
+  --coral:#c34a3f; --coral-l:#f7e3e0; --amber:#b07d12; --amber-l:#f6ecd2;
+  --gold:#caa45a; --line:#d8cfbe; --shadow:rgba(20,40,38,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Spectral",Georgia,serif; font-size:17px; line-height:1.62;
+  background-image:radial-gradient(var(--line) .5px,transparent .5px);
+  background-size:22px 22px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{font-family:"Fraunces",serif;font-weight:600;line-height:1.12;letter-spacing:-.01em}
+code,.mono{font-family:"IBM Plex Mono",monospace;font-size:.86em}
+a{color:var(--teal)}
+
+/* HERO */
+.hero{background:var(--teal-d);color:#f3efe6;padding:64px 0 54px;position:relative;overflow:hidden;border-bottom:5px solid var(--gold)}
+.hero:before{content:"";position:absolute;inset:0;background:
+  radial-gradient(900px 380px at 82% -10%,rgba(202,164,90,.22),transparent 60%),
+  radial-gradient(700px 400px at -5% 110%,rgba(15,94,90,.55),transparent 60%)}
+.hero .wrap{position:relative}
+.kicker{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+.hero h1{font-size:clamp(40px,7vw,72px);margin:.12em 0 .1em;color:#fff;font-weight:600}
+.hero p.sub{font-size:20px;max-width:60ch;color:#cfe0dd;margin:.2em 0 0}
+.hero .meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",monospace;font-size:13px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#e9e4d8;padding:7px 13px;border-radius:40px}
+.pill b{color:#fff}
+
+/* NAV */
+nav.toc{position:sticky;top:0;z-index:40;background:rgba(246,242,234,.93);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);padding:10px 0}
+nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+nav.toc a{font-family:"IBM Plex Mono",monospace;font-size:12.5px;text-decoration:none;color:var(--ink-soft);
+  padding:6px 11px;border-radius:30px;border:1px solid transparent;white-space:nowrap;transition:.15s}
+nav.toc a:hover{background:var(--teal-l);color:var(--teal-d)}
+nav.toc a.tag{background:var(--teal);color:#fff}
+
+section{padding:54px 0 8px}
+.sechead{display:flex;align-items:baseline;gap:16px;margin-bottom:6px;border-bottom:2px solid var(--ink);padding-bottom:10px}
+.sechead .no{font-family:"IBM Plex Mono",monospace;font-size:15px;color:var(--teal);font-weight:600}
+.sechead h2{font-size:clamp(28px,4.5vw,40px);margin:0}
+.lead{font-size:18.5px;color:var(--ink-soft);max-width:72ch;margin:14px 0 26px}
+
+h3{font-size:23px;margin:34px 0 10px;color:var(--teal-d)}
+h4{font-size:18px;margin:22px 0 6px}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 16px;padding-left:22px}
+li{margin:5px 0}
+strong{color:var(--teal-d)}
+
+/* CARDS */
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0;box-shadow:0 1px 0 var(--shadow)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* CALLOUTS */
+.box{border-radius:12px;padding:16px 20px;margin:18px 0;border-left:5px solid}
+.box h4{margin:0 0 6px;font-size:16px;display:flex;align-items:center;gap:8px}
+.box.key{background:var(--teal-l);border-color:var(--teal)}
+.box.warn{background:var(--coral-l);border-color:var(--coral)}
+.box.warn h4{color:var(--coral)}
+.box.fact{background:var(--amber-l);border-color:var(--amber)}
+.box.fact h4{color:var(--amber)}
+.box.exam{background:#eae6f2;border-color:#6a5acd}
+.box.exam h4{color:#4b3fa8}
+.tagdot{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:15.5px;background:#fff;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--teal-d);color:#fff;font-family:"Fraunces",serif;font-weight:500;font-size:14.5px}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--paper2)}
+td .mono{color:var(--teal-d)}
+.center{text-align:center}
+
+/* STEP LIST */
+ol.steps{counter-reset:s;list-style:none;padding-left:0;margin:14px 0}
+ol.steps>li{counter-increment:s;position:relative;padding:10px 0 10px 52px;border-bottom:1px dashed var(--line)}
+ol.steps>li:last-child{border-bottom:none}
+ol.steps>li:before{content:counter(s);position:absolute;left:0;top:8px;width:34px;height:34px;border-radius:9px;
+  background:var(--teal);color:#fff;font-family:"IBM Plex Mono",monospace;font-weight:600;display:flex;align-items:center;justify-content:center;font-size:15px}
+ol.steps>li .why{display:block;color:var(--ink-soft);font-size:15px;margin-top:2px}
+
+/* code chips */
+.chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:12.5px;background:var(--teal-l);
+  color:var(--teal-d);border:1px solid var(--teal-bd);border-radius:6px;padding:1px 8px;margin:0 1px;font-weight:500}
+.chip.r{background:var(--coral-l);color:var(--coral);border-color:#e6bcb6}
+.chip.a{background:var(--amber-l);color:var(--amber);border-color:#e3cf9b}
+
+figure{margin:22px 0}
+figcaption{font-size:14px;color:var(--ink-soft);text-align:center;margin-top:8px;font-style:italic}
+svg{max-width:100%;height:auto;display:block;margin:0 auto}
+
+details{background:#fff;border:1px solid var(--line);border-radius:12px;margin:14px 0;overflow:hidden}
+details>summary{cursor:pointer;padding:16px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:18px;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--paper2)}
+details>summary::-webkit-details-marker{display:none}
+details>summary:after{content:"＋";font-family:"IBM Plex Mono",monospace;color:var(--teal)}
+details[open]>summary:after{content:"−"}
+details .body{padding:6px 22px 18px}
+.qstem{font-style:italic;color:var(--ink-soft);border-left:3px solid var(--gold);padding-left:14px;margin:4px 0 14px}
+.tech{background:#fff;border:1px solid var(--line);border-radius:12px;margin:16px 0;overflow:hidden}
+.tech>.thead{padding:14px 20px;font-family:"Fraunces",serif;font-weight:600;font-size:18px;color:#fff;
+  background:var(--teal-d);display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.tech>.thead .gen{font-family:"IBM Plex Mono",monospace;font-size:12.5px;font-weight:500;color:#cfe0dd;
+  background:rgba(255,255,255,.12);padding:2px 9px;border-radius:20px}
+.tech>.body{padding:8px 22px 16px}
+.tech .use{margin:10px 0 0;font-size:14.5px;color:var(--ink-soft);border-top:1px dashed var(--line);padding-top:10px}
+.tech .use b{color:var(--teal-d)}
+
+footer{margin-top:60px;background:var(--teal-d);color:#cfe0dd;padding:34px 0;border-top:5px solid var(--gold);font-size:14.5px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between}
+hr.soft{border:none;border-top:1px solid var(--line);margin:26px 0}
+.muted{color:var(--ink-soft);font-size:15px}
+.twocol{column-count:2;column-gap:30px}
+@media(max-width:680px){.twocol{column-count:1}}
+.num{font-family:"IBM Plex Mono",monospace;color:var(--coral);font-weight:600}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">DOH 244 · Restorative Dentistry</div>
+    <h1>OSCE Study Guide</h1>
+    <p class="sub">Everything for the six stations — caries classification, prevention, amalgam, composite &amp; adhesion, vital pulp therapy, and clinical reasoning — distilled, diagrammed, and fact-checked.</p>
+    <div class="meta">
+      <span class="pill">📅 <b>Thu 04 June 2026</b></span>
+      <span class="pill">🪑 <b>6 stations</b> · 5 min each</span>
+      <span class="pill">✍️ Answer booklet · <b>pen only</b></span>
+      <span class="pill">⏱️ 2 × 5-min rests</span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#how" class="tag">Start here</a>
+    <a href="#s1">1 · ICDAS + ICCMS</a>
+    <a href="#s2">2 · Caries &amp; Prevention</a>
+    <a href="#s3">3 · Amalgam</a>
+    <a href="#s4">4 · Composite &amp; Adhesion</a>
+    <a href="#s5">5 · Vital Pulp Therapy</a>
+    <a href="#s6">6 · Decision-making</a>
+    <a href="#osce">2025 paper</a>
+    <a href="#factcheck">Fact-check</a>
+    <a href="#materials">Materials</a>
+    <a href="#rapid">Rapid revision</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- HOW TO USE -->
+<section id="how" style="padding-top:38px">
+  <div class="box key">
+    <h4>How to use this & what the examiners reward</h4>
+    <p style="margin:0 0 8px">The OSCE is <strong>not</strong> pure recall — it tests whether you can <strong>apply</strong> knowledge to a clinical scenario and <strong>justify</strong> your decisions. For every station, structure your answer as: <em>(1) read the scenario → (2) classify the lesion → (3) state the management principle → (4) list the steps in order with a one-line "why" for each → (5) justify the material choice with reasoning/evidence.</em></p>
+    <p style="margin:0"><strong>Examiner instructions to obey:</strong> write the question number with every answer (missing numbers lose marks); use a pen; avoid abbreviations; answer <em>all</em> parts of multi-part stations; you cannot return to a station once you move on; only use the materials listed at your station.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 1 ============ -->
+<section id="s1">
+  <div class="sechead"><span class="no">01</span><h2>ICDAS detection &amp; ICCMS classification + management</h2></div>
+  <p class="lead">ICDAS tells you <em>what the lesion looks like</em> (detection/severity). ICCMS takes that, adds the radiograph and the activity status, and tells you <em>what to do about it</em> (risk-based prevention vs. operative care). Diagnosis ≠ treatment.</p>
+
+  <h3>The ICDAS visual codes (0–6) and ICCMS "merged" categories</h3>
+  <p>Clean the surface, dry for <strong>5 seconds</strong>, examine with good light and a <strong>ball-ended (WHO/CPI/PSR) probe</strong> — never a sharp explorer, which can cavitate a remineralisable lesion. ICCMS groups the six codes into four management categories.</p>
+
+  <figure>
+  <svg viewBox="0 0 920 150" role="img" aria-label="ICDAS code ladder 0 to 6">
+    <defs><style>.lab{font-family:'IBM Plex Mono',monospace;font-size:13px;fill:#fff;font-weight:600}
+      .cap{font-family:'Spectral',serif;font-size:13px;fill:#1d2926}.cat{font-family:'Fraunces',serif;font-size:13px;fill:#fff;font-weight:600}</style></defs>
+    <!-- category bands -->
+    <rect x="10" y="14" width="120" height="26" rx="6" fill="#5b6e69"/><text x="70" y="32" text-anchor="middle" class="cat">SOUND</text>
+    <rect x="138" y="14" width="246" height="26" rx="6" fill="#2f8f63"/><text x="261" y="32" text-anchor="middle" class="cat">INITIAL (NOC)</text>
+    <rect x="392" y="14" width="246" height="26" rx="6" fill="#b07d12"/><text x="515" y="32" text-anchor="middle" class="cat">MODERATE (mostly TPOC)</text>
+    <rect x="646" y="14" width="264" height="26" rx="6" fill="#c34a3f"/><text x="778" y="32" text-anchor="middle" class="cat">EXTENSIVE (TPOC)</text>
+    <!-- code blocks -->
+    <g>
+      <rect x="10"  y="52" width="120" height="60" rx="8" fill="#5b6e69"/><text x="70"  y="80" text-anchor="middle" class="lab">CODE 0</text><text x="70" y="99" text-anchor="middle" class="lab" style="font-size:11px">sound</text>
+      <rect x="138" y="52" width="118" height="60" rx="8" fill="#2f8f63"/><text x="197" y="80" text-anchor="middle" class="lab">CODE 1</text><text x="197" y="99" text-anchor="middle" class="lab" style="font-size:10px">change on drying</text>
+      <rect x="266" y="52" width="118" height="60" rx="8" fill="#2f8f63"/><text x="325" y="80" text-anchor="middle" class="lab">CODE 2</text><text x="325" y="99" text-anchor="middle" class="lab" style="font-size:10px">change when wet</text>
+      <rect x="392" y="52" width="118" height="60" rx="8" fill="#b07d12"/><text x="451" y="80" text-anchor="middle" class="lab">CODE 3</text><text x="451" y="99" text-anchor="middle" class="lab" style="font-size:10px">enamel micro-cavity</text>
+      <rect x="520" y="52" width="118" height="60" rx="8" fill="#b07d12"/><text x="579" y="80" text-anchor="middle" class="lab">CODE 4</text><text x="579" y="99" text-anchor="middle" class="lab" style="font-size:10px">dentine shadow</text>
+      <rect x="646" y="52" width="126" height="60" rx="8" fill="#c34a3f"/><text x="709" y="80" text-anchor="middle" class="lab">CODE 5</text><text x="709" y="99" text-anchor="middle" class="lab" style="font-size:10px">dentine visible</text>
+      <rect x="782" y="52" width="128" height="60" rx="8" fill="#c34a3f"/><text x="846" y="80" text-anchor="middle" class="lab">CODE 6</text><text x="846" y="99" text-anchor="middle" class="lab" style="font-size:10px">cavity &gt;&#189; surface</text>
+    </g>
+    <text x="10" y="138" class="cap" style="font-weight:600;font-family:'Fraunces',serif">Severity increases &#9654;</text>
+    <text x="910" y="138" text-anchor="end" class="cap" style="font-style:italic;fill:#46544f">colour signals activity, not severity</text>
+  </svg>
+  <figcaption>ICDAS codes 0–6 collapsed into the four ICCMS™ management categories.</figcaption>
+  </figure>
+
+  <table>
+    <thead><tr><th>Code</th><th>What you see</th><th>Probe / detail</th></tr></thead>
+    <tbody>
+      <tr><td><b>0 — sound</b></td><td>No or questionable change after 5 s air-dry</td><td>Enamel defects, wear &amp; stains are also recorded as sound</td></tr>
+      <tr><td><b>1 — initial</b></td><td>First visual change <b>seen only after drying</b> (white-spot / brown)</td><td>No surface breakdown, no dentine shadow</td></tr>
+      <tr><td><b>2 — initial</b></td><td>Distinct visual change <b>when wet</b> (white/brown)</td><td>Still no breakdown, no shadow</td></tr>
+      <tr><td><b>3 — moderate</b></td><td>Localised <b>enamel breakdown</b> (micro-cavity), no visible dentine</td><td>Probe drops into a narrow break in enamel</td></tr>
+      <tr><td><b>4 — moderate</b></td><td>Underlying <b>dark dentine shadow</b> ± enamel breakdown</td><td>Shadow shows through intact/broken enamel</td></tr>
+      <tr><td><b>5 — extensive</b></td><td>Distinct cavity with <b>visible dentine</b>, &lt; half the surface</td><td>Probe confirms it extends into dentine</td></tr>
+      <tr><td><b>6 — extensive</b></td><td>Extensive cavity, visible dentine, <b>&gt; half the surface</b></td><td>Involves &gt;50% of the surface / tooth structure</td></tr>
+    </tbody>
+  </table>
+  <p class="muted"><strong>Colour ≠ severity:</strong> it signals <em>activity</em>. Yellow/white, matt &amp; rough → active · brown/black, shiny &amp; hard → arrested.</p>
+
+  <h3>Radiographic scoring (posterior surfaces): R0 → RC6</h3>
+  <p>Radiographs estimate <strong>depth of demineralisation</strong>, not cavitation. The threshold at which a surface is reliably cavitated and dentine heavily infected is radiolucency <strong>deeper than the outer third of dentine</strong> — i.e. scores 4, 5, 6 (and sometimes 3 with fast progression). Two films over time are needed to prove progression.</p>
+
+  <figure>
+  <svg viewBox="0 0 900 360" role="img" aria-label="ICCMS radiographic scoring tooth cross section">
+    <defs>
+      <linearGradient id="en" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf7ee"/><stop offset="1" stop-color="#eadfc8"/></linearGradient>
+      <linearGradient id="de" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f2e4c6"/><stop offset="1" stop-color="#e3cfa3"/></linearGradient>
+      <style>.zl{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}.zt{font-family:'Spectral',serif;font-size:14px;fill:#1d2926}.hd{font-family:'Fraunces',serif;font-size:15px;fill:#0a3f3c;font-weight:600}</style>
+    </defs>
+    <!-- tooth body -->
+    <path d="M150 30 q90 -22 180 0 l-6 70 q-2 70 -30 150 q-20 60 -54 80 q-34 -20 -54 -80 q-28 -80 -30 -150 z" fill="url(#de)" stroke="#b89a63" stroke-width="2"/>
+    <!-- enamel cap -->
+    <path d="M150 30 q90 -22 180 0 l-5 58 q-85 -20 -170 0 z" fill="url(#en)" stroke="#cdb98a" stroke-width="2"/>
+    <!-- pulp -->
+    <path d="M240 130 q24 30 18 120 q-6 50 -18 70 q-12 -20 -18 -70 q-6 -90 18 -120 z" fill="#d98a86" stroke="#b9605b" stroke-width="1.5"/>
+    <text x="240" y="250" text-anchor="middle" class="zl" fill="#7c2f2b">PULP</text>
+    <!-- depth marker lines -->
+    <line x1="150" y1="60"  x2="345" y2="60"  stroke="#9a8a66" stroke-dasharray="4 4"/>
+    <line x1="150" y1="88"  x2="350" y2="88"  stroke="#9a8a66" stroke-dasharray="4 4"/><text x="356" y="92" class="zt" font-style="italic">EDJ</text>
+    <line x1="150" y1="135" x2="352" y2="135" stroke="#9a8a66" stroke-dasharray="4 4"/>
+    <line x1="150" y1="185" x2="352" y2="185" stroke="#9a8a66" stroke-dasharray="4 4"/>
+    <!-- the scale on the right -->
+    <g transform="translate(470,18)">
+      <text x="0" y="14" class="hd">Score — what the radiolucency reaches — category</text>
+      <g font-family="IBM Plex Mono,monospace" font-size="13">
+        <rect x="0" y="26" width="64" height="26" rx="5" fill="#5b6e69"/><text x="32" y="44" text-anchor="middle" fill="#fff" class="zl">R0</text>
+        <text x="74" y="44" class="zt">No radiolucency — <tspan font-weight="600">sound</tspan></text>
+        <rect x="0" y="58" width="64" height="26" rx="5" fill="#2f8f63"/><text x="32" y="76" text-anchor="middle" fill="#fff" class="zl">RA1</text>
+        <text x="74" y="76" class="zt">Outer ½ of enamel — initial</text>
+        <rect x="0" y="90" width="64" height="26" rx="5" fill="#2f8f63"/><text x="32" y="108" text-anchor="middle" fill="#fff" class="zl">RA2</text>
+        <text x="74" y="108" class="zt">Inner ½ of enamel ± EDJ — initial</text>
+        <rect x="0" y="122" width="64" height="26" rx="5" fill="#3f9a74"/><text x="32" y="140" text-anchor="middle" fill="#fff" class="zl">RA3</text>
+        <text x="74" y="140" class="zt">Outer ⅓ of <tspan font-weight="600">dentine</tspan> — initial*</text>
+        <rect x="0" y="154" width="64" height="26" rx="5" fill="#b07d12"/><text x="32" y="172" text-anchor="middle" fill="#fff" class="zl">RB4</text>
+        <text x="74" y="172" class="zt">Middle ⅓ of dentine — <tspan font-weight="600">moderate</tspan></text>
+        <rect x="0" y="186" width="64" height="26" rx="5" fill="#c34a3f"/><text x="32" y="204" text-anchor="middle" fill="#fff" class="zl">RC5</text>
+        <text x="74" y="204" class="zt">Inner ⅓ of dentine, cavitated — extensive</text>
+        <rect x="0" y="218" width="64" height="26" rx="5" fill="#8f2f28"/><text x="32" y="236" text-anchor="middle" fill="#fff" class="zl">RC6</text>
+        <text x="74" y="236" class="zt">Into the pulp, cavitated — <tspan font-weight="600">extensive</tspan></text>
+      </g>
+      <text x="0" y="270" class="zt" font-style="italic" font-size="12.5">*RA3 is the one "locally modifiable" call: a lesion that is</text>
+      <text x="0" y="287" class="zt" font-style="italic" font-size="12.5">clinically moderate but RA3 on film may be managed</text>
+      <text x="0" y="304" class="zt" font-style="italic" font-size="12.5">either non-operatively (NOC) or operatively (TPOC).</text>
+    </g>
+    <!-- labels on tooth -->
+    <text x="100" y="48" text-anchor="end" class="zt">enamel</text>
+    <text x="100" y="160" text-anchor="end" class="zt">dentine</text>
+  </svg>
+  <figcaption>ICDAS/ICCMS™ radiographic scoring — depth of the radiolucency maps to a severity category.</figcaption>
+  </figure>
+
+  <h3>Combining clinical + radiographic + activity → diagnosis</h3>
+  <p>The clinical category and the radiographic category are read together. Most enamel-only lesions are invisible on film, so a clean radiograph never rules out an early lesion. Then judge <strong>activity</strong>, because active lesions are far more likely to progress.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--coral)">Active lesion (likely to progress)</h4>
+      <ul style="margin-bottom:0">
+        <li>Enamel: whitish/yellowish, <strong>opaque, matt, loss of lustre, rough</strong> to a gentle probe.</li>
+        <li>Sits in a <strong>plaque-stagnation area</strong> (fissure entrance, near gingival margin, below/above contact point).</li>
+        <li>Often covered by thick plaque before cleaning.</li>
+        <li>Extensive: dentine feels <strong>soft or leathery</strong> on gentle probing.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--teal)">Inactive / arrested (less likely to progress)</h4>
+      <ul style="margin-bottom:0">
+        <li>Enamel: whitish, brownish or black; <strong>shiny, hard, smooth.</strong></li>
+        <li>On smooth surfaces, sits <strong>away from the gingival margin.</strong></li>
+        <li>Not necessarily plaque-covered.</li>
+        <li>Extensive: dentine is <strong>shiny and hard</strong> on gentle probing.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>ICCMS management — permanent teeth</h3>
+  <p>Two management philosophies: <span class="chip">NOC = Non-Operative Care</span> (control the disease — fluoride, sealants, biofilm removal, diet) and <span class="chip">TPOC = Tooth-Preserving Operative Care</span> (minimally invasive restoration). Surgical/operative intervention is the <strong>last resort</strong>; sound surfaces and inactive lesions get risk-based prevention.</p>
+
+  <table>
+    <thead><tr><th>ICCMS stage / activity</th><th>Pits &amp; fissures</th><th>Proximal (M–D)</th><th>Free smooth</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sound</b></td><td colspan="3" class="center">Risk-based prevention</td></tr>
+      <tr><td><b>Initial — active</b></td><td colspan="3">NOC: clinically applied topical fluoride · OH with ≥1000 ppm F⁻ dentifrice · mechanical biofilm removal · <b>resin-based sealants</b> (pits/fissures) · sealants/infiltrants (proximal) · GI sealants (smooth)</td></tr>
+      <tr><td><b>Initial — inactive</b></td><td colspan="3" class="center">No lesion-specific treatment</td></tr>
+      <tr><td><b>Moderate — active</b></td><td>Resin sealant <em>or</em> TPOC</td><td><b>Determine cavitation</b> (tooth separation): no cavity → NOC; cavity → TPOC</td><td>TPOC</td></tr>
+      <tr><td><b>Moderate — inactive</b></td><td>No treatment, or TPOC if it becomes a stagnation area</td><td colspan="2">TPOC only for esthetic reasons</td></tr>
+      <tr><td><b>Extensive — active</b></td><td colspan="3" class="center">TPOC</td></tr>
+      <tr><td><b>Extensive — inactive</b></td><td colspan="3" class="center">TPOC if it is a plaque-stagnation area or esthetically unacceptable</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box key">
+    <h4>TPOC operative principles (say these when you justify "cut")</h4>
+    <ul style="margin:0">
+      <li>Cavity shape &amp; extent is <strong>dictated by the spread of caries</strong> and the presence of infected/affected dentine — not a pre-set outline.</li>
+      <li>Remove <strong>soft, infected</strong> dentine from the pulpal aspect to avoid pulp exposure; it is <strong>acceptable to leave discoloured (affected) dentine pulpally.</strong></li>
+      <li>If an active extensive lesion risks <strong>vital pulp exposure</strong> → stepwise / partial (selective) excavation; avoid exposure wherever possible.</li>
+      <li>Caries associated with restorations/sealants (CARS) &amp; defective sealants → <strong>seal or repair</strong> the margin rather than replace where possible.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 ============ -->
+<section id="s2">
+  <div class="sechead"><span class="no">02</span><h2>The caries process, risk assessment &amp; prevention</h2></div>
+  <p class="lead">Caries is a <strong>biofilm-mediated, sugar-driven, multifactorial, dynamic</strong> disease — phasic demineralisation and remineralisation. Whether a lesion progresses or arrests is the net balance of those two processes, which is exactly what your preventive plan is trying to tip.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0">The chemistry that matters</h4>
+      <ul style="margin-bottom:0">
+        <li>Acidogenic bacteria + fermentable carbohydrate → <strong>organic acids</strong> → plaque pH falls → demineralisation.</li>
+        <li>Critical pH for <strong>hydroxyapatite ≈ 5.5</strong>; for <strong>fluorapatite ≈ 4.5</strong> → fluoride makes enamel ~<strong>10× more acid-resistant.</strong></li>
+        <li>Plaque behaves like a <strong>gel</strong>: it impedes diffusion of ions (H⁺, OH⁻, Ca²⁺, PO₄, HCO₃) so buffers can't reach the acid at the surface. <strong>Thicker plaque = more demineralisation.</strong></li>
+        <li>More frequent sugar exposures = more time in the "danger zone" = more risk (frequency &gt; quantity).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0">Three kinds of dentine (know the difference)</h4>
+      <ul style="margin-bottom:0">
+        <li><strong>Infected</strong> — soft / wet / leathery, contains bacteria → <em>remove.</em></li>
+        <li><strong>Affected</strong> — firm / hard / dry, often stained, <em>bacteria-free</em> → <em>can be left, especially pulpally.</em></li>
+        <li><strong>Reactionary / sclerotic / tertiary</strong> — the pulp's defensive response; tertiary dentine is harder, brown (not caries).</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Caries risk assessment (ICCMS uses the CAMBRA philosophy)</h3>
+  <p>Risk is assessed at the <strong>patient level</strong> then combined with the presence of active lesions to predict the <strong>likelihood</strong> of new/progressing disease. Three tiers: <strong>low / moderate / high</strong>. The presence of <em>any single high-risk factor</em> classifies the patient as high risk.</p>
+  <div class="card">
+    <h4 style="margin-top:0">Patient-level risk factors</h4>
+    <div class="twocol">
+      <ul>
+        <li>Head &amp; neck radiation</li>
+        <li>Dry mouth / hyposalivation (disease, medications, recreational drugs)</li>
+        <li>Inadequate oral hygiene</li>
+        <li>Deficient topical fluoride exposure</li>
+        <li>High frequency/amount of sugary drinks &amp; snacks</li>
+        <li>Symptom-driven (not routine) dental attendance</li>
+        <li>Low socio-economic status / access barriers</li>
+        <li>For children: high caries experience in mother/caregiver</li>
+      </ul>
+    </div>
+    <p class="muted" style="margin:6px 0 0">The clinician's informed "hunch" is also valid evidence. Special-care flags (radiation, hyposalivation, PUFA signs) warrant additional measures.</p>
+  </div>
+
+  <h3>Preventive strategy by risk (core approach)</h3>
+  <table>
+    <thead><tr><th>Likelihood</th><th>Home care</th><th>Clinical / professional</th><th>Recall</th></tr></thead>
+    <tbody>
+      <tr><td><b>Low</b></td><td>Brush 2×/day, ≥1000 ppm F⁻ paste; behaviour &amp; diet advice</td><td>Risk-based maintenance, sealants where indicated</td><td>up to <b>2 years</b> (low-risk adult)</td></tr>
+      <tr><td><b>Moderate</b></td><td>Higher-efficacy paste (≥1450 ppm F⁻); prescribed F⁻ mouthrinse</td><td>F⁻ varnish 2×/yr; F⁻ gel/solution (2% NaF); sealants; diet counselling</td><td>shortened interval</td></tr>
+      <tr><td><b>High</b></td><td>High-F⁻ prescription paste; motivational interviewing; one-to-one diet intervention; reduce sugar; manage hyposalivation</td><td>F⁻ varnish <b>4×/yr</b>; professional cleaning &amp; topical F⁻ on active lesions; (chlorhexidine in some countries)</td><td>as short as <b>3 months</b> (high-risk child)</td></tr>
+    </tbody>
+  </table>
+  <div class="box key">
+    <h4>SDF — the minimally invasive workhorse</h4>
+    <p style="margin:0">Silver diamine fluoride <strong>arrests caries</strong> (especially in primary teeth / where operative care isn't feasible): low cost, high coverage, non-operative. It stains the lesion black. Success still depends on <strong>diet control, patient compliance and follow-up.</strong></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 ============ -->
+<section id="s3">
+  <div class="sechead"><span class="no">03</span><h2>Amalgam restorations &amp; key clinical principles</h2></div>
+  <p class="lead">Amalgam is held in by <strong>mechanical retention</strong> — it does not bond. That single fact drives the whole cavity design: undercuts, near-90° margins, no bevels, and adequate bulk so it doesn't fracture under load.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--teal)">Advantages</h4>
+      <ul style="margin-bottom:0">
+        <li>Lower cost than most alternatives</li>
+        <li>Durable, especially posteriorly; extensive long-term evidence</li>
+        <li><strong>Less technique-sensitive</strong> (tolerant of moisture)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--coral)">Disadvantages</h4>
+      <ul style="margin-bottom:0">
+        <li><strong>Non-adhesive</strong> → needs retentive prep (undercuts)</li>
+        <li>Removes sound tooth to create retention/resistance form</li>
+        <li>Can corrode; large restorations may crack remaining enamel/dentine</li>
+        <li>Not aesthetic; contains mercury</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box key">
+    <h4>Mercury &amp; the Minamata Convention (the safety question)</h4>
+    <p style="margin:0">Amalgam is a <strong>safe, effective, well-researched</strong> material; only <strong>capsulated</strong> amalgam complying with <strong>ISO 24234:2015</strong> should be used, and exposure is in the nanogram range with no established link to chronic/degenerative disease. The Minamata Convention requires a <strong>phase-down</strong> (not ban). <strong>Minimise use in children, pregnant/breastfeeding women and those with kidney disease.</strong> Practise mercury hygiene; spent capsules go to amalgam waste (ADA Policy 6.9 / 6.18). Do <strong>not</strong> remove sound amalgams for non-specific health complaints without informed consent.</p>
+  </div>
+
+  <h3>Cavity preparation — the four "forms"</h3>
+  <table>
+    <thead><tr><th>Form</th><th>What it means for amalgam</th></tr></thead>
+    <tbody>
+      <tr><td><b>Outline</b></td><td>Confined to pits/fissures; extend only to carious/defective tissue (conservative, but include susceptible fissures).</td></tr>
+      <tr><td><b>Resistance</b></td><td><b>Flat pulpal floor</b>, rounded internal line angles (less stress concentration), adequate cusp support, no undermined enamel; enough bulk (<b>≥1.5–2 mm</b>) so amalgam resists occlusal fracture.</td></tr>
+      <tr><td><b>Retention</b></td><td>Slight <b>occlusal convergence of walls (~20°)</b>; retentive <b>undercuts placed into dentine</b>; ≥0.5 mm into dentine for strength.</td></tr>
+      <tr><td><b>Convenience</b></td><td>Enough access for caries removal, instrument placement, condensation &amp; carving.</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Margins:</strong> unsupported enamel removed; <strong>butt-joint cavosurface margins (~90°)</strong> — <em>no bevels</em>, because amalgam has no adhesion and thin feather-edges would fracture. For Class II: proximal box with no retentive undercuts on the box, Tofflemire retainer + matrix band + wooden wedge for a tight, gap-free gingival contact.</p>
+
+  <h3>Placement sequence (mixing &amp; condensing)</h3>
+  <ol class="steps">
+    <li><b>Select &amp; activate the capsule</b><span class="why">Correct alloy/spill size (clinic = SDI Permite 2-spill ECT); depress the plunger to break the seal between the alloy powder and the mercury.</span></li>
+    <li><b>Triturate ~6 seconds</b><span class="why">Mechanical mixing combines alloy + mercury into a homogeneous, plastic mass.</span></li>
+    <li><b>Check the mix</b><span class="why">Shake — a single cohesive "ball" that is plastic (not dry/crumbly, not runny) is correct. A poor mix gives a poorly adapted, weak restoration.</span></li>
+    <li><b>Dispense into dappen dish, load carrier promptly</b><span class="why">Amalgam sets fast; late additions won't unite with already-set material. (Empty capsule → amalgam waste.)</span></li>
+    <li><b>Condense from the deepest point, in small increments</b><span class="why">Firm condensation adapts amalgam into line angles &amp; undercuts and removes voids; slightly overpack for carving.</span></li>
+    <li><b>Burnish → carve → check occlusion → finish/polish</b><span class="why">Recreate anatomy, marginal ridges &amp; tight contacts; remove high spots; polishing (usually a later visit) reduces corrosion &amp; plaque retention.</span></li>
+  </ol>
+
+  <div class="box exam">
+    <h4>The GI lining under amalgam (a high-value mention)</h4>
+    <p style="margin:0 0 6px">A resin-modified GI lining (<strong>Fuji Bond LC</strong>) under amalgam <strong>seals dentinal tubules</strong> and offers <strong>fluoride release</strong>, enhancing resistance of dentine/enamel to caries. The clinic sequence: <strong>cure ~4 s</strong>, use a spoon excavator to remove any GI lining off the enamel cavity walls, then <strong>cure a further ~20 s.</strong></p>
+    <p style="margin:0" class="muted">Examiner's caveat: only mention it if you can justify <em>why</em> (dentine sealing, pulpal protection, fluoride). Material choice is still guided by cavity depth, remaining tooth structure and clinical presentation. If the question doesn't raise it, don't force it in.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 4 ============ -->
+<section id="s4">
+  <div class="sechead"><span class="no">04</span><h2>Composite resin &amp; adhesive concepts</h2></div>
+  <p class="lead">This is the heart of the OSCE: the examiners want to see that you understand <em>how the restoration bonds</em> and <em>how you place it</em>. Composite bonds — so the prep is conservative — but it shrinks, and managing that shrinkage stress is what separates a good restoration from a failure.</p>
+
+  <h3>What composite is made of</h3>
+  <div class="grid3">
+    <div class="card"><h4 style="margin-top:0">Organic matrix</h4><p class="muted" style="margin:0">Resin monomers: <strong>Bis-GMA, TEGDMA, UDMA, Bis-EMA.</strong> A blend balances viscosity vs. shrinkage — more fluid monomer = more shrinkage.</p></div>
+    <div class="card"><h4 style="margin-top:0">Inorganic filler</h4><p class="muted" style="margin:0">Silica, barium glass, zirconia. <strong>More filler → less shrinkage &amp; better mechanics.</strong> Smaller particles → more surface area → more resin to wet → more shrinkage.</p></div>
+    <div class="card"><h4 style="margin-top:0">Coupling + initiators</h4><p class="muted" style="margin:0"><strong>Silane</strong> chemically couples filler to resin. <strong>Camphorquinone</strong> photo-initiator + <strong>tertiary amine</strong> co-initiator drive the cure; pigments for shade.</p></div>
+  </div>
+  <p class="muted">Classified by <strong>filler size</strong> (macro → micro → hybrid → micro/nano-hybrid → nanofill) and <strong>viscosity</strong>: conventional/packable (more viscous, up to ~85% filler) vs. flowable (more fluid, up to ~70% filler). Indications: direct &amp; indirect restorations, repairs, sealants, bonding.</p>
+
+  <h3>Polymerisation shrinkage, stress &amp; the C-factor</h3>
+  <p>Curing converts monomer → polymer; the gaps between chains create <strong>volumetric shrinkage</strong>. When the composite is bonded, that shrinkage can't happen freely → it generates <strong>shrinkage stress</strong> at the bonded interface. If interfacial tension &gt; bond strength → failure (gap, debond, microleakage, marginal stain, secondary caries, cusp deflection, post-op sensitivity).</p>
+
+  <figure>
+  <svg viewBox="0 0 880 340" role="img" aria-label="C-factor diagram">
+    <defs><style>
+      .cf{font-family:'Spectral',serif;font-size:14px;fill:#1d2926}
+      .cfh{font-family:'Fraunces',serif;font-size:16px;fill:#0a3f3c;font-weight:600}
+      .cfn{font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:600}
+      .leg{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:#1d2926}
+    </style></defs>
+    <text x="440" y="24" text-anchor="middle" class="cfh">C-factor = bonded surfaces ÷ free (unbonded) surfaces</text>
+    <text x="440" y="46" text-anchor="middle" class="cf" font-style="italic">more bonded walls, less free surface to flow → higher stress</text>
+    <!-- legend -->
+    <g transform="translate(300,60)">
+      <line x1="0" y1="6" x2="34" y2="6" stroke="#0f5e5a" stroke-width="7"/>
+      <text x="42" y="11" class="leg">bonded wall</text>
+      <line x1="170" y1="6" x2="204" y2="6" stroke="#c34a3f" stroke-width="3" stroke-dasharray="5 4"/>
+      <text x="212" y="11" class="leg">free surface</text>
+    </g>
+    <!-- LOW C -->
+    <g transform="translate(70,95)">
+      <text x="150" y="0" text-anchor="middle" class="cfn" fill="#2f8f63">LOW C-FACTOR — favourable</text>
+      <path d="M30 30 L270 30" stroke="#c34a3f" stroke-width="3" stroke-dasharray="6 4"/>
+      <path d="M30 30 Q150 110 270 30" fill="#dceae8" stroke="none"/>
+      <path d="M30 30 Q150 110 270 30" fill="none" stroke="#0f5e5a" stroke-width="7"/>
+      <text x="150" y="98" text-anchor="middle" class="cf">shallow / wide cavity</text>
+      <text x="150" y="120" text-anchor="middle" class="cfn" fill="#2f8f63">1 bonded : 1 free → C ≈ 1</text>
+      <text x="150" y="142" text-anchor="middle" class="cf" font-style="italic">free flow relieves stress</text>
+    </g>
+    <!-- HIGH C -->
+    <g transform="translate(470,95)">
+      <text x="160" y="0" text-anchor="middle" class="cfn" fill="#c34a3f">HIGH C-FACTOR — risky (deep Class I)</text>
+      <rect x="90" y="30" width="140" height="92" fill="#dceae8"/>
+      <path d="M90 30 L90 122 L230 122 L230 30" fill="none" stroke="#0f5e5a" stroke-width="7"/>
+      <line x1="90" y1="30" x2="230" y2="30" stroke="#c34a3f" stroke-width="3" stroke-dasharray="6 4"/>
+      <text x="160" y="80" text-anchor="middle" class="cf">deep / narrow box</text>
+      <text x="160" y="146" text-anchor="middle" class="cfn" fill="#c34a3f">5 bonded : 1 free → C = 5</text>
+      <text x="160" y="168" text-anchor="middle" class="cf" font-style="italic">stress concentrates at margins</text>
+    </g>
+  </svg>
+  <figcaption><strong>Fix:</strong> place composite <strong>incrementally</strong> (≤2 mm thick, ≤2 walls per increment, cure each layer) → lowers each layer's C-factor → reduces polymerisation <strong>stress</strong> and improves marginal adaptation.</figcaption>
+  </figure>
+
+  <div class="box warn">
+    <h4>⚠ Precision the examiners look for</h4>
+    <p style="margin:0">Incremental layering does <strong>not "reduce polymerisation shrinkage"</strong> — the total shrinkage is a material property. What it reduces is the <strong>C-factor and therefore the polymerisation stress</strong>, improving marginal adaptation. Say "stress / C-factor," not "shrinkage." (This was flagged by the examiner on last year's model answer.)</p>
+  </div>
+
+  <h3>Adhesion: the foundation</h3>
+  <p>Bonding began with <strong>Buonocore (1955)</strong> — acid-etching enamel. Adhesion to tooth works by: <strong>mechanical</strong> (resin tags interlock), <strong>adsorption</strong> (chemical bond to hydroxyapatite or type-I collagen), <strong>diffusion</strong>, or a combination.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0">Enamel (~96% mineral)</h4>
+      <ul style="margin-bottom:0">
+        <li>Etch <span class="chip">37% phosphoric acid · 30 s</span> → dissolves prism peripheries → micro-retentions.</li>
+        <li>A "<strong>sludge</strong>" of dissolved mineral forms — <strong>must be washed off</strong> so adhesive can flow in.</li>
+        <li><strong>No primer needed</strong> (no water in enamel; can be dried completely). Bond is mostly hydrophobic (Bis-GMA + a little HEMA).</li>
+        <li>Bonding to enamel is <strong>stronger and more durable</strong> than to dentine → keep margins on enamel.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0">Dentine (mineral + collagen + water + tubules)</h4>
+      <ul style="margin-bottom:0">
+        <li>Cutting creates a <strong>smear layer</strong> (organic + inorganic debris).</li>
+        <li>Etch <span class="chip">37% · 15 s</span> exposes a network of collagen fibrils + water.</li>
+        <li>Collagen is like spaghetti — <strong>over-dry it and it collapses</strong> (loss of retention; if over-dried you must cut a little further and re-etch). Leave dentine <strong>moist/shiny.</strong></li>
+        <li>The <strong>hybrid layer</strong> (resin interdiffused with collagen) is the key to dentine adhesion; resin tags seal tubules and reduce post-op sensitivity.</li>
+      </ul>
+    </div>
+  </div>
+
+  <figure>
+  <svg viewBox="0 0 1020 330" role="img" aria-label="Hybrid layer cross section">
+    <defs><style>
+      .hl{font-family:'Spectral',serif;font-size:15px;fill:#1d2926}
+      .hlh{font-family:'Fraunces',serif;font-size:15px;font-weight:600}
+      .hll{font-family:'IBM Plex Mono',monospace;font-size:12px;fill:#46544f}
+    </style></defs>
+    <!-- layers (left) -->
+    <rect x="60" y="24"  width="360" height="54" fill="#cfa15a"/><text x="240" y="56" text-anchor="middle" class="hlh" fill="#3a2710">COMPOSITE RESIN</text>
+    <rect x="60" y="78"  width="360" height="36" fill="#7fb8b2"/><text x="240" y="101" text-anchor="middle" class="hlh" fill="#0a3f3c">BOND (hydrophobic)</text>
+    <rect x="60" y="114" width="360" height="40" fill="#bcd6d2"/><text x="240" y="139" text-anchor="middle" class="hlh" fill="#0a3f3c">PRIMER (bifunctional)</text>
+    <rect x="60" y="154" width="360" height="48" fill="#e3cfa3"/>
+    <text x="240" y="183" text-anchor="middle" class="hlh" fill="#7c4a12">HYBRID LAYER</text>
+    <rect x="60" y="202" width="360" height="100" fill="#ecd9ab"/><text x="240" y="285" text-anchor="middle" class="hlh" fill="#7c4a12">DENTINE</text>
+    <!-- dentine tubule walls -->
+    <g stroke="#b07d12" stroke-width="6">
+      <line x1="110" y1="202" x2="110" y2="300"/><line x1="180" y1="202" x2="180" y2="300"/>
+      <line x1="250" y1="202" x2="250" y2="300"/><line x1="320" y1="202" x2="320" y2="300"/><line x1="380" y1="202" x2="380" y2="300"/>
+    </g>
+    <!-- resin tags into tubules -->
+    <g stroke="#0f5e5a" stroke-width="6">
+      <line x1="110" y1="150" x2="110" y2="232"/><line x1="180" y1="150" x2="180" y2="232"/>
+      <line x1="250" y1="150" x2="250" y2="232"/><line x1="320" y1="150" x2="320" y2="232"/><line x1="380" y1="150" x2="380" y2="232"/>
+    </g>
+    <!-- annotations (right) with connector lines -->
+    <g>
+      <line x1="420" y1="51"  x2="470" y2="51"  stroke="#caa45a" stroke-width="1.5"/>
+      <text x="478" y="48" class="hl" font-weight="600" fill="#3a2710">Co-polymerises with the bond</text>
+      <text x="478" y="68" class="hll">the restoration sits on top</text>
+      <line x1="420" y1="96"  x2="470" y2="96"  stroke="#0f5e5a" stroke-width="1.5"/>
+      <text x="478" y="100" class="hl"><tspan font-weight="600" fill="#0a3f3c">Hydrophobic</tspan> end → links to composite</text>
+      <line x1="420" y1="134" x2="470" y2="134" stroke="#0f5e5a" stroke-width="1.5"/>
+      <text x="478" y="138" class="hl"><tspan font-weight="600" fill="#0a3f3c">Hydrophilic</tspan> end → wets collagen</text>
+      <line x1="420" y1="178" x2="470" y2="178" stroke="#caa45a" stroke-width="1.5"/>
+      <text x="478" y="174" class="hl" font-weight="600" fill="#7c4a12">Interdiffusion zone =</text>
+      <text x="478" y="194" class="hl" font-weight="600" fill="#7c4a12">micromechanical + chemical bond</text>
+      <line x1="380" y1="250" x2="470" y2="250" stroke="#0f5e5a" stroke-width="1.5" stroke-dasharray="4 3"/>
+      <text x="478" y="246" class="hl"><tspan fill="#0f5e5a" font-weight="600">Resin tags</tspan> plug the tubules</text>
+      <text x="478" y="266" class="hll">seal → less post-op sensitivity</text>
+    </g>
+  </svg>
+  <figcaption>The hybrid layer: primer bridges hydrophilic collagen and the hydrophobic bond; light-curing locks the resin-collagen network together for the composite to bond onto.</figcaption>
+  </figure>
+
+  <h3>The four systems — classify by <em>strategy</em> and <em>steps</em>, not just "generation"</h3>
+  <p>Your lecturer classifies adhesives the modern way — by how they treat the smear layer (<strong>etch-and-rinse</strong> vs <strong>self-etch</strong>) and the <strong>number of bottles/steps</strong>. "Generations" are a looser, secondary label.</p>
+
+  <table>
+    <thead><tr><th>System</th><th>Generation*</th><th>Bottles / steps</th><th>Best at</th></tr></thead>
+    <tbody>
+      <tr><td><b>3-step etch-and-rinse</b></td><td>4th</td><td>Etch · Primer · Bond (all separate)</td><td><b>Gold standard;</b> best for enamel</td></tr>
+      <tr><td><b>2-step etch-and-rinse</b></td><td>5th</td><td>Etch · (Primer+Bond combined)</td><td>Simpler; enamel &amp; dentine</td></tr>
+      <tr><td><b>2-step self-etch</b></td><td>6th</td><td>Self-etch primer · Bond (separate)</td><td><b>Best for dentine</b> (mild, chemical bond)</td></tr>
+      <tr><td><b>1-step self-etch</b></td><td>7th</td><td>All-in-one bottle</td><td>Fastest; most prone to degradation</td></tr>
+      <tr><td><b>Universal / multi-mode</b></td><td>8th</td><td>One bottle, any technique</td><td>Versatile; great durability with selective enamel etch + self-etch</td></tr>
+    </tbody>
+  </table>
+  <p class="muted">*Generation labels vary between manufacturers and textbooks — <strong>describe the strategy and steps</strong> in your answer and you can't be wrong.</p>
+
+  <h3>Step-by-step techniques — every step, and why you do it</h3>
+  <p class="muted">All four laid out below. The <em>steps</em> are in bold; the <em>reason</em> for each is underneath. Notice the through-line: <strong>etch-and-rinse removes the smear layer</strong> (rinse needed, dentine kept moist), while <strong>self-etch modifies it</strong> (no rinse, dentine not over-dried) — and self-etch always needs a <strong>selective enamel etch</strong> because its own acid is too weak on enamel.</p>
+
+  <div class="tech">
+    <div class="thead">① Three-step etch-and-rinse <span class="gen">4th gen · separate etch + primer + bond</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Etch — 37% phosphoric acid: enamel 30 s, then dentine for the last 15 s → rinse 30 s</b><span class="why"><u>Why:</u> the acid dissolves enamel-prism peripheries (micro-porosity for resin tags) and strips the dentine smear layer to expose a collagen mesh. Rinsing washes off the dissolved-mineral "sludge" so adhesive can flow in. Dentine is etched for less time so the demineralised zone isn't deeper than the resin can infiltrate.</span></li>
+        <li><b>Dry selectively — enamel fully dry (frosty), dentine left moist/shiny</b><span class="why"><u>Why:</u> enamel has no water, so it can be dried hard. Dentine collagen is like wet spaghetti — over-drying collapses it and the resin can't get in (lost bond). Blot with absorbent paper, not cotton (cotton sheds fibres into the collagen).</span></li>
+        <li><b>Primer — separate bottle, active application (rub in) 20 s, then gently air-dry</b><span class="why"><u>Why:</u> the bifunctional primer carries a solvent (ethanol/acetone) that chases out residual water and an amphiphilic monomer that wets and envelops the collagen, building the <strong>hybrid layer</strong>. Active rubbing drives it into the tubules; air-drying evaporates the solvent.</span></li>
+        <li><b>Bond — passive application 10 s, remove excess, light-cure 10–20 s</b><span class="why"><u>Why:</u> the hydrophobic bonding resin co-polymerises with the primer and provides the surface the composite links to. Apply passively (no scrubbing) to avoid trapping air bubbles; curing locks the whole assembly together.</span></li>
+      </ol>
+      <p class="use"><b>When to use / strengths:</b> the <b>gold standard</b> and <b>best for enamel</b>; keeping primer and bond in separate bottles keeps the bond layer uniformly hydrophobic → most durable. <b>Trade-off:</b> most steps, most time, most technique-sensitive.</p>
+    </div>
+  </div>
+
+  <div class="tech">
+    <div class="thead">② Two-step etch-and-rinse <span class="gen">5th gen · etch, then primer + bond combined</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Etch — enamel 30 s + dentine 15 s → rinse 30 s → dry (enamel dry, dentine moist)</b><span class="why"><u>Why:</u> identical etching rationale to the 3-step — open enamel and expose dentine collagen, then rinse off the sludge and keep dentine moist so the collagen stays expanded.</span></li>
+        <li><b>Adhesive (primer + bond in one bottle) — 1st coat active 20 s, 2nd coat active 20 s</b><span class="why"><u>Why:</u> primer and bond are pre-mixed, so two scrubbed coats are used to be sure the monomers fully infiltrate the collagen and reach an adequate film thickness (one coat is often too thin).</span></li>
+        <li><b>Gently air-dry → light-cure 10–20 s</b><span class="why"><u>Why:</u> air-drying evaporates solvent so no bubbles are trapped, then light-curing polymerises the layer.</span></li>
+      </ol>
+      <p class="use"><b>When to use / strengths:</b> fewer steps than the 3-step, works on enamel <em>and</em> dentine. <b>Trade-off:</b> the combined bottle is more hydrophilic than a dedicated bond, so long-term durability is a notch below the 3-step.</p>
+    </div>
+  </div>
+
+  <div class="tech">
+    <div class="thead">③ Two-step self-etch <span class="gen">6th gen · self-etch primer, then separate bond</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Selective enamel etch — 37% acid on enamel only, 30 s → rinse 30 s → dry</b><span class="why"><u>Why:</u> self-etch primers are too mild to properly etch enamel, so enamel is etched conventionally for a reliable margin. Dentine is deliberately left alone.</span></li>
+        <li><b>Self-etch primer (acidic monomers) — active 20 s, then gently air-dry</b><span class="why"><u>Why:</u> the acidic monomer <strong>etches and primes dentine in one step without rinsing</strong> — it modifies (doesn't remove) the smear layer and demineralises only ~0.5–1 µm, exactly the depth it then infiltrates, so there is no exposed, uninfiltrated collagen. Solvent evaporates on air-drying.</span></li>
+        <li><b>Bond — passive 10 s, remove excess, light-cure 10–20 s</b><span class="why"><u>Why:</u> the separate hydrophobic bond seals the primed surface (kept hydrophobic for durability) and gives the composite its bonding substrate.</span></li>
+      </ol>
+      <p class="use"><b>When to use / strengths:</b> <b>best for dentine</b> — mild acidity + monomers like 10-MDP form a true <b>chemical bond to hydroxyapatite</b>, and because dentine is never rinsed/over-dried the collagen can't collapse. Low post-op sensitivity. <b>Trade-off:</b> still needs the extra selective-etch step for good enamel bonding.</p>
+    </div>
+  </div>
+
+  <div class="tech">
+    <div class="thead">④ One-step self-etch <span class="gen">7th gen · all-in-one (etch + primer + bond)</span></div>
+    <div class="body">
+      <ol class="steps">
+        <li><b>Selective enamel etch — 30 s → rinse 30 s → dry</b><span class="why"><u>Why:</u> same reason as the 6th gen — the all-in-one's acid is weak on enamel, so etch enamel separately for a durable margin (some products skip this, at the cost of enamel bond strength).</span></li>
+        <li><b>All-in-one adhesive — 1st coat active 20 s, 2nd coat active 20 s</b><span class="why"><u>Why:</u> etchant, primer and bond are in a single bottle, applied to dentine without rinsing. Two scrubbed coats improve infiltration and film thickness because a single coat is very thin.</span></li>
+        <li><b>Gently air-dry → remove excess → light-cure 10–20 s</b><span class="why"><u>Why:</u> evaporate the solvent and leave a thin even film, then polymerise.</span></li>
+      </ol>
+      <p class="use"><b>When to use / strengths:</b> <b>fastest and simplest</b>, fewest steps. <b>Trade-off:</b> all the hydrophilic components stay together, so it absorbs water → <b>more prone to hydrolytic degradation</b> and forms a thinner, weaker hybrid layer; the least durable of the four.</p>
+    </div>
+  </div>
+
+  <div class="box key">
+    <h4>Self-etch acidity &amp; the star monomer (10-MDP)</h4>
+    <table style="margin:6px 0 8px">
+      <thead><tr><th>Acidity</th><th>Hybrid layer</th><th>Bond type</th></tr></thead>
+      <tbody>
+        <tr><td>Ultra-mild (pH &gt; 2.5)</td><td>~300 nm</td><td>Chemical bond to HA</td></tr>
+        <tr><td>Mild (pH ≈ 2)</td><td>~500 nm — all collagen covered</td><td>Chemical bond to HA</td></tr>
+        <tr><td>Strong (pH ≤ 1)</td><td>~4 µm (100× ultra-mild)</td><td>Micromechanical only — risk collagen not fully infiltrated</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:0"><strong>10-MDP</strong> is the common acidic monomer: it forms a stable <strong>chemical bond to hydroxyapatite</strong>, envelops and protects collagen, and resists degradation → why mild self-etch is so good on dentine.</p>
+  </div>
+
+  <h3>Which adhesive is "best"? It depends on the substrate</h3>
+  <table>
+    <thead><tr><th>Best for ENAMEL</th><th>Best for DENTINE</th></tr></thead>
+    <tbody>
+      <tr><td><b>Etch-and-rinse</b> → micromechanical retention</td><td><b>Mild self-etch</b> → chemical bond to HA</td></tr>
+      <tr><td>Best: <b>3-step</b>, ethanol/water solvent (acetone is unstable), primer in a <b>separate bottle</b></td><td>Best: <b>2-step</b>, mild acidity, selective enamel etch with phosphoric acid, primer in a <b>separate bottle</b></td></tr>
+    </tbody>
+  </table>
+  <p><strong>Why separate bottles last longer:</strong> the bond layer stays uniformly hydrophobic. Mixing primer (solvent + hydrophilic monomers) into the bonding layer speeds degradation. <strong>Degradation routes:</strong> hydrolysis (water trapped in the adhesive) and endogenous MMPs (enzymes released on etching that digest any exposed, uninfiltrated collagen). Practical longevity tips: keep margins on enamel, maximise enamel to bond to, good operator technique; shake the bottle, keep it closed, avoid light exposure before use.</p>
+</section>
+
+<!-- ============ SECTION 5 ============ -->
+<section id="s5">
+  <div class="sechead"><span class="no">05</span><h2>Vital Pulp Therapy — concepts &amp; indications</h2></div>
+  <p class="lead">The whole aim is to <strong>keep the pulp alive.</strong> VPT preserves the dentine–pulp complex by sealing the advancing lesion away from the oral environment so the pulp can heal and lay down tertiary (reactionary/reparative) dentine. It is less invasive than root canal treatment.</p>
+
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--teal)">Indications</h4>
+      <ul style="margin-bottom:0">
+        <li>Deep &amp; very deep caries in a <strong>vital, restorable</strong> tooth</li>
+        <li>Reversible pulpitis of mature teeth; pulpitis of immature/deciduous teeth</li>
+        <li>Pulp exposure with <strong>controlled</strong> bleeding (for direct cap)</li>
+        <li>Asymptomatic or mild transient symptoms; pre-op radiograph shows no radicular pathology</li>
+        <li>Patient able to return for review</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;color:var(--coral)">Contraindications</h4>
+      <ul style="margin-bottom:0">
+        <li><strong>Spontaneous, persistent pain</strong> (irreversible pulpitis likely)</li>
+        <li>Necrotic pulp; purulent exudate</li>
+        <li><strong>Uncontrolled</strong> bleeding from the exposure</li>
+        <li>Sinus tract or apical pathology</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Depth tells you what protection you need</h3>
+  <figure>
+  <svg viewBox="0 0 900 360" role="img" aria-label="Cavity depth classification and protection">
+    <defs><style>
+      .dz{font-family:'Spectral',serif;font-size:14.5px;fill:#1d2926}
+      .dzs{font-family:'Spectral',serif;font-size:13px;fill:#46544f}
+      .dzn{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;fill:#1d2926}
+      .dzh{font-family:'Fraunces',serif;font-size:16px;font-weight:600;fill:#0a3f3c}
+    </style></defs>
+    <text x="40" y="26" class="dzh">Lesion depth → remaining dentine thickness (RDT) → protection</text>
+    <!-- vertical tooth column -->
+    <g>
+      <rect x="60" y="50" width="150" height="40" fill="#fbf7ee" stroke="#cdb98a"/><text x="135" y="75" text-anchor="middle" class="dzs" font-style="italic">enamel</text>
+      <rect x="60" y="90" width="150" height="210" fill="#ecd9ab" stroke="#cdb98a"/><text x="135" y="200" text-anchor="middle" class="dzs" font-style="italic">dentine</text>
+      <rect x="60" y="300" width="150" height="26" fill="#d98a86" stroke="#c08b87"/><text x="135" y="318" text-anchor="middle" class="dzn" fill="#7c2f2b">PULP</text>
+      <text x="216" y="95" class="dzs">DEJ</text>
+    </g>
+    <!-- depth level dashed lines -->
+    <g stroke="#9a8a66" stroke-dasharray="4 3" stroke-width="1.2">
+      <line x1="60" y1="118" x2="300" y2="118"/>
+      <line x1="60" y1="150" x2="300" y2="150"/>
+      <line x1="60" y1="210" x2="380" y2="210"/>
+      <line x1="60" y1="278" x2="470" y2="278"/>
+      <line x1="60" y1="300" x2="470" y2="300"/>
+    </g>
+    <!-- zone labels outside the column -->
+    <g>
+      <circle cx="312" cy="104" r="7" fill="#5b6e69"/>
+      <text x="328" y="102" class="dzn">Superficial</text>
+      <text x="328" y="120" class="dzs">just into dentine, at the DEJ</text>
+      <circle cx="312" cy="138" r="7" fill="#2f8f63"/>
+      <text x="328" y="150" class="dzn">Shallow · 0.5–1 mm</text>
+      <circle cx="392" cy="198" r="7" fill="#b07d12"/>
+      <text x="408" y="196" class="dzn">Medium</text>
+      <text x="408" y="214" class="dzs">~halfway through dentine</text>
+      <circle cx="482" cy="270" r="7" fill="#c34a3f"/>
+      <text x="498" y="268" class="dzn">Deep</text>
+      <text x="498" y="286" class="dzs">&gt;½ of dentine, RDT &gt; 0.5 mm</text>
+      <circle cx="482" cy="312" r="7" fill="#8f2f28"/>
+      <text x="498" y="310" class="dzn">Very deep</text>
+      <text x="498" y="328" class="dzs">RDT &lt; 0.5 mm — nearest the pulp</text>
+    </g>
+    <!-- VPT bracket -->
+    <path d="M760 250 q12 0 12 12 v18 q0 12 12 12 q-12 0 -12 12 v18 q0 12 -12 12" fill="none" stroke="#0a3f3c" stroke-width="2"/>
+    <text x="792" y="300" class="dz" font-weight="600" fill="#0a3f3c">VPT zone</text>
+    <text x="792" y="318" class="dzs">(pulp capping)</text>
+  </svg>
+  <figcaption>Medium lesions: adhesive + composite (or a GI lining under amalgam). <strong>VPT (pulp capping) is for deep &amp; very deep lesions.</strong></figcaption>
+  </figure>
+
+  <h3>Indirect pulp cap — technique</h3>
+  <ol class="steps">
+    <li><b>Rubber dam — always</b><span class="why">Isolation prevents salivary contamination and is essential to the coronal seal that makes VPT work ("vital &amp; seal").</span></li>
+    <li><b>Selective caries removal</b><span class="why">Remove unsupported enamel (high-speed diamond) and all <em>peripheral</em> caries (slow-speed round carbide or spoon excavator); remove soft infected dentine on pulpal/axial walls with a spoon, <strong>no pressure</strong>, leaving deep caries over the pulp to avoid exposure.</span></li>
+    <li><b>Clean debris</b> with water/saline (CHX optional); dry gently<span class="why">Don't desiccate deep dentine.</span></li>
+    <li><b>Place bioactive material on the deepest pulpal/axial wall only</b><span class="why">Apply at the deepest point near the pulp — not on the gingival wall (no pulp beneath it). Keep it thin &amp; localised so it doesn't compromise the seal/retention.</span></li>
+    <li><b>Cover &amp; seal</b><span class="why">CaOH₂ (Dycal) → conventional GIC base; or MTA/Biodentine → RM-GI lining. The cover protects the cap and seals against the acidic restorative steps.</span></li>
+    <li><b>Definitive restoration — same appointment if possible</b><span class="why">Success is directly related to a good coronal seal. If you run out of time, at least seal the prep.</span></li>
+    <li><b>Follow-up</b><span class="why">Review at 6 &amp; 12 months then yearly to 4 years; the tooth should respond within normal limits to pulp sensibility testing.</span></li>
+  </ol>
+
+  <h3>Capping materials</h3>
+  <div class="grid2">
+    <div class="card">
+      <h4 style="margin-top:0">Calcium hydroxide (Dycal / Life)</h4>
+      <ul style="margin-bottom:0">
+        <li>High alkalinity → antibacterial; stimulates fibroblasts &amp; promotes tertiary dentine.</li>
+        <li><strong>But:</strong> forms an <strong>incomplete barrier with tunnel defects</strong>; dimensionally unstable → dissolves → microleakage &amp; bacterial ingress.</li>
+        <li>~70% success over 5 years; <strong>must be covered by GI</strong> so it doesn't dissolve.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0">Calcium silicate cements (MTA / Biodentine)</h4>
+      <ul style="margin-bottom:0">
+        <li>Biocompatible &amp; <strong>bioactive</strong> (mineral deposition); excellent seal; dimensionally stable; high compressive strength.</li>
+        <li><strong>MTA</strong> can <strong>discolour</strong> hard tissue (radiopacifier).</li>
+        <li><strong>Biodentine</strong> = 80% tricalcium silicate + 15% CaCO₃ + zirconia radiopacifier; releases Ca(OH)₂, stimulates mineralisation, bonds micromechanically (shear bond ≈ GIC).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box exam">
+    <h4>Evidence to quote (VPT material choice)</h4>
+    <p style="margin:0">Hydraulic calcium silicates show <strong>superior histological &amp; clinical outcomes vs. calcium hydroxide for an exposed pulp.</strong> Resin-based materials / dentine-bonding agents on an <strong>exposed</strong> pulp are now <strong>contraindicated</strong> (cytotoxicity, no dentine bridge, poor outcomes). For a <strong>non-exposed</strong> deep lesion (IPC), long-term studies show calcium silicate cements and conventional GIC perform similarly. The AAE notes CaOH₂/GIC/resin trail in success (range ~43–92%).</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 ============ -->
+<section id="s6">
+  <div class="sechead"><span class="no">06</span><h2>Clinical decision-making &amp; justification</h2></div>
+  <p class="lead">The recurring exam task: "select your material and justify it with evidence." There's rarely one right answer — there's a defensible answer. Frame it around <strong>cavity depth, remaining tooth structure, lesion activity &amp; cavitation, caries risk, moisture control, esthetics</strong> and the patient.</p>
+
+  <h3>Choosing a restorative material — the argument for each</h3>
+  <table>
+    <thead><tr><th>Material</th><th>Justify it when…</th><th>Key caveat</th></tr></thead>
+    <tbody>
+      <tr><td><b>Composite resin</b></td><td>Conservative prep wanted; esthetics matter; good isolation possible; bonds (preserves tooth); repairable; elastic modulus near tooth.</td><td>Technique- &amp; moisture-sensitive; polymerisation stress; weaker in large stress-bearing situations than amalgam.</td></tr>
+      <tr><td><b>Amalgam</b></td><td>Large posterior load-bearing cavity; poor moisture control; poor-access / hard-to-isolate; durable &amp; economical; less technique-sensitive.</td><td><b>Needs ≥1.5–2 mm bulk</b> to resist occlusal fracture; non-adhesive (retentive prep); not esthetic; mercury phase-down.</td></tr>
+      <tr><td><b>GIC / RM-GI</b></td><td>Root/Class V; high caries risk (fluoride release); moisture-tolerant; chemical bond to dentine; provisional/temporary restorations; deep-lesion base.</td><td>Lower wear resistance &amp; strength than composite/amalgam — often interim or non-load-bearing.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid2">
+    <div class="box warn">
+      <h4>⚠ Eugenol (ZOE / IRM) under composite</h4>
+      <p style="margin:0">Eugenol <strong>inhibits free-radical polymerisation</strong> of resin → lower degree of conversion, poor bonding, microleakage, weaker restoration. <strong>Never place ZOE/IRM under or adjacent to a planned composite.</strong> Use GIC/RM-GI instead. (IRM is fine under amalgam or as a stand-alone temporary.)</p>
+    </div>
+    <div class="box key">
+      <h4>The RA3 "grey zone"</h4>
+      <p style="margin:0">A lesion that is <strong>clinically moderate but radiographically RA3</strong> (outer ⅓ dentine) is the one ICCMS decision left to clinical judgement: <strong>NOC or TPOC.</strong> If non-cavitated &amp; arrestable in a low-risk, compliant patient → control non-operatively. If cavitated, active, hard-to-clean, or high-risk → restore.</p>
+    </div>
+  </div>
+
+  <h3>Evidence you can name-drop</h3>
+  <ul>
+    <li><strong>Pitts et al. 2014</strong> — ICDAS/ICCMS framework &amp; staged management.</li>
+    <li><strong>Young et al. 2015</strong> — lesion activity (arrested / remineralised / non-cavitated) guiding management.</li>
+    <li><strong>Da Rosa Rodolpho 2022</strong> — posterior composites surviving up to 33 years; marginal degradation/staining is <em>not</em> the same as secondary caries (don't replace serviceable restorations on appearance alone).</li>
+    <li><strong>AAE position statement on VPT</strong> — calcium silicate cements outperform CaOH₂ for exposed pulps.</li>
+    <li><strong>Minamata Convention / local ADA policy</strong> — amalgam phase-down &amp; vulnerable groups.</li>
+  </ul>
+</section>
+
+<!-- ============ OSCE 2025 ============ -->
+<section id="osce">
+  <div class="sechead"><span class="no">★</span><h2>Last year's paper — corrected model answers</h2></div>
+  <p class="lead">These are the 2025 station tasks (paraphrased) with clean model answers. Where last year's student answer (the red text) went wrong, it's flagged — those are exactly the traps to avoid.</p>
+
+  <details><summary>Station 1 — RA3 cavitated outer-third dentine, no symptoms, vital: choose &amp; justify a material</summary>
+    <div class="body">
+      <p class="qstem">Cavitated lesion, outer third of dentine (RA3), asymptomatic, vital tooth. Pick your restorative material and justify with evidence.</p>
+      <p>This is the <strong>locally modifiable</strong> call (clinically moderate / RA3). Because it is <strong>cavitated</strong>, the lesion can't be cleaned and non-operative control alone won't arrest it → <strong>TPOC.</strong> Then justify the material:</p>
+      <ul>
+        <li><strong>Composite</strong> (preferred for most accessible cavities): conservative bonded prep, esthetic, repairable, modulus near tooth — provided isolation is good.</li>
+        <li><strong>Amalgam</strong>: defensible if it's a large/load-bearing or hard-to-isolate Class II in a patient with poor oral hygiene — but you must have ≥1.5–2 mm bulk so it won't fracture under occlusal load.</li>
+        <li><strong>GIC</strong>: justify for high caries risk / poor moisture control / interim restoration (fluoride release, moisture tolerance).</li>
+      </ul>
+      <p>Anchor it with activity assessment (Young 2015) and the ICDAS/ICCMS framework (Pitts 2014).</p>
+    </div>
+  </details>
+
+  <details><summary>Station 2 — Class II ready for amalgam: what to do &amp; why before restoring</summary>
+    <div class="body">
+      <p class="qstem">Rubber dam, matrix &amp; wedge in place; amalgam capsule, mixer, dappen dish in front of you. What do you do and why before starting?</p>
+      <ol class="steps">
+        <li><b>Select &amp; activate the capsule</b><span class="why">Depress the plunger to break the internal seal between alloy powder and mercury.</span></li>
+        <li><b>Triturate ~6 s</b><span class="why">Mechanically combine into a homogeneous plastic mass.</span></li>
+        <li><b>Check the mix (shake)</b><span class="why">A single cohesive ball = correct; crumbly/dry or runny = re-do.</span></li>
+        <li><b>Dispense to dappen dish, load carrier, apply promptly &amp; condense from the deepest point</b><span class="why">Fast set means it must be placed quickly; condensation adapts it into the prep.</span></li>
+      </ol>
+      <div class="box warn"><h4>⚠ Trap from last year</h4><p style="margin:0">Amalgam retention is <strong>mechanical</strong> (cavity design &amp; undercuts) — it does <strong>not</strong> "bond" or "adhere" to the cavity, and trituration does not make it "wet enough to adhere." Don't describe amalgam as adhesive.</p></div>
+    </div>
+  </details>
+
+  <details><summary>Station 3 — Non-cavitated occlusal ICDAS code 3: ICCMS/ICDAS approach &amp; steps</summary>
+    <div class="body">
+      <p class="qstem">Incipient, non-cavitated occlusal lesion, code 3. Materials available include acid, primer, bond, liner, resin sealant, composite, GIC, light.</p>
+      <p><strong>Manage non-operatively first.</strong> A non-cavitated lesion is remineralisable: place a <strong>resin-based fissure sealant</strong> (after cleaning/etching the fissure) ± topical fluoride, control diet, and <strong>review</strong>. Move to minimally invasive operative care <em>only if</em> it progresses (active after the watch period) or cavitates.</p>
+      <div class="box warn"><h4>⚠ Trap from last year</h4><p style="margin:0">The big error was jumping straight to <strong>cutting a cavity</strong> and a full adhesive restoration. A non-cavitated code 3 lesion is a <strong>sealant + prevention</strong> case, not a restoration.</p></div>
+    </div>
+  </details>
+
+  <details><summary>Station 4 — Mid-depth lesion (RB4) ready for composite: steps &amp; why</summary>
+    <div class="body">
+      <p class="qstem">Mid-depth lesion (RB4, middle third of dentine) and prepared cavity, for resin composite. Acid, primer, bond, liner, CaOH₂, GIC, IRM, composite, light available.</p>
+      <ol class="steps">
+        <li><b>Pulpal protection only if approaching the pulp</b><span class="why">RB4 is <em>moderate</em> (middle ⅓). A liner/base (RM-GI such as Vitrebond) is placed only over the deepest dentine if it's close to the pulp; a true mid-depth lesion often needs no cap — over-lining wastes bonding area.</span></li>
+        <li><b>Etch</b> enamel 30 s + dentine 15 s → rinse → dry (enamel dry, dentine moist, absorbent paper)<span class="why">Demineralise &amp; expose collagen; don't desiccate.</span></li>
+        <li><b>Primer (active 20 s) → air-dry → bond (passive 10 s) → light-cure</b><span class="why">Form the hybrid layer; evaporate solvent; even bond film.</span></li>
+        <li><b>Composite — incremental (≤2 mm), cure each layer</b><span class="why">Lowers the C-factor → reduces shrinkage <em>stress</em> &amp; improves marginal adaptation.</span></li>
+      </ol>
+      <div class="box warn"><h4>⚠ Trap from last year</h4><p style="margin:0">Two things: (1) applying CaOH₂ to an RB4 (middle-third) lesion is usually <strong>over-treatment</strong> — calcium hydroxide capping is for <em>deep/very deep</em> lesions, not moderate ones; and (2) say incremental placement reduces <strong>stress/C-factor</strong>, not "polymerisation shrinkage."</p></div>
+    </div>
+  </details>
+
+  <details><summary>Station 5 — Deep lesion (young patient, pain to sweets/cold): IPC + restoration</summary>
+    <div class="body">
+      <p class="qstem">Deep lesion (RB5/RC5) in a young patient with pain to sweets/cold (reversible pulpitis). List the steps for indirect pulp cap + final restoration.</p>
+      <p>This is the examiner's own model sequence:</p>
+      <ol class="steps">
+        <li><b>Rubber dam</b> (already placed — note it)<span class="why">Isolation = seal integrity.</span></li>
+        <li><b>Calcium hydroxide cement</b> on the deepest dentine<span class="why">Alkalinity → antibacterial, stimulates pulpal defence &amp; tertiary dentine.</span></li>
+        <li><b>GIC over the CaOH₂</b><span class="why">Protects/seals the cap so the acidic restorative steps don't irritate the pulp.</span></li>
+        <li><b>Selective enamel etch 30 s → rinse → dry (enamel dry)</b><span class="why">Self-etch approach on the deep dentine; etch enamel conventionally for retention.</span></li>
+        <li><b>Primer active 20 s → air-dry → bond 10 s → light-cure 10–20 s</b><span class="why">Hybrid layer + even bond film.</span></li>
+        <li><b>Incremental composite</b>, cure each increment 20–40 s<span class="why">Reduces C-factor → less stress, better margins.</span></li>
+      </ol>
+      <p class="muted">If asked for a <em>provisional</em> with GIC instead: rubber dam → selective caries removal → CaOH₂ on deepest dentine → bulk GIC (fluoride-releasing, protective) → contour/occlusion → allow GIC to set before removing the matrix. Note the manual scores a cavitated inner-third lesion as <strong>RC5</strong>, not RB5.</p>
+    </div>
+  </details>
+
+  <details><summary>Station 6 — Da Rosa Rodolpho 2022: dentine-sealing technique &amp; would you change it?</summary>
+    <div class="body">
+      <p class="qstem">(a) What dentine-sealing technique was used before these restorations (excluding IPC)? (b) Would you do anything different — support with evidence?</p>
+      <p><strong>(a)</strong> Dentine sealing = applying the adhesive system to form the hybrid layer that seals the dentine (an etch-and-rinse adhesive in that long-term cohort) before placing composite — i.e. immediate dentine sealing rather than leaving cut dentine exposed.</p>
+      <p><strong>(b)</strong> Defensible improvements with evidence: for <strong>deep, non-exposed</strong> dentine use a <strong>biologically based material</strong> (hydraulic calcium silicate) or condition dentine with <strong>10% polyacrylic acid</strong> before a GIC liner (removes smear-layer contaminants, leaves smear plugs). Avoid resin/dentine-bonding agents directly on an <strong>exposed</strong> pulp (cytotoxic, no dentine bridge — Krifka 2012; De Souza Costa 2000). For exposed pulps, calcium silicate cements (MTA) outperform CaOH₂; for non-exposed deep lesions, CSC and GIC perform similarly long-term.</p>
+    </div>
+  </details>
+</section>
+
+<!-- ============ FACT CHECK ============ -->
+<section id="factcheck">
+  <div class="sechead"><span class="no">✓</span><h2>Fact-check of your group's "244 OSCE info" notes</h2></div>
+  <p class="lead">Your friends' adhesion notes are <strong>broadly correct and well-organised</strong> — the etch times, the hybrid-layer logic, and the four techniques all hold up. A few points to correct or sharpen before you commit them to memory:</p>
+
+  <div class="box fact"><h4>① Generation labels are wrong for the self-etch systems</h4>
+    <p style="margin:0">The notes label <strong>both</strong> "2-step self-etch" and "1-step self-etch" as <strong>(6th gen)</strong>. Correct mapping: 2-step self-etch = <strong>6th</strong>, 1-step self-etch (all-in-one) = <strong>7th</strong>, universal/multi-mode = <strong>8th</strong>. Safest in the exam: describe them as <em>"two-step self-etch"</em> / <em>"one-step self-etch,"</em> which your lecturer uses.</p></div>
+
+  <div class="box fact"><h4>② "Dentine: self-etch, 2-step / Enamel: rinse-and-etch, 3-step"</h4>
+    <p style="margin:0">The <em>principle</em> is right (self-etch suits dentine; etch-and-rinse suits enamel) but the "2-step/3-step" tag attached there is muddled. Step-count describes the <em>system</em>, not the substrate. State it as: <strong>etch-and-rinse = best for enamel (micromechanical); mild self-etch = best for dentine (chemical bond to HA).</strong></p></div>
+
+  <div class="box fact"><h4>③ Light-cure time</h4>
+    <p style="margin:0">The notes say "20 s light cure" throughout. Your lecture material gives the adhesive cure as <strong>10–20 s</strong> (per manufacturer); composite increments are typically <strong>20–40 s</strong>. Either is acceptable if you say "per manufacturer's instructions."</p></div>
+
+  <div class="box fact"><h4>④ Etch order &amp; "air dry desiccation" on enamel</h4>
+    <p style="margin:0">For etch-and-rinse, etch <strong>enamel first (30 s)</strong> then <strong>dentine (15 s)</strong> so total dentine contact is only 15 s, then rinse. Drying <em>enamel</em> fully (desiccation) is correct; never desiccate <em>dentine</em> — keep it moist/shiny. The notes are right that enamel is dried and dentine kept moist; just don't let "air dry desiccation" bleed onto dentine.</p></div>
+
+  <div class="box fact"><h4>⑤ One small mislabel in the Week 9 notes</h4>
+    <p style="margin:0">A single all-in-one bottle (etch + primer + bond) is a <strong>one-step self-etch</strong> — the Week 9 notes briefly call it "one-step etch-and-rinse." Everything else in that section is correct.</p></div>
+
+  <p class="muted">Everything else — primer = bifunctional bridging molecule, hydrophilic end into collagen / hydrophobic end to the bond, hybrid layer definition, scrub/penetration logic, the reason we etch (demineralise + expose collagen) — matches the lecture material. Good notes.</p>
+</section>
+
+<!-- ============ MATERIALS ============ -->
+<section id="materials">
+  <div class="sechead"><span class="no">⚙</span><h2>Student-clinic materials &amp; key numbers</h2></div>
+  <table>
+    <thead><tr><th>Material</th><th>Use</th><th>Key handling figures</th></tr></thead>
+    <tbody>
+      <tr><td><b>Amalgam</b> — SDI Permite 2-spill</td><td>Posterior load-bearing</td><td>Triturate <span class="chip">6 s</span>; shake/check ball; capsule → amalgam waste</td></tr>
+      <tr><td><b>Fuji VII</b> (GIC)</td><td>Fissure sealant; base over CaOH₂</td><td>mix 10 s; set <span class="chip">4 min</span></td></tr>
+      <tr><td><b>Fuji IX</b> (GIC)</td><td>Class V restorations</td><td>mix 10 s; set <span class="chip">3 min</span></td></tr>
+      <tr><td><b>Equia Forte</b> (+ Coat)</td><td>Temporary Class I/II</td><td>set 3 min; Equia Coat cure 20 s</td></tr>
+      <tr><td><b>Fuji II LC</b> (RM-GI)</td><td>Class V</td><td>cure <span class="chip">20 s</span> @ 470 nm; finish to 40 s total</td></tr>
+      <tr><td><b>Vitrebond</b> (RM-GI liner)</td><td><b>Under composite</b> — seals tubules</td><td>cure 20 s</td></tr>
+      <tr><td><b>Fuji Bond LC</b> (RM-GI liner)</td><td><b>Under amalgam</b> — thin, seals tubules, F⁻</td><td>cure 4 s → remove off enamel → cure 20 s</td></tr>
+      <tr><td><b>GC Dentine Conditioner</b></td><td>Before GIC — removes smear-layer contaminants, leaves smear plugs</td><td>10% polyacrylic acid · 15–20 s, rinse, don't desiccate</td></tr>
+      <tr><td><b>Phosphoric acid 37%</b></td><td>Etch / selective enamel etch</td><td>enamel <span class="chip">30 s</span> · dentine <span class="chip">15 s</span> · rinse <span class="chip">30 s</span></td></tr>
+      <tr><td><b>Dycal</b> (CaOH₂)</td><td>VPT cap on deepest dentine</td><td>set ~2–3 min; must be covered by GIC</td></tr>
+      <tr><td><b>IRM</b> (ZOE)</td><td>Temporary / under amalgam</td><td><b>Never under composite</b> (eugenol inhibits cure)</td></tr>
+    </tbody>
+  </table>
+  <p class="muted"><strong>Burs:</strong> 010 = Class I outline / Class II occlusal portion · 008 = proximal box/step · half-round (slow speed) = gingival retention groove in Class V composite · Dura Green = gross contouring · Brownie point = amalgam finishing · rubber point = composite finishing.</p>
+</section>
+
+<!-- ============ RAPID ============ -->
+<section id="rapid">
+  <div class="sechead"><span class="no">⚡</span><h2>Rapid revision — the numbers &amp; one-liners</h2></div>
+  <div class="grid2">
+    <div class="card"><h4 style="margin-top:0">Etch &amp; bond timings</h4>
+      <ul style="margin-bottom:0">
+        <li>Enamel etch <span class="num">30 s</span> · dentine <span class="num">15 s</span> · rinse <span class="num">30 s</span></li>
+        <li>Primer active <span class="num">20 s</span> · bond passive <span class="num">10 s</span></li>
+        <li>Adhesive cure <span class="num">10–20 s</span> · composite increment <span class="num">20–40 s</span></li>
+        <li>Increments ≤ <span class="num">2 mm</span>, ≤ 2 walls; bulk-fill ≤ <span class="num">4–5 mm</span></li>
+      </ul>
+    </div>
+    <div class="card"><h4 style="margin-top:0">Critical pH</h4>
+      <ul style="margin-bottom:0">
+        <li>Hydroxyapatite ≈ <span class="num">5.5</span></li>
+        <li>Fluorapatite ≈ <span class="num">4.5</span> (≈10× more acid-resistant)</li>
+        <li>Self-etch: ultra-mild &gt;2.5 · mild ≈2 · strong ≤1</li>
+      </ul>
+    </div>
+    <div class="card"><h4 style="margin-top:0">Radiographic scores</h4>
+      <ul style="margin-bottom:0">
+        <li>RA1/RA2 = enamel · RA3 = outer ⅓ dentine → <b>initial</b></li>
+        <li>RB4 = middle ⅓ dentine → <b>moderate</b></li>
+        <li>RC5 = inner ⅓ (cavitated) · RC6 = into pulp → <b>extensive</b></li>
+      </ul>
+    </div>
+    <div class="card"><h4 style="margin-top:0">Amalgam essentials</h4>
+      <ul style="margin-bottom:0">
+        <li>Non-adhesive → undercuts, butt joint ~<span class="num">90°</span>, no bevels</li>
+        <li>Bulk ≥ <span class="num">1.5–2 mm</span>; walls converge ~<span class="num">20°</span></li>
+        <li>Triturate <span class="num">6 s</span>; condense from deepest point</li>
+      </ul>
+    </div>
+    <div class="card"><h4 style="margin-top:0">Recall extremes</h4>
+      <ul style="margin-bottom:0">
+        <li>High-risk child → as short as <span class="num">3 months</span></li>
+        <li>Low-risk adult → up to <span class="num">2 years</span></li>
+        <li>F⁻ varnish: 2×/yr (mod) → <span class="num">4×/yr</span> (high)</li>
+      </ul>
+    </div>
+    <div class="card"><h4 style="margin-top:0">Don't-mix-them-up</h4>
+      <ul style="margin-bottom:0">
+        <li>Infected (soft, bacteria) → remove · Affected (firm, sterile) → can stay</li>
+        <li>Incremental reduces <b>stress / C-factor</b>, not shrinkage</li>
+        <li>ZOE never under composite</li>
+        <li>CaOH₂ capping = deep/very deep only, not RB4</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box key" style="margin-top:24px">
+    <h4>Universal answer skeleton (use at every station)</h4>
+    <p style="margin:0"><strong>Classify</strong> (ICDAS code + radiographic score + activity) → <strong>state the management principle</strong> (NOC vs TPOC; or VPT indication) → <strong>list steps in order, each with a one-line "why"</strong> → <strong>justify the material</strong> (depth · remaining tooth · risk · moisture · esthetics) with an author/principle. Write the <strong>question number</strong>, use a <strong>pen</strong>, answer <strong>every part</strong>.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div style="font-family:'Fraunces',serif;font-size:20px;color:#fff;font-weight:600">DOH 244 · OSCE Study Guide</div>
+      <div class="muted" style="color:#9fb8b4">Built from your unit notes, the ICCMS™ manual, the adhesion study guide &amp; the Mighty Dental Handbook.</div>
+    </div>
+    <div class="muted" style="color:#9fb8b4;max-width:46ch">Good luck on Thursday 4 June. Read each station twice, classify before you treat, and justify everything. You've got this.</div>
+  </div>
+</footer>
+
+<script>
+// active nav highlight
+const links=[...document.querySelectorAll('nav.toc a')];
+const map=new Map(links.map(a=>[a.getAttribute('href'),a]));
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){
+  links.forEach(l=>l.classList.remove('tag'));
+  const a=map.get('#'+e.target.id); if(a)a.classList.add('tag');
+}})},{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

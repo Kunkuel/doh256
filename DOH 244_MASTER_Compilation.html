@@ -1,0 +1,2190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DOH 244 · Master Study Compilation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>/* Shared style block for DOH 244 notes */
+:root{
+  --ink:#1a1f2e;
+  --ink-soft:#3a4357;
+  --paper:#fbfaf7;
+  --paper-card:#ffffff;
+  --line:#e6e2d8;
+  --rule:#cdc6b5;
+  --accent:#0f6b6a;       /* deep teal */
+  --accent-soft:#e6f1f0;
+  --accent-deep:#0a4948;
+  --gold:#b08400;
+  --gold-soft:#fbf3d6;
+  --rose:#a83333;
+  --rose-soft:#fde9e9;
+  --indigo:#3a4d8f;
+  --indigo-soft:#e8ecf7;
+  --sand:#f4efe1;
+  --sand-deep:#c9b97a;
+  --shadow: 0 1px 0 rgba(0,0,0,.04), 0 6px 24px rgba(20,30,40,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family: "Iowan Old Style","Charter","Source Serif Pro",Georgia,serif;
+  line-height:1.55;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:920px;margin:0 auto;padding:48px 28px 96px}
+header.title{
+  border-bottom:2px solid var(--ink);
+  padding-bottom:18px;
+  margin-bottom:28px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;
+}
+.title h1{
+  font-family:"Playfair Display","Iowan Old Style",Georgia,serif;
+  font-weight:700;
+  font-size:38px;
+  margin:0 0 4px;
+  letter-spacing:-0.01em;
+}
+.title .sub{
+  font-family:"Inter","Helvetica Neue",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:11px;
+  color:var(--ink-soft);
+}
+.title .meta{
+  font-family:"Inter","Helvetica Neue",sans-serif;
+  font-size:12px;
+  color:var(--ink-soft);
+  text-align:right;
+}
+.title .meta strong{color:var(--accent-deep)}
+
+/* TOC */
+nav.toc{
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  border-left:4px solid var(--accent);
+  padding:18px 22px;
+  margin-bottom:36px;
+  border-radius:2px;
+  box-shadow:var(--shadow);
+}
+nav.toc h2{
+  font-family:"Inter",sans-serif;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin:0 0 10px;
+  color:var(--accent-deep);
+}
+nav.toc ol{margin:0;padding:0;list-style:none;columns:2;column-gap:24px}
+nav.toc li{padding:3px 0;break-inside:avoid;font-family:"Inter",sans-serif;font-size:14px}
+nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--rule)}
+nav.toc a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+nav.toc .num{color:var(--accent);font-weight:600;margin-right:6px}
+
+/* Section headings */
+h2.section{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:26px;
+  margin:48px 0 14px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--rule);
+  scroll-margin-top:20px;
+}
+h2.section .ord{color:var(--accent);font-weight:600;margin-right:10px}
+h3{
+  font-family:"Inter",sans-serif;
+  font-size:15px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  color:var(--accent-deep);
+  margin:24px 0 8px;
+}
+h4{
+  font-family:"Inter",sans-serif;
+  font-size:14px;
+  margin:18px 0 6px;
+  color:var(--ink);
+}
+p{margin:8px 0}
+ul,ol{margin:8px 0;padding-left:22px}
+li{margin:4px 0}
+
+/* Callouts */
+.callout{
+  border-radius:2px;
+  padding:14px 18px;
+  margin:16px 0;
+  border-left:4px solid;
+  font-size:15px;
+}
+.callout .label{
+  font-family:"Inter",sans-serif;
+  font-size:10px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-weight:600;
+  display:block;
+  margin-bottom:4px;
+}
+.callout.key{background:var(--accent-soft);border-color:var(--accent)}
+.callout.key .label{color:var(--accent-deep)}
+.callout.warn{background:var(--gold-soft);border-color:var(--gold)}
+.callout.warn .label{color:#7a5a00}
+.callout.danger{background:var(--rose-soft);border-color:var(--rose)}
+.callout.danger .label{color:var(--rose)}
+.callout.info{background:var(--indigo-soft);border-color:var(--indigo)}
+.callout.info .label{color:var(--indigo)}
+.callout.pearl{background:var(--sand);border-color:var(--sand-deep)}
+.callout.pearl .label{color:#7a6a2c}
+
+/* Definition */
+.def{
+  border:1px solid var(--rule);
+  background:var(--paper-card);
+  padding:14px 18px;
+  margin:14px 0;
+  border-radius:2px;
+}
+.def .term{
+  font-family:"Inter",sans-serif;
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--accent-deep);
+  display:block;
+  margin-bottom:4px;
+}
+
+/* Tables */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-family:"Inter",sans-serif;
+  font-size:14px;
+  background:var(--paper-card);
+  box-shadow:var(--shadow);
+}
+th{
+  background:var(--ink);
+  color:var(--paper);
+  text-align:left;
+  padding:10px 12px;
+  font-weight:500;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+td{
+  padding:10px 12px;
+  border-top:1px solid var(--line);
+  vertical-align:top;
+}
+tr:nth-child(even) td{background:#fafaf6}
+td strong{color:var(--accent-deep)}
+
+/* Two-column grid */
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:14px 0;
+}
+.grid2 .card{
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  padding:14px 16px;
+  border-radius:2px;
+  box-shadow:var(--shadow);
+}
+.grid2 .card h4{margin-top:0}
+
+/* Pill list */
+.pill{
+  display:inline-block;
+  padding:2px 10px;
+  margin:2px 4px 2px 0;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent-deep);
+  font-family:"Inter",sans-serif;
+  font-size:12px;
+  font-weight:500;
+}
+.pill.warn{background:var(--gold-soft);color:#7a5a00}
+.pill.rose{background:var(--rose-soft);color:var(--rose)}
+.pill.indigo{background:var(--indigo-soft);color:var(--indigo)}
+
+/* Step list (technique workflows) */
+.steps{
+  counter-reset:step;
+  list-style:none;
+  padding-left:0;
+}
+.steps > li{
+  counter-increment:step;
+  position:relative;
+  padding:8px 0 8px 44px;
+  border-bottom:1px dashed var(--line);
+}
+.steps > li:last-child{border-bottom:none}
+.steps > li::before{
+  content:counter(step);
+  position:absolute;
+  left:0; top:8px;
+  width:30px; height:30px;
+  border-radius:50%;
+  background:var(--accent);
+  color:white;
+  font-family:"Inter",sans-serif;
+  font-weight:600;
+  font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* Compare table emphasis */
+.compare th:first-child{background:var(--accent-deep)}
+
+/* Back to top */
+.back{
+  display:inline-block;
+  margin-top:8px;
+  font-family:"Inter",sans-serif;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--accent);
+  text-decoration:none;
+}
+.back:hover{color:var(--accent-deep)}
+
+/* Print friendly */
+@media print{
+  body{background:white}
+  .wrap{padding:0}
+  nav.toc{break-inside:avoid}
+  h2.section{break-after:avoid}
+  .callout, .def, table{break-inside:avoid}
+}
+@media (max-width:640px){
+  .wrap{padding:24px 16px}
+  .title h1{font-size:28px}
+  nav.toc ol{columns:1}
+  .grid2{grid-template-columns:1fr}
+}
+
+
+/* Compiled-doc-specific */
+.topic-header{
+  margin-top:80px;
+  padding:40px 32px;
+  background:linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 100%);
+  color:white;
+  border-radius:2px;
+  position:relative;
+  overflow:hidden;
+}
+.topic-header::before{
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0 2px, transparent 2px 12px);
+  pointer-events:none;
+}
+.topic-header .eyebrow{
+  font-family:"Inter",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  font-size:11px;
+  opacity:.8;
+  margin-bottom:8px;
+  position:relative;
+}
+.topic-header h1{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:44px;
+  margin:0;
+  font-weight:700;
+  letter-spacing:-0.02em;
+  position:relative;
+}
+.topic-header .sub{
+  font-family:"Inter",sans-serif;
+  font-size:14px;
+  opacity:.9;
+  margin-top:8px;
+  position:relative;
+}
+.master-toc{
+  background:var(--paper-card);
+  border:1px solid var(--line);
+  padding:32px;
+  border-radius:2px;
+  box-shadow:var(--shadow);
+  margin-bottom:32px;
+}
+.master-toc h2{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:24px;
+  margin:0 0 6px;
+  color:var(--accent-deep);
+}
+.master-toc .lead{
+  font-family:"Inter",sans-serif;
+  font-size:13px;
+  color:var(--ink-soft);
+  margin-bottom:24px;
+}
+.master-toc .topic-list{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.master-toc .topic-item{
+  padding:14px 16px;
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:2px;
+  transition:all .15s ease;
+}
+.master-toc .topic-item:hover{
+  transform:translateX(2px);
+  box-shadow:0 4px 12px rgba(0,0,0,.06);
+}
+.master-toc .topic-item .num{
+  display:inline-block;
+  font-family:"Playfair Display",serif;
+  font-weight:700;
+  color:var(--accent);
+  font-size:22px;
+  line-height:1;
+  margin-right:8px;
+}
+.master-toc .topic-item a{
+  font-family:"Inter",sans-serif;
+  font-size:15px;
+  font-weight:600;
+  color:var(--ink);
+  text-decoration:none;
+  display:block;
+}
+.master-toc .topic-item a:hover{color:var(--accent-deep)}
+.master-toc .topic-item .ssub{
+  display:block;
+  font-family:"Inter",sans-serif;
+  font-size:12px;
+  font-weight:400;
+  color:var(--ink-soft);
+  margin-top:2px;
+  margin-left:34px;
+}
+@media (max-width:640px){
+  .master-toc .topic-list{grid-template-columns:1fr}
+  .topic-header h1{font-size:32px}
+  .topic-header{padding:28px 20px}
+}
+.master-cover{
+  text-align:center;
+  padding:60px 20px 40px;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:40px;
+}
+.master-cover .eyebrow{
+  font-family:"Inter",sans-serif;
+  text-transform:uppercase;
+  letter-spacing:.3em;
+  font-size:12px;
+  color:var(--accent-deep);
+  margin-bottom:14px;
+}
+.master-cover h1{
+  font-family:"Playfair Display",Georgia,serif;
+  font-size:52px;
+  margin:0 0 10px;
+  letter-spacing:-0.02em;
+  line-height:1.05;
+}
+.master-cover .tagline{
+  font-family:"Inter",sans-serif;
+  font-style:italic;
+  color:var(--ink-soft);
+  font-size:15px;
+}
+.master-cover .rule{
+  width:60px;
+  height:2px;
+  background:var(--accent);
+  margin:20px auto;
+}
+@media (max-width:640px){
+  .master-cover h1{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="master-cover">
+  <div class="eyebrow">DOH 244 · Charles Sturt University</div>
+  <h1>Master Study Compilation</h1>
+  <div class="rule"></div>
+  <div class="tagline">All seven topics in one document — for end-to-end study</div>
+</div>
+
+<div class="master-toc">
+  <h2>Study Index</h2>
+  <p class="lead">Tap any topic to jump in. Each section retains its internal table of contents.</p>
+  <ul class="topic-list">
+    <li class="topic-item">
+      <a href="#topic1"><span class="num">01</span>Amalgam</a>
+      <span class="ssub">Restorative Materials · Week 4</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic2"><span class="num">02</span>Tooth Sensitivity</a>
+      <span class="ssub">The Dentine-Pulp Complex</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic3"><span class="num">03</span>NCCL Restorative Dentistry</a>
+      <span class="ssub">Non-Carious Cervical Lesions</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic4"><span class="num">04</span>Vital Pulp Therapy</a>
+      <span class="ssub">Preservation of Tooth Vitality · Bioactive</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic5"><span class="num">05</span>Adhesion</a>
+      <span class="ssub">Week 9 · Part 1 of 2</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic6"><span class="num">06</span>Composite Resin</a>
+      <span class="ssub">Week 9 · Part 2 of 2</span>
+    </li>
+    <li class="topic-item">
+      <a href="#topic7"><span class="num">07</span>Repair of Resin Composite Restorations</a>
+      <span class="ssub">Minimal Intervention Dentistry</span>
+    </li>
+  </ul>
+</div>
+
+<section id="topic1">
+<div class="topic-header">
+  <div class="eyebrow">Topic 01</div>
+  <h1>Amalgam</h1>
+  <div class="sub">Restorative Materials · Week 4</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic1_overview">What is Amalgam</a></li>
+    <li><span class="num">2.</span><a href="#topic1_advdis">Advantages &amp; Disadvantages</a></li>
+    <li><span class="num">3.</span><a href="#topic1_steps">Steps for Amalgam Placement</a></li>
+    <li><span class="num">4.</span><a href="#topic1_replace">When &amp; Why to Replace</a></li>
+    <li><span class="num">5.</span><a href="#topic1_choice">Factors Influencing Material Choice</a></li>
+    <li><span class="num">6.</span><a href="#topic1_composite">Composite Resin Comparison</a></li>
+    <li><span class="num">7.</span><a href="#topic1_minamata">Minamata Convention &amp; Policy 6.18</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic1_overview"><span class="ord">01</span>What is Amalgam</h2>
+
+<div class="def">
+  <span class="term">Definition</span>
+  A <strong>non-adhesive metallic restorative</strong> based on mercury alloyed with silver, tin and copper. Durable, safe and effective; subject of extensive long-term research.
+</div>
+
+<div class="callout key">
+  <span class="label">Key fact</span>
+  Amalgam is <strong>non-adhesive</strong> — retention is purely mechanical, so the cavity preparation must include <strong>undercuts</strong>.
+</div>
+
+<h2 class="section" id="topic1_advdis"><span class="ord">02</span>Advantages &amp; Disadvantages</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>✓ Advantages</h4>
+    <ul>
+      <li>Lower cost vs other restoratives</li>
+      <li>Greater durability — especially posterior</li>
+      <li>Less technique-sensitive</li>
+      <li>Long-term clinical evidence</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>✗ Disadvantages</h4>
+    <ul>
+      <li>Non-adhesive material</li>
+      <li>May cause cracks or fractures of the tooth</li>
+      <li>Requires <strong>specific cavity preparation</strong> (undercuts)</li>
+      <li>Can undergo corrosion</li>
+      <li>Extensive restorations → cracks in enamel and dentine</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic1_steps"><span class="ord">03</span>Steps for Amalgam Placement</h2>
+
+<div class="callout info">
+  <span class="label">Pre-placement</span>
+  <strong>Place rubber dam</strong> — moisture control + safety from mercury exposure.
+</div>
+
+<ol class="steps">
+  <li><strong>Specific cavity preparation</strong> — undercuts for mechanical retention.</li>
+  <li><strong>Mechanical manipulation (trituration)</strong> — ~6 seconds on the amalgamator. Shake it; if you feel a pebble inside the capsule, it's ready.</li>
+  <li><strong>Condensation</strong> — pack into prep firmly to express mercury and adapt to walls.</li>
+  <li><strong>Burnishing &amp; carving</strong> — establish anatomy and margins.</li>
+  <li><strong>Finishing &amp; polishing</strong> — usually at a subsequent visit.</li>
+</ol>
+
+<h2 class="section" id="topic1_replace"><span class="ord">04</span>When &amp; Why to Replace Amalgam</h2>
+
+<ul>
+  <li><strong>Caries</strong> at the margins or recurrent</li>
+  <li>Loss of <strong>tensile strength</strong> / bulk fracture</li>
+  <li>Cracks in surrounding enamel/dentine from extensive restorations</li>
+</ul>
+
+<div class="callout warn">
+  <span class="label">Important</span>
+  Long-term durability of amalgam is well documented. Do <strong>not</strong> replace amalgam for non-specific or perceived health complaints unless the patient is fully informed of the implications (see Policy 6.18 below).
+</div>
+
+<h2 class="section" id="topic1_choice"><span class="ord">05</span>Factors Influencing Material Choice</h2>
+
+<table>
+  <thead><tr><th>Category</th><th>Considerations</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Clinical variables</strong></td><td>Type, size and location of the restoration</td></tr>
+    <tr><td><strong>Operator</strong></td><td>Skill and technique</td></tr>
+    <tr><td><strong>Socioeconomic</strong></td><td>Access to dental care</td></tr>
+    <tr><td><strong>Demographic</strong></td><td>Patient age</td></tr>
+    <tr><td><strong>Individual</strong></td><td>Caries risk, bruxism</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic1_composite"><span class="ord">06</span>Composite Resin — A Comparison</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Composite Resin Strengths</h4>
+    <ul>
+      <li>Elastic modulus similar to natural tooth structure</li>
+      <li><strong>Bonds</strong> to dental structure → more conservative preparations</li>
+      <li>Mercury-free</li>
+      <li>Aesthetic (tooth-coloured)</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Amalgam vs Composite — Quick Take</h4>
+    <ul>
+      <li>Amalgam → durable, cheap, less technique-sensitive, but non-adhesive &amp; non-aesthetic</li>
+      <li>Composite → aesthetic, bonds, conservative — but technique-sensitive</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic1_minamata"><span class="ord">07</span>Minamata Convention &amp; ADA Policy 6.18</h2>
+
+<div class="callout info">
+  <span class="label">Minamata Convention on Mercury</span>
+  Requires parties to <strong>phase down</strong> the use of dental amalgam. Restricts use in <strong>vulnerable populations</strong> — children, pregnant women.
+</div>
+
+<div class="callout pearl">
+  <span class="label">Safety evidence</span>
+  Amalgam releases only <strong>nanogram</strong> amounts of mercury. Current evidence does <strong>not</strong> link amalgam restorations with chronic or degenerative diseases.
+</div>
+
+<h3>Policy 6.18 — Position</h3>
+
+<table>
+  <thead><tr><th style="width:60px">Clause</th><th>Position</th></tr></thead>
+  <tbody>
+    <tr><td><strong>2.1</strong></td><td>Dental amalgam should continue to be available for use in appropriate clinical situations.</td></tr>
+    <tr><td><strong>2.2</strong></td><td>Only <strong>capsulated amalgam</strong> complying with ISO 24234:2015 should be used.</td></tr>
+    <tr><td><strong>2.3</strong></td><td>Minimise use in children, pregnant or breastfeeding women, and individuals with kidney disease.</td></tr>
+    <tr><td><strong>2.4</strong></td><td>Practice mercury hygiene; correctly dispose of amalgam waste.</td></tr>
+    <tr><td><strong>2.5</strong></td><td>Do not remove/replace amalgam for non-specific health complaints unless the patient is fully informed.</td></tr>
+    <tr><td><strong>2.6</strong></td><td>Further research into adverse effects of alternatives is desirable.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section id="topic2">
+<div class="topic-header">
+  <div class="eyebrow">Topic 02</div>
+  <h1>Tooth Sensitivity</h1>
+  <div class="sub">The Dentine-Pulp Complex</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic2_whatisit">Tooth Sensitivity = Pain</a></li>
+    <li><span class="num">2.</span><a href="#topic2_complex">Dentine-Pulp Complex</a></li>
+    <li><span class="num">3.</span><a href="#topic2_mechanism">Mechanism — Hydrodynamic Theory</a></li>
+    <li><span class="num">4.</span><a href="#topic2_exposure">Where is Dentine Exposed?</a></li>
+    <li><span class="num">5.</span><a href="#topic2_variable">Sensitivity is Not Always the Same</a></li>
+    <li><span class="num">6.</span><a href="#topic2_treatment">How Do We Treat?</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic2_whatisit"><span class="ord">01</span>Tooth Sensitivity = Pain</h2>
+
+<div class="callout key">
+  <span class="label">Core concept</span>
+  Tooth sensitivity = pain. The dentine-pulp complex is connected to the nervous system. Pain arises from <strong>dentine exposure</strong>.
+</div>
+
+<h2 class="section" id="topic2_complex"><span class="ord">02</span>The Dentine-Pulp Complex</h2>
+
+<ul>
+  <li><strong>Dentine tubules</strong> run through the dentine</li>
+  <li><strong>Odontoblasts</strong> have cell processes (<em>Tomes' fibers</em>) that extend through the predentine into dentine</li>
+</ul>
+
+<div class="callout pearl">
+  <span class="label">Physiology</span>
+  In a <strong>physiologic tooth condition, no dentine is exposed</strong>.
+</div>
+
+<h2 class="section" id="topic2_mechanism"><span class="ord">03</span>Mechanism — Hydrodynamic Theory</h2>
+
+<div class="def">
+  <span class="term">Hydrodynamic Theory</span>
+  <strong>Stimuli that induce rapid fluid movements in dentinal tubules distort odontoblasts and afferent nerves</strong>, leading to a sensation of pain.
+</div>
+
+<h3>Stimuli that induce rapid fluid movement</h3>
+<ul>
+  <li>Operative procedures — <strong>cutting</strong>, <strong>air drying</strong></li>
+  <li><strong>Tooth brushing</strong></li>
+  <li><strong>Temperature changes</strong> in the oral cavity</li>
+</ul>
+
+<div class="callout key">
+  <span class="label">Equation</span>
+  <strong>Opened dentine tubules = Sensitivity</strong>
+</div>
+
+<h2 class="section" id="topic2_exposure"><span class="ord">04</span>Where is Dentine Exposed?</h2>
+
+<h3>Cervical region — most susceptible</h3>
+
+<table>
+  <thead><tr><th>CEJ junction type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Overlapping junction</strong></td><td>Enamel overlaps cementum (or vice versa)</td></tr>
+    <tr><td><strong>Butt junction</strong></td><td>Enamel meets cementum edge-to-edge</td></tr>
+    <tr><td><strong>Gap junction</strong></td><td>Dentine exposed — normally covered by gingiva. If gingiva recedes → sensitivity</td></tr>
+  </tbody>
+</table>
+
+<h3>Other exposure locations</h3>
+<div class="grid2">
+  <div class="card">
+    <h4>Hard tissue</h4>
+    <ul>
+      <li>Cavity preparations</li>
+      <li>Failed restorations</li>
+      <li>Caries lesions</li>
+      <li>Tooth surface loss (non-carious)</li>
+      <li>Fracture, trauma, cracks</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Soft tissue / external</h4>
+    <ul>
+      <li>Gingival retraction (recession)</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic2_variable"><span class="ord">05</span>Sensitivity is Not Always the Same</h2>
+
+<ul>
+  <li>Depends on the <strong>situation</strong></li>
+  <li>Depends on the <strong>progress speed</strong></li>
+  <li>The <strong>dentine-pulp complex has the capacity to react</strong> to stimuli (e.g. tertiary dentine formation)</li>
+</ul>
+
+<h2 class="section" id="topic2_treatment"><span class="ord">06</span>How Do We Treat?</h2>
+
+<h3>Dentine sealing</h3>
+<p>Block the exposed tubules.</p>
+
+<h3>Restoration</h3>
+<table>
+  <thead><tr><th>Lesion type</th><th>Approach</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Cavitated</strong> (non-carious or carious)</td><td>Restoration</td></tr>
+    <tr><td><strong>Non-cavitated</strong></td><td>Surface deposition / mineralization</td></tr>
+  </tbody>
+</table>
+
+<h3>Surface deposition / Remineralisation agents</h3>
+
+<div class="grid2">
+  <div class="card">
+    <h4>High-concentration fluoride</h4>
+    <p><strong>Duraphat</strong> — 5% sodium fluoride varnish for in-office application.</p>
+  </div>
+  <div class="card">
+    <h4>Amorphous Calcium Phosphate (ACP)</h4>
+    <p><strong>Tooth Mousse</strong> — CPP-ACP for home use, supports remineralisation.</p>
+  </div>
+</div>
+</section>
+
+<section id="topic3">
+<div class="topic-header">
+  <div class="eyebrow">Topic 03</div>
+  <h1>NCCL Restorative Dentistry</h1>
+  <div class="sub">Non-Carious Cervical Lesions</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic3_overview">Overview &amp; Definition</a></li>
+    <li><span class="num">2.</span><a href="#topic3_causes">The Four Main Causes</a></li>
+    <li><span class="num">3.</span><a href="#topic3_erosion">Dental Erosion</a></li>
+    <li><span class="num">4.</span><a href="#topic3_abrasion">Dental Abrasion</a></li>
+    <li><span class="num">5.</span><a href="#topic3_attrition">Attrition</a></li>
+    <li><span class="num">6.</span><a href="#topic3_abfraction">Abfraction</a></li>
+    <li><span class="num">7.</span><a href="#topic3_ddx">Differential Diagnosis Table</a></li>
+    <li><span class="num">8.</span><a href="#topic3_treatment">Treatment Principles</a></li>
+    <li><span class="num">9.</span><a href="#topic3_sensitivity">Dentine Hypersensitivity</a></li>
+    <li><span class="num">10.</span><a href="#topic3_materials">Restorative Materials for NCCLs</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic3_overview"><span class="ord">01</span>Overview &amp; Definition</h2>
+
+<div class="def">
+  <span class="term">Non-Carious Cervical Lesions (NCCLs)</span>
+  Loss of dental structure <strong>without bacterial involvement</strong> — they are <strong>NOT caries</strong>.
+  Typically present at the <strong>cervical region</strong> or on <strong>incisal/occlusal surfaces</strong>. Increasingly common as patients keep their teeth longer and consume more acidic foods/drinks.
+</div>
+
+<h2 class="section" id="topic3_causes"><span class="ord">02</span>The Four Main Causes</h2>
+
+<table>
+  <thead><tr><th>Cause</th><th>Mechanism</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Erosion</strong></td><td>Chemical dissolution of enamel/dentine by acids</td></tr>
+    <tr><td><strong>Abrasion</strong></td><td>Mechanical wear from an external object (toothbrush + paste, hard food)</td></tr>
+    <tr><td><strong>Attrition</strong></td><td>Mechanical wear from tooth-on-tooth contact (function or parafunction/bruxism)</td></tr>
+    <tr><td><strong>Abfraction</strong></td><td>Biomechanical loss at the cervical region — occlusal stress causes flexure &amp; microcracking</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic3_erosion"><span class="ord">03</span>Dental Erosion</h2>
+
+<div class="def">
+  <span class="term">Erosion</span>
+  Loss of surface tooth structure by <strong>chemical action</strong>, in the continued presence of demineralizing agents with <strong>low pH</strong>. The resulting surface is usually <strong>smooth and shiny</strong> (no bacteria, no plaque, no chalkiness).
+</div>
+
+<h3>Classification by aetiology</h3>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Extrinsic — acid from outside the body</h4>
+    <ul>
+      <li><strong>Diet:</strong> citrus, fruit juices, soft drinks, sports drinks, wine, vinegar</li>
+      <li><strong>Medications:</strong> chewable vitamin C, aspirin chewables, some inhalers</li>
+      <li><strong>Occupational/environmental:</strong> chlorinated pool water (swimmers), wine tasters, battery industry</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Intrinsic — acid from inside the body</h4>
+    <ul>
+      <li><strong>GERD</strong> (gastro-oesophageal reflux disease)</li>
+      <li><strong>Eating disorders</strong> — bulimia, anorexia (recurrent self-induced vomiting)</li>
+      <li>Chronic alcoholism, pregnancy hyperemesis, rumination</li>
+    </ul>
+  </div>
+</div>
+
+<p><strong>Idiopathic</strong> — cause unknown.</p>
+
+<div class="callout key">
+  <span class="label">Saliva matters</span>
+  Salivary <strong>flow rate</strong> and <strong>buffering capacity</strong> strongly impact rate of progression. Low salivary flow (medications, Sjögren's, radiation, dehydration) <strong>accelerates erosion dramatically</strong>.
+</div>
+
+<h3>Diagnosis of erosion</h3>
+<ul>
+  <li><strong>Clinical examination</strong> — smooth, glossy, cupped lesions; loss of anatomical detail</li>
+  <li><strong>Detailed dietary history</strong> — frequency, timing, sipping habits, sports drinks, citrus</li>
+  <li><strong>Medical history</strong> — reflux symptoms, eating-disorder screening, medication review, salivary flow assessment</li>
+</ul>
+
+<h2 class="section" id="topic3_abrasion"><span class="ord">04</span>Dental Abrasion</h2>
+
+<div class="def">
+  <span class="term">Abrasion</span>
+  Abnormal tooth-surface loss caused by <strong>direct frictional forces</strong> between teeth and external objects — or between contacting teeth <em>in the presence of an abrasive medium</em> (toothpaste, food, dust).
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Common causes</h4>
+    <ul>
+      <li>Aggressive toothbrushing — hard bristles, horizontal scrubbing, excessive force</li>
+      <li>Abrasive toothpaste — high <strong>RDA</strong> (e.g. whitening pastes used long-term)</li>
+      <li>Habits — pipe stems, pens, hairpins, fingernails held between teeth</li>
+      <li>Improper use of floss, picks, interdental brushes</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Clinical appearance</h4>
+    <ul>
+      <li><strong>ROUNDED notch</strong> in the cervical portion of the <strong>FACIAL</strong> surface</li>
+      <li>Most marked on canines / premolars on the <strong>dominant-hand side</strong></li>
+      <li>Smooth, polished, often shiny dentine</li>
+      <li>Usually asymptomatic unless deep</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic3_attrition"><span class="ord">05</span>Attrition</h2>
+
+<div class="def">
+  <span class="term">Attrition</span>
+  Mechanical wear of the <strong>incisal or occlusal</strong> tooth structure resulting from functional or parafunctional mandibular movement — <strong>tooth-on-tooth wear</strong>.
+</div>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Common causes</h4>
+    <ul>
+      <li><strong>Bruxism</strong> — parafunctional grinding (day or night)</li>
+      <li>Clenching</li>
+      <li>Heavy / edge-to-edge occlusion; malocclusion</li>
+      <li>Loss of <strong>posterior support</strong> → anterior teeth take all the load</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Clinical appearance</h4>
+    <ul>
+      <li><strong>FLAT wear facets</strong> that match perfectly on opposing teeth in centric &amp; excursions</li>
+      <li><strong>Shiny, polished</strong> facets (contrast: matte erosion surfaces)</li>
+      <li>Loss of incisal length, fractured restorations</li>
+      <li><strong>Hypertrophic masseters</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic3_abfraction"><span class="ord">06</span>Abfraction</h2>
+
+<div class="def">
+  <span class="term">Abfraction</span>
+  <strong>Wedge-shaped defects with SHARP margins</strong> at the cervical region. Believed to result from excessive occlusal forces causing <strong>flexure and microcracking</strong> of enamel rods at the cervical area where stress concentrates.
+</div>
+
+<h3>Clinical hallmarks</h3>
+<ul>
+  <li><strong>WEDGE / V-shaped defect</strong> with <strong>sharp internal line angles</strong> (vs the rounded notch of pure abrasion)</li>
+  <li>Cervical location — usually <strong>buccal</strong>; often a single tooth subjected to heavy lateral occlusal load</li>
+  <li>Frequently associated with wear facets, bruxism signs, or heavy occlusal contacts on the same tooth</li>
+</ul>
+
+<h2 class="section" id="topic3_ddx"><span class="ord">07</span>Differential Diagnosis — Pattern Recognition</h2>
+
+<table class="compare">
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Erosion</th>
+      <th>Abrasion</th>
+      <th>Attrition</th>
+      <th>Abfraction</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Mechanism</strong></td><td>Chemical (acid)</td><td>Friction with object</td><td>Tooth-on-tooth</td><td>Occlusal flexure</td></tr>
+    <tr><td><strong>Surface</strong></td><td>Smooth, glossy, cupped</td><td>Rounded, polished</td><td>Flat wear facets</td><td>Sharp wedge</td></tr>
+    <tr><td><strong>Location</strong></td><td>Palatal/occlusal (intrinsic) or labial (extrinsic)</td><td>Cervical, facial</td><td>Incisal/occlusal</td><td>Cervical, often buccal</td></tr>
+    <tr><td><strong>Shape</strong></td><td>Saucer / dish</td><td>U-shaped notch</td><td>Matching flat facet</td><td>V-shaped wedge</td></tr>
+    <tr><td><strong>Distribution</strong></td><td>Generalised</td><td>Hand-dominance side</td><td>Opposing pairs</td><td>Often single tooth</td></tr>
+    <tr><td><strong>Margins</strong></td><td>Diffuse, rounded</td><td>Rounded</td><td>Sharp on enamel rim</td><td>Sharp internal angles</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic3_treatment"><span class="ord">08</span>Treatment Principles</h2>
+
+<p>Treatment depends on <strong>EXTENT, LOCATION and SENSITIVITY</strong> of the lesion — but always <strong>starts with controlling the cause</strong>.</p>
+
+<h3>The treatment ladder</h3>
+<ol class="steps">
+  <li><strong>Control aetiology ALONE</strong> — diet counselling, brushing technique, splint for bruxism, GERD referral</li>
+  <li><strong>Control aetiology + desensitiser</strong> — no restoration yet</li>
+  <li><strong>Control aetiology + restoration</strong> — when indicated (see below)</li>
+</ol>
+
+<h3>Indications for restoration</h3>
+<ul>
+  <li>Exposed dentine that won't be saved by remineralisation alone</li>
+  <li>Tooth hypersensitivity not controlled by desensitisers</li>
+  <li>Need to recover anatomical form / shape correction</li>
+  <li>Need to recover structural resistance (deep lesions threatening pulp)</li>
+  <li>Aesthetics</li>
+</ul>
+
+<h2 class="section" id="topic3_sensitivity"><span class="ord">09</span>Dentine Hypersensitivity</h2>
+
+<div class="def">
+  <span class="term">Hydrodynamic Theory (Brännström)</span>
+  Pain from exposed dentine. <strong>Open dentinal tubules</strong> allow fluid movement that stimulates nerves in the pulp → sharp pain.
+</div>
+
+<h3>Desensitiser options</h3>
+
+<table>
+  <thead><tr><th>Category</th><th>Examples</th><th>Mechanism</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Remineralisation agents</strong></td>
+      <td>Sodium fluoride varnish, CPP-ACP</td>
+      <td>Block (occlude) dentinal tubules + rebuild mineral</td>
+    </tr>
+    <tr>
+      <td><strong>Nerve desensitisers</strong></td>
+      <td>Potassium nitrate 5%</td>
+      <td>Calm the nerve by reducing its ability to fire</td>
+    </tr>
+    <tr>
+      <td><strong>In-office treatments</strong></td>
+      <td>Strong varnishes, glutaraldehyde/HEMA, oxalates, bioactive glass</td>
+      <td>Seal tubules more effectively &amp; quickly</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic3_materials"><span class="ord">10</span>Restorative Materials for NCCLs</h2>
+
+<p>The two workhorse materials for NCCLs are <strong>Glass Ionomer Cement (GIC)</strong> and <strong>Resin Composite</strong> — each with distinct strengths.</p>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Glass Ionomer Cement (GIC)</h4>
+    <ul>
+      <li><strong>Chemical adhesion</strong> to dentine — bonds without micromechanical etching</li>
+      <li>Releases <strong>fluoride</strong> → helps in high-caries-risk &amp; erosion patients</li>
+      <li>Lower risk of <strong>post-operative sensitivity</strong></li>
+      <li>Less aesthetic — more opaque, less polishable</li>
+      <li>Good first choice when <strong>isolation is poor</strong> or lesion is <strong>sub-gingival</strong></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Resin Composite</h4>
+    <ul>
+      <li>Superior <strong>aesthetics, polishability</strong> &amp; wear resistance</li>
+      <li>Requires good <strong>moisture control</strong> &amp; an adhesive bonding system</li>
+      <li>Bonding to NCCL dentine is <strong>technique-sensitive</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Choosing — Quick Guide</h3>
+
+<table>
+  <thead><tr><th>Situation</th><th>Preferred material</th></tr></thead>
+  <tbody>
+    <tr><td>Anterior, aesthetic-critical, good isolation</td><td><strong>Resin composite</strong></td></tr>
+    <tr><td>Sub-gingival margin / poor isolation</td><td><strong>Glass ionomer</strong> (or sandwich technique)</td></tr>
+    <tr><td>High caries risk / xerostomia</td><td><strong>Glass ionomer</strong> (fluoride release)</td></tr>
+    <tr><td>Dentine hypersensitivity dominant</td><td>Either + desensitiser; <strong>GIC is gentler</strong></td></tr>
+    <tr><td>Deep lesion close to pulp</td><td><strong>GIC liner + composite overlay</strong></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section id="topic4">
+<div class="topic-header">
+  <div class="eyebrow">Topic 04</div>
+  <h1>Vital Pulp Therapy</h1>
+  <div class="sub">Preservation of Tooth Vitality · Bioactive</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic4_aims">Aims of VPT</a></li>
+    <li><span class="num">2.</span><a href="#topic4_injury">Causes of Injury &amp; Factors</a></li>
+    <li><span class="num">3.</span><a href="#topic4_success">Success Aspects</a></li>
+    <li><span class="num">4.</span><a href="#topic4_classification">Classification of VPT</a></li>
+    <li><span class="num">5.</span><a href="#topic4_capping">Pulp Capping (Indirect)</a></li>
+    <li><span class="num">6.</span><a href="#topic4_depth">When is VPT Needed? (Cavity Depth)</a></li>
+    <li><span class="num">7.</span><a href="#topic4_materials">Materials Used in VPT</a></li>
+    <li><span class="num">8.</span><a href="#topic4_technique">Clinical Technique</a></li>
+    <li><span class="num">9.</span><a href="#topic4_followup">Follow-up</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic4_aims"><span class="ord">01</span>Aims of Vital Pulp Therapy</h2>
+
+<ul>
+  <li>Maintain and preserve <strong>pulpal health</strong> in teeth challenged by caries, trauma, restorative procedures and anatomic anomalies</li>
+  <li>Maintain the integrity of the <strong>dentine-pulp complex</strong> — both soft and hard tissue repair after injury</li>
+  <li><strong>Less invasive</strong> than conventional endodontic treatment</li>
+  <li>Tooth is kept alive as the pulp is preserved</li>
+</ul>
+
+<div class="callout key">
+  <span class="label">Limited indications</span>
+  <strong>Reversible pulpitis</strong> of mature teeth, and pulpitis of <strong>deciduous</strong> and <strong>immature permanent</strong> teeth.
+</div>
+
+<div class="def">
+  <span class="term">Reactionary / Reparative Dentinogenesis</span>
+  Formation of <strong>tertiary dentine</strong> in response to injury — harder than primary/secondary dentine.
+</div>
+
+<h2 class="section" id="topic4_injury"><span class="ord">02</span>Causes of Injury &amp; Factors to Consider</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Cause of injury</h4>
+    <ul>
+      <li>Caries lesion progression</li>
+      <li>Cavity preparation</li>
+      <li>Pressure</li>
+      <li>Heat</li>
+      <li>Material toxicity — monomers, acidic components, eugenol</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Factors</h4>
+    <ul>
+      <li><strong>Patient age</strong> — root incomplete in children</li>
+      <li><strong>Depth of the cavity</strong> — use X-rays</li>
+      <li><strong>Quality of dentine</strong> — tertiary? secondary?</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic4_success"><span class="ord">03</span>Relevant Aspects to Obtain Success</h2>
+
+<table>
+  <thead><tr><th>Aspect</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Pulpal &amp; periapical status</strong></td><td>Confirm radiographically + clinically</td></tr>
+    <tr><td><strong>Root formation status</strong></td><td>Kids vs adults — immature roots can still develop</td></tr>
+    <tr><td><strong>Clinical management</strong></td><td>Infection control (rubber dam!)</td></tr>
+    <tr><td><strong>Restorative treatment</strong></td><td>Adequate <strong>coronal seal</strong> = success</td></tr>
+  </tbody>
+</table>
+
+<div class="callout pearl">
+  <span class="label">Expected results</span>
+  Tertiary dentine formation · root formation (immature teeth) · asymptomatic tooth · functional tooth.
+</div>
+
+<h2 class="section" id="topic4_classification"><span class="ord">04</span>Classification of VPT</h2>
+
+<table>
+  <thead><tr><th>Procedure</th><th>Subtype</th><th>Used in</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="2"><strong>Pulp capping</strong></td><td>Indirect</td><td>Both dentitions</td></tr>
+    <tr><td>Direct</td><td>When pulp is exposed</td></tr>
+    <tr><td rowspan="2"><strong>Pulpotomy</strong></td><td>Partial</td><td>—</td></tr>
+    <tr><td>Complete / Full</td><td>Immature permanent tooth</td></tr>
+    <tr><td><strong>Pulpectomy</strong></td><td>—</td><td>Permanent tooth</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic4_capping"><span class="ord">05</span>Indirect Pulp Capping</h2>
+
+<div class="def">
+  <span class="term">Indirect Pulp Capping</span>
+  Sealing off the advancing carious lesion from the oral environment via <strong>selective (partial) caries removal</strong>. <strong>Avoids pulp exposure</strong>. Promotes pulpal healing with formation of reactionary dentine.
+</div>
+
+<h3>Indications</h3>
+<ul>
+  <li>Both primary and permanent dentition</li>
+  <li><strong>Large carious lesion</strong></li>
+  <li>Asymptomatic tooth or <strong>mild transient symptoms</strong></li>
+  <li>Preoperative radiograph confirms <strong>absence of radicular pathology</strong></li>
+</ul>
+
+<h3>Technique</h3>
+<ol class="steps">
+  <li>Pain control and isolation — <strong>rubber dam!</strong></li>
+  <li>Remove superficial caries</li>
+  <li>Remove all <strong>peripheral caries</strong>, leaving deep caries over pulp</li>
+  <li>Finalize cavity preparation</li>
+  <li>Restore tooth — ensure <strong>adequate coronal seal</strong></li>
+</ol>
+
+<div class="callout key">
+  <span class="label">Mantra</span>
+  <strong>Vital &amp; Seal</strong> — sealing properly means bacteria do not progress.
+</div>
+
+<h2 class="section" id="topic4_depth"><span class="ord">06</span>When is VPT Needed? (Cavity Depth)</h2>
+
+<table>
+  <thead><tr><th>Depth</th><th>Description</th><th>Approach</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Superficial</strong></td><td>At DEJ</td><td>Adhesion (bond) — Composite Resin · GI Lining — Amalgam</td></tr>
+    <tr><td><strong>Shallow</strong></td><td>0.5 – 1 mm below DEJ</td><td>Adhesion — Composite Resin · GI Lining — Amalgam</td></tr>
+    <tr><td><strong>Medium</strong></td><td>~½ way through dentine</td><td>Adhesion — Composite Resin · GI Lining — Amalgam</td></tr>
+    <tr><td><strong>Deep</strong></td><td>&gt; ½ through dentine &amp; &gt; 0.5 mm remaining</td><td><span class="pill">VPT</span></td></tr>
+    <tr><td><strong>Very Deep</strong></td><td>&lt; 0.5 mm of remaining dentine</td><td><span class="pill">VPT</span></td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic4_materials"><span class="ord">07</span>Materials Used in VPT</h2>
+
+<h3>Material Requirements</h3>
+<ul>
+  <li>Promote the <strong>innate capacity</strong> of pulpal cells to form hard tissue — dentine bridge formation</li>
+  <li><strong>Antimicrobial</strong> properties without being toxic to pulp</li>
+  <li>Create an artificial barrier between vital pulp and oral cavity to <strong>prevent bacterial ingress</strong></li>
+</ul>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Calcium hydroxide — Ca(OH)<sub>2</sub></h4>
+    <ul>
+      <li><strong>High alkalinity</strong> → stimulates fibroblasts &amp; enzyme systems; antibacterial; promotes pulp defence &amp; repair</li>
+      <li>Barrier formed is <strong>incomplete</strong> — has tunnel defects</li>
+      <li>Ca(OH)<sub>2</sub> is <strong>dimensionally unstable</strong> — disintegration allows microleakage &amp; bacterial ingress</li>
+      <li>Resulting pulpal degeneration → dystrophic calcification, necrosis</li>
+      <li>Variable success rates ~<strong>70% over 5 years</strong></li>
+      <li>Requires <strong>GI overlay</strong> to protect it from dissolving</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Bioceramics — Calcium Silicate Cements (CSC)</h4>
+    <ul>
+      <li>Hydraulic calcium silicate powder containing numerous oxides</li>
+      <li><strong>Biocompatible</strong> &amp; <strong>bioactive</strong> — promotes mineral deposition &amp; tissue integration</li>
+      <li>Excellent <strong>sealing ability</strong> — tight seal at the canal/dentine interface</li>
+      <li><strong>High compressive strength</strong> &amp; dimensional stability</li>
+      <li>MTA → may cause hard-tissue <strong>discolouration</strong> (radiopacifier)</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Biodentine</h3>
+<div class="callout info">
+  <span class="label">Composition &amp; properties</span>
+  Biodentine = <strong>80% tricalcium silicate</strong> + 15% calcium carbonate filler + zirconia (radiopacifier). <strong>No metal oxides.</strong>
+  <br>Releases Ca(OH)<sub>2</sub> → stimulates mineralisation &amp; hard tissue formation. Bonds to dentine by <strong>micromechanical retention</strong> with shear bond strength similar to GICs.
+</div>
+
+<div class="callout pearl">
+  <span class="label">Clinical pearl</span>
+  When odontoblasts repair → <strong>tertiary dentine looks brown</strong>, but it is <em>not</em> caries. Apply VPT to the <strong>deepest point</strong> of the cavity (close to pulp), on the <strong>axial wall</strong>. <strong>Not required for gingival wall</strong> (no pulp underneath).
+</div>
+
+<div class="callout warn">
+  <span class="label">Time pressure?</span>
+  Seal the cavity prep <strong>even if you're out of time</strong>. Always give yourself enough time for definitive restoration; if not, leave it.
+</div>
+
+<h2 class="section" id="topic4_technique"><span class="ord">08</span>Clinical Technique</h2>
+
+<ol class="steps">
+  <li><strong>Rubber dam isolation</strong> — ALWAYS</li>
+  <li><strong>Selective caries removal</strong></li>
+  <li>Remove <strong>unsupported enamel</strong> with high-speed diamond bur + total removal of <strong>peripheral caries</strong> with slow-speed carbide round bur or spoon excavator</li>
+  <li>Remove <strong>infected dentine on pulpal &amp; axial walls</strong> with a spoon excavator <strong>without pressure</strong></li>
+  <li>Remove debris with <strong>water / saline</strong> (CHX may be used)</li>
+  <li>Apply <strong>bioactive material</strong> to the deepest portion of pulpal &amp; axial walls:
+    <ul>
+      <li><strong>Bioceramics</strong> — MTA / Biodentine + LC-GI Lining over pulpal &amp; axial walls. <em>Apply the conditioner over the bioceramic LAST to minimise contact time.</em></li>
+      <li><strong>Calcium hydroxide</strong> — Life / Dycal + conventional GIC base over pulpal &amp; axial walls only (no conditioning)</li>
+    </ul>
+  </li>
+  <li>Place <strong>definitive restoration on the same appointment</strong> — success depends on a good seal!</li>
+  <li>Schedule follow-up appointments</li>
+</ol>
+
+<div class="callout danger">
+  <span class="label">Not indicated</span>
+  <strong>Ledermix cement</strong> — no current evidence, no randomized clinical trials.
+</div>
+
+<h2 class="section" id="topic4_followup"><span class="ord">09</span>VPT Follow-up</h2>
+
+<ul>
+  <li>Assess at <strong>6 and 12 months</strong> postoperatively</li>
+  <li>Then <strong>yearly intervals</strong> (if necessary) for <strong>4 years</strong> thereafter</li>
+  <li>Tooth should respond positively to pulp sensibility testing within normal limits</li>
+</ul>
+</section>
+
+<section id="topic5">
+<div class="topic-header">
+  <div class="eyebrow">Topic 05</div>
+  <h1>Adhesion</h1>
+  <div class="sub">Week 9 · Part 1 of 2</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic5_def">Definition &amp; Mechanisms</a></li>
+    <li><span class="num">2.</span><a href="#topic5_applications">Applications in Dentistry</a></li>
+    <li><span class="num">3.</span><a href="#topic5_enamel">Adhesion to Enamel</a></li>
+    <li><span class="num">4.</span><a href="#topic5_enamel-tech">Enamel Technique</a></li>
+    <li><span class="num">5.</span><a href="#topic5_dentine">Adhesion to Dentine</a></li>
+    <li><span class="num">6.</span><a href="#topic5_er-strategies">Etch &amp; Rinse Strategies</a></li>
+    <li><span class="num">7.</span><a href="#topic5_er-tech">Etch &amp; Rinse Techniques</a></li>
+    <li><span class="num">8.</span><a href="#topic5_longevity-er">Longevity of E&amp;R Systems</a></li>
+    <li><span class="num">9.</span><a href="#topic5_selfetch">Self-Etching Adhesives</a></li>
+    <li><span class="num">10.</span><a href="#topic5_se-tech">Self-Etch Techniques</a></li>
+    <li><span class="num">11.</span><a href="#topic5_universal">Universal Adhesives</a></li>
+    <li><span class="num">12.</span><a href="#topic5_best">What is the Best Adhesive?</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic5_def"><span class="ord">01</span>Definition &amp; Mechanisms</h2>
+
+<div class="def">
+  <span class="term">Adhesion</span>
+  The state in which two surfaces are held together by <strong>interfacial forces</strong>, which may consist of <strong>valence forces, interlocking forces,</strong> or both.
+</div>
+
+<div class="callout info">
+  <span class="label">Historical context</span>
+  Classic operative dentistry concepts were challenged in the <strong>1950s</strong> (enamel) and again in the <strong>1980s</strong> (dentine). <strong>Michael G. Buonocore</strong> observed industrial 85% phosphoric acid making surfaces rougher to hold things — the basis of acid etching.
+  <br><br>
+  <em>1955 paper:</em> "A Simple Method of Increasing the Adhesion of Acrylic Filling Materials to Enamel Surfaces."
+</div>
+
+<h3>Four mechanisms of adhesion</h3>
+<ol>
+  <li><strong>Mechanical</strong> — penetration of resin and formation of <em>resin tags</em> within the tooth surface</li>
+  <li><strong>Adsorption</strong> — chemical bonding to inorganic (hydroxyapatite) or organic (mainly type I collagen) components of tooth structure</li>
+  <li><strong>Diffusion</strong> — precipitation of substances on tooth surfaces to which resin monomers can bond</li>
+  <li><strong>Combination</strong> of the previous three</li>
+</ol>
+
+<h2 class="section" id="topic5_applications"><span class="ord">02</span>Applications in Dentistry</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Direct restorations &amp; aesthetics</h4>
+    <ul>
+      <li>Class I–VI carious lesions or traumatic defects</li>
+      <li>Change shape/colour of anterior teeth (veneers)</li>
+      <li>Seal pits &amp; fissures</li>
+      <li>Bond fractured anterior fragments</li>
+      <li>Desensitize NCCLs &amp; exposed root surfaces</li>
+      <li>Impregnate enamel/dentin — less susceptible to caries</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Indirect &amp; specialised uses</h4>
+    <ul>
+      <li>Improve retention for PFM or metallic crowns</li>
+      <li>Bond all-ceramic restorations</li>
+      <li>Bond orthodontic brackets</li>
+      <li>Bond splints for tooth luxations &amp; periodontally involved teeth</li>
+      <li>Repair existing restorations</li>
+      <li>Foundations for crowns; bond posts</li>
+      <li>Internally reinforce endodontically treated roots</li>
+      <li>Seal root canals; seal resected apices</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic5_enamel"><span class="ord">03</span>Adhesion to Enamel</h2>
+
+<div class="def">
+  <span class="term">Enamel composition</span>
+  <strong>90% mineral</strong> — hydroxyapatite. <strong>Prismatic (rod) arrangement</strong>. Prisms meet the surface at 90°.
+</div>
+
+<div class="callout key">
+  <span class="label">How it works</span>
+  <strong>Phosphoric acid 37% for 30 sec</strong> → surface demineralized; periphery of enamel prisms dissolved → <em>micro-retentions</em>. A <strong>"sludge"</strong> of dissolved constituents forms — must be <strong>removed</strong> for adhesive to flow into the micro-retentions.
+</div>
+
+<h3>Current Strategies for Adhesion to Enamel</h3>
+
+<h4>Three-step Etch-and-Rinse</h4>
+<ul>
+  <li><strong>Etchant:</strong> 37% phosphoric acid</li>
+  <li><strong>Primer:</strong> <em>not used on enamel</em> — contains hydrophilic components; enamel has no water and can be dried completely, whereas dentine has moisture</li>
+  <li><strong>Bonding agent:</strong> mainly hydrophobic monomers (Bis-GMA); small % hydrophilic monomers (HEMA); light-curing agents. Some systems also have fillers, fluor and antimicrobials.</li>
+</ul>
+
+<h4>Two-step Etch-and-Rinse</h4>
+<p>Can be used on <strong>both enamel and dentine</strong>.</p>
+<ul>
+  <li><strong>Etchant:</strong> 37% phosphoric acid</li>
+  <li><strong>Adhesive (Primer + Bond):</strong> hydrophobic monomers (Bis-GMA); hydrophilic monomers (HEMA); bifunctional molecules; solvent (ethanol, acetone or water — needs air stream to evaporate before LC); light-curing agents</li>
+</ul>
+
+<div class="callout warn">
+  <span class="label">Note</span>
+  Self-etch adhesive systems can be used but are <strong>not ideal for enamel</strong>.
+</div>
+
+<h2 class="section" id="topic5_enamel-tech"><span class="ord">04</span>Technique for Adhesion to Enamel</h2>
+
+<ol class="steps">
+  <li>Tooth surface <strong>MUST be clean</strong></li>
+  <li>Apply <strong>37% phosphoric acid</strong> on surface — and a little beyond restoration margins — for <strong>30 sec</strong></li>
+  <li>Wash and dry — remove sludge from newly created micro-retentions</li>
+  <li>Apply adhesive with microbrush; remove excess with a dry microbrush</li>
+  <li>Blow little air to thin adhesive</li>
+  <li>If applicable, evaporate the solvent (check adhesive composition)</li>
+  <li>Light cure — check instructions for LC duration &amp; number of layers</li>
+</ol>
+
+<div class="callout danger">
+  <span class="label">Moisture control</span>
+  Moisture compromises hydrophobic monomers used for enamel bonding. Stay dry.
+</div>
+
+<div class="callout pearl">
+  <span class="label">Survival</span>
+  Comparing veneers (fewer variables than occlusal restos): <strong>adhesive bonding to enamel has a higher success &amp; survival rate than to dentine</strong>.
+</div>
+
+<h2 class="section" id="topic5_dentine"><span class="ord">05</span>Adhesion to Dentine</h2>
+
+<ul>
+  <li>There's a <strong>smear layer</strong> on cut dentine</li>
+  <li>Etched dentine surface → demineralized with exposed network of collagen fibrils + water</li>
+  <li>The collagen network is like spaghetti — if dried, collagen fibrils <strong>collapse and stick together</strong> → less micromechanical retention</li>
+</ul>
+
+<div class="callout danger">
+  <span class="label">Over-drying = ruined</span>
+  If collagen is over-dried, adding more water <strong>won't fix it</strong>. You must cut slightly further with low speed and <strong>restart the etching</strong>.
+</div>
+
+<div class="def">
+  <span class="term">Hybrid Layer (HL)</span>
+  A layer mixing <strong>collagen fibrils (organic)</strong> with the <strong>adhesive (artificial)</strong> after light curing.
+  <br><br>
+  • <strong>Resin tags</strong> close dentine tubules → prevent post-op sensitivity (deep tags don't add much to adhesion).
+  <br>
+  • The <strong>hybrid layer itself</strong> ensures microretention AND protects collagen from degradation over time.
+</div>
+
+<h2 class="section" id="topic5_er-strategies"><span class="ord">06</span>Etch &amp; Rinse Strategies (Dentine)</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Three-step E&amp;R</h4>
+    <ul>
+      <li><strong>Etchant:</strong> 37% phosphoric acid</li>
+      <li><strong>Primer:</strong> solvent (alcohol/acetone — removes excess water intentionally left on dentine); <em>bifunctional molecules</em> (hydrophilic + hydrophobic) — envelops collagen fibrils, receptive to hydrophobic bond agent</li>
+      <li><strong>Bonding agent:</strong> Bis-GMA + small % HEMA; LC agents</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Two-step E&amp;R</h4>
+    <ul>
+      <li><strong>Etchant:</strong> 37% phosphoric acid</li>
+      <li><strong>Adhesive (Primer + Bond):</strong> solvent; bifunctional molecules; hydrophobic monomers; LC agents</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic5_er-tech"><span class="ord">07</span>Etch &amp; Rinse — Clinical Techniques</h2>
+
+<h3>Three-step Technique</h3>
+<ol class="steps">
+  <li>Acid etch <strong>enamel only</strong> 30 s (periphery of prep)</li>
+  <li>Wait 15 s, then acid etch <strong>dentine</strong> 15 s (inside of prep)</li>
+  <li>Wash 30 s to remove acid &amp; sludge</li>
+  <li>Dry — <strong>enamel dry, dentine damp</strong> (shiny appearance). Use <strong>absorbent paper</strong> (cotton ball can leave fibres in collagen network)</li>
+  <li><strong>Primer</strong> — active application 20 s with microbrush. Removes water from enamel surface; evaporates residual dentine water; diffuses monomers; envelops collagen fibrils</li>
+  <li><strong>Bond</strong> — passive application 10 s (not rubbing — fluid); remove excess with clean microbrush + gentle airstream</li>
+  <li>Light activation <strong>10–20 s</strong> — get close to the cavity</li>
+</ol>
+
+<h3>Two-step Technique</h3>
+<ol class="steps">
+  <li>Acid etch enamel 30 s</li>
+  <li>Wait 15 s; acid etch dentine 15 s</li>
+  <li>Wash 30 s</li>
+  <li>Enamel dry, dentine damp</li>
+  <li><strong>1st layer adhesive</strong> — active application 20 s</li>
+  <li><strong>2nd layer adhesive</strong> — active application 20 s. (Solvents; no air bubble trapping.) Evaporate solvent</li>
+  <li>Remove excess with clean microbrush + gentle airstream (air is OK now — collagen protected by monomers)</li>
+  <li>Light activation 10–20 s</li>
+</ol>
+
+<h2 class="section" id="topic5_longevity-er"><span class="ord">08</span>Longevity of E&amp;R Systems</h2>
+
+<p>Marginal degradation of the adhesive interface happens from:</p>
+<ul>
+  <li><strong>Hydrolysis</strong> — water inside the adhesive layer causes degradation</li>
+  <li><strong>Endogenous degradation (MMPs)</strong> — enzymes released from dentine when etched degrade <em>any exposed collagen</em> not protected by monomers</li>
+  <li><strong>Too much water</strong> present, solvent not evaporated → hybrid layer is gone</li>
+</ul>
+
+<div class="callout pearl">
+  <span class="label">Reality check</span>
+  Studies show clinical performance of posterior CR restorations up to <strong>33 years</strong>. Modern CR is better. <strong>Marginal staining &amp; degradation alone are not secondary caries</strong> — many composites are replaced for ego, not necessity.
+</div>
+
+<h2 class="section" id="topic5_selfetch"><span class="ord">09</span>Self-Etching Adhesives</h2>
+
+<p>Do <strong>not</strong> rely on phosphoric acid for adhesion to dentine.</p>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Two-step Self-Etch</h4>
+    <ul>
+      <li><strong>Self-etch Primer:</strong> solvent (removes water); <em>acidic monomers</em> (etching); bifunctional molecules — modifies but does NOT remove smear layer; exposes ~0.5–1 µm of intertubular collagen; envelops collagen fibrils; receptive to bond agent</li>
+      <li><strong>Bonding agent:</strong> same as in 3-step E&amp;R</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>One-step Self-Etch</h4>
+    <ul>
+      <li><strong>Adhesive (Etch + Primer + Bond):</strong> solvent; acidic monomers; bifunctional molecules; hydrophobic monomers; LC agents</li>
+      <li>⚠ <strong>Hybrid layer more susceptible to degradation</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Self-Etching — Enamel?</h3>
+<div class="callout warn">
+  <span class="label">Selective enamel etching</span>
+  No phosphoric acid in the self-etch system itself for enamel. Apply <strong>37% phosphoric acid for 30 s on enamel only</strong> beforehand — best practice.
+</div>
+
+<h3>Self-Etching — Dentine: pH matters</h3>
+<table>
+  <thead><tr><th>Acidity</th><th>pH</th><th>HL thickness</th><th>Bonding</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Ultra-mild</strong></td><td>&gt; 2.5</td><td>~300 nm thin</td><td>Chemical bond to HA in HL</td></tr>
+    <tr><td><strong>Mild</strong></td><td>~ 2</td><td>~500 nm — all collagen exposed &amp; covered by adhesive</td><td>Chemical bond to HA in HL</td></tr>
+    <tr><td><strong>Strong</strong></td><td>≤ 1</td><td>~4 µm (100× the ultra-mild)</td><td>Risk: too much collagen exposed, adhesive may not penetrate. Demineralisation of HA → only micromechanical bond, no chemical bond</td></tr>
+  </tbody>
+</table>
+
+<div class="callout key">
+  <span class="label">10-MDP</span>
+  Most commonly used acidic monomer in self-etching adhesives.
+  <br>• <strong>Chemical bond to HA</strong> in the hybrid layer — high affinity to inorganic surfaces
+  <br>• Envelops &amp; protects collagen
+  <br>• Greater resistance to degradation
+</div>
+
+<h2 class="section" id="topic5_se-tech"><span class="ord">10</span>Self-Etch — Clinical Techniques</h2>
+
+<h3>Two-step Self-Etch</h3>
+<ol class="steps">
+  <li><strong>Selective enamel etching</strong> — 37% phosphoric acid 30 s</li>
+  <li>Wash 30 s</li>
+  <li>Enamel dry with air; dentine unaffected (not etched)</li>
+  <li>Dry air stream</li>
+  <li><strong>Primer</strong> — active application 20 s everywhere (contains acidic monomers). Solvent evaporation; removes residual water; diffusion of monomers; envelops collagen</li>
+  <li><strong>Bond</strong> — passive 10 s (not rubbing — fluid). Avoid trapping air. Remove excess with microbrush + gentle airstream</li>
+  <li>Light activation 10–20 s</li>
+</ol>
+
+<div class="callout pearl">
+  <span class="label">Key advantage</span>
+  Dentine is <strong>not etched</strong> → you can dry it freely; collagen isn't exposed.
+</div>
+
+<h3>One-step Self-Etch</h3>
+<ol class="steps">
+  <li>Selective enamel etching — 37% phosphoric acid 30 s</li>
+  <li>Wash 30 s</li>
+  <li>Dry air stream</li>
+  <li><strong>1st layer adhesive</strong> — active 20 s</li>
+  <li><strong>2nd layer adhesive</strong> — active 20 s. Solvent evaporation; monomers envelop collagen</li>
+  <li>Passive bond 10 s. Remove excess. Light activation 10–20 s</li>
+</ol>
+
+<h2 class="section" id="topic5_universal"><span class="ord">11</span>Universal (Multi-mode) Adhesives</h2>
+
+<div class="callout info">
+  <span class="label">Universal adhesives</span>
+  Etch? No etch? Sure. Works with <strong>any technique</strong>.
+  <br>Greatest bond durability = <strong>selective enamel etching + self-etching mode</strong>.
+</div>
+
+<h2 class="section" id="topic5_best"><span class="ord">12</span>What is the Best Adhesive?</h2>
+
+<p><strong>Depends on bonding location</strong> — enamel or dentine.</p>
+
+<table class="compare">
+  <thead><tr><th>Substrate</th><th>Best system</th><th>Bonding mechanism</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Enamel</strong></td><td>Etch &amp; Rinse</td><td>Micromechanical bond</td></tr>
+    <tr><td><strong>Dentine</strong></td><td>Mild Self-Etch</td><td>Chemical bond to HA</td></tr>
+  </tbody>
+</table>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Best Etch &amp; Rinse</h4>
+    <ul>
+      <li><strong>3-step</strong></li>
+      <li><strong>Ethanol or water</strong> as solvent (acetone is unstable)</li>
+      <li>Primer in a <strong>separate bottle</strong></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Best Self-Etch</h4>
+    <ul>
+      <li><strong>2-step</strong></li>
+      <li><strong>Mild acidity</strong></li>
+      <li><strong>Selective enamel etching</strong> with phosphoric acid</li>
+      <li>Primer in a <strong>separate bottle</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Why separate primer &amp; bond bottles?</h3>
+<ul>
+  <li>Provides a <strong>uniform hydrophobic layer</strong> to bind to the adhesive</li>
+  <li>When mixed in one bottle: hydrophilic monomers + solvent stay in the bonding layer → <strong>higher degradation speed</strong></li>
+</ul>
+
+<h3>How to achieve greater longevity</h3>
+<ul>
+  <li><strong>Cavity margins on enamel</strong> (enamel adhesion better than dentine)</li>
+  <li>Material — how much enamel can you bond to?</li>
+  <li>Operator skill</li>
+  <li>Shake the bottle; avoid light exposure before use; close immediately after use</li>
+</ul>
+</section>
+
+<section id="topic6">
+<div class="topic-header">
+  <div class="eyebrow">Topic 06</div>
+  <h1>Composite Resin</h1>
+  <div class="sub">Week 9 · Part 2 of 2</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic6_def">Definition &amp; Indications</a></li>
+    <li><span class="num">2.</span><a href="#topic6_composition">Composition</a></li>
+    <li><span class="num">3.</span><a href="#topic6_monomers">Resin Monomers</a></li>
+    <li><span class="num">4.</span><a href="#topic6_fillers">Filler Particles</a></li>
+    <li><span class="num">5.</span><a href="#topic6_other">Other Components</a></li>
+    <li><span class="num">6.</span><a href="#topic6_classification">Classification</a></li>
+    <li><span class="num">7.</span><a href="#topic6_technique">Placement Technique</a></li>
+    <li><span class="num">8.</span><a href="#topic6_polymerization">Polymerization &amp; Shrinkage</a></li>
+    <li><span class="num">9.</span><a href="#topic6_cfactor">C-Factor &amp; Class II Incremental</a></li>
+    <li><span class="num">10.</span><a href="#topic6_failures">Bad Technique Outcomes</a></li>
+    <li><span class="num">11.</span><a href="#topic6_vl">Virtues &amp; Limitations</a></li>
+    <li><span class="num">12.</span><a href="#topic6_longevity">Longevity</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic6_def"><span class="ord">01</span>Definition &amp; Indications</h2>
+
+<div class="def">
+  <span class="term">Composite Resin</span>
+  A 3D combination of at least <strong>two materials, chemically distinct</strong>, which interact at the interface and result in a <strong>new material that responds in bulk to stresses</strong> — such as chewing.
+</div>
+
+<h3>Indications</h3>
+<p><span class="pill">Direct restorations</span> <span class="pill">Indirect restorations</span> <span class="pill">Repairs</span> <span class="pill">Sealants</span> <span class="pill">Bonding</span></p>
+
+<h2 class="section" id="topic6_composition"><span class="ord">02</span>Composition</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Organic Phase</h4>
+    <p>Resinous matrix — the resin monomers that polymerize into a network.</p>
+  </div>
+  <div class="card">
+    <h4>Inorganic Phase</h4>
+    <p>Filler particles — give bulk, strength, less shrinkage.</p>
+  </div>
+</div>
+
+<div class="def">
+  <span class="term">Coupling Agent — Silane</span>
+  Creates <strong>strong, durable chemical bonds</strong> between organic resin materials and inorganic substrates (the fillers).
+</div>
+
+<h2 class="section" id="topic6_monomers"><span class="ord">03</span>Resin Monomers</h2>
+
+<table>
+  <thead><tr><th>Monomer</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Bis-GMA</strong></td><td>Backbone monomer — high viscosity, strong</td></tr>
+    <tr><td><strong>TEGDMA</strong></td><td>Diluent — low viscosity, increases handling but shrinks more</td></tr>
+    <tr><td><strong>UDMA</strong></td><td>Tough, flexible alternative backbone</td></tr>
+    <tr><td><strong>Bis-EMA</strong></td><td>Lower viscosity, less water uptake than Bis-GMA</td></tr>
+  </tbody>
+</table>
+
+<div class="callout key">
+  <span class="label">Trade-off</span>
+  Different <strong>viscosities and molecular sizes</strong> — you need the mix.
+  <br>• <strong>More fluidity = more shrinkage</strong> when cured
+  <br>• Need <strong>least shrinkage</strong> while incorporating <strong>most filler particles</strong>
+</div>
+
+<h2 class="section" id="topic6_fillers"><span class="ord">04</span>Filler Particles</h2>
+
+<table>
+  <thead><tr><th>Filler</th><th>Typical size</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Barium glass</strong></td><td>0.5 – 3 µm</td></tr>
+    <tr><td><strong>Silica</strong></td><td>40 – 80 µm</td></tr>
+    <tr><td><strong>Zirconia</strong></td><td>20 nm – 1.5 µm</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="label">Filler rules</span>
+  <strong>More filler = less shrinkage.</strong>
+  <br><strong>Smaller particles = bigger total surface area = more resin needed to wet = more shrinkage.</strong>
+</div>
+
+<h2 class="section" id="topic6_other"><span class="ord">05</span>Other Components</h2>
+
+<ul>
+  <li><strong>Photo-initiator</strong> — camphoquinone</li>
+  <li><strong>Co-initiator</strong> — tertiary amine</li>
+  <li><strong>Pigments</strong> — colour modifiers</li>
+</ul>
+
+<h2 class="section" id="topic6_classification"><span class="ord">06</span>Classification</h2>
+
+<h3>By size of filler particles</h3>
+<ul>
+  <li>Macroparticles</li>
+  <li>Microparticles</li>
+  <li>Hybrids</li>
+  <li>Microhybrids / Nanohybrids</li>
+  <li>Submicrometrics / Supranano</li>
+  <li>Nanoparticles</li>
+</ul>
+
+<h3>By consistency / viscosity</h3>
+<table>
+  <thead><tr><th>Type</th><th>Filler %</th><th>Monomer</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Regular (conventional)</strong></td><td>Up to <strong>85%</strong></td><td>More viscous</td></tr>
+    <tr><td><strong>Flow</strong></td><td>Up to <strong>70%</strong></td><td>More fluid</td></tr>
+  </tbody>
+</table>
+
+<h3>By placement technique</h3>
+<div class="grid2">
+  <div class="card">
+    <h4>Incremental</h4>
+    <ul>
+      <li>1 increment per <strong>cusp</strong> &amp; proximal ridge</li>
+      <li><strong>Max 2 mm thick</strong> &amp; <strong>max 2 walls</strong></li>
+      <li>Cure <strong>each increment individually</strong></li>
+      <li>Use dentine + enamel layers if needed</li>
+      <li>Less polymerization depth, greater opacity, better optical characteristics</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Bulk Fill</h4>
+    <ul>
+      <li>Up to <strong>4 – 5 mm</strong>, more translucent</li>
+      <li>Common combo: bulk fill first, then incremental</li>
+      <li>Fewer increments, greater polymerization depth, greater translucency</li>
+      <li>Uses <strong>low-shrinkage monomers</strong></li>
+    </ul>
+  </div>
+</div>
+
+<h3>By adhesion &amp; temperature</h3>
+<ul>
+  <li><strong>Conventional</strong> — needs an adhesive</li>
+  <li><strong>Self-adhesive</strong></li>
+  <li><strong>Room-temperature</strong> use</li>
+  <li><strong>Pre-heated</strong> (60–70 °C) for improved flow</li>
+</ul>
+
+<h2 class="section" id="topic6_technique"><span class="ord">07</span>Placement Technique (general)</h2>
+
+<ol class="steps">
+  <li>Use <strong>incremental</strong> placement for most cavities (max 2 mm thick, max 2 walls)</li>
+  <li>Or <strong>bulk-fill</strong> base (4–5 mm) where indicated, then layer with conventional CR</li>
+  <li>Cure each increment individually</li>
+  <li>Build with dentine + enamel layers if anatomic shading required</li>
+</ol>
+
+<h2 class="section" id="topic6_polymerization"><span class="ord">08</span>Polymerization &amp; Shrinkage</h2>
+
+<div class="def">
+  <span class="term">Setting reaction</span>
+  Initiator creates <strong>free radicals</strong>; monomers bond into polymers. The space "lost" between monomers as they bond = <strong>shrinkage</strong>.
+</div>
+
+<h3>Volumetric shrinkage</h3>
+<p>The <strong>whole increment</strong> shrinks — not just the surface.</p>
+
+<h3>Dynamics of shrinkage</h3>
+<table>
+  <thead><tr><th>State</th><th>What happens</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Free shrinkage</strong></td><td>Volumetric change (unbonded)</td></tr>
+    <tr><td><strong>Effective shrinkage (adhered)</strong></td><td>Volumetric change <em>+</em> <strong>interfacial tension</strong></td></tr>
+    <tr><td><strong>Result</strong></td><td>Stress on the bonded surface</td></tr>
+  </tbody>
+</table>
+
+<div class="callout key">
+  <span class="label">Critical equation</span>
+  Reduce the amount of <strong>bonded surfaces</strong> in relation to <strong>free surfaces</strong> to reduce stress.
+  <br><br>
+  <strong>If interfacial tension &gt; bond strength → failure.</strong>
+</div>
+
+<h3>What determines interfacial tension / shrinkage stress?</h3>
+<ul>
+  <li><strong>Geometry of the cavity</strong> — configuration, size</li>
+  <li><strong>Technique</strong> — incremental layering, curing protocol</li>
+  <li><strong>Restorative material</strong> — elastic modulus, monomeric composition</li>
+</ul>
+
+<h2 class="section" id="topic6_cfactor"><span class="ord">09</span>C-Factor &amp; Incremental Class II</h2>
+
+<div class="def">
+  <span class="term">Cavity Configuration Factor (C-Factor)</span>
+  Ratio of bonded to unbonded (free) surfaces in a cavity.
+  <br><strong>The greater the C-Factor, the greater the interfacial tension.</strong>
+</div>
+
+<h3>Incremental technique — Class II cavities</h3>
+<ol class="steps">
+  <li>Close the <strong>proximal wall(s)</strong> with 2+ oblique increments</li>
+  <li>Close the <strong>proximal step</strong> with 2+ oblique increments (if needed)</li>
+  <li><strong>Max 2 mm thick</strong> &amp; <strong>max 2 walls</strong></li>
+  <li>Cure each increment individually</li>
+  <li>Proceed as for Class I</li>
+</ol>
+
+<h2 class="section" id="topic6_failures"><span class="ord">10</span>Outcomes of Bad Technique</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Adhesive failures</h4>
+    <ul>
+      <li>Interfacial gap</li>
+      <li>Debonding</li>
+      <li>Marginal staining</li>
+      <li>Microleakage</li>
+      <li>Secondary caries</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Mechanical &amp; biological failures</h4>
+    <ul>
+      <li>Cusp deflection</li>
+      <li>Enamel micro-cracks</li>
+      <li>Post-operative sensitivity</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic6_vl"><span class="ord">11</span>Virtues &amp; Limitations</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>✓ Virtues</h4>
+    <ul>
+      <li>Adhesion</li>
+      <li>Aesthetics</li>
+      <li>Mechanical properties</li>
+      <li>Clinical longevity</li>
+      <li>Can be repaired</li>
+      <li>Versatility</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>✗ Limitations</h4>
+    <ul>
+      <li>Same material replaces both enamel AND dentine</li>
+      <li>Requires adequate light exposure throughout restoration</li>
+      <li>Polymerization shrinkage</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Challenges in the oral environment</h3>
+<p><span class="pill warn">Abrasion</span> <span class="pill warn">Occlusal stress</span> <span class="pill warn">Biofilm</span> <span class="pill warn">Moisture</span> <span class="pill warn">Erosion</span> <span class="pill warn">Degradation</span></p>
+
+<h2 class="section" id="topic6_longevity"><span class="ord">12</span>Longevity — Factors</h2>
+
+<table>
+  <thead><tr><th>Category</th><th>Factors</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Clinical variables</strong></td><td>Type, size, location of the restoration</td></tr>
+    <tr><td><strong>Operator</strong></td><td>Qualification and technique</td></tr>
+    <tr><td><strong>Socioeconomic</strong></td><td>Income and access to care</td></tr>
+    <tr><td><strong>Demographic</strong></td><td>Age</td></tr>
+    <tr><td><strong>Individual</strong></td><td>Caries risk, bruxism</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section id="topic7">
+<div class="topic-header">
+  <div class="eyebrow">Topic 07</div>
+  <h1>Repair of Resin Composite Restorations</h1>
+  <div class="sub">Minimal Intervention Dentistry</div>
+</div>
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><span class="num">1.</span><a href="#topic7_philosophy">Repair? Replace? Polish? Do Nothing?</a></li>
+    <li><span class="num">2.</span><a href="#topic7_longevity">Longevity &amp; Failure Factors</a></li>
+    <li><span class="num">3.</span><a href="#topic7_cycle">The Tooth Death Cycle</a></li>
+    <li><span class="num">4.</span><a href="#topic7_causes">Main Causes of Failure</a></li>
+    <li><span class="num">5.</span><a href="#topic7_whatisrepair">What is Repair?</a></li>
+    <li><span class="num">6.</span><a href="#topic7_advantages">Advantages of Repair</a></li>
+    <li><span class="num">7.</span><a href="#topic7_indications">Indications &amp; Contraindications</a></li>
+    <li><span class="num">8.</span><a href="#topic7_decision">The Decision Matrix</a></li>
+    <li><span class="num">9.</span><a href="#topic7_aging">Composite Aging &amp; the OIL</a></li>
+    <li><span class="num">10.</span><a href="#topic7_surfacetx">Surface Treatment Purposes</a></li>
+    <li><span class="num">11.</span><a href="#topic7_technique">Repair Technique (Step-by-Step)</a></li>
+    <li><span class="num">12.</span><a href="#topic7_agents">Silane vs Adhesive</a></li>
+    <li><span class="num">13.</span><a href="#topic7_amalgam">Amalgam: Repair, Replace, Repolish</a></li>
+    <li><span class="num">14.</span><a href="#topic7_future">Future of Amalgam &amp; Policy 6.18</a></li>
+  </ol>
+</nav>
+
+<h2 class="section" id="topic7_philosophy"><span class="ord">01</span>Repair? Replace? Polish? Do Nothing?</h2>
+
+<div class="callout info">
+  <span class="label">Paradigm shift</span>
+  Increasing knowledge about caries + advances in adhesive materials → Black's <em>"extension for prevention"</em> has been replaced by the principles of <strong>minimal intervention dentistry</strong>.
+</div>
+
+<p>Replacement of restorations is one of the <strong>most common procedures</strong> in dental practice — up to <strong>56%</strong> of restorations placed by dentists are replacements of existing restorations.</p>
+
+<div class="callout pearl">
+  <span class="label">Modern mantra</span>
+  Replace the old <em>"if in doubt, take it out"</em> with <strong>"as a last resort, take it out."</strong>
+</div>
+
+<h2 class="section" id="topic7_longevity"><span class="ord">02</span>Longevity &amp; Failure Factors</h2>
+
+<div class="def">
+  <span class="term">Key reference</span>
+  <em>Longevity of posterior composite restorations: not only a matter of materials</em> (Demarco et al., 2012). The modern restorative <strong>material is not the main cause of replacement</strong> — patient, operator and cavity factors dominate.
+</div>
+
+<table>
+  <thead><tr><th>Factor category</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Clinical variables</strong></td><td>Type, size and site of restoration. Class I = high longevity (good resistance); Class II = increased risk. Bigger restoration = higher failure chance. Risk increases <strong>posterior → anterior</strong> is reversed for occlusal load: <strong>2nd &amp; 1st molars highest risk</strong> (highest occlusal load), anteriors lowest.</td></tr>
+    <tr><td><strong>Operator</strong></td><td>Qualification, experience, training with the material</td></tr>
+    <tr><td><strong>Socioeconomic</strong></td><td>Income &amp; dental service access — more access can mean <em>more</em> replacements</td></tr>
+    <tr><td><strong>Demographic</strong></td><td>Patient age — young = caries risk (diet, hygiene); old = caries risk (less saliva flow)</td></tr>
+    <tr><td><strong>Individual</strong></td><td>Bruxism; high caries risk → secondary caries</td></tr>
+  </tbody>
+</table>
+
+<div class="callout key">
+  <span class="label">Two definitions to separate</span>
+  <strong>Longevity</strong> = the time the restoration stays in the mouth (ends when replaced or it falls off).
+  <br><strong>Success</strong> = the time until the restoration first needs <em>any</em> intervention (such as repair).
+  <br>Repair does <strong>not</strong> end the longevity of a restoration — it extends it.
+</div>
+
+<h2 class="section" id="topic7_cycle"><span class="ord">03</span>The Tooth Death Cycle</h2>
+
+<p>Every restoration will fail at some point. <strong>Each replacement removes more sound tooth structure</strong>, so the restoration becomes bigger and more complex. The goal: extend the time <em>between</em> replacements.</p>
+
+<h3>Three main events of the cycle</h3>
+<ol class="steps">
+  <li>Loss of tooth structure due to <strong>trauma or initial caries</strong> disease process</li>
+  <li>Loss of tooth structure from the <strong>necessary preparation</strong> to receive the restoration</li>
+  <li>With <strong>replacement</strong> of the restoration, the cycle repeats</li>
+</ol>
+
+<div class="callout danger">
+  <span class="label">Consequences</span>
+  Inevitable <strong>tooth weakening</strong> from unnecessary loss of dental tissue · increased restoration <strong>size and complexity</strong> with each replacement.
+</div>
+
+<h3>Factors that speed up the cycle</h3>
+<ul>
+  <li>Age, health, diet, occlusal load, level of oral hygiene (biofilm control)</li>
+  <li>Cycle <strong>shortens each time</strong> the patient goes through a cariogenic challenge</li>
+  <li>Physical characteristics of the chosen material + skill of the operator</li>
+</ul>
+
+<h2 class="section" id="topic7_causes"><span class="ord">04</span>Main Causes of Failure</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Posterior teeth</h4>
+    <ul>
+      <li><strong>Secondary (dental) caries</strong> and <strong>fracture</strong> of the restoration (Demarco et al., 2012)</li>
+      <li><em>Prevention:</em> educate the patient — "don't open beer bottles with your teeth"</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Anterior teeth</h4>
+    <ul>
+      <li><strong>Aesthetics</strong> and <strong>fractures</strong> (Baldissera et al., 2013)</li>
+      <li><em>Prevention:</em> educate the patient about frequent visits for repolishing</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic7_whatisrepair"><span class="ord">05</span>What is Repair?</h2>
+
+<div class="def">
+  <span class="term">Repair</span>
+  The <strong>partial replacement</strong> of a restoration with defects or failures that <strong>do not correspond to more than 50%</strong> of the original restoration. It is an alternative to full replacement <em>for localized defects</em>, as long as clinically acceptable — and it requires <strong>good planning</strong>.
+</div>
+
+<div class="callout warn">
+  <span class="label">Example — when NOT to repair</span>
+  No repair for an aesthetic complaint of a Class IV restoration with a localized defect at the proximal in an <strong>aesthetic zone</strong> — replace instead.
+</div>
+
+<h2 class="section" id="topic7_advantages"><span class="ord">06</span>Advantages of Repair</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Tissue &amp; cost benefits</h4>
+    <ul>
+      <li>Preserves more <strong>sound dental structure</strong></li>
+      <li>Reduces costs and clinical time</li>
+      <li>Simpler placement, less invasive</li>
+      <li>Increases clinical longevity of the restoration</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Patient &amp; safety benefits</h4>
+    <ul>
+      <li>Restricted to the defect location</li>
+      <li>Reduces potentially harmful effects on the <strong>pulp</strong> (repair is far from pulp)</li>
+      <li><strong>Pain reduction</strong> — usually no local anaesthetic (maybe topical for the clamp)</li>
+      <li>Less risk of <strong>iatrogenic damage</strong> to adjacent teeth</li>
+    </ul>
+  </div>
+</div>
+
+<h2 class="section" id="topic7_indications"><span class="ord">07</span>Indications &amp; Contraindications</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>✓ Indications</h4>
+    <ul>
+      <li>Superficial marginal discoloration (no caries) bothering the patient</li>
+      <li>Colour correction &amp; discolored areas</li>
+      <li>Marginal defects &amp; closure of small gaps (food trapping)</li>
+      <li>Small / localized <strong>restoration</strong> fracture</li>
+      <li>Small / localized <strong>tooth</strong> fracture</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>✗ Contraindications</h4>
+    <ul>
+      <li>Defects no longer incipient (extensive fissure / whole resto compromised)</li>
+      <li><strong>Bulk fracture</strong> of the composite</li>
+      <li>Deep staining of the tooth-restoration interface + caries recurrence</li>
+      <li>Patient reluctance (wants new replacement)</li>
+      <li>Difficulty monitoring — irregular attendance, high caries risk</li>
+      <li>Caries involving a large part of the existing restoration</li>
+      <li>History of previous failed repairs</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout danger">
+  <span class="label">The 2-or-more rule</span>
+  When <strong>two or more</strong> indications for repair are present in the <em>same</em> restoration, it is preferable to <strong>replace the entire restoration</strong> than to make several repairs — the restoration is globally degrading.
+</div>
+
+<h2 class="section" id="topic7_decision"><span class="ord">08</span>The Decision Matrix</h2>
+
+<table class="compare">
+  <thead><tr><th>Decision</th><th>When</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Do nothing</strong></td><td>Very small deficiencies, no clinical disadvantage if untreated</td><td>Unfavorable marginal colour, patient doesn't mind</td></tr>
+    <tr><td><strong>Repolish / finish</strong></td><td>Deficiencies are adjustable</td><td>Surface lumps/bumps, recontouring, roughness, dullness</td></tr>
+    <tr><td><strong>Repair</strong></td><td>Localized defects that are clinically unacceptable (function, caries risk, or patient)</td><td>Margin gap patient can't clean; discolored surface, unhappy patient</td></tr>
+    <tr><td><strong>Replacement</strong></td><td>Generalized problems beyond the indications of repair</td><td>≥ 2 repair indications on the same restoration</td></tr>
+  </tbody>
+</table>
+
+<div class="callout info">
+  <span class="label">Who repairs more?</span>
+  Dentists who placed the <strong>original</strong> restoration are more likely to <em>repair</em> than replace, compared with dentists who did not. Constant changes between clinicians increase the rate of replacement.
+</div>
+
+<h2 class="section" id="topic7_aging"><span class="ord">09</span>Composite Aging &amp; the Oxygen-Inhibited Layer</h2>
+
+<p>Significant changes occur in composite resin during aging, which can affect the success of repair:</p>
+<ul>
+  <li><strong>Water sorption</strong> and chemical degradation</li>
+  <li>Water diffusion through polymer chains and filler interfaces</li>
+  <li><strong>Hydrolytic deterioration</strong> of polymer chains</li>
+</ul>
+
+<div class="def">
+  <span class="term">Oxygen-Inhibited Layer (OIL)</span>
+  The surface layer of resin that <strong>does not polymerize</strong> in contact with oxygen in the air. It is <strong>responsible for the chemical bond</strong> with the next incremental (or repair) layer.
+</div>
+
+<div class="callout key">
+  <span class="label">Why fresh composite repairs easily — but old does not</span>
+  You can repair composite at the <strong>time of placement</strong> without any surface treatment, <em>as long as there's no contamination</em>. Finishing/polishing &amp; contaminant contact <strong>reduce the free radicals</strong> available. If the OIL is removed, you must <strong>recreate it artificially with silane</strong>.
+</div>
+
+<h2 class="section" id="topic7_surfacetx"><span class="ord">10</span>Surface Treatment — Purposes</h2>
+
+<p>Surface treatment makes an existing CR surface receptive to bonding a new layer when the OIL is gone and the surface is contaminated.</p>
+
+<table>
+  <thead><tr><th>Purpose</th><th>How</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Remove contaminated surface layer</strong> (from saliva) → increase surface energy</td><td>Roughening</td></tr>
+    <tr><td><strong>Expose fresh filler particles</strong> &amp; polymeric matrix</td><td>Roughening</td></tr>
+    <tr><td><strong>Increase surface area</strong> → micromechanical retention</td><td>Diamond bur OR air-abrasion with aluminium oxide</td></tr>
+    <tr><td><strong>Chemical bond</strong> with new increment</td><td>Phosphoric acid · silane (on composite) · adhesive system (per surface type: enamel / dentine / old composite)</td></tr>
+  </tbody>
+</table>
+
+<h2 class="section" id="topic7_technique"><span class="ord">11</span>Repair Technique — Step by Step</h2>
+
+<ol class="steps">
+  <li><strong>Rubber dam</strong> — always necessary</li>
+  <li><strong>Re-preparation</strong> restricted to the defective area — remove caries, unsupported enamel, defective restoration portion. This step also leaves the old restoration <strong>rough</strong>.</li>
+  <li><strong>Conditioning with 37% phosphoric acid</strong> — cleans the surface to be joined; demineralizes/preps enamel (<strong>30 s</strong>) &amp; dentine (<strong>15 s</strong>). On <strong>resin = 15 s</strong>. Wash &amp; dry with absorbent paper or cotton pellet.
+    <br><em>If using a self-etch adhesive:</em> phosphoric acid only on <strong>enamel and resin</strong> (selective etching).</li>
+  <li><strong>Silane</strong> on the surface of the old restoration → <strong>wait 60 s</strong> → remove solvent with air blast (silane carries a solvent, just like primer)</li>
+  <li><strong>Adhesive system:</strong> if dentine is exposed, apply <strong>primer</strong> → remove solvent with air blast. Apply <strong>bond</strong> → remove excess with a clean microbrush (applied to dentine, enamel, old restoration)</li>
+  <li><strong>Light cure</strong> for 10–20 s</li>
+  <li><strong>Repair</strong> using the regular <strong>incremental technique</strong></li>
+  <li><strong>Occlusal adjustment</strong></li>
+  <li><strong>Finishing and polishing</strong></li>
+</ol>
+
+<div class="callout pearl">
+  <span class="label">Etch times cheat</span>
+  Enamel <strong>30 s</strong> · Dentine <strong>15 s</strong> · Resin <strong>15 s</strong>.
+</div>
+
+<h2 class="section" id="topic7_agents"><span class="ord">12</span>Silane vs Adhesive — What Each Does</h2>
+
+<div class="grid2">
+  <div class="card">
+    <h4>Silane</h4>
+    <ul>
+      <li>Chemical bonding capacity with the <strong>filler particles</strong> exposed on the roughened surface</li>
+      <li>Increases the adhesive system's <strong>wettability</strong> on the roughened surface (raises surface energy)</li>
+      <li>Coupling agent — artificially recreates the lost OIL function</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h4>Adhesive</h4>
+    <ul>
+      <li>Promotes chemical bonding with the <strong>organic matrix</strong> exposed on the roughened surface</li>
+      <li>Acts as the <strong>intermediate bonding agent</strong> between the new composite and the old restoration</li>
+    </ul>
+  </div>
+</div>
+
+<div class="callout key">
+  <span class="label">Take-home</span>
+  Repair of composite restorations should be a <strong>frequently used clinical procedure</strong>, preferred whenever possible — it increases longevity of resin composite and is more conservative toward tooth structure.
+</div>
+
+<h2 class="section" id="topic7_amalgam"><span class="ord">13</span>Amalgam — Repair, Replace, Repolish</h2>
+
+<h3>Can you repair amalgam?</h3>
+<div class="callout danger">
+  <span class="label">Disadvantages of amalgam "repair"</span>
+  Amalgam is <strong>not adhesive</strong> — there is no chemical bond between new and old amalgam. A "repair" would still require <strong>bulk and retention</strong> (cavity prep) — not conservative.
+  <br><strong>Instead, repair amalgam with composite resin.</strong>
+</div>
+
+<h3>Why / when to replace amalgam?</h3>
+<ul>
+  <li>Both amalgam and composite show long longevity in studies</li>
+  <li><strong>Composites fail by secondary caries</strong>; amalgam resists secondary caries well (Demarco et al., 2012)</li>
+  <li><strong>Over time, amalgam often causes cracks</strong> — big risk on posterior teeth (creep), worse in Class II, worse in large restorations</li>
+</ul>
+
+<div class="callout info">
+  <span class="label">Intersecting cracks</span>
+  Crack runs mesial → distal, can enter the pulp chamber and into the root surface (<strong>very poor prognosis</strong>).
+  <br>• Molar teeth: <strong>OR 8.79</strong> for intersecting cracks
+  <br>• Teeth with amalgam restoration: <strong>OR 4.81</strong>
+  <br><em>Replace with composite resin (Renner et al., 2025).</em>
+</div>
+
+<div class="callout warn">
+  <span class="label">CR or Amalgam? The lesser of two evils</span>
+  Big restoration, bruxism, load-bearing area, high caries risk → which do you choose? Risk of caries vs risk of crack. Inform the patient. <strong>The lecturer recommends composite resin</strong> — secondary caries is easier to treat than a catastrophic crack.
+</div>
+
+<h3>How to replace an amalgam with composite</h3>
+<ol class="steps">
+  <li><strong>Rubber dam</strong> — absolute isolation; moisture control + protect against amalgam residue</li>
+  <li>Remove amalgam at <strong>high speed with diamond bur + plenty of water</strong></li>
+  <li>Surface clean — remove possible amalgam waste. <strong>Pigmented dentine</strong> will always be visible — don't remove it, <strong>mask it</strong> with the new restoration</li>
+  <li><strong>Selective conditioning of enamel</strong> with 35–37% phosphoric acid</li>
+  <li><strong>ACTIVE application of universal adhesive</strong></li>
+  <li>Final restoration using <strong>incremental technique</strong> (composite resin)</li>
+</ol>
+
+<h3>When to repolish amalgam</h3>
+<ul>
+  <li>Amalgam restoration with <strong>intact margins</strong> but a rough surface</li>
+  <li>Repolishing with abrasive rubbers improves <strong>smoothness, gloss, corrosion resistance</strong> → extends longevity</li>
+  <li>Smooth, polished restorations = <strong>less biofilm retention</strong> (even though amalgam's secondary-caries risk is low, it's still possible)</li>
+</ul>
+
+<h2 class="section" id="topic7_future"><span class="ord">14</span>Future of Amalgam &amp; ADA Policy 6.18</h2>
+
+<div class="def">
+  <span class="term">Minamata Convention — Australian implementation</span>
+  Ratified by the Australian Government in <strong>December 2021</strong>, effective <strong>March 2022</strong>. Legally binding.
+</div>
+
+<table>
+  <thead><tr><th>Requirement</th><th>Detail</th></tr></thead>
+  <tbody>
+    <tr><td><strong>From 1 January 2024</strong></td><td>Amalgam may only be used in <strong>capsulated pre-dosed form</strong>; use of bulk mercury is <strong>prohibited</strong></td></tr>
+    <tr><td><strong>Strongly discouraged in</strong></td><td>Deciduous teeth, patients <strong>under 15 years</strong>, and <strong>pregnant women</strong> — except when necessary and based on patient needs</td></tr>
+  </tbody>
+</table>
+
+<div class="callout pearl">
+  <span class="label">Clinical scenario</span>
+  A 12-year-old with high caries risk: because of the Minamata Convention, you must <strong>really consider</strong> whether to place amalgam in this patient's mouth.
+</div>
+</section>
+
+<div style="text-align:center;margin-top:80px;padding-top:30px;border-top:1px solid var(--rule);">
+  <a class="back" href="#">↑ Back to top</a>
+</div>
+
+</div>
+</body>
+</html>
