@@ -131,6 +131,16 @@
 
   @media print { .topbar { display: none; } body { background: white; font-size: 11pt; } .part { page-break-before: always; } .part:first-of-type { page-break-before: auto; } .callout, .card, table, figure.diagram { break-inside: avoid; } }
 </style>
+<style>
+.hub-fab{position:fixed;right:20px;bottom:20px;z-index:9998;display:inline-flex;align-items:center;
+gap:.4rem;padding:.6rem .95rem;border-radius:999px;font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+font-size:.82rem;font-weight:600;text-decoration:none;background:#a8346b;color:#fff;
+box-shadow:0 6px 18px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.28);
+transition:transform .12s ease,box-shadow .12s ease;}
+.hub-fab:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
+.hub-fab:active{transform:translateY(0);}
+@media(max-width:600px){.hub-fab{bottom:16px;right:14px;padding:.55rem .8rem;font-size:.78rem;}}
+</style>
 </head>
 <body>
 
@@ -442,5 +452,6 @@
   <div class="source">CSU School of Dentistry &amp; Medical Sciences · compiled from lecture material &amp; personal notes. Diagrams are original schematics, not to clinical scale. Study aid only — verify clinical specifics against current guidelines &amp; the DOH 244 handbook.</div>
 </footer>
 
+<a class="hub-fab" href="index.html" title="Back to study hub">← Study hub</a>
 </body>
 </html>

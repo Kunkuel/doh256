@@ -123,6 +123,16 @@ table.foramina td:first-child{font-weight:700;color:var(--accent);white-space:no
   section.block{break-inside:avoid;box-shadow:none}
 }
 </style>
+<style>
+.hub-fab{position:fixed;right:20px;bottom:20px;z-index:9998;display:inline-flex;align-items:center;
+gap:.4rem;padding:.6rem .95rem;border-radius:999px;font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+font-size:.82rem;font-weight:600;text-decoration:none;background:#0f6e6a;color:#fff;
+box-shadow:0 6px 18px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.28);
+transition:transform .12s ease,box-shadow .12s ease;}
+.hub-fab:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
+.hub-fab:active{transform:translateY(0);}
+@media(max-width:600px){.hub-fab{bottom:16px;right:14px;padding:.55rem .8rem;font-size:.78rem;}}
+</style>
 </head>
 <body>
 <header class="site"><div class="wrap">
@@ -740,5 +750,6 @@ document.getElementById('shuffleBtn').addEventListener('click',()=>{for(let i=or
 document.getElementById('resetBtn').addEventListener('click',()=>{order=[...CARDS.keys()];pos=0;render();});
 render();
 </script>
+<a class="hub-fab" href="index.html" title="Back to study hub">← Study hub</a>
 </body>
 </html>
