@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOH 244 — Anterior Aesthetics &amp; Caries in Anterior Teeth</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #1a1d24;
+    --ink-soft: #3a3f4a;
+    --muted: #6b7280;
+    --dim: #9ca3af;
+    --rule: #e5e3da;
+    --rule-soft: #efede5;
+
+    /* Aesthetics accent — berry rose, ties to DOH 244 (pink) but paper-friendly */
+    --c-aes:    #a8346b;
+    --tint-aes: #f7e3ee;
+
+    --gold: #b07d1a;  --gold-soft: #faf2dc;
+    --red: #a8344a;   --red-soft: #f9e6ea;
+    --blue: #235a8a;  --blue-soft: #e3edf5;
+    --green: #1f6e3b; --green-soft: #e3f1e8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== TOP BAR ===== */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--paper); border-bottom: 1px solid var(--rule);
+    padding: 0.7rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .topbar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .topbar-brand { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.06em; color: var(--ink); text-transform: uppercase; }
+  .topbar-brand span { color: var(--c-aes); font-weight: 400; }
+  .topbar-nav { display: flex; gap: 0.3rem; flex-wrap: wrap; margin-left: auto; }
+  .topbar-nav a {
+    font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 500;
+    color: var(--ink-soft); text-decoration: none; padding: 0.3rem 0.7rem;
+    border-radius: 4px; border: 1px solid transparent; transition: all 0.15s;
+  }
+  .topbar-nav a:hover { background: var(--rule-soft); border-color: var(--rule); color: var(--c-aes); }
+  .topbar-home { color: var(--muted); }
+
+  /* ===== MASTHEAD ===== */
+  .masthead { background: linear-gradient(180deg, #fdfcf8 0%, var(--bg) 100%); padding: 3rem 1.5rem 2rem; border-bottom: 1px solid var(--rule); }
+  .masthead-inner { max-width: 980px; margin: 0 auto; }
+  .masthead .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-aes); font-weight: 500; margin-bottom: 0.6rem; }
+  .masthead h1 { font-family: 'Source Serif 4', serif; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 0.5rem; }
+  .masthead h1 em { font-style: italic; color: var(--c-aes); }
+  .masthead .subtitle { font-size: 1.05rem; color: var(--muted); font-style: italic; max-width: 720px; }
+
+  /* ===== MAIN / PARTS / SECTIONS ===== */
+  main { max-width: 980px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .part { margin-top: 3rem; scroll-margin-top: 80px; }
+  .part:first-of-type { margin-top: 1.5rem; }
+  .part-header { border-top: 3px solid var(--c-aes); padding-top: 1rem; margin-bottom: 1.5rem; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .part-number { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.15em; color: var(--muted); font-weight: 500; }
+  .part-title { font-family: 'Source Serif 4', serif; font-size: 2rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; color: var(--c-aes); }
+  .part-tag { font-family: 'Inter', sans-serif; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 3px; font-weight: 600; margin-left: auto; background: var(--tint-aes); color: var(--c-aes); }
+
+  .part-toc { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: 1.5rem; }
+  .part-toc-label { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .part-toc ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.2rem 1.2rem; padding: 0; }
+  .part-toc li { margin: 0; }
+  .part-toc a { font-family: 'Inter', sans-serif; font-size: 0.86rem; color: var(--ink-soft); text-decoration: none; border-bottom: 1px dotted var(--c-aes); }
+  .part-toc a:hover { color: var(--c-aes); border-bottom-style: solid; }
+  @media (max-width: 640px) { .part-toc ul { grid-template-columns: 1fr; } }
+
+  section { margin: 2rem 0; scroll-margin-top: 80px; }
+  section > h2 { font-family: 'Source Serif 4', serif; font-size: 1.4rem; font-weight: 700; color: var(--ink); padding-bottom: 0.5rem; margin-bottom: 1rem; border-bottom: 1px solid var(--rule); letter-spacing: -0.005em; }
+  section > h2 .num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-right: 0.6rem; letter-spacing: 0.1em; font-weight: 500; }
+  h3 { font-family: 'Inter', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-aes); margin: 1.5rem 0 0.6rem; }
+  h4 { font-family: 'Inter', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin: 0.9rem 0 0.4rem; }
+  p { margin-bottom: 0.7rem; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 600; }
+  em { color: var(--ink-soft); }
+  mark { background: rgba(168, 52, 107, 0.14); color: inherit; padding: 0 0.15em; border-radius: 2px; font-weight: 500; }
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.25rem; color: var(--ink-soft); }
+  li::marker { color: var(--muted); }
+
+  /* ===== CARDS / GRID ===== */
+  .card { background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: 1rem 1.2rem; margin: 0.6rem 0; }
+  .card-title { font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; }
+  @media (max-width: 720px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+
+  /* ===== CALLOUTS ===== */
+  .callout { border-radius: 4px; padding: 0.85rem 1.1rem; margin: 0.9rem 0; border-left: 3px solid; font-size: 0.95rem; }
+  .callout-label { font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.35rem; display: block; }
+  .callout p { color: var(--ink-soft); }
+  .callout.key { background: var(--gold-soft); border-color: var(--gold); } .callout.key .callout-label { color: var(--gold); }
+  .callout.note { background: var(--blue-soft); border-color: var(--blue); } .callout.note .callout-label { color: var(--blue); }
+  .callout.warn { background: var(--red-soft); border-color: var(--red); } .callout.warn .callout-label { color: var(--red); }
+  .callout.tip { background: var(--green-soft); border-color: var(--green); } .callout.tip .callout-label { color: var(--green); }
+
+  /* ===== TABLES ===== */
+  table { width: 100%; border-collapse: collapse; margin: 0.8rem 0; font-size: 0.92rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+  th { background: var(--c-aes); color: #fff; font-family: 'Inter', sans-serif; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 0.6rem 0.8rem; text-align: left; }
+  td { padding: 0.55rem 0.8rem; border-bottom: 1px solid var(--rule); color: var(--ink-soft); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: #fafaf6; }
+
+  /* ===== DIAGRAM FIGURES ===== */
+  figure.diagram { margin: 1.6rem 0; padding: 1.1rem 1.1rem .6rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+  figure.diagram svg { width: 100%; height: auto; display: block; }
+  figure.diagram figcaption { font-family: 'Inter', sans-serif; font-size: .8rem; color: var(--muted); margin-top: .7rem; padding-top: .55rem; border-top: 1px dashed var(--rule); line-height: 1.5; }
+  figure.diagram figcaption b { color: var(--ink-soft); }
+  .dgm-ink { fill: #1a1d24; } .dgm-muted { fill: #6b7280; }
+  .dgm-label { font-family: 'Inter', sans-serif; font-size: 13px; fill: #1a1d24; }
+  .dgm-small { font-family: 'Inter', sans-serif; font-size: 11px; fill: #6b7280; }
+  .dgm-mono  { font-family: 'JetBrains Mono', monospace; font-size: 11px; fill: #6b7280; letter-spacing:.04em; }
+  .dgm-title { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700; fill: #1a1d24; }
+
+  /* ===== FOOTER ===== */
+  footer { text-align: center; padding: 2.5rem 1.5rem 2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.82rem; margin-top: 3rem; }
+  footer .source { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; letter-spacing: 0.05em; margin-top: 0.5rem; }
+
+  @media print { .topbar { display: none; } body { background: white; font-size: 11pt; } .part { page-break-before: always; } .part:first-of-type { page-break-before: auto; } .callout, .card, table, figure.diagram { break-inside: avoid; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-brand">DOH 244 · <span>Anterior Aesthetics</span></div>
+    <nav class="topbar-nav">
+      <a class="topbar-home" href="index.html">← Study hub</a>
+      <a href="#why">Why anterior teeth</a>
+      <a href="#caries">Caries lesion</a>
+      <a href="#elements">Elements</a>
+      <a href="#form">Shape &amp; contouring</a>
+      <a href="#proportion">Proportion</a>
+      <a href="#colour">Colour &amp; translucency</a>
+    </nav>
+  </div>
+</div>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <div class="eyebrow">DOH 244 · Restorative — Semester 2</div>
+    <h1>Caries Lesions &amp; <em>Aesthetic Concerns</em> in Anterior Teeth</h1>
+    <p class="subtitle">How caries presents in the aesthetic zone, and the elements of conservative aesthetic dentistry — form, proportion, texture, colour and translucency — that guide anterior restoration.</p>
+  </div>
+</div>
+
+<main>
+<div class="part" id="part-aes">
+  <div class="part-header">
+    <span class="part-number">TOPIC</span>
+    <h2 class="part-title">Anterior Aesthetics</h2>
+    <span class="part-tag">Restorative · Aesthetic Zone</span>
+  </div>
+
+  <div class="part-toc">
+    <div class="part-toc-label">In this note</div>
+    <ul>
+      <li><a href="#why">1 · Why anterior teeth matter</a></li>
+      <li><a href="#caries">2 · The caries lesion — clinical &amp; radiographic</a></li>
+      <li><a href="#elements">3 · Elements of conservative aesthetic dentistry</a></li>
+      <li><a href="#form">4 · Shape, form &amp; cosmetic contouring</a></li>
+      <li><a href="#proportion">5 · Symmetry &amp; the golden proportion</a></li>
+      <li><a href="#position">6 · Position, alignment &amp; surface texture</a></li>
+      <li><a href="#colour">7 · Colour, translucency &amp; materials</a></li>
+      <li><a href="#recap">8 · Recap</a></li>
+    </ul>
+  </div>
+
+  <section id="why">
+    <h2><span class="num">1</span>Why Anterior Teeth Matter</h2>
+    <p>Anterior teeth do far more than bite — they are central to <strong>aesthetics and function</strong>: smiling, speaking, cutting food, and the overall <strong>harmony of the face</strong>.</p>
+    <p>Because they sit in the <em>aesthetic zone</em>, any damage or alteration to anterior teeth can have a significant impact on a patient's <strong>appearance, self-esteem, and quality of life</strong>. This is why restoration here is judged not only on biological success but on how convincingly it restores natural form and light behaviour.</p>
+    <div class="callout note">
+      <span class="callout-label">Clinical framing</span>
+      Treatment in the aesthetic zone balances <strong>conservation of tooth structure</strong> with <strong>aesthetic outcome</strong> — the least invasive option that restores form, function and appearance is preferred.
+    </div>
+  </section>
+
+  <section id="caries">
+    <h2><span class="num">2</span>The Caries Lesion — Clinical &amp; Radiographic Characteristics</h2>
+    <p>A caries lesion results from <strong>disequilibrium between demineralisation and remineralisation</strong>. When acid challenge outpaces repair, mineral is lost; when the balance tips back, remineralisation can arrest or reverse early lesions.</p>
+
+    <h3>Clinical presentation</h3>
+    <p>Clinically, caries lesions vary along several axes:</p>
+    <table>
+      <thead><tr><th>Axis</th><th>Presentation</th></tr></thead>
+      <tbody>
+        <tr><td>Surface</td><td>May occur on any tooth surface (smooth surface, proximal, occlusal, cervical, root)</td></tr>
+        <tr><td>Cavitation</td><td><strong>Non-cavitated</strong> (intact surface, e.g. white-spot lesion) vs <strong>cavitated</strong> (surface break-down)</td></tr>
+        <tr><td>Activity</td><td><strong>Active</strong> (progressing) vs <strong>inactive / arrested</strong> (stable)</td></tr>
+        <tr><td>Severity</td><td><strong>Initial → moderate → severe</strong>, depending on depth of tissue involvement</td></tr>
+      </tbody>
+    </table>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Caries severity progression from initial white-spot lesion to severe cavitation">
+        <text x="12" y="22" class="dgm-title">Severity of the caries lesion (ICDAS concept)</text>
+        <!-- Stage 1: initial / white spot -->
+        <g transform="translate(40,50)">
+          <path d="M20,0 C60,-6 100,-6 130,0 C138,45 122,120 75,138 C28,120 12,45 20,0 Z" fill="#fbfaf6" stroke="#c9c4b6" stroke-width="2"/>
+          <ellipse cx="75" cy="34" rx="26" ry="14" fill="#f4f1e6" stroke="#d9c98a" stroke-width="1.5"/>
+          <text x="75" y="168" text-anchor="middle" class="dgm-label" font-weight="700">Initial</text>
+          <text x="75" y="186" text-anchor="middle" class="dgm-small">White-spot · non-cavitated</text>
+        </g>
+        <!-- Stage 2: moderate -->
+        <g transform="translate(255,50)">
+          <path d="M20,0 C60,-6 100,-6 130,0 C138,45 122,120 75,138 C28,120 12,45 20,0 Z" fill="#fbfaf6" stroke="#c9c4b6" stroke-width="2"/>
+          <path d="M60,26 q15,-8 30,0 q4,20 -6,34 q-9,10 -18,0 q-10,-14 -6,-34 Z" fill="#e3c99a" stroke="#b08a4a" stroke-width="1.5"/>
+          <text x="75" y="168" text-anchor="middle" class="dgm-label" font-weight="700">Moderate</text>
+          <text x="75" y="186" text-anchor="middle" class="dgm-small">Into dentine · early cavitation</text>
+        </g>
+        <!-- Stage 3: severe -->
+        <g transform="translate(470,50)">
+          <path d="M20,0 C60,-6 100,-6 130,0 C138,45 122,120 75,138 C28,120 12,45 20,0 Z" fill="#fbfaf6" stroke="#c9c4b6" stroke-width="2"/>
+          <path d="M52,20 q23,-10 46,2 q10,34 -6,58 q-17,20 -34,0 q-16,-26 -6,-60 Z" fill="#8a6a3a" stroke="#5e4522" stroke-width="1.5"/>
+          <path d="M62,40 q13,-4 26,2 q4,16 -6,28 q-9,10 -16,0 q-8,-16 -4,-30 Z" fill="#3a2a16"/>
+          <text x="75" y="168" text-anchor="middle" class="dgm-label" font-weight="700">Severe</text>
+          <text x="75" y="186" text-anchor="middle" class="dgm-small">Deep cavitation</text>
+        </g>
+        <!-- arrows -->
+        <path d="M210,110 L250,110" stroke="#a8346b" stroke-width="2" marker-end="url(#ar)"/>
+        <path d="M425,110 L465,110" stroke="#a8346b" stroke-width="2" marker-end="url(#ar)"/>
+        <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#a8346b"/></marker></defs>
+      </svg>
+      <figcaption><b>Progression concept.</b> Early lesions with an <b>intact surface</b> (white-spot) may be arrested or remineralised; once the surface cavitates and the lesion advances into dentine, management becomes restorative. Original schematic — not to clinical scale.</figcaption>
+    </figure>
+
+    <h3>Radiographic assessment</h3>
+    <p>Radiographs add substantially to clinical findings by revealing lesions at different stages of progression:</p>
+    <ul>
+      <li>Help <strong>estimate the depth</strong> of demineralisation into enamel and dentine.</li>
+      <li>Are interpreted to <strong>evaluate possible progression</strong> over time (compare with previous films).</li>
+      <li>Where sealants or restorations were placed <em>without complete caries removal</em>, bitewing / periapical radiographs should be evaluated to judge both the <strong>size and depth</strong> of the residual lesion and any transition.</li>
+    </ul>
+    <div class="callout key">
+      <span class="callout-label">Anterior tip</span>
+      Proximal lesions between anterior teeth are often first caught on <strong>bitewing or periapical films</strong> before they are visible clinically — early detection preserves the option of conservative, aesthetic management.
+    </div>
+  </section>
+
+  <section id="elements">
+    <h2><span class="num">3</span>Elements of Conservative Aesthetic Dentistry</h2>
+    <p>Recreating a natural-looking anterior tooth means reproducing a set of interacting visual elements. A sound <strong>knowledge of normal tooth anatomy is fundamental</strong> to the success of any conservative aesthetic procedure.</p>
+    <div class="grid-3">
+      <div class="card"><div class="card-title">Shape / Form</div>Outline, contour, line angles and embrasures.</div>
+      <div class="card"><div class="card-title">Changes over age</div>Wear, flattening of incisal edges, colour shift.</div>
+      <div class="card"><div class="card-title">Symmetry &amp; proportion</div>Tooth-to-tooth ratios; the golden proportion.</div>
+      <div class="card"><div class="card-title">Position &amp; alignment</div>Placement within the arch and the smile arc.</div>
+      <div class="card"><div class="card-title">Surface texture</div>Perikymata, grooves, elevations and depressions.</div>
+      <div class="card"><div class="card-title">Colour &amp; translucency</div>Hue, value, chroma and light behaviour.</div>
+    </div>
+  </section>
+
+  <section id="form">
+    <h2><span class="num">4</span>Shape, Form &amp; Cosmetic Contouring</h2>
+    <p>Minor modification of existing tooth contours — sometimes called <strong>cosmetic contouring</strong> — can change how wide or tall a tooth <em>appears</em> without changing its true dimensions. The key lever is the position of the <strong>mesiofacial and distofacial line angles</strong> (and the developmental depressions between them), which define the flat, light-reflecting "frontal" face of the tooth.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 720 295" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cosmetic contouring: line-angle position altering apparent tooth width">
+        <text x="12" y="22" class="dgm-title">Line-angle position &amp; apparent width</text>
+        <!-- A: normal -->
+        <g transform="translate(60,44)">
+          <path d="M0,0 C40,-8 100,-8 140,0 C150,70 128,168 70,190 C12,168 -10,70 0,0 Z" fill="#fbfaf6" stroke="#b9b3a4" stroke-width="2"/>
+          <line x1="34" y1="14" x2="30" y2="168" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="106" y1="14" x2="110" y2="168" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <rect x="34" y="20" width="72" height="150" fill="#a8346b" opacity="0.07"/>
+          <text x="70" y="220" text-anchor="middle" class="dgm-label" font-weight="700">A · Normal</text>
+          <text x="70" y="238" text-anchor="middle" class="dgm-small">True contours</text>
+        </g>
+        <!-- B: narrower -->
+        <g transform="translate(290,44)">
+          <path d="M0,0 C40,-8 100,-8 140,0 C150,70 128,168 70,190 C12,168 -10,70 0,0 Z" fill="#fbfaf6" stroke="#b9b3a4" stroke-width="2"/>
+          <line x1="50" y1="14" x2="48" y2="168" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="90" y1="14" x2="92" y2="168" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <rect x="50" y="20" width="40" height="150" fill="#a8346b" opacity="0.12"/>
+          <path d="M50,20 L50,170" stroke="none"/>
+          <text x="70" y="220" text-anchor="middle" class="dgm-label" font-weight="700">B · Appears narrower</text>
+          <text x="70" y="238" text-anchor="middle" class="dgm-small">Line angles moved together</text>
+        </g>
+        <!-- C: wider -->
+        <g transform="translate(520,44)">
+          <path d="M0,0 C40,-8 100,-8 140,0 C150,70 128,168 70,190 C12,168 -10,70 0,0 Z" fill="#fbfaf6" stroke="#b9b3a4" stroke-width="2"/>
+          <line x1="20" y1="12" x2="16" y2="170" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <line x1="120" y1="12" x2="124" y2="170" stroke="#a8346b" stroke-width="2" stroke-dasharray="5 4"/>
+          <rect x="20" y="18" width="100" height="154" fill="#a8346b" opacity="0.12"/>
+          <text x="70" y="220" text-anchor="middle" class="dgm-label" font-weight="700">C · Appears wider</text>
+          <text x="70" y="238" text-anchor="middle" class="dgm-small">Line angles moved apart</text>
+        </g>
+      </svg>
+      <figcaption><b>How it works.</b> The shaded band is the flat frontal reflective zone between the facial line angles. <b>(A)</b> normal contours. <b>(B)</b> bringing the mesiofacial and distofacial line angles <b>closer together</b> makes the tooth read as narrower — more surface curves away into shadow. <b>(C)</b> moving the line angles and developmental depressions <b>further apart</b> widens the reflective zone, so the tooth reads as wider. Original schematic.</figcaption>
+    </figure>
+
+    <div class="callout note">
+      <span class="callout-label">Apparent height</span>
+      A tooth can be made to appear <strong>shorter</strong> by emphasising <strong>horizontal</strong> elements — e.g. gingival perikymata — and by positioning the gingival height of contour <strong>further incisally</strong>. The reverse (vertical emphasis) lengthens the apparent form.
+    </div>
+  </section>
+
+  <section id="proportion">
+    <h2><span class="num">5</span>Symmetry &amp; Proportionality — The Golden Proportion</h2>
+    <p>The overall harmony of a smile depends on the <strong>relative proportions</strong> of the anterior teeth. A commonly cited guide is the <strong>golden proportion</strong>: viewed from the front, each tooth's <em>apparent</em> width is roughly <strong>0.618×</strong> the width of the tooth in front of it.</p>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 720 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Golden proportion of anterior teeth: central, lateral, canine apparent widths">
+        <text x="12" y="22" class="dgm-title">Apparent width &amp; the golden proportion (frontal view)</text>
+        <!-- midline -->
+        <line x1="360" y1="32" x2="360" y2="130" stroke="#d9b3c6" stroke-width="1" stroke-dasharray="4 4"/>
+        <!-- right side -->
+        <path d="M360,32 h84 v96 q-42,18 -84,0 Z" fill="#f2ede0" stroke="#b9b3a4" stroke-width="2"/>
+        <path d="M444,40 h52 v72 q-26,16 -52,0 Z" fill="#f6f2e8" stroke="#b9b3a4" stroke-width="2"/>
+        <path d="M496,38 h32 v66 q-16,24 -32,0 Z" fill="#faf7ef" stroke="#b9b3a4" stroke-width="2"/>
+        <!-- left side (mirror) -->
+        <path d="M276,32 h84 v96 q-42,18 -84,0 Z" fill="#f2ede0" stroke="#b9b3a4" stroke-width="2"/>
+        <path d="M224,40 h52 v72 q-26,16 -52,0 Z" fill="#f6f2e8" stroke="#b9b3a4" stroke-width="2"/>
+        <path d="M192,38 h32 v66 q-16,24 -32,0 Z" fill="#faf7ef" stroke="#b9b3a4" stroke-width="2"/>
+        <!-- width brackets (right side) -->
+        <g stroke="#a8346b" stroke-width="1.5">
+          <line x1="360" y1="158" x2="444" y2="158"/><line x1="360" y1="153" x2="360" y2="163"/><line x1="444" y1="153" x2="444" y2="163"/>
+          <line x1="444" y1="158" x2="496" y2="158"/><line x1="496" y1="153" x2="496" y2="163"/>
+          <line x1="496" y1="158" x2="528" y2="158"/><line x1="528" y1="153" x2="528" y2="163"/>
+        </g>
+        <g text-anchor="middle">
+          <text x="402" y="149" fill="#a8346b" font-weight="700" font-size="12">1.0</text>
+          <text x="470" y="149" fill="#a8346b" font-weight="700" font-size="12">0.62</text>
+          <text x="512" y="149" fill="#a8346b" font-weight="700" font-size="12">0.38</text>
+          <text x="402" y="182" fill="#1a1d24" font-weight="700" font-size="12">Central</text>
+          <text x="470" y="182" fill="#1a1d24" font-weight="700" font-size="12">Lateral</text>
+          <text x="512" y="182" fill="#1a1d24" font-weight="700" font-size="12">Canine</text>
+        </g>
+        <text x="360" y="214" text-anchor="middle" class="dgm-label">Golden ratio ≈ 1 : 0.618 : 0.382 — each ≈ 62% of the tooth before it</text>
+      </svg>
+      <figcaption><b>The rule of the golden proportion.</b> Moving distally from the midline, each tooth appears about <b>62%</b> the width of its neighbour — central &gt; lateral &gt; canine. It is a <b>guide, not a law</b>: natural smiles vary, and the exact ratios of proportionality are used alongside clinical judgement. Original schematic.</figcaption>
+    </figure>
+    <div class="callout tip">
+      <span class="callout-label">Symmetry</span>
+      Aim for <strong>left–right symmetry</strong> about the midline. The eye tolerates small departures in texture and colour far better than obvious asymmetry in <strong>width, length or midline position</strong>.
+    </div>
+  </section>
+
+  <section id="position">
+    <h2><span class="num">6</span>Position, Alignment &amp; Surface Texture</h2>
+    <h3>Position &amp; alignment</h3>
+    <p>The overall harmony and balance of a smile depend largely on the <strong>proper position of teeth and their alignment within the arch</strong>. Crowding, rotations and tipping all disturb the way light and shadow fall across the anterior segment.</p>
+    <h3>Surface texture</h3>
+    <p>Natural enamel is not perfectly smooth. Surface texture is the set of <strong>irregularities, holes, depressions, elevations, fissures, cracks and lines</strong> (e.g. perikymata) that scatter light. Reproducing appropriate texture is what keeps a restoration from looking flat or artificially glossy.</p>
+    <div class="callout note">
+      <span class="callout-label">Ageing</span>
+      With age, surface texture tends to <strong>flatten</strong> and incisal edges wear — a very smooth, highly textured "young" surface on an older patient can look out of place. Matching the patient's age is part of a natural result.
+    </div>
+  </section>
+
+  <section id="colour">
+    <h2><span class="num">7</span>Colour, Translucency &amp; Materials</h2>
+    <p>Colour is described as the <strong>most complex and least understood</strong> artistic element of the anterior tooth. It is inseparable from <strong>translucency</strong> — how light travels through, and is absorbed and reflected by, the dental tissues.</p>
+
+    <h3>How light behaves in the tooth</h3>
+    <ul>
+      <li><strong>Enamel</strong> is a <em>thin, translucent</em> layer — light <strong>penetrates</strong> it.</li>
+      <li><strong>Dentine</strong> is <em>opaque</em> — it <strong>absorbs and reflects</strong> light, and largely determines the tooth's underlying colour (value/chroma).</li>
+      <li>The <strong>incisal edge</strong> is more <strong>translucent</strong> (little or no dentine behind it), which is why it can look greyish or "glassy" and must be deliberately reproduced.</li>
+    </ul>
+
+    <figure class="diagram">
+      <svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cross-section showing light penetrating translucent enamel and reflecting off opaque dentine">
+        <text x="12" y="22" class="dgm-title">Enamel translucency vs dentine opacity (incisal cross-section)</text>
+        <!-- tooth cross section -->
+        <g transform="translate(210,44)">
+          <!-- enamel outer shell -->
+          <path d="M150,0 C130,60 120,120 96,175 C70,182 44,178 24,168 C40,110 44,55 40,0 Z" fill="#dbe9f0" stroke="#9fb8c6" stroke-width="2"/>
+          <!-- dentine core -->
+          <path d="M132,10 C116,62 108,118 88,162 C70,168 52,164 40,156 C52,104 56,54 54,10 Z" fill="#efe0c4" stroke="#cbb488" stroke-width="1.5"/>
+          <!-- incisal translucent tip highlight -->
+          <path d="M96,175 C70,182 44,178 24,168 C34,150 44,150 60,152 C74,154 86,160 96,175 Z" fill="#cfe6ef" opacity="0.85"/>
+          <text x="150" y="70" class="dgm-small" fill="#5b7787">enamel</text>
+          <text x="150" y="86" class="dgm-small" fill="#5b7787">(translucent)</text>
+          <text x="150" y="130" class="dgm-small" fill="#a07f3a">dentine</text>
+          <text x="150" y="146" class="dgm-small" fill="#a07f3a">(opaque)</text>
+          <text x="-6" y="190" class="dgm-small" fill="#3f7d92">incisal — more translucent</text>
+        </g>
+        <!-- incoming light + behaviour -->
+        <g>
+          <!-- ray into enamel (mid) -->
+          <line x1="120" y1="70" x2="245" y2="110" stroke="#e0a92b" stroke-width="2.5" marker-end="url(#lr)"/>
+          <text x="120" y="62" class="dgm-small" fill="#b07d1a">light</text>
+          <!-- reflect off dentine -->
+          <line x1="250" y1="112" x2="150" y2="150" stroke="#e0a92b" stroke-width="2.5" stroke-dasharray="4 3" marker-end="url(#lr)"/>
+          <!-- ray through incisal (passes further) -->
+          <line x1="140" y1="200" x2="250" y2="210" stroke="#7fb3c6" stroke-width="2.5" marker-end="url(#lr)"/>
+          <text x="120" y="214" class="dgm-small" fill="#3f7d92">passes through</text>
+          <defs><marker id="lr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#e0a92b"/></marker></defs>
+        </g>
+      </svg>
+      <figcaption><b>Light behaviour.</b> Light <b>penetrates the translucent enamel</b>, then is largely <b>absorbed and reflected by the opaque dentine</b> — which sets the tooth's core colour. At the <b>incisal edge</b>, with little dentine behind it, more light passes through, giving the characteristic translucency that restorations must reproduce. Original schematic.</figcaption>
+    </figure>
+
+    <h3>Materials for anterior restoration</h3>
+    <p>The two workhorse aesthetic materials reproduce this layered optical behaviour in different ways:</p>
+    <table>
+      <thead><tr><th>Material</th><th>Role in the aesthetic zone</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Resin composite (RC)</strong></td><td>Directly layered to mimic dentine (opaque body shades) and enamel (translucent shades); conservative, repairable, single-visit.</td></tr>
+        <tr><td><strong>Ceramics</strong></td><td>Indirect restorations (veneers/crowns) offering excellent, stable translucency and colour for larger or more demanding aesthetic cases.</td></tr>
+      </tbody>
+    </table>
+    <div class="callout key">
+      <span class="callout-label">Layering principle</span>
+      A natural result comes from <strong>reproducing the layers</strong>: an opaque dentine core for value/chroma, a translucent enamel layer over it, and a deliberately translucent incisal edge — not a single flat shade.
+    </div>
+  </section>
+
+  <section id="recap">
+    <h2><span class="num">8</span>Recap</h2>
+    <div class="callout tip">
+      <span class="callout-label">Essential knowledge from this lecture</span>
+      <ul style="margin:0.4rem 0 0;">
+        <li>The <strong>crucial role of anterior teeth</strong> in aesthetics and function.</li>
+        <li><strong>Understanding dental caries</strong> as a demineralisation/remineralisation imbalance.</li>
+        <li><strong>Clinical and radiographic assessment</strong> of caries lesions (cavitation, activity, severity, depth).</li>
+        <li>The <strong>elements of conservative aesthetic dentistry</strong> — form, proportion, position, texture, colour, translucency.</li>
+        <li><strong>Restorative materials</strong> for anterior teeth: resin composite and ceramics.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer>
+  <div>DOH 244 · Anterior Aesthetics</div>
+  <div class="source">CSU School of Dentistry &amp; Medical Sciences · compiled from lecture material &amp; personal notes. Diagrams are original schematics, not to clinical scale. Study aid only — verify clinical specifics against current guidelines &amp; the DOH 244 handbook.</div>
+</footer>
+
+</body>
+</html>
