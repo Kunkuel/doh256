@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Non-Surgical Periodontal Therapy — Study Notes</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --paper: #ffffff;
+    --ink: #1f2330;
+    --muted: #5b6172;
+    --accent: #8b1e3f;       /* deep maroon */
+    --accent-soft: #f3e0e6;
+    --teal: #1f6f73;
+    --teal-soft: #e0eded;
+    --gold: #b48a2a;
+    --gold-soft: #f5ecd3;
+    --green: #3b6e3a;
+    --green-soft: #e2eddf;
+    --rule: #e2ded5;
+    --code: #f1efe8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  header.title {
+    border-bottom: 3px double var(--accent);
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  header.title .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 34px;
+    margin: 6px 0 4px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  header.title .meta {
+    color: var(--muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0 36px;
+    border-radius: 4px;
+  }
+  nav.toc h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 22px;
+    columns: 2;
+    column-gap: 28px;
+  }
+  nav.toc li {
+    margin: 4px 0;
+    break-inside: avoid;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--muted);
+  }
+  nav.toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  section { margin: 40px 0; }
+  h2.section {
+    font-size: 24px;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  h4 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 16px 0 6px;
+  }
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  strong { color: var(--accent); }
+  em.author { color: var(--teal); font-style: italic; }
+
+  /* Callout boxes */
+  .box {
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-left: 4px solid;
+  }
+  .box.key   { background: var(--accent-soft); border-color: var(--accent); }
+  .box.note  { background: var(--teal-soft);   border-color: var(--teal); }
+  .box.warn  { background: var(--gold-soft);   border-color: var(--gold); }
+  .box.fact  { background: var(--green-soft);  border-color: var(--green); }
+  .box h4 { margin-top: 0; color: inherit; }
+  .box.key   h4 { color: var(--accent); }
+  .box.note  h4 { color: var(--teal); }
+  .box.warn  h4 { color: var(--gold); }
+  .box.fact  h4 { color: var(--green); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 15px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #fafaf6; }
+
+  /* Stage cards */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stage {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 4px;
+  }
+  .stage .label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stage h5 {
+    margin: 4px 0 8px;
+    font-size: 17px;
+    color: var(--accent);
+  }
+  .stage .time {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .stage ul { padding-left: 18px; margin: 0; font-size: 14px; }
+
+  /* Two column flow */
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 12px 0;
+  }
+  @media (max-width: 720px) {
+    .twocol { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+  }
+
+  /* Refs */
+  .refs {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .refs li { margin: 6px 0; line-height: 1.4; }
+
+  /* Subtle citation tag */
+  .cite {
+    display: inline-block;
+    background: var(--code);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-style: normal;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.green { background: var(--green); }
+
+  hr.sep {
+    border: 0;
+    border-top: 1px dashed var(--rule);
+    margin: 28px 0;
+  }
+</style>
+<style>
+.hub-fab{position:fixed;right:20px;bottom:20px;z-index:9998;display:inline-flex;align-items:center;
+gap:.4rem;padding:.6rem .95rem;border-radius:999px;font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+font-size:.82rem;font-weight:600;text-decoration:none;background:#2f7d63;color:#fff;
+box-shadow:0 6px 18px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.28);
+transition:transform .12s ease,box-shadow .12s ease;}
+.hub-fab:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
+.hub-fab:active{transform:translateY(0);}
+@media(max-width:600px){.hub-fab{bottom:14px;right:14px;padding:.55rem .8rem;font-size:.78rem;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="title">
+    <div class="eyebrow">DOH 256 · Periodontics &amp; Endodontics</div>
+    <h1>Non-Surgical Periodontal Therapy</h1>
+    <div class="meta">Lecture by Dr Jake Ball — structured study notes</div>
+  </header>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#goals">Goals of periodontal therapy</a></li>
+      <li><a href="#phases">Phases of the treatment plan</a></li>
+      <li><a href="#systemic">1. Systemic phase</a></li>
+      <li><a href="#control">2. Disease control phase</a></li>
+      <li><a href="#definitive">3. Definitive phase &amp; surgery</a></li>
+      <li><a href="#spt">4. Maintenance / SPT</a></li>
+      <li><a href="#rationale">Rationale for NSPT</a></li>
+      <li><a href="#terms">Terminology: debridement, SRD, SRP</a></li>
+      <li><a href="#myths">Cementum removal &amp; root smoothness</a></li>
+      <li><a href="#approach">Treatment approaches</a></li>
+      <li><a href="#factors">Factors affecting effectiveness</a></li>
+      <li><a href="#deposits">Effects on plaque &amp; calculus</a></li>
+      <li><a href="#micro">Effects on microbiology</a></li>
+      <li><a href="#clinical">Clinical effects (PPD, CAL, BOP)</a></li>
+      <li><a href="#furcation">Furcations and SRD</a></li>
+      <li><a href="#reeval">Re-evaluation</a></li>
+      <li><a href="#exam">High-yield exam summary</a></li>
+      <li><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+
+  <!-- ========== GOALS ========== -->
+  <section id="goals">
+    <h2 class="section">1. Goals of periodontal therapy</h2>
+    <ul>
+      <li><strong>Alter or eliminate the microbial aetiology</strong> and other contributing local and systemic factors.</li>
+      <li><strong>Halt the progression</strong> of disease.</li>
+      <li>Return the dentition to a state of <strong>health, comfort, function and aesthetics</strong>.</li>
+    </ul>
+    <div class="box key">
+      <h4>Frame it this way</h4>
+      <p>Everything in this lecture is a means to those three ends. Non-surgical therapy attacks the <em>aetiology</em> (plaque and plaque-retentive factors); surgery mainly buys <em>access</em> and <em>pocket reduction</em> where non-surgical means fall short; SPT protects the result.</p>
+    </div>
+  </section>
+
+  <!-- ========== PHASES ========== -->
+  <section id="phases">
+    <h2 class="section">2. Phases of the treatment plan <span class="cite">Stefanac 2017</span></h2>
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>Focus</th><th>Review points</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1. Systemic</strong></td><td>Medical status, safety of treatment</td><td>—</td></tr>
+        <tr><td><strong>2. Disease control</strong><br /><em>(initial / hygienic / cause-related)</em></td><td>OHI, deposit removal, plaque-retentive factor correction</td><td><strong>OH review 4–6 weeks</strong><br /><strong>Reassessment 3 months</strong> → SPT</td></tr>
+        <tr><td><strong>3. Definitive</strong></td><td>Surgery, implants, endodontics, restorative/prosthetic</td><td>→ SPT</td></tr>
+        <tr><td><strong>4. Maintenance / SPT</strong></td><td>Monitoring, reinforcement, recall by risk</td><td>Interval set by risk profile</td></tr>
+      </tbody>
+    </table>
+    <div class="box note">
+      <h4>Two timings to memorise</h4>
+      <p><strong>4–6 weeks</strong> = oral hygiene review. <strong>3 months</strong> = periodontal reassessment. They are <em>different appointments with different purposes</em> — a classic short-answer question.</p>
+    </div>
+  </section>
+
+  <!-- ========== SYSTEMIC ========== -->
+  <section id="systemic">
+    <h2 class="section">3. Systemic phase</h2>
+    <ul>
+      <li>Identify signs/symptoms of <strong>undiagnosed systemic disease</strong> and refer for medical evaluation when required.</li>
+      <li><strong>Limit or modify</strong> dental treatment based on systemic findings.</li>
+      <li><strong>Prevent emergencies</strong> in the dental practice.</li>
+      <li><strong>Prevent serious post-operative complications</strong> following treatment.</li>
+    </ul>
+  </section>
+
+  <!-- ========== DISEASE CONTROL ========== -->
+  <section id="control">
+    <h2 class="section">4. Disease control phase</h2>
+    <p>Also called the <strong>initial</strong>, <strong>hygienic</strong> or <strong>cause-related</strong> therapy phase. This is where non-surgical periodontal therapy lives.</p>
+    <ul>
+      <li>Patient <strong>education, motivation and oral hygiene instruction</strong>.</li>
+      <li><strong>Removal of hopeless teeth</strong> — do this <em>early</em>.</li>
+      <li>Removal of <strong>supragingival and subgingival deposits</strong>.</li>
+      <li>Correction or replacement of <strong>poorly fitting restorations</strong> and prosthetic devices; restoration or temporisation of carious lesions.</li>
+      <li>Possible use of <strong>antimicrobial agents</strong>.</li>
+    </ul>
+
+    <h3>Oral hygiene review — 4–6 weeks</h3>
+    <p>Performed following completion of initial phase therapy. Assess:</p>
+    <ul>
+      <li>Patient <strong>compliance, motivation and technique</strong> of plaque control.</li>
+      <li>Gingival tissue <strong>contour, colour and consistency</strong>.</li>
+    </ul>
+
+    <div class="box fact">
+      <h4>Healing timelines</h4>
+      <p><strong>Gingivitis resolves in ~2 weeks</strong> after plaque removal. <strong>Periodontitis — it depends</strong> (on pocket depth, thoroughness of debridement, anatomy, host factors and self-performed plaque control).</p>
+    </div>
+  </section>
+
+  <!-- ========== DEFINITIVE ========== -->
+  <section id="definitive">
+    <h2 class="section">5. Definitive phase</h2>
+    <p><strong>Precondition:</strong> the patient must be <strong>compliant, motivated and diligent</strong> with self-performed oral hygiene before proceeding. Includes periodontal surgery, dental implant surgery, endodontic therapy, and definitive restorative/prosthetic treatment.</p>
+
+    <h3>Periodontal surgery</h3>
+    <p><strong>Objective:</strong> improve the prognosis for teeth and their replacements and/or improve aesthetics.</p>
+
+    <h4>On inflamed tissues (treatment of periodontitis)</h4>
+    <div class="stages">
+      <div class="stage">
+        <div class="label">Purpose 1</div>
+        <h5>Access</h5>
+        <ul><li>Increases access to root surfaces for debridement</li><li>Removes otherwise inaccessible plaque and calculus</li></ul>
+      </div>
+      <div class="stage">
+        <div class="label">Purpose 2</div>
+        <h5>Pocket depth reduction</h5>
+        <ul>
+          <li><strong>Resective:</strong> gingivectomy, apically displaced flap, periodontal flap ± osseous resection</li>
+          <li><strong>Regenerative:</strong> biologics, bone grafts, membranes</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="label">Purpose 3</div>
+        <h5>Correction of defects</h5>
+        <ul><li>Anatomic/morphologic hard- and soft-tissue defects</li><li>Usually resective, to <strong>facilitate plaque control</strong></li></ul>
+      </div>
+    </div>
+
+    <h4>On non-inflamed tissues, absent periodontal pockets</h4>
+    <ul>
+      <li><strong>Periodontal plastic / aesthetic surgery</strong> — create or widen attached keratinised gingiva (e.g. <strong>FGG</strong>, free gingival graft), cover exposed roots from recession, recreate lost papillae (e.g. <strong>CAF + CTG</strong>, coronally advanced flap with connective tissue graft).</li>
+      <li><strong>Pre-prosthetic techniques</strong> — modify periodontal and neighbouring tissues to receive prosthetic replacements: <strong>surgical crown lengthening, alveolar ridge augmentation, vestibular deepening</strong>.</li>
+    </ul>
+  </section>
+
+  <!-- ========== SPT ========== -->
+  <section id="spt">
+    <h2 class="section">6. Maintenance / supportive periodontal therapy</h2>
+
+    <h3>Objectives <span class="cite">AAP 2003</span></h3>
+    <ul>
+      <li><strong>Prevent or minimise disease recurrence and progression.</strong></li>
+      <li><strong>Prevent or reduce tooth loss</strong> by monitoring the dentition and any prosthetic replacements.</li>
+      <li><strong>Increase the probability of detecting and treating other oral diseases</strong> in a timely manner.</li>
+    </ul>
+    <p>Periodontal maintenance may be <strong>temporarily discontinued and treatment reinstituted</strong> if recurrent disease is detected — more likely to occur if <strong>maintenance intervals are over-extended</strong>.</p>
+
+    <h3>Three parts of every SPT visit</h3>
+    <div class="stages">
+      <div class="stage">
+        <div class="label">Part 1</div>
+        <h5>Examination &amp; planning</h5>
+        <ul><li>Examination, risk assessment, review diagnoses</li><li>Review or formulate a new treatment plan accommodating persisting/new local and systemic risk factors and unresponsive sites</li></ul>
+      </div>
+      <div class="stage">
+        <div class="label">Part 2</div>
+        <h5>Treatment</h5>
+        <ul><li>Oral hygiene reinforcement</li><li>Debridement, prophylaxis</li><li>Preventive treatments (e.g. topical fluoride)</li></ul>
+      </div>
+      <div class="stage">
+        <div class="label">Part 3</div>
+        <h5>Recall</h5>
+        <ul><li>Assign the next recall interval <strong>based on risk profile</strong></li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RATIONALE ========== -->
+  <section id="rationale">
+    <h2 class="section">7. Rationale for non-surgical periodontal therapy</h2>
+    <ul>
+      <li>Periodontal diseases are associated with <strong>dental plaque</strong> <span class="cite">Löe et al. 1965; Theilade et al. 1966</span> and with <strong>plaque-retentive factors</strong> such as dental calculus <span class="cite">Waerhaug 1952, 1955</span>.</li>
+      <li>The goal is to <strong>disrupt dental plaque</strong> and <strong>remove plaque-retentive factors</strong>, in combination with effective <strong>self-performed plaque control</strong>, to achieve periodontal health.</li>
+      <li>In <strong>deep pockets (PPD &gt; 5 mm)</strong>, a reduction in <strong>supragingival</strong> plaque may <strong>not significantly influence the subgingival</strong> plaque <span class="cite">Cercek 1983; Kho 1985; Beltrami 1987; Loos 1988</span>.</li>
+      <li>Therefore <strong>supragingival cleaning alone is insufficient</strong>; it must be combined with <strong>professional instrumentation</strong> for significant clinical improvement.</li>
+    </ul>
+    <div class="box key">
+      <h4>The logical chain (worth writing out in an exam)</h4>
+      <p>Plaque causes disease → calculus retains plaque → in shallow sites the patient can reach it, but <strong>beyond ~5 mm the toothbrush no longer influences the subgingival flora</strong> → hence professional subgingival instrumentation is required <em>in addition to</em>, not instead of, self-performed plaque control.</p>
+    </div>
+  </section>
+
+  <!-- ========== TERMS ========== -->
+  <section id="terms">
+    <h2 class="section">8. Terminology <span class="cite">Kieser 1994</span></h2>
+    <p>Subgingival <strong>debridement</strong>, <strong>scaling and root debridement (SRD)</strong> and <strong>scaling and root planing (SRP)</strong> are today used almost interchangeably, although they have inherently <strong>different objectives</strong>:</p>
+    <table>
+      <thead><tr><th>Term</th><th>Primary objective</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Debridement &amp; SRD</strong></td><td>Disruption and removal of <strong>dental plaque</strong></td></tr>
+        <tr><td><strong>SRP</strong></td><td>Removal of <strong>plaque, calculus and contaminated cementum and dentine</strong></td></tr>
+      </tbody>
+    </table>
+    <p>The shift in terminology from SRP to SRD reflects the evidence in the next section: removing root substance is <em>not</em> the therapeutic goal.</p>
+  </section>
+
+  <!-- ========== MYTHS ========== -->
+  <section id="myths">
+    <h2 class="section">9. Two overturned concepts</h2>
+
+    <h3>Removal of "contaminated" cementum</h3>
+    <div class="twocol">
+      <div class="box warn">
+        <h4>Old view (1970s–80s)</h4>
+        <p>Extensive/aggressive root planing advocated to remove contaminated cementum, because <strong>endotoxin (LPS) was thought to be firmly attached and to penetrate into cementum</strong> <span class="cite">Daly 1982; Jones &amp; O'Leary 1978</span>, affecting healing <span class="cite">Aleo 1974, 1975</span>.</p>
+      </div>
+      <div class="box fact">
+        <h4>Current view</h4>
+        <p>Endotoxin is <strong>loosely bound and does not penetrate cementum</strong> <span class="cite">Smart et al. 1990</span>, and is easily removed by <strong>ultrasonic</strong> <span class="cite">Smart 1990</span>, <strong>hand instruments</strong> <span class="cite">Cheetham 1988</span> or even <strong>brushing</strong> <span class="cite">Nakib 1982</span> — <strong>without excessive cementum removal</strong>.</p>
+      </div>
+    </div>
+
+    <h3>Root surface smoothness</h3>
+    <ul>
+      <li>Smoothness was advocated on the assumption that smooth roots were <strong>cleaner and less plaque-retentive</strong> <span class="cite">Waerhaug 1956; Lindhe et al. 1984</span>.</li>
+      <li>However, <strong>plaque retention, gingival inflammation and healing are independent of root surface texture</strong> <span class="cite">Hunter et al. 1984</span>.</li>
+      <li>Correlations do exist between <strong>subgingival calculus</strong> and the presence of root surface roughness — i.e. roughness is a <em>marker</em> of residual deposit, not the cause of disease.</li>
+    </ul>
+  </section>
+
+  <!-- ========== APPROACH ========== -->
+  <section id="approach">
+    <h2 class="section">10. Treatment approaches</h2>
+
+    <h3>Instrumentation modalities</h3>
+    <ul>
+      <li><strong>Conventional (gold standard):</strong> scalers, curettes, ultrasonic instrumentation, or combinations of these.</li>
+      <li><strong>Lasers:</strong> <strong>Nd:YAG</strong> — effective on plaque and soft tissue, <em>inadequate calculus removal</em>. <strong>Er:YAG</strong> — effective on plaque <em>and</em> calculus.</li>
+      <li><strong>Photodynamic therapy (PDT):</strong> advocated as an adjunct to SRD; uses lasers at specific wavelengths to target microorganisms treated with a <strong>photosensitiser</strong>.</li>
+    </ul>
+    <div class="box warn">
+      <h4>Verdict</h4>
+      <p>There is currently <strong>insufficient evidence</strong> to recommend laser or photodynamic therapy as either a <strong>monotherapy or adjunct</strong> over conventional treatment modalities <span class="cite">Cobb 2017</span>.</p>
+    </div>
+
+    <h3>Scheduling protocols</h3>
+    <table>
+      <thead><tr><th>Protocol</th><th>What it involves</th><th>Evidence</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Quadrant / sextant</strong></td>
+          <td>Completed over a number of appointments depending on extent and severity of disease</td>
+          <td><span class="cite">Badersten et al. 1984</span></td>
+        </tr>
+        <tr>
+          <td><strong>Full-mouth debridement</strong></td>
+          <td>Single-appointment full-mouth SRD</td>
+          <td><strong>No difference</strong> vs multi-visit quadrant SRD for PPD, CAL or patient discomfort. Benefit = <strong>fewer appointments</strong> <span class="cite">Wennström et al. 2005</span></td>
+        </tr>
+        <tr>
+          <td><strong>Single vs repeated instrumentation</strong></td>
+          <td>One pass vs repeated passes over surfaces</td>
+          <td><strong>No difference.</strong> Adequate outcomes achievable with OH + a single visit of SRD; repeat instrumentation not always required with skill</td>
+        </tr>
+        <tr>
+          <td><strong>Full-mouth disinfection</strong></td>
+          <td>Full-mouth SRD within <strong>24 h</strong>, CHX mouthwash <strong>2× daily</strong>, tongue scraping, CHX tonsil spray, subgingival CHX irrigation <strong>3× within 10 min</strong>, protocol for <strong>8 days</strong></td>
+          <td>Showed <strong>superior results</strong>, but stringent protocol and <strong>no group has replicated</strong> the findings <span class="cite">Quirynen et al. 1995</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>The take-home message</h4>
+      <p>Different treatment approaches exist — <strong>however</strong>, the critical factors for successful non-surgical therapy are: <strong>thoroughness of root debridement</strong>, the patient's standard of <strong>self-performed oral hygiene</strong>, and <strong>compliance with professional SPT</strong> <span class="cite">Badersten et al. 1984a</span>.</p>
+    </div>
+
+    <div class="box note">
+      <h4>Guiding quotation <span class="cite">Sanz &amp; Teughels 2008</span></h4>
+      <p>Clinicians should choose the debridement modality according to the best available evidence, the needs and preferences of the patient, their own skills and experience, the logistic setting of the practice, and the cost-effectiveness of the therapy rendered.</p>
+    </div>
+  </section>
+
+  <!-- ========== FACTORS ========== -->
+  <section id="factors">
+    <h2 class="section">11. Factors affecting the effectiveness of SRD</h2>
+
+    <h3>Operator variability</h3>
+    <ul>
+      <li>Trained periodontists <strong>leave less behind</strong> than periodontists in training or inexperienced dentists, and <strong>debride for 10–15% longer</strong> <span class="cite">Brayer 1989; Kocher 1997</span>.</li>
+      <li>Yet operator variability plays a <strong>minimal role</strong> in clinical research outcomes (PPD, CAL improvements) for non-surgical therapy <span class="cite">Badersten et al. 1985</span>.</li>
+    </ul>
+
+    <h3>Anatomical factors</h3>
+    <p>Tooth type, tooth surface, CEJ, line angles, narrow interdental spaces, root concavities, resorption defects, areas around residual calculus, deep pockets and furcations <span class="cite">Jones &amp; O'Leary 1978; Breiniger 1987; Waerhaug 1978b; Dragoo 1992</span>.</p>
+
+    <h3>Powered vs hand instruments</h3>
+    <ul>
+      <li><strong>Similar positive clinical and microbiological outcomes</strong> with powered and hand instruments <span class="cite">Heitz-Mayfield &amp; Lang 2013</span>.</li>
+      <li><strong>Modified (slim-design) ultrasonics are superior</strong> to hand instruments and to unmodified (thicker) ultrasonics for treating periodontal pockets <span class="cite">Dragoo 1992</span>.</li>
+      <li><strong>Advantages of powered instruments</strong> <span class="cite">Dragoo 1992</span>: reduced treatment time, improved access, lavage effect, less damage to the root surface, less patient discomfort, less operator fatigue.</li>
+    </ul>
+  </section>
+
+  <!-- ========== DEPOSITS ========== -->
+  <section id="deposits">
+    <h2 class="section">12. Evaluating SRD — effects on plaque and calculus</h2>
+    <p>The effects of SRD are evaluated at three levels: <strong>microscopic</strong> (quantities of subgingival plaque and calculus), <strong>microbiological</strong> (subgingival plaque composition) and <strong>clinical</strong> (probing depth, clinical attachment level, bleeding on probing).</p>
+
+    <div class="box warn">
+      <h4>Established fact</h4>
+      <p>SRD is <strong>often unable to render tooth surfaces free of plaque and calculus</strong>.</p>
+    </div>
+
+    <ul>
+      <li><strong>Waerhaug 1978</strong> — following SRD, <strong>90% of teeth</strong> had varying amounts of plaque and calculus remaining on one or more surfaces.</li>
+      <li><strong>Caffesse et al. 1986</strong> — the ability to remove plaque and calculus <strong>decreases as pocket depth increases</strong>.</li>
+    </ul>
+
+    <table>
+      <thead><tr><th>Probing depth</th><th>Calculus-free surfaces <span style="font-weight:400;text-transform:none;">(Caffesse 1986)</span></th></tr></thead>
+      <tbody>
+        <tr><td>1–3 mm</td><td><strong>86%</strong></td></tr>
+        <tr><td>4–6 mm</td><td><strong>43%</strong></td></tr>
+        <tr><td>&gt; 6 mm</td><td><strong>32%</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box fact">
+      <h4>But — the crucial qualifier</h4>
+      <p><strong>Not all subgingival deposits need to be removed for healing to occur</strong> <span class="cite">Nyman et al. 1988; Mombelli et al. 1995</span>. This is why disruption (SRD) rather than root removal (aggressive SRP) is the modern aim.</p>
+    </div>
+  </section>
+
+  <!-- ========== MICRO ========== -->
+  <section id="micro">
+    <h2 class="section">13. Effects of SRD on microbiology</h2>
+    <p>SRP causes a <strong>non-specific reduction</strong> of plaque. This produces a <strong>transient shift in flora composition</strong> — reduction of disease-associated species and an increase in health-associated species <span class="cite">Petersilka et al. 2002</span>.</p>
+
+    <table>
+      <thead><tr><th>Study</th><th>Design</th><th>Finding</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Breiniger et al. 1987</strong></td>
+          <td>SEM study</td>
+          <td>Despite a high frequency of <strong>residual plaque</strong> after debridement, deposits were <strong>small, thin, rarely intact colonies</strong> of cocci/rods, with <strong>no complex microbial forms</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Loos et al. 1988</strong></td>
+          <td>Non-molar proximal sites vs <strong>grade II molar furcation</strong> sites after SRD</td>
+          <td>Total microbial counts at non-molar sites fell by <strong>≥ 10×</strong> at 1 week; molar furcation sites showed <strong>significantly less</strong> reduction</td>
+        </tr>
+        <tr>
+          <td><strong>Haffajee et al. 1997</strong></td>
+          <td>Clinical–microbiological correlation</td>
+          <td>Clinical improvement correlated with a <strong>modest</strong> microbiota change — mainly reduced <em>P. gingivalis</em>, <em>B. forsythus</em>, <em>T. denticola</em></td>
+        </tr>
+        <tr>
+          <td><strong>Darby et al. 2001</strong></td>
+          <td>Site-level analysis post-SRD</td>
+          <td>Decreased <em>P. intermedia</em>, <em>B. forsythus</em>, <em>T. denticola</em>, <em>P. gingivalis</em>; <em>A. actinomycetemcomitans</em> was <strong>eliminated</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>Why this matters clinically</h4>
+      <p>Microbiological shifts are <strong>transient</strong>. This highlights the importance of <strong>supragingival plaque control after cause-related therapy</strong> to prevent <strong>recolonisation of periodontal pockets</strong>, thereby allowing periodontal tissue healing.</p>
+    </div>
+  </section>
+
+  <!-- ========== CLINICAL ========== -->
+  <section id="clinical">
+    <h2 class="section">14. Clinical effects of SRD</h2>
+
+    <h3>Probing depth reduction</h3>
+    <ul>
+      <li><strong>Probing depth</strong> = the distance from the <strong>gingival margin</strong> to the bottom of the probeable crevice/pocket (where the probe tip stops).</li>
+      <li>Reduction results from a <strong>combination of gain in clinical attachment level and gingival recession</strong>.</li>
+    </ul>
+
+    <h3>Clinical attachment level — gain or loss</h3>
+    <ul>
+      <li><strong>Clinical attachment loss (CAL)</strong> — the amount of attachment loss that has occurred relative to the <strong>CEJ</strong> (CEJ to base of pocket/crevice).</li>
+      <li><strong>Clinical attachment level (CAL)</strong> — the distance between the attachment level and a <strong>reference point</strong> on the tooth (usually the CEJ).</li>
+      <li>SRD can result in <strong>loss or gain</strong> of clinical attachment level <strong>depending on initial probing depth</strong>.</li>
+    </ul>
+
+    <div class="box fact">
+      <h4>Badersten et al. 1984 — three exam-critical statements</h4>
+      <ul>
+        <li>There is <strong>no magnitude of initial PPD at which non-surgical therapy is ineffective</strong>.</li>
+        <li>The <strong>greatest change in PPD reduction and CAL gain occurs within 1–3 months</strong> post-SRP for incisors and premolars <span class="cite">Badersten 1984</span> and molars <span class="cite">Loos 1989</span> — although healing and maturation of the periodontium may continue over the following <strong>9–12 months</strong>.</li>
+        <li>Initially deep sites (<strong>7–12 mm</strong>) show <strong>more recession, greater attachment gain and more pocket reduction</strong>, converting after 24 months to <strong>moderate or shallow pockets (4–6 mm)</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>Expected outcomes at non-molar sites <span class="cite">Cobb 1996</span></h3>
+    <table>
+      <thead>
+        <tr><th>Initial probing depth</th><th>Mean reduction in PD (mm)</th><th>CAL change (mm)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1–3 mm</strong></td><td>0.03 <em>(negligible change)</em></td><td><strong>−0.34</strong> <em>(loss)</em></td></tr>
+        <tr><td><strong>4–6 mm</strong></td><td>−1.29</td><td><strong>+0.55</strong> <em>(gain)</em></td></tr>
+        <tr><td><strong>≥ 7 mm</strong></td><td>−2.16</td><td><strong>+1.29</strong> <em>(gain)</em></td></tr>
+      </tbody>
+    </table>
+    <p>Following SRD, most studies have observed a <strong>loss of clinical attachment at initially shallow sites</strong> and <strong>gains at initially deeper sites</strong>. This is the evidence base for <strong>not instrumenting healthy shallow sulci</strong>.</p>
+
+    <h3>Decreased bleeding on probing</h3>
+    <ul>
+      <li>BOP is an <strong>indicator of inflamed periodontal tissues</strong>; SRD disrupts plaque to establish healthy tissues (<strong>absence of bleeding</strong>).</li>
+      <li>Significant BOP reduction occurs over <strong>1–3 months for moderate sites (4–6 mm)</strong> <span class="cite">Badersten 1981</span> and over <strong>3–9 months for severe sites</strong> <span class="cite">Badersten 1984, 1985</span>.</li>
+      <li>Resolution is <strong>more likely in shallower sites (1–3 mm) than deep sites (&gt; 6 mm)</strong> <span class="cite">Loos 1989; Badersten 1985</span>.</li>
+    </ul>
+  </section>
+
+  <!-- ========== FURCATION ========== -->
+  <section id="furcation">
+    <h2 class="section">15. Furcations and SRD</h2>
+    <p>Many long-term studies have found that <strong>molars with furcation involvement have higher mortality rates</strong>:</p>
+    <table>
+      <thead><tr><th>Study</th><th>Molars with furcation involvement lost</th><th>Overall tooth mortality</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Hirschfeld &amp; Wasserman 1978</strong></td><td><strong>31%</strong></td><td>7%</td></tr>
+        <tr><td><strong>McFall 1982</strong></td><td><strong>57%</strong></td><td>10%</td></tr>
+      </tbody>
+    </table>
+
+    <p>Furcation sites also respond <strong>less favourably to debridement</strong> than non-molar sites <span class="cite">Loos et al. 1989</span>:</p>
+    <ul>
+      <li><strong>Loos 1989</strong> — proportion of sites <em>losing</em> probing attachment: <strong>molar furcation 25%</strong> vs <strong>non-molar 7%</strong> vs <strong>molar flat surfaces 10%</strong>.</li>
+      <li>→ Furcation sites may represent <strong>compromised healing responses</strong> due to furcation anatomy and <strong>poor accessibility to instrumentation</strong>.</li>
+    </ul>
+
+    <div class="box warn">
+      <h4>Anatomy limits both therapy and self-care</h4>
+      <p>Anatomical factors — the <strong>fornix, concavities and irregularities</strong> — limit the efficacy of root debridement and subsequent plaque control <span class="cite">Bower 1979; Waerhaug 1980; Nordland 1987; Loos 1988, 1989</span>. Even where an initial <strong>complete debridement was accomplished</strong>, these factors may prevent adequate plaque control and lead to <strong>recolonisation by a microflora similar to that before therapy</strong> <span class="cite">Magnusson et al. 1984</span>.</p>
+    </div>
+  </section>
+
+  <!-- ========== RE-EVAL ========== -->
+  <section id="reeval">
+    <h2 class="section">16. Re-evaluation</h2>
+    <p>Re-evaluation is <strong>essential</strong> to determine the response to treatment, ongoing risk, the need for further intervention, and enrolment in SPT.</p>
+    <ul>
+      <li><strong>Oral hygiene review at 4–6 weeks.</strong></li>
+      <li><strong>Periodontal review at 3 months.</strong></li>
+    </ul>
+
+    <div class="box key">
+      <h4>Why 3 months? <span class="cite">Badersten 1984; Loos 1989</span></h4>
+      <p>Because the <strong>greatest improvement in clinical parameters (PPD, CAL, BOP)</strong> for premolars and incisors <span class="cite">Badersten 1984</span> and for molars <span class="cite">Loos 1989</span> occurs in the <strong>first 3 months</strong> following treatment. Reassessing earlier risks judging an incomplete response; much later wastes healing time.</p>
+    </div>
+
+    <h3>Three possible outcomes of reassessment</h3>
+    <div class="stages">
+      <div class="stage"><div class="label">Option 1</div><h5>Repeat NSPT</h5><ul><li>Another round of non-surgical therapy at <strong>non-responsive sites</strong></li></ul></div>
+      <div class="stage"><div class="label">Option 2</div><h5>Surgery</h5><ul><li>Periodontal surgery at <strong>non-responsive sites</strong></li></ul></div>
+      <div class="stage"><div class="label">Option 3</div><h5>SPT</h5><ul><li>Enrol in <strong>supportive periodontal therapy</strong> with a risk-based recall</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ========== EXAM ========== -->
+  <hr class="sep" />
+  <section id="exam">
+    <h2 class="section">17. High-yield exam summary</h2>
+
+    <div class="box key">
+      <h4>Conclusion points from the lecture</h4>
+      <ul>
+        <li>NSPT aims at <strong>controlling the factors responsible for periodontal inflammation</strong> — patient education in oral hygiene, SRD, elimination of plaque-retentive factors, occlusal therapy.</li>
+        <li><strong>Thorough disruption of dental plaque</strong> is required for success; <strong>removal of the root surface is not necessary</strong>.</li>
+        <li><strong>Conventional therapy</strong> (scalers, curettes, ultrasonics) remains the <strong>gold standard</strong> against which other modalities are compared.</li>
+        <li>Outcomes are influenced by <strong>operator variability, anatomic factors, and powered vs hand instruments</strong>.</li>
+        <li><strong>Microscopic, microbiological and clinical changes</strong> all occur following SRD.</li>
+        <li>Healing is measured clinically by <strong>PPD, CAL and BOP</strong>.</li>
+        <li><strong>Re-evaluation is essential</strong> — response, ongoing risk, need for further intervention, enrolment in SPT.</li>
+      </ul>
+    </div>
+
+    <div class="box note">
+      <h4>Numbers to have at your fingertips</h4>
+      <table>
+        <thead><tr><th>Number</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><strong>2 weeks</strong></td><td>Gingivitis resolution after plaque removal</td></tr>
+          <tr><td><strong>4–6 weeks</strong></td><td>Oral hygiene review</td></tr>
+          <tr><td><strong>3 months</strong></td><td>Periodontal reassessment; greatest clinical change occurs by here</td></tr>
+          <tr><td><strong>9–12 months</strong></td><td>Continued healing/maturation of the periodontium (Badersten 1984)</td></tr>
+          <tr><td><strong>&gt; 5 mm</strong></td><td>PPD beyond which supragingival plaque control no longer influences subgingival flora</td></tr>
+          <tr><td><strong>86 / 43 / 32%</strong></td><td>Calculus-free surfaces at 1–3 / 4–6 / &gt;6 mm (Caffesse 1986)</td></tr>
+          <tr><td><strong>90%</strong></td><td>Teeth with residual deposits after SRD (Waerhaug 1978)</td></tr>
+          <tr><td><strong>−0.34 / +0.55 / +1.29 mm</strong></td><td>CAL change at 1–3 / 4–6 / ≥7 mm (Cobb 1996)</td></tr>
+          <tr><td><strong>0.03 / −1.29 / −2.16 mm</strong></td><td>PD reduction at 1–3 / 4–6 / ≥7 mm (Cobb 1996)</td></tr>
+          <tr><td><strong>31% vs 7%</strong></td><td>Furcation molar loss vs overall (Hirschfeld &amp; Wasserman 1978)</td></tr>
+          <tr><td><strong>57% vs 10%</strong></td><td>Furcation molar loss vs overall (McFall 1982)</td></tr>
+          <tr><td><strong>25 / 7 / 10%</strong></td><td>Sites losing attachment: molar furcation / non-molar / molar flat (Loos 1989)</td></tr>
+          <tr><td><strong>10–15%</strong></td><td>Extra debridement time taken by trained periodontists (Brayer 1989; Kocher 1997)</td></tr>
+          <tr><td><strong>24 h / 8 days</strong></td><td>Full-mouth disinfection protocol window and duration (Quirynen 1995)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box fact">
+      <h4>Author–finding pairings</h4>
+      <ul>
+        <li><strong>Stefanac 2017</strong> — four phases of the treatment plan</li>
+        <li><strong>AAP 2003</strong> — objectives of periodontal maintenance</li>
+        <li><strong>Kieser 1994</strong> — debridement/SRD vs SRP definitions</li>
+        <li><strong>Smart et al. 1990</strong> — endotoxin loosely bound, does not penetrate cementum</li>
+        <li><strong>Hunter et al. 1984</strong> — plaque retention and healing independent of root surface texture</li>
+        <li><strong>Cobb 2017</strong> — insufficient evidence for laser/PDT</li>
+        <li><strong>Wennström et al. 2005</strong> — full-mouth vs quadrant SRD: no difference</li>
+        <li><strong>Quirynen et al. 1995</strong> — full-mouth disinfection, unreplicated</li>
+        <li><strong>Badersten et al. 1984/1985</strong> — the cornerstone NSPT outcome studies</li>
+        <li><strong>Cobb 1996</strong> — the PD/CAL outcome table</li>
+        <li><strong>Waerhaug 1978</strong> — 90% residual deposits</li>
+        <li><strong>Caffesse et al. 1986</strong> — calculus removal falls with pocket depth</li>
+        <li><strong>Loos et al. 1988/1989</strong> — furcation sites respond poorly</li>
+        <li><strong>Dragoo 1992</strong> — slim ultrasonics superior; powered instrument advantages</li>
+        <li><strong>Heitz-Mayfield &amp; Lang 2013</strong> — powered vs hand: equivalent outcomes</li>
+        <li><strong>Magnusson et al. 1984</strong> — recolonisation to pre-treatment microflora</li>
+      </ul>
+    </div>
+
+    <div class="box warn">
+      <h4>Likely long-answer prompts</h4>
+      <ul>
+        <li>"Justify the rationale for non-surgical periodontal therapy." → plaque/calculus aetiology → &gt;5 mm argument → supragingival alone insufficient → professional instrumentation + self-care.</li>
+        <li>"Discuss the factors that influence the outcome of SRD." → operator, anatomy, instrument type, pocket depth, patient plaque control, SPT compliance.</li>
+        <li>"Explain how you would evaluate the response to non-surgical therapy and when." → microscopic/microbiological/clinical levels; PPD, CAL, BOP; 4–6 week OH review and 3-month reassessment with justification; three outcome pathways.</li>
+        <li>"Why is deep pocket instrumentation less predictable?" → Caffesse percentages, furcation anatomy, Loos data, recolonisation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== REFS ========== -->
+  <hr class="sep" />
+  <section id="refs">
+    <h2 class="section">18. Reference list (as cited in lecture)</h2>
+    <ol class="refs">
+      <li>Aleo JJ, et al. (1974, 1975) — endotoxin and cementum, effects on healing.</li>
+      <li>American Academy of Periodontology (2003) — objectives of periodontal maintenance.</li>
+      <li>Badersten A, Nilvéus R, Egelberg J (1981, 1984, 1984a, 1985) — effect of non-surgical periodontal therapy, series I–IV.</li>
+      <li>Beltrami M, et al. (1987) — supragingival plaque control in deep pockets.</li>
+      <li>Bower RC (1979) — furcation morphology relative to periodontal treatment.</li>
+      <li>Brayer WK, et al. (1989) — scaling and root planing effectiveness by operator experience.</li>
+      <li>Breiniger DR, O'Leary TJ, Blumenshine RV (1987) — SEM of residual deposits after debridement.</li>
+      <li>Caffesse RG, Sweeney PL, Smith BA (1986) — scaling and root planing with and without periodontal flap surgery.</li>
+      <li>Cercek JF, et al. (1983) — supragingival plaque control and subgingival flora.</li>
+      <li>Cheetham WA, et al. (1988) — endotoxin removal by hand instrumentation.</li>
+      <li>Cobb CM (1996) — non-surgical pocket therapy: mechanical.</li>
+      <li>Cobb CM (2017) — lasers and the treatment of periodontitis.</li>
+      <li>Daly CG, et al. (1982) — endotoxin in periodontally involved root surfaces.</li>
+      <li>Darby IB, et al. (2001) — microbial changes following non-surgical therapy.</li>
+      <li>Dragoo MR (1992) — clinical evaluation of hand and ultrasonic instruments on subgingival debridement.</li>
+      <li>Haffajee AD, Cugini MA, Dibart S, et al. (1997) — effect of SRP on the clinical and microbiological parameters of periodontal diseases.</li>
+      <li>Heitz-Mayfield LJA, Lang NP (2013) — surgical and non-surgical periodontal therapy: learned and unlearned concepts.</li>
+      <li>Hirschfeld L, Wasserman B (1978) — long-term survey of tooth loss in 600 treated periodontal patients.</li>
+      <li>Hunter RK, O'Leary TJ, Kafrawy AH (1984) — effect of root surface roughness on plaque accumulation and healing.</li>
+      <li>Jones WA, O'Leary TJ (1978) — endotoxin content of diseased root surfaces.</li>
+      <li>Kho P, et al. (1985) — supragingival plaque control and subgingival microflora.</li>
+      <li>Kieser JB (1994) — non-surgical periodontal therapy (terminology).</li>
+      <li>Kocher T, et al. (1997) — instrumentation efficiency and operator experience.</li>
+      <li>Lindhe J, et al. (1984) — scaling and root planing outcomes.</li>
+      <li>Löe H, Theilade E, Jensen SB (1965) — experimental gingivitis in man.</li>
+      <li>Loos B, Claffey N, Egelberg J (1988) — clinical and microbiological effects of root debridement in furcations.</li>
+      <li>Loos B, Nylund K, Claffey N, Egelberg J (1989) — clinical effects of root debridement in molar and non-molar teeth.</li>
+      <li>Magnusson I, et al. (1984) — recolonisation of subgingival microbiota following scaling.</li>
+      <li>McFall WT (1982) — tooth loss in 100 treated patients with periodontal disease.</li>
+      <li>Mombelli A, et al. (1995) — subgingival deposits and healing.</li>
+      <li>Nakib NM, et al. (1982) — endotoxin penetration of cementum.</li>
+      <li>Nordland P, et al. (1987) — effect of furcation anatomy on debridement.</li>
+      <li>Nyman S, et al. (1988) — role of "diseased" root cementum in healing.</li>
+      <li>Petersilka GJ, Ehmke B, Flemmig TF (2002) — antimicrobial effects of mechanical debridement.</li>
+      <li>Quirynen M, et al. (1995) — full-mouth disinfection protocol.</li>
+      <li>Sanz M, Teughels W (2008) — innovations in non-surgical periodontal therapy (Consensus Report, 6th European Workshop).</li>
+      <li>Smart GJ, et al. (1990) — endotoxin removal from root surfaces.</li>
+      <li>Stefanac SJ (2017) — <em>Diagnosis and Treatment Planning in Dentistry</em>.</li>
+      <li>Theilade E, et al. (1966) — experimental gingivitis in man II: longitudinal clinical and bacteriological investigation.</li>
+      <li>Waerhaug J (1952, 1955, 1956, 1978, 1978b, 1980) — calculus, root surface and furcation studies.</li>
+      <li>Wennström JL, Tomasi C, Bertelle A, Dellasega E (2005) — full-mouth ultrasonic debridement vs quadrant SRP.</li>
+    </ol>
+  </section>
+
+</div>
+<a class="hub-fab" href="index.html" title="Back to study hub">← Study hub</a>
+</body>
+</html>
