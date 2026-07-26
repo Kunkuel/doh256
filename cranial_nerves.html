@@ -183,7 +183,14 @@ section.block h2 .num{
 section.block.folded .sec-toggle svg{transform:rotate(-90deg)}
 section.block.folded .sec-body{display:none}
 .sub{color:var(--muted);font-size:14px;margin:10px 0 0}
-h3.card-h{
+.subnav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0 6px;
+  padding:11px 13px;background:var(--paper-2);border:1px solid var(--rule);border-radius:var(--r-md)}
+.subnav-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;margin-right:2px}
+.subnav a{font-size:12.5px;text-decoration:none;color:var(--ink-2);background:var(--plate);
+  border:1px solid var(--rule);border-radius:999px;padding:4px 10px;transition:.14s;line-height:1.4}
+.subnav a:hover{border-color:var(--accent);color:var(--accent)}
+h3.card-h{scroll-margin-top:calc(var(--bar-h) + 14px);
   font-size:19.5px;margin:30px 0 10px;padding-bottom:8px;border-bottom:1px solid var(--rule);
   position:relative;
 }
@@ -205,9 +212,9 @@ figure{
 figure .plate-btn{
   display:block;width:100%;padding:0;border:0;background:#fff;cursor:zoom-in;position:relative;line-height:0;
 }
-figure img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#fff}
+figure img{display:block;width:100%;height:auto;background:#fff}
 figure img:not([src]){background:
-  repeating-linear-gradient(45deg,#f2f5f8 0 8px,#e9eef3 8px 16px)}
+  repeating-linear-gradient(45deg,#f2f5f8 0 8px,#e9eef3 8px 16px);min-height:100px}
 .plate-tag{
   position:absolute;top:9px;left:9px;z-index:2;font-family:var(--mono);font-size:10px;font-weight:700;
   letter-spacing:.12em;text-transform:uppercase;color:#1c2a37;background:rgba(255,255,255,.88);
@@ -464,7 +471,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}
 @media print{
   :root{--paper:#fff;--plate:#fff;--ink:#000;--ink-2:#222;--muted:#555;--rule:#ccc;--rule-2:#999}
   #study,
-  .bar,.dock,.howto,.studytabs,.deckbar,.deck-nav,.rate,.deckmeter,.card,.deckhint,
+  .bar,.dock,.howto,.subnav,.studytabs,.deckbar,.deck-nav,.rate,.deckmeter,.card,.deckhint,
   .pane,.scrim,.loupe,.sec-toggle,.sec-reveal,.plate-loupe{display:none!important}
   body{background:#fff;font-size:11pt}
   body.recall .term{color:inherit!important;background:none!important;padding:0!important;box-shadow:none!important}
@@ -489,8 +496,8 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}
     <h1>The Cranial Nerves</h1>
     <p class="tagline">All twelve nerves — attachments, foramina, branches and clinical testing — with the trigeminal and facial nerves in dental detail.</p>
     <nav class="pageswitch" aria-label="Lectures">
-      <a href="index.html">Osteology</a>
-      <a href="brain.html">Brain &amp; nerves system</a>
+      <a href="osteology.html">Osteology</a>
+      <a href="brain.html">Brain &amp; nervous system</a>
       <a href="cranial_nerves.html" aria-current="page">Cranial nerves</a>
     </nav>
   </div>
@@ -1097,6 +1104,24 @@ $$('main section.block').forEach(function(sec){
     tog.setAttribute('aria-expanded', String(!folded));
     tog.setAttribute('aria-label',(folded?'Expand':'Collapse')+' section');
   });
+
+  /* contents strip for sections with many subsections */
+  var subs = $$('h3.card-h', bodyWrap);
+  if(subs.length >= 4){
+    var snav = doc.createElement('nav');
+    snav.className='subnav'; snav.setAttribute('aria-label','Inside this section');
+    var lbl = doc.createElement('span');
+    lbl.className='subnav-lbl'; lbl.textContent='In this section';
+    snav.appendChild(lbl);
+    subs.forEach(function(h3,i){
+      if(!h3.id) h3.id = (sec.id||'sec')+'-'+(i+1);
+      var a = doc.createElement('a');
+      a.href = '#'+h3.id;
+      a.textContent = h3.textContent.replace(/\s+/g,' ').trim();
+      snav.appendChild(a);
+    });
+    bodyWrap.insertBefore(snav, bodyWrap.firstChild);
+  }
 
   head.appendChild(textWrap); head.appendChild(tog);
   sec.appendChild(head); sec.appendChild(bodyWrap);
