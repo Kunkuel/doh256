@@ -1,839 +1,918 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lecture 1 — Introduction to Pathology | Study Notes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L1 · Introduction to Pathology — DOH 233 Pathology Notes</title>
+<meta name="description" content="DOH 233 study notes: Introduction to Pathology">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#16212b;
-    --muted:#5b6b78;
-    --line:#e3e8ec;
-    --paper:#ffffff;
-    --bg:#f4f1ea;
-    --primary:#0d6e66;
-    --primary-d:#0a534d;
-    --primary-l:#e6f2f0;
-    --accent:#b5541f;
-    --accent-l:#fbeee4;
-    --gold:#a67c00;
-    --violet:#5b4a8a;
-    --violet-l:#efebf7;
-    --radius:14px;
-    --shadow:0 1px 2px rgba(20,33,43,.05),0 8px 24px rgba(20,33,43,.06);
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    font-size:16.5px;line-height:1.65;-webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:940px;margin:0 auto;padding:0 22px 90px}
+/* ============================================================
+   DOH 233 — Pathology study notes
+   Design system: "The Slide Box"
+   Colour is derived from haematoxylin & eosin staining:
+   haematoxylin stains nuclei violet-blue, eosin stains
+   cytoplasm pink. Ground is cool slide glass, ink is slate.
+   ============================================================ */
+:root{
+  --haem:#5b3a9e;         /* haematoxylin — primary */
+  --haem-d:#402a70;
+  --haem-l:#efeaf9;
+  --eosin:#d1497a;        /* eosin — accent */
+  --eosin-l:#fdedf3;
+  --ink:#151d2b;
+  --ink-2:#33405a;
+  --muted:#6b7791;
+  --rule:#dfe4ee;
+  --rule-2:#eaedf4;
+  --paper:#ffffff;
+  --glass:#eef1f7;        /* slide-glass ground */
+  --teal:#0f766e;
+  --teal-l:#e3f3f1;
+  --amber:#a45d08;
+  --amber-l:#fdf0dc;
+  --crim:#b3243c;
+  --crim-l:#fceaed;
+  --blue:#1f5f9e;
+  --blue-l:#e6f0f9;
+  --r:10px;
+  --sh:0 1px 2px rgba(21,29,43,.04),0 10px 30px -12px rgba(21,29,43,.14);
+  --rail-w:262px;
+  --top-h:58px;
+  --f-disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+[data-theme="dark"]{
+  --haem:#a98ce0;--haem-d:#c4b0ec;--haem-l:#241c3c;
+  --eosin:#f08bb0;--eosin-l:#3a1f2c;
+  --ink:#e9edf6;--ink-2:#c2cadb;--muted:#93a0ba;
+  --rule:#2c3450;--rule-2:#232a42;
+  --paper:#161c2e;--glass:#0e131f;
+  --teal:#5ecfc0;--teal-l:#12302d;
+  --amber:#e0a24a;--amber-l:#332415;
+  --crim:#f2778c;--crim-l:#361a21;
+  --blue:#7bb2e6;--blue-l:#152740;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--glass);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+  transition:background .25s,color .25s;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
 
-  /* ---------- Header ---------- */
-  header.hero{
-    background:linear-gradient(135deg,var(--primary-d),var(--primary));
-    color:#fff;padding:46px 22px 40px;margin-bottom:26px;
-    border-bottom:5px solid var(--gold);
-  }
-  .hero-inner{max-width:940px;margin:0 auto}
-  .kicker{
-    letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;
-    font-weight:700;opacity:.9;margin-bottom:10px;
-  }
-  header.hero h1{
-    font-family:Georgia,"Times New Roman",serif;font-weight:700;
-    font-size:2.35rem;line-height:1.12;margin:0 0 10px;
-  }
-  header.hero p.sub{margin:0;opacity:.92;font-size:1.05rem;max-width:640px}
-  .meta-row{margin-top:18px;display:flex;flex-wrap:wrap;gap:10px}
-  .chip{
-    background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);
-    padding:5px 12px;border-radius:999px;font-size:12.5px;font-weight:600;
-  }
+/* ---------- reading progress ---------- */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent;pointer-events:none}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--haem),var(--eosin))}
 
-  /* ---------- Table of contents ---------- */
-  nav.toc{
-    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-    padding:20px 24px;margin-bottom:30px;box-shadow:var(--shadow);
-  }
-  nav.toc h2{margin:0 0 12px;font-size:1rem;letter-spacing:.04em;text-transform:uppercase;color:var(--primary-d)}
-  nav.toc ol{margin:0;padding-left:20px;columns:2;column-gap:34px}
-  nav.toc li{margin:5px 0;break-inside:avoid}
-  nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
-  nav.toc a:hover{color:var(--primary);border-bottom-color:var(--primary)}
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--top-h);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.6) blur(12px);
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:18px;padding:0 20px;
+}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);flex:none}
+.brand b{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.brand span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.switch{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.switch a{
+  font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+  text-decoration:none;color:var(--muted);padding:5px 10px;border-radius:7px;
+  border:1px solid transparent;white-space:nowrap;
+}
+.switch a:hover{background:var(--haem-l);color:var(--haem)}
+.switch a[aria-current="page"]{background:var(--haem);color:#fff;border-color:var(--haem)}
+[data-theme="dark"] .switch a[aria-current="page"]{color:#12172a}
+.tbtn{
+  flex:none;background:none;border:1px solid var(--rule);color:var(--muted);
+  width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;line-height:1;
+  display:grid;place-items:center;
+}
+.tbtn:hover{border-color:var(--haem);color:var(--haem)}
+.railtoggle{display:none}
 
-  /* ---------- Sections ---------- */
-  section{
-    background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);
-    padding:28px 30px;margin-bottom:22px;box-shadow:var(--shadow);
-    scroll-margin-top:16px;
-  }
-  h2.sec{
-    font-family:Georgia,serif;font-size:1.5rem;margin:0 0 4px;color:var(--primary-d);
-    display:flex;align-items:baseline;gap:12px;
-  }
-  h2.sec .num{
-    font-size:.85rem;font-weight:700;color:#fff;background:var(--primary);
-    border-radius:8px;padding:3px 10px;letter-spacing:.03em;flex:none;
-    font-family:"Segoe UI",sans-serif;transform:translateY(-3px);
-  }
-  .sec-lead{color:var(--muted);margin:0 0 20px;font-size:1.02rem}
-  h3{font-size:1.14rem;margin:24px 0 8px;color:var(--ink)}
-  h3:first-of-type{margin-top:6px}
-  h4{font-size:1rem;margin:16px 0 4px;color:var(--primary-d)}
-  p{margin:8px 0}
-  ul,ol{margin:8px 0;padding-left:22px}
-  li{margin:4px 0}
-  strong{color:var(--ink)}
-  .hr{height:1px;background:var(--line);border:0;margin:22px 0}
+/* ---------- layout ---------- */
+.shell{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);gap:38px;padding:0 26px 100px}
+.content{min-width:0;padding-top:34px}
 
-  /* ---------- Callouts ---------- */
-  .callout{
-    border-radius:12px;padding:16px 18px;margin:18px 0;border:1px solid;
-    display:flex;gap:13px;align-items:flex-start;
-  }
-  .callout .ico{font-size:1.3rem;line-height:1;flex:none;margin-top:1px}
-  .callout p{margin:0}
-  .callout .t{font-weight:700;display:block;margin-bottom:2px}
-  .def{background:var(--primary-l);border-color:#bfe0db}
-  .def .ico{color:var(--primary-d)}
-  .key{background:var(--accent-l);border-color:#f0d3bd}
-  .key .ico{color:var(--accent)}
-  .note{background:var(--violet-l);border-color:#d9d0ee}
-  .note .ico{color:var(--violet)}
+/* ---------- TOC rail (a slide rack) ---------- */
+.rail{position:sticky;top:calc(var(--top-h) + 22px);height:calc(100vh - var(--top-h) - 44px);overflow-y:auto;padding:34px 0 30px;scrollbar-width:thin}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:var(--rule);border-radius:4px}
+.rail h2{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-left:14px}
+.rail ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule-2)}
+.rail li{margin:0}
+.rail a{
+  display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--muted);
+  font-size:13.6px;line-height:1.4;padding:7px 10px 7px 14px;margin-left:-2px;
+  border-left:2px solid transparent;transition:color .15s,border-color .15s;
+}
+.rail a em{font-family:var(--f-mono);font-style:normal;font-size:10.5px;opacity:.65;flex:none;min-width:17px}
+.rail a:hover{color:var(--haem)}
+.rail a.on{color:var(--haem);border-left-color:var(--eosin);font-weight:600;background:linear-gradient(90deg,var(--haem-l),transparent)}
+.rail .rtool{margin-top:16px;padding-left:14px;display:flex;flex-direction:column;gap:7px}
+.rail .rtool button{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--muted);padding:7px 9px;border-radius:7px;cursor:pointer;text-align:left;
+}
+.rail .rtool button:hover{border-color:var(--haem);color:var(--haem)}
 
-  /* ---------- Tables ---------- */
-  .tbl-wrap{overflow-x:auto;margin:18px 0}
-  table{border-collapse:collapse;width:100%;font-size:.96rem}
-  th,td{border:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top}
-  thead th{background:var(--primary);color:#fff;font-weight:600}
-  tbody tr:nth-child(even){background:#faf9f6}
-  td strong{color:var(--primary-d)}
+/* ---------- hero ---------- */
+.hero{margin-bottom:40px}
+.eyebrow{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--eosin);margin-bottom:14px}
+.hero h1{
+  font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.15rem);
+  line-height:1.05;letter-spacing:-.022em;margin:0 0 16px;color:var(--ink);
+  font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 40;
+}
+.hero .lede{font-size:1.11rem;color:var(--ink-2);max-width:60ch;margin:0 0 22px}
+.hero .facts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero .facts div{padding:13px 26px 13px 0;margin-right:26px;border-right:1px solid var(--rule)}
+.hero .facts div:last-child{border-right:0}
+.hero .facts dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.hero .facts dd{margin:0;font-size:.94rem;font-weight:600;color:var(--ink)}
 
-  /* ---------- Question / concept cards ---------- */
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
-  .card{border:1px solid var(--line);border-radius:12px;padding:16px 17px;background:#fbfbf9}
-  .card .cap{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:6px}
-  .card h4{margin:0 0 6px}
-  .card ul{padding-left:18px;margin:6px 0 0;font-size:.93rem}
+/* ---------- section = a mounted slide ---------- */
+section.sl{
+  background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);
+  margin-bottom:20px;box-shadow:var(--sh);scroll-margin-top:calc(var(--top-h) + 16px);
+  overflow:hidden;
+}
+/* the frosted label end of a microscope slide */
+.slhead{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--rule-2)}
+.slhead .tag{
+  flex:none;width:64px;align-self:stretch;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--haem),var(--haem-d));
+  color:#fff;font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.04em;
+}
+[data-theme="dark"] .slhead .tag{color:#12172a}
+.slhead .ttl{padding:19px 26px 16px}
+.slhead h2{font-family:var(--f-disp);font-weight:600;font-size:1.42rem;line-height:1.2;letter-spacing:-.015em;margin:0;color:var(--ink);font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 24}
+.slhead p{margin:5px 0 0;color:var(--muted);font-size:.95rem}
+.slbody{padding:22px 26px 26px}
+.slbody>:first-child{margin-top:0}
+.slbody>:last-child{margin-bottom:0}
 
-  /* ---------- Figure ---------- */
-  figure{margin:22px 0;padding:18px;background:#fbfbf9;border:1px solid var(--line);border-radius:12px}
-  figure svg{display:block;width:100%;height:auto}
-  figcaption{font-size:.86rem;color:var(--muted);margin-top:12px;text-align:center;font-style:italic}
-  .fig-title{font-weight:700;color:var(--primary-d);text-align:center;margin-bottom:12px;font-size:.98rem}
+h3{font-family:var(--f-body);font-weight:700;font-size:1.07rem;margin:26px 0 8px;color:var(--ink);letter-spacing:-.005em}
+h3::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--eosin);margin-right:9px;vertical-align:middle}
+h4{font-size:.97rem;margin:16px 0 4px;color:var(--haem);font-weight:700}
+p{margin:9px 0}
+ul,ol{margin:9px 0;padding-left:21px}
+li{margin:5px 0}
+li::marker{color:var(--eosin)}
+strong{font-weight:700;color:var(--ink)}
+em.term{font-style:normal;font-weight:700;color:var(--haem);border-bottom:1.5px dotted var(--haem);cursor:help}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--haem-l);color:var(--haem);padding:1px 5px;border-radius:4px}
+hr.rule{border:0;border-top:1px solid var(--rule-2);margin:24px 0}
 
-  /* pill list */
-  .pills{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-  .pill{background:var(--primary-l);color:var(--primary-d);border:1px solid #bfe0db;padding:5px 13px;border-radius:999px;font-size:.9rem;font-weight:600}
+/* ---------- callouts ---------- */
+.box{border-radius:9px;padding:15px 17px 15px 16px;margin:18px 0;border:1px solid;border-left-width:3px;font-size:.98rem}
+.box>p:first-child{margin-top:0}.box>p:last-child{margin-bottom:0}
+.box .lab{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.def{background:var(--haem-l);border-color:var(--haem)}       .def .lab{color:var(--haem)}
+.hy{background:var(--eosin-l);border-color:var(--eosin)}      .hy .lab{color:var(--eosin)}
+.cl{background:var(--teal-l);border-color:var(--teal)}        .cl .lab{color:var(--teal)}
+.warn{background:var(--crim-l);border-color:var(--crim)}      .warn .lab{color:var(--crim)}
+.tip{background:var(--amber-l);border-color:var(--amber)}     .tip .lab{color:var(--amber)}
+.mem{background:var(--blue-l);border-color:var(--blue)}       .mem .lab{color:var(--blue)}
 
-  footer{text-align:center;color:var(--muted);font-size:.86rem;margin-top:28px;padding-top:18px;border-top:1px solid var(--line)}
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:9px}
+table{border-collapse:collapse;width:100%;font-size:.94rem;background:var(--paper)}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+thead th{
+  background:var(--haem-l);color:var(--haem);font-family:var(--f-mono);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--haem-l)}
+td strong{color:var(--haem)}
+table ul{margin:0;padding-left:17px}
 
-  a.back{position:fixed;right:18px;bottom:18px;background:var(--primary);color:#fff;
-    text-decoration:none;width:46px;height:46px;border-radius:50%;display:flex;align-items:center;
-    justify-content:center;font-size:1.3rem;box-shadow:var(--shadow);opacity:.9}
-  a.back:hover{opacity:1}
+/* ---------- grids of cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin:18px 0}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
+.cd{border:1px solid var(--rule);border-radius:9px;padding:15px 16px;background:var(--paper)}
+.cd .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--eosin);margin-bottom:6px;font-weight:600}
+.cd h4{margin:0 0 5px;color:var(--ink);font-size:1rem}
+.cd p{margin:0;font-size:.93rem;color:var(--ink-2)}
+.cd ul{margin:6px 0 0;padding-left:17px;font-size:.92rem;color:var(--ink-2)}
 
-  @media (max-width:640px){
-    nav.toc ol{columns:1}
-    header.hero h1{font-size:1.8rem}
-    section{padding:22px 18px}
-  }
-  @media print{
-    body{background:#fff;font-size:11pt}
-    a.back{display:none}
-    section,nav.toc{box-shadow:none;break-inside:avoid;border-color:#ccc}
-    header.hero{background:var(--primary-d)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    thead th,.chip,h2.sec .num{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  }
-</style>
-<style>
-.hub-fab{position:fixed;right:20px;bottom:74px;z-index:9998;display:inline-flex;align-items:center;
-gap:.4rem;padding:.6rem .95rem;border-radius:999px;font-family:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
-font-size:.82rem;font-weight:600;text-decoration:none;background:#0d6e66;color:#fff;
-box-shadow:0 6px 18px rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.28);
-transition:transform .12s ease,box-shadow .12s ease;}
-.hub-fab:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.28);}
-.hub-fab:active{transform:translateY(0);}
-@media(max-width:600px){.hub-fab{bottom:16px;right:14px;padding:.55rem .8rem;font-size:.78rem;}}
+/* ---------- numbered steps ---------- */
+ol.steps{list-style:none;padding:0;counter-reset:st;margin:18px 0}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 16px 44px;border-left:2px solid var(--rule-2);margin:0 0 0 15px}
+ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+ol.steps>li::before{
+  content:counter(st);position:absolute;left:-15px;top:-2px;width:29px;height:29px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--haem);color:var(--haem);
+  font-family:var(--f-mono);font-size:12px;font-weight:600;display:grid;place-items:center;
+}
+ol.steps b{display:block;color:var(--ink);margin-bottom:2px}
+ol.steps>li>div{font-size:.95rem;color:var(--ink-2)}
+
+/* ---------- pills ---------- */
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.pill{background:var(--haem-l);color:var(--haem);border:1px solid color-mix(in srgb,var(--haem) 25%,transparent);padding:4px 12px;border-radius:99px;font-size:.87rem;font-weight:600}
+.pill.e{background:var(--eosin-l);color:var(--eosin);border-color:color-mix(in srgb,var(--eosin) 25%,transparent)}
+
+/* ---------- figures ---------- */
+figure{margin:22px 0;padding:16px;background:var(--glass);border:1px solid var(--rule);border-radius:9px}
+figure svg{display:block;width:100%;height:auto}
+.fcap{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:11px;text-align:center}
+
+/* ---------- self-test ---------- */
+details.qz{border:1px solid var(--rule);border-left:3px solid var(--eosin);border-radius:9px;margin:16px 0;background:var(--paper)}
+details.qz>summary{
+  cursor:pointer;padding:12px 16px;font-weight:600;font-size:.96rem;list-style:none;
+  display:flex;align-items:center;gap:10px;color:var(--ink);
+}
+details.qz>summary::-webkit-details-marker{display:none}
+details.qz>summary::before{
+  content:"?";font-family:var(--f-mono);flex:none;width:21px;height:21px;border-radius:5px;
+  background:var(--eosin-l);color:var(--eosin);display:grid;place-items:center;font-size:12px;font-weight:700;
+}
+details.qz>summary::after{content:"Show";margin-left:auto;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+details.qz[open]>summary::after{content:"Hide"}
+details.qz .ans{padding:0 16px 15px 47px;font-size:.95rem;color:var(--ink-2);border-top:1px solid var(--rule-2);padding-top:13px;margin-top:0}
+details.qz .ans>:first-child{margin-top:0}
+details.qz .ans ol,details.qz .ans ul{padding-left:19px}
+
+/* ---------- glossary ---------- */
+dl.gloss{margin:16px 0;display:grid;grid-template-columns:minmax(140px,auto) 1fr;gap:0}
+dl.gloss dt{font-weight:700;color:var(--haem);padding:9px 16px 9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem}
+dl.gloss dd{margin:0;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem;color:var(--ink-2)}
+dl.gloss dt:last-of-type,dl.gloss dd:last-of-type{border-bottom:0}
+
+/* ---------- footer ---------- */
+.foot{margin-top:34px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:.86rem}
+.foot .nx{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.foot .nx a{
+  flex:1 1 210px;text-decoration:none;border:1px solid var(--rule);border-radius:9px;padding:13px 15px;
+  background:var(--paper);color:var(--ink);transition:border-color .15s;
+}
+.foot .nx a:hover{border-color:var(--haem)}
+.foot .nx span{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.foot .nx b{font-weight:600;font-size:.97rem}
+
+.totop{position:fixed;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;
+  background:var(--haem);color:#fff;border:0;cursor:pointer;font-size:17px;box-shadow:var(--sh);
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.totop.show{opacity:.92;pointer-events:auto}
+.totop:hover{opacity:1}
+[data-theme="dark"] .totop{color:#12172a}
+
+:focus-visible{outline:2px solid var(--eosin);outline-offset:2px;border-radius:3px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1040px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 20px 90px}
+  .railtoggle{display:grid;place-items:center;flex:none;background:none;border:1px solid var(--rule);
+    color:var(--muted);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px}
+  .rail{position:static;height:auto;overflow:visible;padding:20px 0 0;display:none}
+  .rail.open{display:block}
+  .rail ol{columns:2;column-gap:20px;border-left:0}
+  .rail li{break-inside:avoid}
+  .rail a{border-left:0;padding-left:0}
+  .rail a.on{background:none}
+  .content{padding-top:24px}
+  .brand span{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .rail ol{columns:1}
+  .slbody{padding:18px 17px 22px}
+  .slhead .ttl{padding:16px 17px 14px}
+  .slhead .tag{width:48px;font-size:11.5px}
+  .hero .facts div{border-right:0;padding-right:0;margin-right:0;width:100%;padding-top:9px;padding-bottom:9px;border-bottom:1px solid var(--rule-2)}
+  .hero .facts div:last-child{border-bottom:0}
+  dl.gloss{grid-template-columns:1fr}
+  dl.gloss dt{padding-bottom:0;border-bottom:0}
+  .switch a{padding:5px 8px;font-size:10.5px}
+}
+
+/* ---------- print ---------- */
+@media print{
+  :root{--paper:#fff;--glass:#fff}
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .topbar,.rail,.prog,.totop,.foot .nx{display:none!important}
+  .shell{display:block;max-width:none;padding:0}
+  .content{padding-top:0}
+  section.sl{break-inside:avoid;box-shadow:none;border:1px solid #bbb;margin-bottom:12px}
+  .slhead .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  thead th,.box,.pill,.cd .k{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.qz{break-inside:avoid}
+  details.qz>summary::after{content:""}
+  details.qz .ans{display:block!important}
+  figure{break-inside:avoid;border:1px solid #ddd}
+  a{color:#000;text-decoration:none}
+}
 </style>
 </head>
 <body>
+<div class="prog"><i id="bar"></i></div>
 
-<header class="hero">
-  <div class="hero-inner">
-    <div class="kicker">DOH 233 · Pathological Basis of Oral &amp; Systemic Disease</div>
-    <h1>Lecture 1 — Introduction to Pathology</h1>
-    <p class="sub">A brief overview of cell and molecular biology, and the framework pathology uses to explain what disease is, why it happens, and how it affects the body.</p>
-    <div class="meta-row">
-      <span class="chip">Dr Joseph Ryan · Oral Medicine Specialist</span>
-      <span class="chip">Reading: Underwood's Pathology, Ch. 1–3</span>
-    </div>
-  </div>
+<header class="topbar">
+  <a class="brand" href="index.html"><b>Pathology</b><span>DOH 233</span></a>
+  <nav class="switch" aria-label="Lectures"><a href="pathology_l1_intro.html" aria-current="page">L1</a><a href="pathology_l2_cell_injury.html">L2</a><a href="pathology_l3a_acute_inflammation.html">L3A</a><a href="pathology_l3b_chronic_inflammation.html">L3B</a></nav>
+  <button class="railtoggle" id="railtoggle" aria-label="Show contents">&#9776;</button>
+  <button class="tbtn" id="theme" aria-label="Switch to dark theme">&#9681;</button>
 </header>
 
-<div class="wrap">
-
-<nav class="toc">
-  <h2>Contents</h2>
-  <ol>
-    <li><a href="#s1">What is disease?</a></li>
-    <li><a href="#s2">What is pathology?</a></li>
-    <li><a href="#s3">The three core questions</a></li>
-    <li><a href="#s4">Why pathology matters</a></li>
-    <li><a href="#s5">Pathology as a science</a></li>
-    <li><a href="#s6">Structure ↔ function</a></li>
-    <li><a href="#s7">History: rise of microscopy</a></li>
-    <li><a href="#s8">Cellular pathology</a></li>
-    <li><a href="#s9">Limits of cellular pathology</a></li>
-    <li><a href="#s10">Molecular pathology</a></li>
-    <li><a href="#s11">Cellular &amp; molecular injury</a></li>
-    <li><a href="#s12">Scope of pathology</a></li>
-    <li><a href="#s13">Diagnostic pathology</a></li>
-    <li><a href="#s14">Precision medicine</a></li>
-    <li><a href="#s15">What causes disease?</a></li>
-    <li><a href="#s16">Genetic vs environmental causes</a></li>
-    <li><a href="#s17">Predisposing &amp; multifactorial</a></li>
-    <li><a href="#s18">Integrated framework</a></li>
-  </ol>
-</nav>
-
-<!-- 1 -->
-<section id="s1">
-  <h2 class="sec"><span class="num">01</span> What is Disease?</h2>
-  <p class="sec-lead">Before studying disease, we need a precise idea of what "disease" means.</p>
-
-  <div class="callout def">
-    <span class="ico">◆</span>
-    <p><span class="t">Definition — Disease</span>A state of <strong>abnormal structure and/or abnormal function</strong> affecting cells, tissues, organs, or systems of the body — a condition in which normal <strong>homeostasis is disturbed</strong>, resulting in impaired physiological, biochemical, or behavioural function.</p>
-  </div>
-
-  <p>A disease is a <strong>recognisable clinical entity</strong> characterised by a consistent pattern of three things:</p>
-  <div class="cards">
-    <div class="card">
-      <div class="cap">Symptoms</div>
-      <h4>Subjective</h4>
-      <p style="margin:0;font-size:.93rem">What the <em>patient</em> experiences and reports (e.g. pain, fatigue).</p>
+<div class="shell">
+  <aside class="rail" id="rail">
+    <h2>On this page</h2>
+    <ol><li><a href="#s1"><em>01</em><span>What is disease?</span></a></li><li><a href="#s2"><em>02</em><span>What is pathology?</span></a></li><li><a href="#s3"><em>03</em><span>The three core questions</span></a></li><li><a href="#s4"><em>04</em><span>Why pathology matters</span></a></li><li><a href="#s5"><em>05</em><span>Pathology as a science</span></a></li><li><a href="#s6"><em>06</em><span>Structure and function</span></a></li><li><a href="#s7"><em>07</em><span>The rise of microscopy</span></a></li><li><a href="#s8"><em>08</em><span>Cellular pathology</span></a></li><li><a href="#s9"><em>09</em><span>Limits of cellular pathology</span></a></li><li><a href="#s10"><em>10</em><span>Molecular pathology</span></a></li><li><a href="#s11"><em>11</em><span>Cellular &amp; molecular injury</span></a></li><li><a href="#s12"><em>12</em><span>Scope of pathology</span></a></li><li><a href="#s13"><em>13</em><span>Diagnostic pathology</span></a></li><li><a href="#s14"><em>14</em><span>Precision medicine</span></a></li><li><a href="#s15"><em>15</em><span>What causes disease?</span></a></li><li><a href="#s16"><em>16</em><span>Genetic vs environmental</span></a></li><li><a href="#s17"><em>17</em><span>Predisposing &amp; multifactorial</span></a></li><li><a href="#s18"><em>18</em><span>Integrated framework</span></a></li></ol>
+    <div class="rtool">
+      <button id="expandall">Reveal all answers</button>
+      <button id="collapseall">Hide all answers</button>
+      <button id="printme">Print / save PDF</button>
     </div>
-    <div class="card">
-      <div class="cap">Signs</div>
-      <h4>Objective</h4>
-      <p style="margin:0;font-size:.93rem">What the <em>clinician</em> can observe or measure (e.g. swelling, fever).</p>
+  </aside>
+
+  <main class="content">
+    <div class="hero">
+      <div class="eyebrow">L1 &nbsp;/&nbsp; Pathological basis of oral &amp; systemic disease</div>
+      <h1>Introduction to Pathology</h1>
+      <p class="lede">Pathology is the scientific study of disease. This lecture establishes the framework the whole subject runs on &mdash; aetiology, pathogenesis and morphologic change &mdash; and reviews the cell and molecular biology that underpins it.</p>
+      <dl class="facts"><div><dt>Lecturer</dt><dd>Dr Joseph Ryan</dd></div><div><dt>Sections</dt><dd>18</dd></div><div><dt>Core reading</dt><dd>Underwood&rsquo;s Ch. 1&ndash;3</dd></div><div><dt>Leads into</dt><dd>L2 cellular responses</dd></div></dl>
     </div>
-    <div class="card">
-      <div class="cap">Pathological</div>
-      <h4>Abnormalities</h4>
-      <p style="margin:0;font-size:.93rem">The underlying structural/functional changes in tissue.</p>
-    </div>
-  </div>
 
-  <h3>Disease is a process — it has "axes"</h3>
-  <p>Any disease can be positioned along several descriptive axes:</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Axis</th><th>One end</th><th>Other end</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Time course</strong></td><td>Acute (rapid onset, short)</td><td>Chronic (slow, prolonged)</td></tr>
-        <tr><td><strong>Extent</strong></td><td>Localised (confined)</td><td>Systemic (body-wide)</td></tr>
-        <tr><td><strong>Outcome</strong></td><td>Reversible</td><td>Irreversible</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+    <section class="sl" id="s1">
+      <div class="slhead"><div class="tag">01</div><div class="ttl"><h2>What is disease?</h2><p>Before studying disease, we need a precise idea of what the word means.</p></div></div>
+      <div class="slbody">
 
-<!-- 2 -->
-<section id="s2">
-  <h2 class="sec"><span class="num">02</span> What is Pathology?</h2>
-  <div class="callout def">
-    <span class="ico">◆</span>
-    <p><span class="t">Definition — Pathology</span>The <strong>scientific study of disease</strong>. It explains what disease is, why it happens, and how it affects the body — connecting basic science → clinical signs/symptoms → investigations → diagnosis → treatment.</p>
-  </div>
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Disease</strong> is a state of <strong>abnormal structure and/or abnormal function</strong> affecting cells, tissues, organs, or systems of the body — a condition in which normal <strong>homeostasis is disturbed</strong>, resulting in impaired physiological, biochemical, or behavioural function.</p></div>
 
-  <h3>Pathology studies disease across every level of biology</h3>
-  <figure>
-    <div class="fig-title">The levels at which pathology operates</div>
-    <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
-      <defs>
-        <linearGradient id="lv" x1="0" x2="1"><stop offset="0" stop-color="#0a534d"/><stop offset="1" stop-color="#0d6e66"/></linearGradient>
-      </defs>
-      <!-- arrow track -->
-      <line x1="70" y1="70" x2="700" y2="70" stroke="#cfe3e0" stroke-width="3"/>
-      <polygon points="700,70 688,64 688,76" fill="#cfe3e0"/>
-      <!-- nodes -->
-      <g text-anchor="middle">
-        <g><circle cx="90" cy="70" r="26" fill="url(#lv)"/><text x="90" y="75" fill="#fff" font-size="13">🧬</text><text x="90" y="118" font-size="12.5" font-weight="700" fill="#0a534d">Molecular</text><text x="90" y="135" font-size="10.5" fill="#5b6b78">genes,</text><text x="90" y="149" font-size="10.5" fill="#5b6b78">proteins</text></g>
-        <g><circle cx="240" cy="70" r="26" fill="url(#lv)"/><text x="240" y="76" fill="#fff" font-size="15">◉</text><text x="240" y="118" font-size="12.5" font-weight="700" fill="#0a534d">Cellular</text><text x="240" y="135" font-size="10.5" fill="#5b6b78">injury, death,</text><text x="240" y="149" font-size="10.5" fill="#5b6b78">adaptation</text></g>
-        <g><circle cx="390" cy="70" r="26" fill="url(#lv)"/><text x="390" y="76" fill="#fff" font-size="15">▦</text><text x="390" y="118" font-size="12.5" font-weight="700" fill="#0a534d">Tissue</text><text x="390" y="135" font-size="10.5" fill="#5b6b78">inflammation,</text><text x="390" y="149" font-size="10.5" fill="#5b6b78">fibrosis, necrosis</text></g>
-        <g><circle cx="540" cy="70" r="26" fill="url(#lv)"/><text x="540" y="76" fill="#fff" font-size="15">❤</text><text x="540" y="118" font-size="12.5" font-weight="700" fill="#0a534d">Organ</text><text x="540" y="135" font-size="10.5" fill="#5b6b78">failure,</text><text x="540" y="149" font-size="10.5" fill="#5b6b78">dysfunction</text></g>
-        <g><circle cx="680" cy="70" r="26" fill="url(#lv)"/><text x="680" y="76" fill="#fff" font-size="15">🧍</text><text x="680" y="118" font-size="12.5" font-weight="700" fill="#0a534d">Whole patient</text><text x="680" y="135" font-size="10.5" fill="#5b6b78">symptoms,</text><text x="680" y="149" font-size="10.5" fill="#5b6b78">prognosis</text></g>
-      </g>
-      <text x="385" y="200" text-anchor="middle" font-size="12.5" fill="#5b6b78" font-style="italic">Increasing scale · a molecular fault can ultimately present as a whole-patient illness</text>
-    </svg>
-  </figure>
-
-  <h3>Two broad roles of pathology</h3>
-  <div class="cards">
-    <div class="card">
-      <div class="cap">Role 1</div>
-      <h4>Scientific discipline</h4>
-      <p style="margin:0;font-size:.93rem">Understanding the <strong>mechanisms</strong> of disease.</p>
-    </div>
-    <div class="card">
-      <div class="cap">Role 2</div>
-      <h4>Diagnostic discipline</h4>
-      <p style="margin:0;font-size:.93rem">Interpreting <strong>samples</strong> to guide patient care.</p>
-    </div>
-  </div>
-</section>
-
-<!-- 3 -->
-<section id="s3">
-  <h2 class="sec"><span class="num">03</span> The Three Core Questions</h2>
-  <p class="sec-lead">Pathology approaches every disease by asking three linked questions. This is the backbone of the whole subject.</p>
-
-  <figure>
-    <div class="fig-title">Aetiology → Pathogenesis → Morphologic &amp; functional changes</div>
-    <svg viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
-      <defs><marker id="ar" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#b5541f"/></marker></defs>
-      <g>
-        <rect x="20" y="35" width="210" height="100" rx="12" fill="#e6f2f0" stroke="#0d6e66"/>
-        <text x="125" y="60" text-anchor="middle" font-size="13.5" font-weight="700" fill="#0a534d">1 · Aetiology</text>
-        <text x="125" y="80" text-anchor="middle" font-size="11.5" fill="#16212b">The CAUSE</text>
-        <text x="125" y="102" text-anchor="middle" font-size="10.5" fill="#5b6b78">What initiated</text>
-        <text x="125" y="116" text-anchor="middle" font-size="10.5" fill="#5b6b78">the disease?</text>
-      </g>
-      <line x1="232" y1="85" x2="272" y2="85" stroke="#b5541f" stroke-width="2.5" marker-end="url(#ar)"/>
-      <g>
-        <rect x="275" y="35" width="210" height="100" rx="12" fill="#fbeee4" stroke="#b5541f"/>
-        <text x="380" y="60" text-anchor="middle" font-size="13.5" font-weight="700" fill="#b5541f">2 · Pathogenesis</text>
-        <text x="380" y="80" text-anchor="middle" font-size="11.5" fill="#16212b">The MECHANISM</text>
-        <text x="380" y="102" text-anchor="middle" font-size="10.5" fill="#5b6b78">How does the cause</text>
-        <text x="380" y="116" text-anchor="middle" font-size="10.5" fill="#5b6b78">produce disease?</text>
-      </g>
-      <line x1="487" y1="85" x2="527" y2="85" stroke="#b5541f" stroke-width="2.5" marker-end="url(#ar)"/>
-      <g>
-        <rect x="530" y="35" width="210" height="100" rx="12" fill="#efebf7" stroke="#5b4a8a"/>
-        <text x="635" y="58" text-anchor="middle" font-size="13.5" font-weight="700" fill="#5b4a8a">3 · Changes</text>
-        <text x="635" y="76" text-anchor="middle" font-size="11.5" fill="#16212b">MORPHOLOGY +</text>
-        <text x="635" y="90" text-anchor="middle" font-size="11.5" fill="#16212b">FUNCTION</text>
-        <text x="635" y="110" text-anchor="middle" font-size="10.5" fill="#5b6b78">What changes &amp; what</text>
-        <text x="635" y="124" text-anchor="middle" font-size="10.5" fill="#5b6b78">do they mean?</text>
-      </g>
-    </svg>
-  </figure>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th style="width:24%">Question</th><th>What it covers</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>1. Aetiology</strong><br>(the cause)</td>
-          <td>Genetic factors (inherited or acquired mutations) · environmental factors (infection, toxins, radiation, nutrition) · lifestyle &amp; exposures (smoking, alcohol, occupation) · immune/inflammatory triggers · <strong>multifactorial causation</strong> (gene–environment interaction).</td>
-        </tr>
-        <tr>
-          <td><strong>2. Pathogenesis</strong><br>(the mechanism)</td>
-          <td>Which molecular &amp; cellular pathways are disrupted · the host response (inflammation, immunity, repair) · progression over time (acute → chronic, reversible → irreversible).</td>
-        </tr>
-        <tr>
-          <td><strong>3. Morphologic + functional changes</strong></td>
-          <td><strong>Morphology:</strong> gross + microscopic architecture. <strong>Function:</strong> organ performance, biomarkers, physiological consequences. <strong>Clinical correlation:</strong> symptoms, signs, complications, prognosis.</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- 4 -->
-<section id="s4">
-  <h2 class="sec"><span class="num">04</span> Why Pathology Matters</h2>
-  <p class="sec-lead">Pathology is essential because it enables four things clinical care cannot do without.</p>
-  <div class="cards">
-    <div class="card">
-      <div class="cap">1 · Diagnosis</div>
-      <h4>Accurate diagnosis</h4>
-      <ul>
-        <li>Turns symptoms/signs into a specific disease entity</li>
-        <li>Reduces uncertainty; avoids harmful misclassification</li>
-        <li>Confirms/refines clinical impressions (e.g. benign vs malignant)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="cap">2 · Treatment</div>
-      <h4>Evidence-based treatment</h4>
-      <ul>
-        <li>Therapy targets mechanisms (infection, inflammation, thrombosis, malignancy)</li>
-        <li>Enables stratification: severity, subtype, stage, risk</li>
-        <li>Guides choice &amp; intensity (incl. "no treatment" when appropriate)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="cap">3 · Prevention</div>
-      <h4>Prevention &amp; public health</h4>
-      <ul>
-        <li>Identifies causes &amp; modifiable risks</li>
-        <li>Enables screening &amp; early detection</li>
-        <li>Provides reliable incidence data (registries, surveillance)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="cap">4 · Monitoring</div>
-      <h4>Monitoring &amp; prognosis</h4>
-      <ul>
-        <li>Biomarkers &amp; findings track response to treatment</li>
-        <li>Predicts outcomes (grade/stage, molecular features, complications)</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 5 -->
-<section id="s5">
-  <h2 class="sec"><span class="num">05</span> Pathology as a Scientific Discipline</h2>
-  <p class="sec-lead">Pathology is a <em>science</em> of disease, not just a catalogue of findings.</p>
-  <ul>
-    <li>Built on <strong>systematic observation</strong></li>
-    <li>Uses <strong>hypothesis-driven investigation</strong></li>
-    <li>Integrates laboratory findings with clinical data</li>
-    <li>Evolves with advances in technology and biology</li>
-    <li>Converts observations into <strong>testable disease models</strong></li>
-  </ul>
-</section>
-
-<!-- 6 -->
-<section id="s6">
-  <h2 class="sec"><span class="num">06</span> Pathology Links Structure &amp; Function</h2>
-  <div class="callout key">
-    <span class="ico">★</span>
-    <p><span class="t">Core idea</span>Disease = <strong>disturbed structure and disturbed function</strong>.</p>
-  </div>
-  <ul>
-    <li>Normal <strong>structure</strong> underpins normal <strong>function</strong></li>
-    <li>Structural change → <strong>predictable</strong> functional impairment</li>
-    <li>Functional change may <strong>precede</strong> visible structural change</li>
-    <li>Pathology explains how <strong>anatomy becomes clinical disease</strong></li>
-  </ul>
-
-  <h3>Pathology as the bridge between science &amp; clinical medicine</h3>
-  <figure>
-    <div class="fig-title">Pathology connects the lab bench to the bedside</div>
-    <svg viewBox="0 0 760 130" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
-      <defs><marker id="ar2" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#0d6e66"/></marker></defs>
-      <rect x="15" y="40" width="150" height="52" rx="10" fill="#e6f2f0" stroke="#0d6e66"/>
-      <text x="90" y="63" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a534d">Basic sciences</text>
-      <text x="90" y="80" text-anchor="middle" font-size="9.5" fill="#5b6b78">anatomy · physiology · biochem</text>
-      <line x1="167" y1="66" x2="197" y2="66" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar2)"/>
-      <rect x="200" y="40" width="150" height="52" rx="10" fill="#e6f2f0" stroke="#0d6e66"/>
-      <text x="275" y="63" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a534d">Signs &amp; symptoms</text>
-      <text x="275" y="80" text-anchor="middle" font-size="9.5" fill="#5b6b78">clinical presentation</text>
-      <line x1="352" y1="66" x2="382" y2="66" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar2)"/>
-      <rect x="385" y="40" width="150" height="52" rx="10" fill="#e6f2f0" stroke="#0d6e66"/>
-      <text x="460" y="63" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0a534d">Investigations</text>
-      <text x="460" y="80" text-anchor="middle" font-size="9.5" fill="#5b6b78">diagnostic tests</text>
-      <line x1="537" y1="66" x2="567" y2="66" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar2)"/>
-      <rect x="570" y="40" width="175" height="52" rx="10" fill="#0d6e66"/>
-      <text x="657" y="63" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fff">Prognosis &amp; treatment</text>
-      <text x="657" y="80" text-anchor="middle" font-size="9.5" fill="#cfe3e0">decisions that change care</text>
-      <text x="380" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#b5541f">P A T H O L O G Y  —  the connecting thread</text>
-    </svg>
-  </figure>
-</section>
-
-<!-- 7 -->
-<section id="s7">
-  <h2 class="sec"><span class="num">07</span> History — The Rise of Microscopy</h2>
-  <p class="sec-lead">Microscopy was a <strong>19th-century turning point</strong> in pathology.</p>
-  <ul>
-    <li>Introduction of <strong>light microscopy</strong> into medical science</li>
-    <li>Enabled examination of <strong>thin tissue sections</strong></li>
-    <li>Revealed disease at the <strong>cellular and subcellular</strong> level</li>
-    <li>Challenged earlier ideas of spontaneous generation</li>
-    <li>Shifted pathology from <strong>organ-level description → cellular analysis</strong></li>
-  </ul>
-</section>
-
-<!-- 8 -->
-<section id="s8">
-  <h2 class="sec"><span class="num">08</span> Cellular Pathology</h2>
-  <div class="callout key">
-    <span class="ico">★</span>
-    <p><span class="t">Central principle</span>Disease begins in <strong>cells</strong> — the smallest functional units of life.</p>
-  </div>
-  <ul>
-    <li>Disease is explained by cell <strong>injury, adaptation, and death</strong></li>
-    <li><em>"Omnis cellula e cellula"</em> — all cells arise from pre-existing cells</li>
-    <li>A shift from "humours and organs" → <strong>cell-based mechanisms</strong></li>
-    <li>The foundation of modern <strong>histopathology</strong></li>
-  </ul>
-
-  <h3>The cell in health &amp; disease</h3>
-  <p>Two ideas from the lecture are worth holding onto: the same <strong>cellular components</strong> that keep a cell healthy become the sites of disease when they fail, and the <strong>products a cell secretes</strong> are altered in disease (both under- and over-production can be pathological).</p>
-  <figure>
-    <div class="fig-title">The cell as the central unit — where health tips into disease</div>
-    <svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
-      <!-- cell membrane -->
-      <ellipse cx="350" cy="150" rx="270" ry="128" fill="#e6f2f0" stroke="#0d6e66" stroke-width="2.5"/>
-      <!-- nucleus -->
-      <ellipse cx="350" cy="150" rx="72" ry="58" fill="#c9e4df" stroke="#0a534d" stroke-width="2"/>
-      <ellipse cx="350" cy="150" rx="20" ry="16" fill="#0a534d"/>
-      <text x="350" y="118" text-anchor="middle" font-size="11" font-weight="700" fill="#0a534d">NUCLEUS</text>
-      <text x="350" y="200" text-anchor="middle" font-size="9" fill="#0a534d">DNA · genes</text>
-      <!-- mitochondrion -->
-      <ellipse cx="180" cy="110" rx="42" ry="22" fill="#fbeee4" stroke="#b5541f" stroke-width="1.5"/>
-      <text x="180" y="108" text-anchor="middle" font-size="9.5" font-weight="700" fill="#b5541f">Mitochondria</text>
-      <text x="180" y="122" text-anchor="middle" font-size="8" fill="#5b6b78">ATP · energy</text>
-      <!-- ER -->
-      <ellipse cx="180" cy="195" rx="42" ry="22" fill="#efebf7" stroke="#5b4a8a" stroke-width="1.5"/>
-      <text x="180" y="193" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b4a8a">ER · Golgi</text>
-      <text x="180" y="207" text-anchor="middle" font-size="8" fill="#5b6b78">protein folding</text>
-      <!-- membrane label -->
-      <ellipse cx="525" cy="110" rx="46" ry="22" fill="#fff5e0" stroke="#a67c00" stroke-width="1.5"/>
-      <text x="525" y="108" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a67c00">Membrane</text>
-      <text x="525" y="122" text-anchor="middle" font-size="8" fill="#5b6b78">transport · signalling</text>
-      <!-- secreted products -->
-      <ellipse cx="525" cy="195" rx="46" ry="22" fill="#e6f2f0" stroke="#0d6e66" stroke-width="1.5"/>
-      <text x="525" y="193" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0a534d">Secreted</text>
-      <text x="525" y="207" text-anchor="middle" font-size="8" fill="#5b6b78">enzymes · hormones</text>
-      <text x="350" y="285" text-anchor="middle" font-size="10.5" font-style="italic" fill="#5b6b78">Each component is a potential target of injury — failure here is the basis of disease</text>
-    </svg>
-  </figure>
-</section>
-
-<!-- 9 -->
-<section id="s9">
-  <h2 class="sec"><span class="num">09</span> Limits of Cellular Pathology</h2>
-  <p class="sec-lead">Cells alone do not explain <em>all</em> disease.</p>
-  <ul>
-    <li>Some diseases show <strong>minimal structural change</strong></li>
-    <li>Functional disturbance may <strong>precede</strong> visible cell injury</li>
-    <li>Biochemical and molecular defects can be the <strong>primary</strong> problem</li>
-  </ul>
-  <div class="callout note">
-    <span class="ico">▶</span>
-    <p><span class="t">This is why molecular pathology exists</span>It reveals <strong>gene mutations</strong>, <strong>abnormal proteins</strong>, and <strong>dysregulated signalling pathways</strong> that a microscope cannot see.</p>
-  </div>
-</section>
-
-<!-- 10 -->
-<section id="s10">
-  <h2 class="sec"><span class="num">10</span> Molecular Pathology</h2>
-  <div class="callout def">
-    <span class="ico">◆</span>
-    <p><span class="t">Definition</span>Molecular pathology studies disease at the level of <strong>genes and proteins</strong>. The primary lesion may be molecular <em>before</em> any structural change is visible.</p>
-  </div>
-
-  <h3>Key molecular events (the initial fault)</h3>
-  <div class="pills">
-    <span class="pill">DNA sequence change (SNV, insertion/deletion)</span>
-    <span class="pill">Chromosomal abnormalities (deletions, translocations, aneuploidy)</span>
-    <span class="pill">Epigenetic change (methylation, chromatin modification)</span>
-    <span class="pill">Altered gene expression (up/down-regulation, abnormal transcripts)</span>
-  </div>
-
-  <h3>Consequences (how the fault causes harm)</h3>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Molecular consequence</th><th>Result</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Abnormal proteins</strong></td><td>Wrong structure, folding, function, or localisation</td></tr>
-        <tr><td><strong>Enzyme defects</strong></td><td>Metabolic block → toxic accumulation or deficiency</td></tr>
-        <tr><td><strong>Receptor / signalling defects</strong></td><td>Inappropriate growth/survival signalling</td></tr>
-        <tr><td><strong>Disordered cell-cycle control</strong></td><td>Neoplasia (cancer)</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="callout key">
-    <span class="ico">★</span>
-    <p><span class="t">Clinical impact</span>Molecular pathology explains <strong>congenital disease</strong> and <strong>cancer biology</strong>, and enables <strong>precision diagnosis, prognosis, and targeted therapy</strong>.</p>
-  </div>
-</section>
-
-<!-- 11 -->
-<section id="s11">
-  <h2 class="sec"><span class="num">11</span> Cellular &amp; Molecular Injury</h2>
-  <p class="sec-lead">Cell injury targets specific structures — and each target produces predictable outcomes.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th style="width:24%">Target of injury</th><th>What goes wrong</th><th style="width:30%">Outcomes</th></tr></thead>
-      <tbody>
-        <tr>
-          <td><strong>Nucleus</strong></td>
-          <td>DNA damage, mutations, impaired repair; viral integration/replication effects</td>
-          <td>Dysplasia · malignant transformation · cell death</td>
-        </tr>
-        <tr>
-          <td><strong>Mitochondria</strong></td>
-          <td>Reduced ATP production, oxidative stress, release of pro-apoptotic factors</td>
-          <td>Energy failure · apoptosis/necrosis · organ dysfunction</td>
-        </tr>
-        <tr>
-          <td><strong>Membrane &amp; transport</strong></td>
-          <td>Ion channel/pump dysfunction, permeability changes, receptor &amp; signalling failure</td>
-          <td>Oedema · cell swelling · impaired excitability/function</td>
-        </tr>
-        <tr>
-          <td><strong>Proteins</strong></td>
-          <td>Misfolding &amp; accumulation, ER stress, impaired degradation pathways</td>
-          <td>Degenerative disease · toxic aggregates</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="callout note">
-    <span class="ico">▶</span>
-    <p><span class="t">Patterns of response</span><strong>Adaptation</strong> (hypertrophy, atrophy, metaplasia) vs <strong>reversible injury</strong> vs <strong>irreversible injury</strong> (necrosis/apoptosis). These are the focus of Lecture 2.</p>
-  </div>
-</section>
-
-<!-- 12 -->
-<section id="s12">
-  <h2 class="sec"><span class="num">12</span> Scope of Pathology — Where Knowledge Comes From</h2>
-  <div class="cards">
-    <div class="card">
-      <div class="cap">Most important</div>
-      <h4>Human patient material</h4>
-      <ul>
-        <li>Biopsies, resections, cytology</li>
-        <li>Blood, urine, CSF, other fluids</li>
-        <li>Autopsy + clinicopathological correlation</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="cap">Supporting evidence</div>
-      <h4>Experimental systems</h4>
-      <ul>
-        <li>Animal models (whole-organism mechanisms)</li>
-        <li>Cell cultures (controlled pathways, drug response)</li>
-        <li>Organoids / tissue models</li>
-        <li>Computational models (simulation, prediction)</li>
-      </ul>
-    </div>
-    <div class="card">
-      <div class="cap">Direction of travel</div>
-      <h4>Translational pathway</h4>
-      <p style="margin:0;font-size:.93rem">Bench discovery → validation in human samples → clinical implementation.</p>
-    </div>
-  </div>
-  <div class="callout key">
-    <span class="ico">★</span>
-    <p><span class="t">Central principle</span>Pathology must remain <strong>clinically anchored</strong> — findings matter because they change patient care.</p>
-  </div>
-</section>
-
-<!-- 13 -->
-<section id="s13">
-  <h2 class="sec"><span class="num">13</span> Diagnostic Pathology</h2>
-  <p class="sec-lead">Pathology in the diagnosis of <strong>living patients</strong>.</p>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Category</th><th>Examples</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Tissue-based diagnosis</strong></td><td>Biopsies (incisional, excisional, needle); surgical resections; cytology (exfoliative &amp; aspirates)</td></tr>
-        <tr><td><strong>Body fluids</strong></td><td>Blood, urine, CSF; pleural, peritoneal, synovial fluids; microbiological &amp; biochemical analysis</td></tr>
-        <tr><td><strong>Serial investigations</strong></td><td>Monitoring progression; assessing response to treatment; detecting recurrence or complications</td></tr>
-        <tr><td><strong>Clinical integration</strong></td><td>Interpretation is guided by clinical context; results influence diagnosis, prognosis &amp; management</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<!-- 14 -->
-<section id="s14">
-  <h2 class="sec"><span class="num">14</span> Pathology in Precision Medicine</h2>
-  <p class="sec-lead">Moving from broad disease categories → individual biology.</p>
-  <div class="cards">
-    <div class="card"><div class="cap">Profiling</div><h4>Molecular profiling</h4><ul><li>Identifies genetic &amp; molecular abnormalities</li><li>Subclassifies disease beyond morphology</li><li>Prognostic &amp; predictive biomarkers</li></ul></div>
-    <div class="card"><div class="cap">Therapy</div><h4>Targeted therapies</h4><ul><li>Directed at specific molecular pathways</li><li>Better efficacy than non-specific therapy</li><li>Avoids ineffective/harmful treatments</li></ul></div>
-    <div class="card"><div class="cap">Care</div><h4>Individualised care</h4><ul><li>Treatment based on tumour/disease biology</li><li>Integrated with clinical &amp; imaging data</li><li>Dynamically adjusted over time</li></ul></div>
-  </div>
-  <div class="callout key"><span class="ico">★</span><p><span class="t">Key message</span>Precision medicine is <strong>impossible without modern pathology</strong>.</p></div>
-</section>
-
-<!-- 15 -->
-<section id="s15">
-  <h2 class="sec"><span class="num">15</span> What Causes Disease?</h2>
-  <p class="sec-lead">Disease has identifiable causes — establishing them is the <strong>central question of pathology</strong>.</p>
-  <div class="cards">
-    <div class="card" style="background:#e6f2f0"><div class="cap">Category 1</div><h4>Genetic causes</h4></div>
-    <div class="card" style="background:#fbeee4"><div class="cap">Category 2</div><h4>Environmental causes</h4></div>
-    <div class="card" style="background:#efebf7"><div class="cap">Category 3</div><h4>Multifactorial</h4><p style="margin:0;font-size:.9rem">gene–environment interaction</p></div>
-  </div>
-</section>
-
-<!-- 16 -->
-<section id="s16">
-  <h2 class="sec"><span class="num">16</span> Genetic vs Environmental Causes</h2>
-
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th style="width:50%">Genetic causes</th><th>Environmental causes</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul style="margin:0">
-              <li>Inherited genetic abnormalities</li>
-              <li>Prenatally acquired mutations</li>
-              <li>Postnatally acquired genetic damage</li>
-              <li>Monogenic vs polygenic disease</li>
-              <li>Variable age of onset</li>
-            </ul>
-          </td>
-          <td>
-            <ul style="margin:0">
-              <li>Chemical agents</li>
-              <li>Physical agents</li>
-              <li>Infective agents</li>
-              <li>Depend on dose, duration &amp; exposure</li>
-              <li>Often carry potential for prevention</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>Clues that point to genetic vs environmental aetiology</h3>
-  <div class="pills">
-    <span class="pill">Age of onset</span>
-    <span class="pill">Pattern within families</span>
-    <span class="pill">Stability vs reversibility</span>
-    <span class="pill">Geographic &amp; temporal distribution</span>
-    <span class="pill">Response to removal of exposure</span>
-  </div>
-
-  <h3>Environmental agents in detail</h3>
-  <div class="tbl-wrap">
-    <table>
-      <thead><tr><th>Chemical &amp; physical factors</th><th>Infective agents</th></tr></thead>
-      <tbody>
-        <tr>
-          <td>
-            <ul style="margin:0">
-              <li>Industrial &amp; domestic chemicals</li>
-              <li>Tobacco, alcohol, drugs</li>
-              <li>Mechanical trauma</li>
-              <li>Temperature extremes</li>
-              <li>Ionising &amp; non-ionising radiation</li>
-            </ul>
-          </td>
-          <td>
-            <ul style="margin:0">
-              <li>Bacteria</li>
-              <li>Viruses</li>
-              <li>Fungi</li>
-              <li>Parasites</li>
-              <li>Prions</li>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <h3>Evidence for genetic vs environmental contributions</h3>
-  <p>The relative role of "nature vs nurture" is teased apart using classic study designs:</p>
-  <div class="cards">
-    <div class="card"><h4>Family aggregation</h4><p style="margin:0;font-size:.92rem">Does the disease cluster in families?</p></div>
-    <div class="card"><h4>Twin concordance</h4><p style="margin:0;font-size:.92rem">Identical vs non-identical twin agreement rates.</p></div>
-    <div class="card"><h4>Adoption studies</h4><p style="margin:0;font-size:.92rem">Separates shared genes from shared environment.</p></div>
-    <div class="card"><h4>Migrant populations</h4><p style="margin:0;font-size:.92rem">Risk change on moving environment reveals exposure effects.</p></div>
-  </div>
-</section>
-
-<!-- 17 -->
-<section id="s17">
-  <h2 class="sec"><span class="num">17</span> Predisposing Factors &amp; Multifactorial Disease</h2>
-
-  <h3>Predisposing factors &amp; disease precursors</h3>
-  <div class="pills">
-    <span class="pill">Genetic susceptibility</span>
-    <span class="pill">Host factors (immunity, nutrition, age)</span>
-    <span class="pill">Preneoplastic conditions</span>
-    <span class="pill">Permissive diseases</span>
-    <span class="pill">Disease progression pathways</span>
-  </div>
-
-  <h3>Prenatal &amp; early-life influences</h3>
-  <ul>
-    <li>Transplacental exposure to toxins and infection</li>
-    <li><strong>Critical windows</strong> of development</li>
-    <li>Foetal nutrition and growth</li>
-    <li>Lifelong disease risk</li>
-    <li><strong>Developmental programming</strong> — early environment shapes later disease susceptibility</li>
-  </ul>
-
-  <h3>Multifactorial aetiology</h3>
-  <div class="callout note">
-    <span class="ico">▶</span>
-    <p><span class="t">Most common chronic diseases are multifactorial</span>They arise from <strong>multiple genetic variants + environmental exposures</strong>, subject to <strong>threshold effects</strong> and showing <strong>variable clinical expression</strong>.</p>
-  </div>
-</section>
-
-<!-- 18 -->
-<section id="s18">
-  <h2 class="sec"><span class="num">18</span> Integrated Framework of Disease Causation</h2>
-  <p class="sec-lead">A unified model — from cause to clinical disease.</p>
-
-  <figure>
-    <div class="fig-title">How interacting influences produce clinical disease</div>
-    <svg viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, sans-serif">
-      <defs><marker id="ar3" markerWidth="12" markerHeight="12" refX="6" refY="5" orient="auto"><path d="M1,1 L9,5 L1,9" fill="none" stroke="#0d6e66" stroke-width="1.8"/></marker></defs>
-      <g text-anchor="middle">
-        <rect x="150" y="15" width="220" height="52" rx="10" fill="#e6f2f0" stroke="#0d6e66" stroke-width="1.8"/>
-        <text x="260" y="40" font-size="13" font-weight="700" fill="#0a534d">Genetic factors</text>
-        <text x="260" y="57" font-size="10" fill="#5b6b78">inherited / acquired variants</text>
-
-        <line x1="260" y1="67" x2="260" y2="88" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar3)"/>
-
-        <rect x="150" y="90" width="220" height="52" rx="10" fill="#fbeee4" stroke="#b5541f" stroke-width="1.8"/>
-        <text x="260" y="115" font-size="13" font-weight="700" fill="#b5541f">Environmental exposures</text>
-        <text x="260" y="132" font-size="10" fill="#5b6b78">chemical · physical · infective</text>
-
-        <line x1="260" y1="142" x2="260" y2="163" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar3)"/>
-
-        <rect x="150" y="165" width="220" height="52" rx="10" fill="#efebf7" stroke="#5b4a8a" stroke-width="1.8"/>
-        <text x="260" y="190" font-size="13" font-weight="700" fill="#5b4a8a">Host susceptibility</text>
-        <text x="260" y="207" font-size="10" fill="#5b6b78">immunity · age · nutrition</text>
-
-        <line x1="260" y1="217" x2="260" y2="238" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar3)"/>
-
-        <rect x="150" y="240" width="220" height="52" rx="10" fill="#fff5e0" stroke="#a67c00" stroke-width="1.8"/>
-        <text x="260" y="265" font-size="13" font-weight="700" fill="#a67c00">Cellular &amp; molecular injury</text>
-        <text x="260" y="282" font-size="10" fill="#5b6b78">the pathogenetic mechanism</text>
-
-        <line x1="260" y1="292" x2="260" y2="313" stroke="#0d6e66" stroke-width="2" marker-end="url(#ar3)"/>
-
-        <rect x="150" y="315" width="220" height="52" rx="10" fill="#0d6e66"/>
-        <text x="260" y="340" font-size="14" font-weight="700" fill="#fff">CLINICAL DISEASE</text>
-        <text x="260" y="357" font-size="10" fill="#cfe3e0">signs · symptoms · complications</text>
-      </g>
-      <text x="260" y="405" text-anchor="middle" font-size="11.5" font-style="italic" fill="#5b6b78">Disease is the biological outcome of interacting influences — not a single event</text>
-    </svg>
-  </figure>
-
-  <h3>Disease causation drives clinical reasoning</h3>
-  <div class="cards">
-    <div class="card"><h4>Guides diagnosis</h4></div>
-    <div class="card"><h4>Identifies preventable factors</h4></div>
-    <div class="card"><h4>Predicts disease behaviour</h4></div>
-    <div class="card"><h4>Informs treatment &amp; prognosis</h4></div>
-  </div>
-</section>
-
-<div class="callout key" style="background:#fff;border:1px dashed var(--primary);box-shadow:var(--shadow)">
-  <span class="ico">📖</span>
-  <p><span class="t">Suggested reading</span>Cross, S. S. (2024). <em>Underwood's Pathology: A Clinical Approach.</em> Sheffield: Elsevier. <strong>Chapters 1, 2 and 3.</strong></p>
+<h3>A recognisable clinical entity</h3>
+<p>A disease is characterised by a consistent pattern of three things:</p>
+<div class="grid">
+<div class="cd"><div class="k">Element 1</div><h4>Symptoms</h4><p><strong>Subjective</strong> — what the <em>patient</em> experiences and reports, e.g. pain, fatigue.</p></div>
+<div class="cd"><div class="k">Element 2</div><h4>Signs</h4><p><strong>Objective</strong> — what the <em>clinician</em> can observe or measure, e.g. swelling, fever.</p></div>
+<div class="cd"><div class="k">Element 3</div><h4>Pathological abnormalities</h4><p>The underlying <strong>structural and functional changes</strong> in the tissue itself.</p></div>
 </div>
 
-<footer>
-  Study notes compiled from lecture slides · DOH 233 Pathological Basis of Oral &amp; Systemic Disease · Lecture 1<br>
-  Diagrams are original schematics created to illustrate lecture concepts.
-</footer>
+<h3>Disease is a process, described along three axes</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:26%">Axis</th><th>One end</th><th>Other end</th></tr></thead>
+<tbody>
+<tr><td><strong>Time course</strong></td><td>Acute — rapid onset, short</td><td>Chronic — slow, prolonged</td></tr>
+<tr><td><strong>Extent</strong></td><td>Localised — confined</td><td>Systemic — body-wide</td></tr>
+<tr><td><strong>Outcome</strong></td><td>Reversible</td><td>Irreversible</td></tr>
+</tbody></table></div>
+<details class="qz"><summary>Distinguish a symptom from a sign, and give an example of each.</summary><div class="ans"><p>A <strong>symptom</strong> is <strong>subjective</strong> — the patient's own experience, which they report to you (pain, fatigue, nausea). A <strong>sign</strong> is <strong>objective</strong> — something the clinician can observe or measure (swelling, fever, a visible lesion). Both, together with the underlying pathological abnormalities, make up the recognisable pattern that defines a disease.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s2">
+      <div class="slhead"><div class="tag">02</div><div class="ttl"><h2>What is pathology?</h2><p>The discipline, its levels, and its two roles.</p></div></div>
+      <div class="slbody">
 
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Pathology</strong> is the <strong>scientific study of disease</strong>. It explains <strong>what</strong> disease is, <strong>why</strong> it happens, and <strong>how</strong> it affects the body — connecting basic science &#8594; clinical signs and symptoms &#8594; investigations &#8594; diagnosis &#8594; treatment.</p></div>
+
+<figure>
+<div class="fcap">Fig. 1.1 — The levels at which pathology operates</div>
+<svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<line x1="70" y1="66" x2="656" y2="66" stroke="#dfe4ee" stroke-width="2"/>
+<g text-anchor="middle">
+<circle cx="70" cy="66" r="23" fill="#5b3a9e"/><text x="70" y="112" font-size="11.5" font-weight="700" fill="#5b3a9e">Molecular</text>
+<text x="70" y="128" font-size="9.5" fill="#6b7791">genes, proteins</text>
+<circle cx="216" cy="66" r="23" fill="#6b45b0"/><text x="216" y="112" font-size="11.5" font-weight="700" fill="#5b3a9e">Cellular</text>
+<text x="216" y="128" font-size="9.5" fill="#6b7791">injury, adaptation, death</text>
+<circle cx="362" cy="66" r="23" fill="#8654bd"/><text x="362" y="112" font-size="11.5" font-weight="700" fill="#5b3a9e">Tissue</text>
+<text x="362" y="128" font-size="9.5" fill="#6b7791">inflammation, fibrosis</text>
+<circle cx="509" cy="66" r="23" fill="#b05a94"/><text x="509" y="112" font-size="11.5" font-weight="700" fill="#d1497a">Organ</text>
+<text x="509" y="128" font-size="9.5" fill="#6b7791">failure, dysfunction</text>
+<circle cx="656" cy="66" r="23" fill="#d1497a"/><text x="656" y="112" font-size="11.5" font-weight="700" fill="#d1497a">Whole patient</text>
+<text x="656" y="128" font-size="9.5" fill="#6b7791">symptoms, prognosis</text>
+</g>
+<text x="363" y="170" text-anchor="middle" font-size="10.5" font-style="italic" fill="#6b7791">Increasing scale &mdash; a molecular fault can ultimately present as a whole-patient illness</text>
+</svg>
+</figure>
+
+<h3>Two broad roles</h3>
+<div class="grid two">
+<div class="cd"><div class="k">Role 1</div><h4>Scientific discipline</h4><p>Understanding the <strong>mechanisms</strong> of disease.</p></div>
+<div class="cd"><div class="k">Role 2</div><h4>Diagnostic discipline</h4><p>Interpreting <strong>samples</strong> to guide patient care.</p></div>
 </div>
-<a class="back" href="#top" title="Back to top">↑</a>
-<a class="hub-fab" href="index.html" title="Back to study hub">← Study hub</a>
+
+      </div>
+    </section>
+    <section class="sl" id="s3">
+      <div class="slhead"><div class="tag">03</div><div class="ttl"><h2>The three core questions</h2><p>The backbone of the entire subject. Every disease is approached by asking these three, in order.</p></div></div>
+      <div class="slbody">
+
+<figure>
+<div class="fcap">Fig. 1.2 — Aetiology &#8594; pathogenesis &#8594; morphologic and functional changes</div>
+<svg viewBox="0 0 720 160" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="c1" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#d1497a"/></marker></defs>
+<rect x="14" y="28" width="205" height="94" rx="10" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.8"/>
+<text x="116" y="54" text-anchor="middle" font-size="12.5" font-weight="700" fill="#5b3a9e">1 &#183; AETIOLOGY</text>
+<text x="116" y="76" text-anchor="middle" font-size="11" fill="#151d2b">The CAUSE</text>
+<text x="116" y="98" text-anchor="middle" font-size="10" fill="#6b7791">What initiated the disease?</text>
+<line x1="222" y1="75" x2="252" y2="75" stroke="#d1497a" stroke-width="2.2" marker-end="url(#c1)"/>
+<rect x="257" y="28" width="205" height="94" rx="10" fill="#fdedf3" stroke="#d1497a" stroke-width="1.8"/>
+<text x="359" y="54" text-anchor="middle" font-size="12.5" font-weight="700" fill="#d1497a">2 &#183; PATHOGENESIS</text>
+<text x="359" y="76" text-anchor="middle" font-size="11" fill="#151d2b">The MECHANISM</text>
+<text x="359" y="98" text-anchor="middle" font-size="10" fill="#6b7791">How does the cause produce it?</text>
+<line x1="465" y1="75" x2="495" y2="75" stroke="#d1497a" stroke-width="2.2" marker-end="url(#c1)"/>
+<rect x="500" y="28" width="205" height="94" rx="10" fill="#e3f3f1" stroke="#0f766e" stroke-width="1.8"/>
+<text x="602" y="54" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0f766e">3 &#183; CHANGES</text>
+<text x="602" y="76" text-anchor="middle" font-size="11" fill="#151d2b">MORPHOLOGY + FUNCTION</text>
+<text x="602" y="98" text-anchor="middle" font-size="10" fill="#6b7791">What changes, and what does it mean?</text>
+</svg>
+</figure>
+
+<div class="tw"><table>
+<thead><tr><th style="width:24%">Question</th><th>What it covers</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Aetiology</strong><br>(the cause)</td><td><strong>Genetic factors</strong> (inherited or acquired mutations) &#183; <strong>environmental factors</strong> (infection, toxins, radiation, nutrition) &#183; <strong>lifestyle and exposures</strong> (smoking, alcohol, occupation) &#183; <strong>immune and inflammatory triggers</strong> &#183; <strong>multifactorial causation</strong> (gene&ndash;environment interaction).</td></tr>
+<tr><td><strong>2. Pathogenesis</strong><br>(the mechanism)</td><td><strong>Molecular and cellular pathways</strong> disrupted &#183; the <strong>host response</strong> (inflammation, immunity, repair) &#183; <strong>progression over time</strong> (acute &#8594; chronic, reversible &#8594; irreversible).</td></tr>
+<tr><td><strong>3. Morphologic + functional changes</strong></td><td><strong>Morphology</strong> — gross and microscopic architecture. <strong>Function</strong> — organ performance, biomarkers, physiological consequences. <strong>Clinical correlation</strong> — symptoms, signs, complications, prognosis.</td></tr>
+</tbody></table></div>
+<details class="qz"><summary>For a patient with lung cancer caused by smoking, name the aetiology, the pathogenesis and the morphologic change.</summary><div class="ans"><p><strong>Aetiology</strong> — tobacco smoke: an environmental and lifestyle exposure, interacting with genetic susceptibility. <strong>Pathogenesis</strong> — carcinogens produce DNA damage and mutations, disordered cell-cycle control and unregulated proliferation over time. <strong>Morphologic and functional changes</strong> — a tumour mass visible grossly and microscopically, with impaired gas exchange, and clinical correlates such as cough, breathlessness and weight loss.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s4">
+      <div class="slhead"><div class="tag">04</div><div class="ttl"><h2>Why pathology matters</h2><p>Four things clinical care cannot do without.</p></div></div>
+      <div class="slbody">
+
+<div class="grid two">
+<div class="cd"><div class="k">1 &#183; Diagnosis</div><h4>Accurate diagnosis</h4><ul>
+<li>Turns symptoms and signs into a <strong>specific disease entity</strong></li>
+<li>Reduces uncertainty; avoids <strong>harmful misclassification</strong></li>
+<li>Confirms or refines clinical impressions, e.g. <strong>benign vs malignant</strong></li></ul></div>
+<div class="cd"><div class="k">2 &#183; Treatment</div><h4>Evidence-based treatment</h4><ul>
+<li>Therapy targets <strong>mechanisms</strong> — infection, inflammation, thrombosis, malignancy</li>
+<li>Enables <strong>stratification</strong>: severity, subtype, stage, risk</li>
+<li>Guides choice and intensity, including <strong>&ldquo;no treatment&rdquo;</strong> when appropriate</li></ul></div>
+<div class="cd"><div class="k">3 &#183; Prevention</div><h4>Prevention and public health</h4><ul>
+<li>Identifies causes and <strong>modifiable risks</strong></li>
+<li>Enables <strong>screening and early detection</strong></li>
+<li>Provides reliable <strong>incidence data</strong> — registries, surveillance</li></ul></div>
+<div class="cd"><div class="k">4 &#183; Monitoring</div><h4>Monitoring and prognosis</h4><ul>
+<li>Biomarkers and findings <strong>track response to treatment</strong></li>
+<li><strong>Predicts outcomes</strong> — grade/stage, molecular features, complications</li></ul></div>
+</div>
+
+      </div>
+    </section>
+    <section class="sl" id="s5">
+      <div class="slhead"><div class="tag">05</div><div class="ttl"><h2>Pathology as a scientific discipline</h2><p>Pathology is a science of disease, not a catalogue of findings.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>Built on <strong>systematic observation</strong></li>
+<li>Uses <strong>hypothesis-driven investigation</strong></li>
+<li>Integrates <strong>laboratory findings with clinical data</strong></li>
+<li><strong>Evolves</strong> with advances in technology and biology</li>
+<li>Converts observations into <strong>testable disease models</strong></li>
+</ul>
+
+      </div>
+    </section>
+    <section class="sl" id="s6">
+      <div class="slhead"><div class="tag">06</div><div class="ttl"><h2>Pathology links structure and function</h2></div></div>
+      <div class="slbody">
+
+<div class="box hy"><span class="lab">Core idea</span>
+<p>Disease = <strong>disturbed structure</strong> and <strong>disturbed function</strong>.</p></div>
+
+<ul>
+<li>Normal <strong>structure underpins normal function</strong></li>
+<li>Structural change &#8594; <strong>predictable</strong> functional impairment</li>
+<li>Functional change may <strong>precede</strong> visible structural change</li>
+<li>Pathology explains how <strong>anatomy becomes clinical disease</strong></li>
+</ul>
+
+<h3>The bridge between science and clinical medicine</h3>
+<figure>
+<div class="fcap">Fig. 1.3 — Pathology connects the bench to the bedside</div>
+<svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="c2" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#5b3a9e"/></marker></defs>
+<text x="360" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#d1497a" letter-spacing="3" font-family="IBM Plex Mono, monospace">PATHOLOGY &mdash; THE CONNECTING THREAD</text>
+<rect x="10" y="44" width="150" height="52" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.5"/>
+<text x="85" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e">Basic sciences</text>
+<text x="85" y="82" text-anchor="middle" font-size="9" fill="#6b7791">anatomy &#183; physiology &#183; biochem</text>
+<line x1="164" y1="70" x2="190" y2="70" stroke="#5b3a9e" stroke-width="1.8" marker-end="url(#c2)"/>
+<rect x="195" y="44" width="150" height="52" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.5"/>
+<text x="270" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e">Signs &amp; symptoms</text>
+<text x="270" y="82" text-anchor="middle" font-size="9" fill="#6b7791">clinical presentation</text>
+<line x1="349" y1="70" x2="375" y2="70" stroke="#5b3a9e" stroke-width="1.8" marker-end="url(#c2)"/>
+<rect x="380" y="44" width="150" height="52" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.5"/>
+<text x="455" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e">Investigations</text>
+<text x="455" y="82" text-anchor="middle" font-size="9" fill="#6b7791">diagnostic tests</text>
+<line x1="534" y1="70" x2="560" y2="70" stroke="#5b3a9e" stroke-width="1.8" marker-end="url(#c2)"/>
+<rect x="565" y="44" width="150" height="52" rx="9" fill="#5b3a9e"/>
+<text x="640" y="66" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">Prognosis &amp; treatment</text>
+<text x="640" y="82" text-anchor="middle" font-size="9" fill="#d5c9f0">decisions that change care</text>
+</svg>
+</figure>
+
+      </div>
+    </section>
+    <section class="sl" id="s7">
+      <div class="slhead"><div class="tag">07</div><div class="ttl"><h2>The rise of microscopy</h2><p>A 19th-century turning point.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>Introduction of <strong>light microscopy</strong> into medical science</li>
+<li>Enabled examination of <strong>thin tissue sections</strong></li>
+<li>Revealed disease at the <strong>cellular and subcellular</strong> level</li>
+<li><strong>Challenged earlier ideas</strong> of spontaneous generation</li>
+<li>Shifted pathology from <strong>organ-level description &#8594; cellular analysis</strong></li>
+</ul>
+
+      </div>
+    </section>
+    <section class="sl" id="s8">
+      <div class="slhead"><div class="tag">08</div><div class="ttl"><h2>Cellular pathology</h2><p>Disease begins in cells.</p></div></div>
+      <div class="slbody">
+
+<div class="box hy"><span class="lab">Central principle</span>
+<p>Cells are recognised as the <strong>smallest functional units of life</strong>. Disease is explained by cell <strong>injury, adaptation, and death</strong>.</p></div>
+
+<ul>
+<li><em>&ldquo;Omnis cellula e cellula&rdquo;</em> — <strong>all cells arise from pre-existing cells</strong></li>
+<li>A shift from humours and organs &#8594; <strong>cell-based mechanisms</strong></li>
+<li>The foundation of modern <strong>histopathology</strong></li>
+</ul>
+
+<h3>The cell in health and disease</h3>
+<p>Two ideas from the lecture are worth holding onto: the same <strong>cellular components</strong> that keep a cell healthy become the sites of disease when they fail, and the <strong>products a cell secretes</strong> are altered in disease — both under- and over-production can be pathological.</p>
+
+<figure>
+<div class="fcap">Fig. 1.4 — The cell as the central unit, and its vulnerable components</div>
+<svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<ellipse cx="350" cy="145" rx="272" ry="122" fill="#efeaf9" stroke="#5b3a9e" stroke-width="2.5"/>
+<ellipse cx="350" cy="145" rx="68" ry="55" fill="#dcd0f3" stroke="#402a70" stroke-width="2"/>
+<ellipse cx="350" cy="145" rx="19" ry="15" fill="#402a70"/>
+<text x="350" y="114" text-anchor="middle" font-size="10.5" font-weight="700" fill="#402a70">NUCLEUS</text>
+<text x="350" y="192" text-anchor="middle" font-size="9" fill="#402a70">DNA &#183; genes</text>
+<ellipse cx="178" cy="106" rx="44" ry="22" fill="#fdedf3" stroke="#d1497a" stroke-width="1.5"/>
+<text x="178" y="104" text-anchor="middle" font-size="9.5" font-weight="700" fill="#d1497a">Mitochondria</text>
+<text x="178" y="118" text-anchor="middle" font-size="8" fill="#6b7791">ATP &#183; energy</text>
+<ellipse cx="178" cy="190" rx="44" ry="22" fill="#e3f3f1" stroke="#0f766e" stroke-width="1.5"/>
+<text x="178" y="188" text-anchor="middle" font-size="9.5" font-weight="700" fill="#0f766e">ER &#183; Golgi</text>
+<text x="178" y="202" text-anchor="middle" font-size="8" fill="#6b7791">protein folding</text>
+<ellipse cx="524" cy="106" rx="46" ry="22" fill="#fdf0dc" stroke="#a45d08" stroke-width="1.5"/>
+<text x="524" y="104" text-anchor="middle" font-size="9.5" font-weight="700" fill="#a45d08">Membrane</text>
+<text x="524" y="118" text-anchor="middle" font-size="8" fill="#6b7791">transport &#183; signalling</text>
+<ellipse cx="524" cy="190" rx="46" ry="22" fill="#e6f0f9" stroke="#1f5f9e" stroke-width="1.5"/>
+<text x="524" y="188" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1f5f9e">Secreted products</text>
+<text x="524" y="202" text-anchor="middle" font-size="8" fill="#6b7791">enzymes &#183; hormones</text>
+<text x="350" y="278" text-anchor="middle" font-size="10" font-style="italic" fill="#6b7791">Each component is a potential target of injury &mdash; failure here is the basis of disease</text>
+</svg>
+</figure>
+
+      </div>
+    </section>
+    <section class="sl" id="s9">
+      <div class="slhead"><div class="tag">09</div><div class="ttl"><h2>Limits of cellular pathology</h2><p>Why cells alone do not explain all disease.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>Some diseases show <strong>minimal structural change</strong></li>
+<li><strong>Functional disturbance may precede</strong> visible cell injury</li>
+<li><strong>Biochemical and molecular defects can be primary</strong></li>
+</ul>
+
+<div class="box mem"><span class="lab">This is why molecular pathology exists</span>
+<p>It reveals what a microscope cannot see: <strong>gene mutations</strong>, <strong>abnormal proteins</strong>, and <strong>dysregulated signalling pathways</strong>.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s10">
+      <div class="slhead"><div class="tag">10</div><div class="ttl"><h2>Molecular pathology</h2><p>Disease at the level of genes and proteins.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p>Molecular pathology studies disease at the level of <strong>genes and proteins</strong>. The <strong>primary lesion may be molecular before structural change is visible</strong>.</p></div>
+
+<h3>Key molecular events — the initial fault</h3>
+<div class="pills">
+<span class="pill">DNA sequence change (SNV, insertion/deletion)</span>
+<span class="pill">Chromosomal abnormalities (deletions, translocations, aneuploidy)</span>
+<span class="pill">Epigenetic change (methylation, chromatin modification)</span>
+<span class="pill">Altered gene expression (up/down regulation, abnormal transcripts)</span>
+</div>
+
+<h3>Consequences — how the fault causes harm</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:36%">Molecular consequence</th><th>Result</th></tr></thead>
+<tbody>
+<tr><td><strong>Abnormal proteins</strong></td><td>Wrong structure, folding, function, or localisation</td></tr>
+<tr><td><strong>Enzyme defects</strong></td><td>Metabolic block &#8594; toxic accumulation or deficiency</td></tr>
+<tr><td><strong>Receptor / signalling defects</strong></td><td>Inappropriate growth and survival signalling</td></tr>
+<tr><td><strong>Disordered cell-cycle control</strong></td><td><strong>Neoplasia</strong></td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">Clinical impact</span>
+<p>Molecular pathology explains <strong>congenital disease</strong> and <strong>cancer biology</strong>, and enables <strong>precision diagnosis, prognosis and targeted therapy</strong>.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s11">
+      <div class="slhead"><div class="tag">11</div><div class="ttl"><h2>Cellular and molecular injury</h2><p>Cell injury targets specific structures — and each target produces predictable outcomes.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Target</th><th>What goes wrong</th><th style="width:28%">Outcomes</th></tr></thead>
+<tbody>
+<tr><td><strong>Nucleus</strong></td><td>DNA damage, mutations, impaired repair; viral integration and replication effects</td><td>Dysplasia &#183; malignant transformation &#183; cell death</td></tr>
+<tr><td><strong>Mitochondria</strong></td><td>Reduced ATP production, oxidative stress, release of pro-apoptotic factors</td><td>Energy failure &#183; apoptosis/necrosis &#183; organ dysfunction</td></tr>
+<tr><td><strong>Membrane &amp; transport</strong></td><td>Ion channel and pump dysfunction, permeability changes, receptor and signalling failure</td><td>Oedema &#183; cell swelling &#183; impaired excitability</td></tr>
+<tr><td><strong>Proteins</strong></td><td>Misfolding and accumulation, ER stress, impaired degradation pathways</td><td>Degenerative disease &#183; toxic aggregates</td></tr>
+</tbody></table></div>
+
+<div class="box mem"><span class="lab">Patterns of response</span>
+<p><strong>Adaptation</strong> (hypertrophy, atrophy, metaplasia) vs <strong>reversible injury</strong> vs <strong>irreversible injury</strong> (necrosis/apoptosis). These are the whole subject of Lecture 2.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s12">
+      <div class="slhead"><div class="tag">12</div><div class="ttl"><h2>Scope of pathology</h2><p>Where pathological knowledge comes from.</p></div></div>
+      <div class="slbody">
+
+<div class="grid">
+<div class="cd"><div class="k">Most important</div><h4>Human patient material</h4><ul>
+<li>Biopsies, resections, cytology</li>
+<li>Blood, urine, CSF, other body fluids</li>
+<li>Autopsy tissue and clinicopathological correlation</li></ul></div>
+<div class="cd"><div class="k">Supporting evidence</div><h4>Experimental systems</h4><ul>
+<li><strong>Animal models</strong> — mechanisms, interventions, whole-organism effects</li>
+<li><strong>Cell cultures</strong> — controlled environment, pathways, drug response</li>
+<li><strong>Organoids / tissue models</strong> — intermediate complexity</li>
+<li><strong>Computational models</strong> — simulation, pattern recognition, prediction</li></ul></div>
+<div class="cd"><div class="k">Direction of travel</div><h4>Translational pathway</h4><p>Bench discovery &#8594; validation in human samples &#8594; clinical implementation.</p></div>
+</div>
+
+<div class="box hy"><span class="lab">Central principle</span>
+<p>Pathology must remain <strong>clinically anchored</strong> — findings matter because they <strong>change patient care</strong>.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s13">
+      <div class="slhead"><div class="tag">13</div><div class="ttl"><h2>Diagnostic pathology</h2><p>Pathology in the diagnosis of living patients.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:28%">Category</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td><strong>Tissue-based diagnosis</strong></td><td>Biopsies (<strong>incisional, excisional, needle</strong>); surgical resections; cytology (<strong>exfoliative and aspirates</strong>)</td></tr>
+<tr><td><strong>Body fluids</strong></td><td>Blood, urine, cerebrospinal fluid; pleural, peritoneal, synovial fluids; microbiological and biochemical analysis</td></tr>
+<tr><td><strong>Serial investigations</strong></td><td>Monitoring disease progression; assessing response to treatment; detecting recurrence or complications</td></tr>
+<tr><td><strong>Clinical integration</strong></td><td>Interpretation guided by <strong>clinical context</strong>; results influence diagnosis, prognosis and management</td></tr>
+</tbody></table></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s14">
+      <div class="slhead"><div class="tag">14</div><div class="ttl"><h2>Pathology in precision medicine</h2><p>From disease categories to individual biology.</p></div></div>
+      <div class="slbody">
+
+<div class="grid">
+<div class="cd"><div class="k">Step 1</div><h4>Molecular profiling</h4><ul>
+<li>Identification of genetic and molecular abnormalities</li>
+<li>Subclassification beyond morphology alone</li>
+<li>Prognostic and predictive biomarkers</li></ul></div>
+<div class="cd"><div class="k">Step 2</div><h4>Targeted therapies</h4><ul>
+<li>Directed at specific molecular pathways</li>
+<li>Improved efficacy vs non-specific therapy</li>
+<li>Avoidance of ineffective or harmful treatments</li></ul></div>
+<div class="cd"><div class="k">Step 3</div><h4>Individualised care</h4><ul>
+<li>Treatment selection based on tumour or disease biology</li>
+<li>Integration with clinical and imaging data</li>
+<li>Dynamic adjustment of therapy over time</li></ul></div>
+</div>
+
+<div class="box hy"><span class="lab">Key message</span>
+<p><strong>Precision medicine is impossible without modern pathology.</strong></p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s15">
+      <div class="slhead"><div class="tag">15</div><div class="ttl"><h2>What causes disease?</h2><p>Establishing the cause is the central question of pathology.</p></div></div>
+      <div class="slbody">
+
+<div class="grid">
+<div class="cd" style="border-left:3px solid var(--haem)"><div class="k">Category 1</div><h4>Genetic causes</h4></div>
+<div class="cd" style="border-left:3px solid var(--eosin)"><div class="k">Category 2</div><h4>Environmental causes</h4></div>
+<div class="cd" style="border-left:3px solid var(--teal)"><div class="k">Category 3</div><h4>Multifactorial</h4><p>Gene&ndash;environment interaction.</p></div>
+</div>
+
+      </div>
+    </section>
+    <section class="sl" id="s16">
+      <div class="slhead"><div class="tag">16</div><div class="ttl"><h2>Genetic vs environmental causes</h2></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:50%">Genetic causes</th><th>Environmental causes</th></tr></thead>
+<tbody><tr>
+<td><ul>
+<li>Inherited genetic abnormalities</li>
+<li>Prenatally acquired mutations</li>
+<li>Postnatally acquired genetic damage</li>
+<li><strong>Monogenic vs polygenic</strong> disease</li>
+<li>Variable age of onset</li></ul></td>
+<td><ul>
+<li>Chemical agents</li>
+<li>Physical agents</li>
+<li>Infective agents</li>
+<li>Depend on <strong>dose, duration and exposure</strong></li>
+<li>Carry <strong>potential for prevention</strong></li></ul></td>
+</tr></tbody></table></div>
+
+<h3>Clues to genetic vs environmental aetiology</h3>
+<div class="pills">
+<span class="pill">Age of onset</span>
+<span class="pill">Pattern within families</span>
+<span class="pill">Stability vs reversibility</span>
+<span class="pill">Geographic &amp; temporal distribution</span>
+<span class="pill">Response to removal of exposure</span>
+</div>
+
+<h3>Environmental agents in detail</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:50%">Chemical and physical factors</th><th>Infective agents</th></tr></thead>
+<tbody><tr>
+<td><ul>
+<li>Industrial and domestic chemicals</li>
+<li>Tobacco, alcohol, drugs</li>
+<li>Mechanical trauma</li>
+<li>Temperature extremes</li>
+<li>Ionising and non-ionising radiation</li></ul></td>
+<td><ul><li>Bacteria</li><li>Viruses</li><li>Fungi</li><li>Parasites</li><li>Prions</li></ul></td>
+</tr></tbody></table></div>
+
+<h3>Evidence for the two contributions</h3>
+<div class="grid">
+<div class="cd"><h4>Family aggregation</h4><p>Does the disease cluster in families?</p></div>
+<div class="cd"><h4>Twin concordance</h4><p>Identical vs non-identical twin agreement rates.</p></div>
+<div class="cd"><h4>Adoption studies</h4><p>Separates shared genes from shared environment.</p></div>
+<div class="cd"><h4>Migrant populations</h4><p>Change in risk on moving reveals exposure effects.</p></div>
+</div>
+<details class="qz"><summary>A disease is common in Japan but rare in the USA. Japanese people who migrate to the USA develop American rates within a generation. Genetic or environmental?</summary><div class="ans"><p><strong>Environmental.</strong> This is the classic migrant population study design. If the cause were genetic, migrants would carry their risk with them and retain the Japanese rate. Because risk shifts to match the new environment, the determining factor must be something in that environment — diet, exposure or lifestyle — rather than inherited genotype.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s17">
+      <div class="slhead"><div class="tag">17</div><div class="ttl"><h2>Predisposing factors and multifactorial disease</h2></div></div>
+      <div class="slbody">
+
+<h3>Predisposing factors and disease precursors</h3>
+<div class="pills">
+<span class="pill">Genetic susceptibility</span>
+<span class="pill">Host factors (immunity, nutrition, age)</span>
+<span class="pill">Preneoplastic conditions</span>
+<span class="pill">Permissive diseases</span>
+<span class="pill">Disease progression pathways</span>
+</div>
+
+<h3>Prenatal and early-life influences</h3>
+<ul>
+<li><strong>Transplacental exposure</strong> to toxins and infection</li>
+<li><strong>Critical windows</strong> of development</li>
+<li>Foetal nutrition and growth</li>
+<li><strong>Lifelong disease risk</strong></li>
+<li><strong>Developmental programming</strong> — the early environment shapes later disease susceptibility</li>
+</ul>
+
+<h3>Multifactorial aetiology</h3>
+<div class="box mem"><span class="lab">Most common chronic diseases are multifactorial</span>
+<p>They arise from <strong>multiple genetic variants</strong> plus <strong>environmental exposures</strong>, subject to <strong>threshold effects</strong> and showing <strong>variable clinical expression</strong>.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s18">
+      <div class="slhead"><div class="tag">18</div><div class="ttl"><h2>Integrated framework of disease causation</h2><p>A unified model, from cause to clinical disease.</p></div></div>
+      <div class="slbody">
+
+<figure>
+<div class="fcap">Fig. 1.5 — How interacting influences produce clinical disease</div>
+<svg viewBox="0 0 520 420" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="c3" markerWidth="12" markerHeight="12" refX="6" refY="5" orient="auto"><path d="M1,1 L9,5 L1,9" fill="none" stroke="#5b3a9e" stroke-width="1.8"/></marker></defs>
+<g text-anchor="middle">
+<rect x="150" y="12" width="220" height="50" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.8"/>
+<text x="260" y="36" font-size="12.5" font-weight="700" fill="#5b3a9e">Genetic factors</text>
+<text x="260" y="52" font-size="9.5" fill="#6b7791">inherited / acquired variants</text>
+<line x1="260" y1="62" x2="260" y2="82" stroke="#5b3a9e" stroke-width="2" marker-end="url(#c3)"/>
+<rect x="150" y="84" width="220" height="50" rx="9" fill="#fdedf3" stroke="#d1497a" stroke-width="1.8"/>
+<text x="260" y="108" font-size="12.5" font-weight="700" fill="#d1497a">Environmental exposures</text>
+<text x="260" y="124" font-size="9.5" fill="#6b7791">chemical &#183; physical &#183; infective</text>
+<line x1="260" y1="134" x2="260" y2="154" stroke="#5b3a9e" stroke-width="2" marker-end="url(#c3)"/>
+<rect x="150" y="156" width="220" height="50" rx="9" fill="#e3f3f1" stroke="#0f766e" stroke-width="1.8"/>
+<text x="260" y="180" font-size="12.5" font-weight="700" fill="#0f766e">Host susceptibility</text>
+<text x="260" y="196" font-size="9.5" fill="#6b7791">immunity &#183; age &#183; nutrition</text>
+<line x1="260" y1="206" x2="260" y2="226" stroke="#5b3a9e" stroke-width="2" marker-end="url(#c3)"/>
+<rect x="150" y="228" width="220" height="50" rx="9" fill="#fdf0dc" stroke="#a45d08" stroke-width="1.8"/>
+<text x="260" y="252" font-size="12.5" font-weight="700" fill="#a45d08">Cellular &amp; molecular injury</text>
+<text x="260" y="268" font-size="9.5" fill="#6b7791">the pathogenetic mechanism</text>
+<line x1="260" y1="278" x2="260" y2="298" stroke="#5b3a9e" stroke-width="2" marker-end="url(#c3)"/>
+<rect x="150" y="300" width="220" height="52" rx="9" fill="#5b3a9e"/>
+<text x="260" y="325" font-size="13" font-weight="700" fill="#fff">CLINICAL DISEASE</text>
+<text x="260" y="342" font-size="9.5" fill="#d5c9f0">signs &#183; symptoms &#183; complications</text>
+</g>
+<text x="260" y="392" text-anchor="middle" font-size="10.5" font-style="italic" fill="#6b7791">Disease is the biological outcome of interacting influences &mdash; not a single event</text>
+</svg>
+</figure>
+
+<h3>Disease causation drives clinical reasoning</h3>
+<div class="grid">
+<div class="cd"><h4>Guides diagnosis</h4></div>
+<div class="cd"><h4>Identifies preventable factors</h4></div>
+<div class="cd"><h4>Predicts disease behaviour</h4></div>
+<div class="cd"><h4>Informs treatment &amp; prognosis</h4></div>
+</div>
+<details class="qz"><summary>What is the single key principle of the integrated framework?</summary><div class="ans"><p>That <strong>disease is the biological outcome of interacting influences, not a single event</strong>. Genetic factors, environmental exposures and host susceptibility converge to produce cellular and molecular injury, which is what finally manifests as clinical disease.</p></div></details>
+      </div>
+    </section>
+
+
+    <section class="sl" id="reading">
+      <div class="slhead"><div class="tag">&#9733;</div><div class="ttl"><h2>Reading &amp; sources</h2></div></div>
+      <div class="slbody">
+<p><strong>Suggested reading.</strong> Cross, S. S. (2024). <em>Underwood&rsquo;s Pathology: A Clinical Approach.</em> Sheffield: Elsevier. <strong>Chapters 1, 2 and 3.</strong></p>
+<p>These notes were compiled from the DOH 233 lecture material delivered by Dr Joseph Ryan, Oral Medicine Specialist. All figures are original schematics drawn for these notes.</p>
+</div>
+    </section>
+
+    <div class="foot">
+      <div class="nx"><a href="pathology_l2_cell_injury.html"><span>Next</span><b>L2 · Cellular Responses to Stress &amp; Injury</b></a></div>
+      <p>Study notes for DOH 233 Pathological Basis of Oral &amp; Systemic Disease, compiled from lecture material by Dr Joseph Ryan. All diagrams are original schematics drawn to illustrate the lecture concepts.</p>
+    </div>
+  </main>
+</div>
+
+<button class="totop" id="totop" aria-label="Back to top">&#8593;</button>
+<script>
+(function(){
+  var bar=document.getElementById('bar'),
+      links=[].slice.call(document.querySelectorAll('.rail a[href^="#"]')),
+      secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));}),
+      top=document.getElementById('totop'),
+      rail=document.getElementById('rail'),
+      ticking=false;
+
+  function paint(){
+    var h=document.documentElement,
+        max=h.scrollHeight-h.clientHeight,
+        y=h.scrollTop||document.body.scrollTop;
+    if(bar) bar.style.width=(max>0?(y/max*100):0)+'%';
+    if(top) top.classList.toggle('show',y>420);
+    var i,cur=-1,off=h.clientHeight*0.28;
+    for(i=0;i<secs.length;i++){
+      if(secs[i] && secs[i].getBoundingClientRect().top<=off) cur=i;
+    }
+    for(i=0;i<links.length;i++) links[i].classList.toggle('on',i===cur);
+    ticking=false;
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(paint); } }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+  paint();
+
+  if(top) top.addEventListener('click',function(){ scrollTo({top:0,behavior:'smooth'}); });
+
+  var rt=document.getElementById('railtoggle');
+  if(rt) rt.addEventListener('click',function(){ rail.classList.toggle('open'); });
+  // close the mobile rail after picking a section
+  links.forEach(function(a){ a.addEventListener('click',function(){
+    if(innerWidth<=1040) rail.classList.remove('open');
+  });});
+
+  // theme
+  var tb=document.getElementById('theme');
+  if(tb) tb.addEventListener('click',function(){
+    var d=document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',d?'light':'dark');
+    tb.textContent=d?'\u25D1':'\u25D0';
+    tb.setAttribute('aria-label',d?'Switch to dark theme':'Switch to light theme');
+  });
+
+  // expand / collapse every self-test at once
+  function setAll(open){
+    [].forEach.call(document.querySelectorAll('details.qz'),function(d){ d.open=open; });
+  }
+  var ea=document.getElementById('expandall'), ca=document.getElementById('collapseall');
+  if(ea) ea.addEventListener('click',function(){setAll(true);});
+  if(ca) ca.addEventListener('click',function(){setAll(false);});
+  var pr=document.getElementById('printme');
+  if(pr) pr.addEventListener('click',function(){print();});
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L3B · Chronic Inflammation — DOH 233 Pathology Notes</title>
+<meta name="description" content="DOH 233 study notes: Chronic Inflammation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DOH 233 — Pathology study notes
+   Design system: "The Slide Box"
+   Colour is derived from haematoxylin & eosin staining:
+   haematoxylin stains nuclei violet-blue, eosin stains
+   cytoplasm pink. Ground is cool slide glass, ink is slate.
+   ============================================================ */
+:root{
+  --haem:#5b3a9e;         /* haematoxylin — primary */
+  --haem-d:#402a70;
+  --haem-l:#efeaf9;
+  --eosin:#d1497a;        /* eosin — accent */
+  --eosin-l:#fdedf3;
+  --ink:#151d2b;
+  --ink-2:#33405a;
+  --muted:#6b7791;
+  --rule:#dfe4ee;
+  --rule-2:#eaedf4;
+  --paper:#ffffff;
+  --glass:#eef1f7;        /* slide-glass ground */
+  --teal:#0f766e;
+  --teal-l:#e3f3f1;
+  --amber:#a45d08;
+  --amber-l:#fdf0dc;
+  --crim:#b3243c;
+  --crim-l:#fceaed;
+  --blue:#1f5f9e;
+  --blue-l:#e6f0f9;
+  --r:10px;
+  --sh:0 1px 2px rgba(21,29,43,.04),0 10px 30px -12px rgba(21,29,43,.14);
+  --rail-w:262px;
+  --top-h:58px;
+  --f-disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+[data-theme="dark"]{
+  --haem:#a98ce0;--haem-d:#c4b0ec;--haem-l:#241c3c;
+  --eosin:#f08bb0;--eosin-l:#3a1f2c;
+  --ink:#e9edf6;--ink-2:#c2cadb;--muted:#93a0ba;
+  --rule:#2c3450;--rule-2:#232a42;
+  --paper:#161c2e;--glass:#0e131f;
+  --teal:#5ecfc0;--teal-l:#12302d;
+  --amber:#e0a24a;--amber-l:#332415;
+  --crim:#f2778c;--crim-l:#361a21;
+  --blue:#7bb2e6;--blue-l:#152740;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--glass);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+  transition:background .25s,color .25s;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+/* ---------- reading progress ---------- */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent;pointer-events:none}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--haem),var(--eosin))}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--top-h);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.6) blur(12px);
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:18px;padding:0 20px;
+}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);flex:none}
+.brand b{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.brand span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.switch{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.switch a{
+  font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+  text-decoration:none;color:var(--muted);padding:5px 10px;border-radius:7px;
+  border:1px solid transparent;white-space:nowrap;
+}
+.switch a:hover{background:var(--haem-l);color:var(--haem)}
+.switch a[aria-current="page"]{background:var(--haem);color:#fff;border-color:var(--haem)}
+[data-theme="dark"] .switch a[aria-current="page"]{color:#12172a}
+.tbtn{
+  flex:none;background:none;border:1px solid var(--rule);color:var(--muted);
+  width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;line-height:1;
+  display:grid;place-items:center;
+}
+.tbtn:hover{border-color:var(--haem);color:var(--haem)}
+.railtoggle{display:none}
+
+/* ---------- layout ---------- */
+.shell{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);gap:38px;padding:0 26px 100px}
+.content{min-width:0;padding-top:34px}
+
+/* ---------- TOC rail (a slide rack) ---------- */
+.rail{position:sticky;top:calc(var(--top-h) + 22px);height:calc(100vh - var(--top-h) - 44px);overflow-y:auto;padding:34px 0 30px;scrollbar-width:thin}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:var(--rule);border-radius:4px}
+.rail h2{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-left:14px}
+.rail ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule-2)}
+.rail li{margin:0}
+.rail a{
+  display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--muted);
+  font-size:13.6px;line-height:1.4;padding:7px 10px 7px 14px;margin-left:-2px;
+  border-left:2px solid transparent;transition:color .15s,border-color .15s;
+}
+.rail a em{font-family:var(--f-mono);font-style:normal;font-size:10.5px;opacity:.65;flex:none;min-width:17px}
+.rail a:hover{color:var(--haem)}
+.rail a.on{color:var(--haem);border-left-color:var(--eosin);font-weight:600;background:linear-gradient(90deg,var(--haem-l),transparent)}
+.rail .rtool{margin-top:16px;padding-left:14px;display:flex;flex-direction:column;gap:7px}
+.rail .rtool button{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--muted);padding:7px 9px;border-radius:7px;cursor:pointer;text-align:left;
+}
+.rail .rtool button:hover{border-color:var(--haem);color:var(--haem)}
+
+/* ---------- hero ---------- */
+.hero{margin-bottom:40px}
+.eyebrow{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--eosin);margin-bottom:14px}
+.hero h1{
+  font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.15rem);
+  line-height:1.05;letter-spacing:-.022em;margin:0 0 16px;color:var(--ink);
+  font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 40;
+}
+.hero .lede{font-size:1.11rem;color:var(--ink-2);max-width:60ch;margin:0 0 22px}
+.hero .facts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero .facts div{padding:13px 26px 13px 0;margin-right:26px;border-right:1px solid var(--rule)}
+.hero .facts div:last-child{border-right:0}
+.hero .facts dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.hero .facts dd{margin:0;font-size:.94rem;font-weight:600;color:var(--ink)}
+
+/* ---------- section = a mounted slide ---------- */
+section.sl{
+  background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);
+  margin-bottom:20px;box-shadow:var(--sh);scroll-margin-top:calc(var(--top-h) + 16px);
+  overflow:hidden;
+}
+/* the frosted label end of a microscope slide */
+.slhead{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--rule-2)}
+.slhead .tag{
+  flex:none;width:64px;align-self:stretch;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--haem),var(--haem-d));
+  color:#fff;font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.04em;
+}
+[data-theme="dark"] .slhead .tag{color:#12172a}
+.slhead .ttl{padding:19px 26px 16px}
+.slhead h2{font-family:var(--f-disp);font-weight:600;font-size:1.42rem;line-height:1.2;letter-spacing:-.015em;margin:0;color:var(--ink);font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 24}
+.slhead p{margin:5px 0 0;color:var(--muted);font-size:.95rem}
+.slbody{padding:22px 26px 26px}
+.slbody>:first-child{margin-top:0}
+.slbody>:last-child{margin-bottom:0}
+
+h3{font-family:var(--f-body);font-weight:700;font-size:1.07rem;margin:26px 0 8px;color:var(--ink);letter-spacing:-.005em}
+h3::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--eosin);margin-right:9px;vertical-align:middle}
+h4{font-size:.97rem;margin:16px 0 4px;color:var(--haem);font-weight:700}
+p{margin:9px 0}
+ul,ol{margin:9px 0;padding-left:21px}
+li{margin:5px 0}
+li::marker{color:var(--eosin)}
+strong{font-weight:700;color:var(--ink)}
+em.term{font-style:normal;font-weight:700;color:var(--haem);border-bottom:1.5px dotted var(--haem);cursor:help}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--haem-l);color:var(--haem);padding:1px 5px;border-radius:4px}
+hr.rule{border:0;border-top:1px solid var(--rule-2);margin:24px 0}
+
+/* ---------- callouts ---------- */
+.box{border-radius:9px;padding:15px 17px 15px 16px;margin:18px 0;border:1px solid;border-left-width:3px;font-size:.98rem}
+.box>p:first-child{margin-top:0}.box>p:last-child{margin-bottom:0}
+.box .lab{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.def{background:var(--haem-l);border-color:var(--haem)}       .def .lab{color:var(--haem)}
+.hy{background:var(--eosin-l);border-color:var(--eosin)}      .hy .lab{color:var(--eosin)}
+.cl{background:var(--teal-l);border-color:var(--teal)}        .cl .lab{color:var(--teal)}
+.warn{background:var(--crim-l);border-color:var(--crim)}      .warn .lab{color:var(--crim)}
+.tip{background:var(--amber-l);border-color:var(--amber)}     .tip .lab{color:var(--amber)}
+.mem{background:var(--blue-l);border-color:var(--blue)}       .mem .lab{color:var(--blue)}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:9px}
+table{border-collapse:collapse;width:100%;font-size:.94rem;background:var(--paper)}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+thead th{
+  background:var(--haem-l);color:var(--haem);font-family:var(--f-mono);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--haem-l)}
+td strong{color:var(--haem)}
+table ul{margin:0;padding-left:17px}
+
+/* ---------- grids of cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin:18px 0}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
+.cd{border:1px solid var(--rule);border-radius:9px;padding:15px 16px;background:var(--paper)}
+.cd .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--eosin);margin-bottom:6px;font-weight:600}
+.cd h4{margin:0 0 5px;color:var(--ink);font-size:1rem}
+.cd p{margin:0;font-size:.93rem;color:var(--ink-2)}
+.cd ul{margin:6px 0 0;padding-left:17px;font-size:.92rem;color:var(--ink-2)}
+
+/* ---------- numbered steps ---------- */
+ol.steps{list-style:none;padding:0;counter-reset:st;margin:18px 0}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 16px 44px;border-left:2px solid var(--rule-2);margin:0 0 0 15px}
+ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+ol.steps>li::before{
+  content:counter(st);position:absolute;left:-15px;top:-2px;width:29px;height:29px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--haem);color:var(--haem);
+  font-family:var(--f-mono);font-size:12px;font-weight:600;display:grid;place-items:center;
+}
+ol.steps b{display:block;color:var(--ink);margin-bottom:2px}
+ol.steps>li>div{font-size:.95rem;color:var(--ink-2)}
+
+/* ---------- pills ---------- */
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.pill{background:var(--haem-l);color:var(--haem);border:1px solid color-mix(in srgb,var(--haem) 25%,transparent);padding:4px 12px;border-radius:99px;font-size:.87rem;font-weight:600}
+.pill.e{background:var(--eosin-l);color:var(--eosin);border-color:color-mix(in srgb,var(--eosin) 25%,transparent)}
+
+/* ---------- figures ---------- */
+figure{margin:22px 0;padding:16px;background:var(--glass);border:1px solid var(--rule);border-radius:9px}
+figure svg{display:block;width:100%;height:auto}
+.fcap{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:11px;text-align:center}
+
+/* ---------- self-test ---------- */
+details.qz{border:1px solid var(--rule);border-left:3px solid var(--eosin);border-radius:9px;margin:16px 0;background:var(--paper)}
+details.qz>summary{
+  cursor:pointer;padding:12px 16px;font-weight:600;font-size:.96rem;list-style:none;
+  display:flex;align-items:center;gap:10px;color:var(--ink);
+}
+details.qz>summary::-webkit-details-marker{display:none}
+details.qz>summary::before{
+  content:"?";font-family:var(--f-mono);flex:none;width:21px;height:21px;border-radius:5px;
+  background:var(--eosin-l);color:var(--eosin);display:grid;place-items:center;font-size:12px;font-weight:700;
+}
+details.qz>summary::after{content:"Show";margin-left:auto;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+details.qz[open]>summary::after{content:"Hide"}
+details.qz .ans{padding:0 16px 15px 47px;font-size:.95rem;color:var(--ink-2);border-top:1px solid var(--rule-2);padding-top:13px;margin-top:0}
+details.qz .ans>:first-child{margin-top:0}
+details.qz .ans ol,details.qz .ans ul{padding-left:19px}
+
+/* ---------- glossary ---------- */
+dl.gloss{margin:16px 0;display:grid;grid-template-columns:minmax(140px,auto) 1fr;gap:0}
+dl.gloss dt{font-weight:700;color:var(--haem);padding:9px 16px 9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem}
+dl.gloss dd{margin:0;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem;color:var(--ink-2)}
+dl.gloss dt:last-of-type,dl.gloss dd:last-of-type{border-bottom:0}
+
+/* ---------- footer ---------- */
+.foot{margin-top:34px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:.86rem}
+.foot .nx{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.foot .nx a{
+  flex:1 1 210px;text-decoration:none;border:1px solid var(--rule);border-radius:9px;padding:13px 15px;
+  background:var(--paper);color:var(--ink);transition:border-color .15s;
+}
+.foot .nx a:hover{border-color:var(--haem)}
+.foot .nx span{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.foot .nx b{font-weight:600;font-size:.97rem}
+
+.totop{position:fixed;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;
+  background:var(--haem);color:#fff;border:0;cursor:pointer;font-size:17px;box-shadow:var(--sh);
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.totop.show{opacity:.92;pointer-events:auto}
+.totop:hover{opacity:1}
+[data-theme="dark"] .totop{color:#12172a}
+
+:focus-visible{outline:2px solid var(--eosin);outline-offset:2px;border-radius:3px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1040px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 20px 90px}
+  .railtoggle{display:grid;place-items:center;flex:none;background:none;border:1px solid var(--rule);
+    color:var(--muted);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px}
+  .rail{position:static;height:auto;overflow:visible;padding:20px 0 0;display:none}
+  .rail.open{display:block}
+  .rail ol{columns:2;column-gap:20px;border-left:0}
+  .rail li{break-inside:avoid}
+  .rail a{border-left:0;padding-left:0}
+  .rail a.on{background:none}
+  .content{padding-top:24px}
+  .brand span{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .rail ol{columns:1}
+  .slbody{padding:18px 17px 22px}
+  .slhead .ttl{padding:16px 17px 14px}
+  .slhead .tag{width:48px;font-size:11.5px}
+  .hero .facts div{border-right:0;padding-right:0;margin-right:0;width:100%;padding-top:9px;padding-bottom:9px;border-bottom:1px solid var(--rule-2)}
+  .hero .facts div:last-child{border-bottom:0}
+  dl.gloss{grid-template-columns:1fr}
+  dl.gloss dt{padding-bottom:0;border-bottom:0}
+  .switch a{padding:5px 8px;font-size:10.5px}
+}
+
+/* ---------- print ---------- */
+@media print{
+  :root{--paper:#fff;--glass:#fff}
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .topbar,.rail,.prog,.totop,.foot .nx{display:none!important}
+  .shell{display:block;max-width:none;padding:0}
+  .content{padding-top:0}
+  section.sl{break-inside:avoid;box-shadow:none;border:1px solid #bbb;margin-bottom:12px}
+  .slhead .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  thead th,.box,.pill,.cd .k{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.qz{break-inside:avoid}
+  details.qz>summary::after{content:""}
+  details.qz .ans{display:block!important}
+  figure{break-inside:avoid;border:1px solid #ddd}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="prog"><i id="bar"></i></div>
+
+<header class="topbar">
+  <a class="brand" href="index.html"><b>Pathology</b><span>DOH 233</span></a>
+  <nav class="switch" aria-label="Lectures"><a href="pathology_l1_intro.html">L1</a><a href="pathology_l2_cell_injury.html">L2</a><a href="pathology_l3a_acute_inflammation.html">L3A</a><a href="pathology_l3b_chronic_inflammation.html" aria-current="page">L3B</a></nav>
+  <button class="railtoggle" id="railtoggle" aria-label="Show contents">&#9776;</button>
+  <button class="tbtn" id="theme" aria-label="Switch to dark theme">&#9681;</button>
+</header>
+
+<div class="shell">
+  <aside class="rail" id="rail">
+    <h2>On this page</h2>
+    <ol><li><a href="#s1"><em>01</em><span>Review: definitions &amp; suffixes</span></a></li><li><a href="#s2"><em>02</em><span>Immunity and inflammation</span></a></li><li><a href="#s3"><em>03</em><span>Antigens and antibodies</span></a></li><li><a href="#s4"><em>04</em><span>The five immunoglobulins</span></a></li><li><a href="#s5"><em>05</em><span>MHC &mdash; the signpost system</span></a></li><li><a href="#s6"><em>06</em><span>T lymphocytes</span></a></li><li><a href="#s7"><em>07</em><span>Natural killer cells</span></a></li><li><a href="#s8"><em>08</em><span>B lymphocytes &amp; plasma cells</span></a></li><li><a href="#s9"><em>09</em><span>The macrophage</span></a></li><li><a href="#s10"><em>10</em><span>Chronic inflammation defined</span></a></li><li><a href="#s11"><em>11</em><span>The cells and the loop</span></a></li><li><a href="#s12"><em>12</em><span>Causes of chronic inflammation</span></a></li><li><a href="#s13"><em>13</em><span>Histological features</span></a></li><li><a href="#s14"><em>14</em><span>Serous &amp; fibrous inflammation</span></a></li><li><a href="#s15"><em>15</em><span>Suppurative inflammation</span></a></li><li><a href="#s16"><em>16</em><span>Ulcerative inflammation</span></a></li><li><a href="#s17"><em>17</em><span>Granulomatous inflammation</span></a></li><li><a href="#s18"><em>18</em><span>Acquired factors: classification</span></a></li><li><a href="#s19"><em>19</em><span>Oral example: periodontal disease</span></a></li><li><a href="#s20"><em>20</em><span>Summary &amp; glossary</span></a></li></ol>
+    <div class="rtool">
+      <button id="expandall">Reveal all answers</button>
+      <button id="collapseall">Hide all answers</button>
+      <button id="printme">Print / save PDF</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="hero">
+      <div class="eyebrow">L3B &nbsp;/&nbsp; Pathological basis of oral &amp; systemic disease</div>
+      <h1>Chronic Inflammation</h1>
+      <p class="lede">When the body cannot remove the injurious agent, inflammation cannot switch off. This lecture covers the immune system that drives the chronic response, the forms it takes, and its two most important expressions in the mouth.</p>
+      <dl class="facts"><div><dt>Lecturer</dt><dd>Dr Joseph Ryan</dd></div><div><dt>Sections</dt><dd>20</dd></div><div><dt>Core reading</dt><dd>Underwood&rsquo;s Ch. 9</dd></div><div><dt>Builds on</dt><dd>L3A acute inflammation</dd></div></dl>
+    </div>
+
+    <section class="sl" id="s1">
+      <div class="slhead"><div class="tag">01</div><div class="ttl"><h2>Review &mdash; definitions and suffixes</h2><p>The lecture opens by testing terms from Lecture 3A. Cover the right-hand column and recite them.</p></div></div>
+      <div class="slbody">
+
+<dl class="gloss">
+<dt>Vasculitis</dt><dd>Inflammation of the blood vessels.</dd>
+<dt>Margination</dt><dd>Movement of leukocytes to the periphery of arterioles, venules and capillaries.</dd>
+<dt>Polymorphonucleocyte</dt><dd>Multi-lobed nucleus white blood cells.</dd>
+<dt>Cytokine</dt><dd>Protein molecule released by cells that enhances the immune response through interaction with cell surface receptors.</dd>
+<dt>Oedema</dt><dd>Fluid in the interstitial spaces — either transudate or exudate.</dd>
+<dt>Acute</dt><dd>Sudden.</dd>
+<dt>Chemotaxis</dt><dd>Chemical movement.</dd>
+<dt>Transudate</dt><dd>Extravascular fluid with low protein content (normal vessel permeability).</dd>
+</dl>
+
+<h3>Suffixes</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:16%">Suffix</th><th style="width:40%">Meaning</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>-aemia</strong></td><td>Blood</td><td>An<strong>aemia</strong></td></tr>
+<tr><td><strong>-cyte</strong></td><td>Cell</td><td>Mono<strong>cyte</strong></td></tr>
+<tr><td><strong>-genesis</strong></td><td>Origin or production</td><td>Angio<strong>genesis</strong></td></tr>
+<tr><td><strong>-itis</strong></td><td>Inflammation</td><td>Pulp<strong>itis</strong></td></tr>
+<tr><td><strong>-ology</strong></td><td>The study of</td><td>Path<strong>ology</strong></td></tr>
+<tr><td><strong>-lysis</strong></td><td>Dissolution</td><td>Haemo<strong>lysis</strong></td></tr>
+</tbody></table></div>
+
+<div class="box mem"><span class="lab">Carried over from 3A</span>
+<p>Inflammation consists of a group of responses which <strong>overlap and are inter-related</strong>. Immune cells and inflammatory cells are <strong>the same cells</strong>, and these responses may overlap. It is fundamentally the <strong>same reaction</strong> regardless of tissue type and cause of injury.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s2">
+      <div class="slhead"><div class="tag">02</div><div class="ttl"><h2>Immunity and inflammation</h2><p>Chronic inflammation cannot be understood without the immune system, because the two share their cells.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Immunity</strong> — a state of having sufficient biological defences to avoid infection, disease, or other unwanted biological invasion.</p></div>
+
+<div class="grid two">
+<div class="cd"><div class="k">Type 1</div><h4>Specific</h4><p><strong>Memory</strong>; humoral response to antigens. Targeted at a particular threat that has been encountered before.</p></div>
+<div class="cd"><div class="k">Type 2</div><h4>Non-specific</h4><p><strong>Inflammation</strong> — the response to an injurious stimulus, <strong>mediated by cytokines</strong>. No memory required.</p></div>
+</div>
+
+<p>There is <strong>considerable overlap</strong> between them. Critically, an <strong>immune response can trigger an inflammatory response</strong> — which is particularly the case in some chronic inflammatory diseases.</p>
+
+<h3>Why memory changes everything</h3>
+<div class="grid two">
+<div class="cd" style="border-left:3px solid var(--crim)"><div class="k">No memory in place</div><h4>First exposure</h4><p>An inhaled bacterium that has <strong>never been inhaled before</strong> will likely cause <strong>tissue damage</strong> in the lungs. <strong>Both</strong> an immune response and an inflammatory response are activated.</p></div>
+<div class="cd" style="border-left:3px solid var(--teal)"><div class="k">Memory in place</div><h4>Repeat exposure</h4><p>An inhaled bacterium that has been <strong>previously inhaled</strong> may be <strong>quickly destroyed by an immune response</strong> without inducing much of an inflammatory response — so there is little tissue damage.</p></div>
+</div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>This pair is the entire rationale for <strong>vaccination</strong>: you install memory so that the specific response can neutralise the organism before the destructive, non-specific inflammatory response is needed.</p></div>
+
+<h3>Immunity is a double-edged sword</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:24%">Level of immunity</th><th>Consequence</th><th style="width:26%">Example</th></tr></thead>
+<tbody>
+<tr><td><strong>None</strong></td><td>Prey to simple infections and tumours</td><td>HIV; immunosuppression</td></tr>
+<tr><td><strong>Hyperactive</strong></td><td>Fatal immune-mediated diseases</td><td>Bee stings (anaphylaxis)</td></tr>
+</tbody></table></div>
+
+<h3>Two arms of immunity</h3>
+<div class="grid two">
+<div class="cd"><div class="k">Arm 1</div><h4>Cell mediated</h4><p><strong>Inflammation</strong> — neutrophils, eosinophils, basophils, macrophages.<br><strong>T cells</strong> and <strong>natural killer cells</strong>.</p></div>
+<div class="cd"><div class="k">Arm 2</div><h4>Humoral</h4><p><strong>B cells</strong> and <strong>antibodies</strong>.</p></div>
+</div>
+<details class="qz"><summary>Why does a second exposure to the same organism cause less tissue damage than the first?</summary><div class="ans"><p>Because <strong>memory</strong> is now in place. The <strong>specific</strong> immune response can recognise and destroy the organism rapidly, so the <strong>non-specific</strong> inflammatory response — which is what actually damages tissue — is barely called upon. On first exposure there is no memory, so both responses are activated and the inflammatory arm causes tissue damage.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s3">
+      <div class="slhead"><div class="tag">03</div><div class="ttl"><h2>Antigens and antibodies</h2><p>The two halves of humoral immunity.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Antigen</span>
+<p>Any substance that the body regards as <strong>foreign or potentially dangerous</strong>. They are <strong>usually proteins</strong>. The body can produce antibodies against them. In <strong>autoimmune disease</strong> the body can recognise <strong>autoantigens</strong> — its own molecules — as foreign.</p></div>
+
+<div class="box def"><span class="lab">Antibody</span>
+<p>A special kind of <strong>blood protein</strong> synthesised in lymphoid tissue — by <strong>plasma cells</strong>, which are activated B lymphocytes — in response to the presence of an antigen. They <strong>circulate in the plasma</strong> to bind the antigen and <strong>render it harmless</strong>. Antibodies are categorised on their <strong>structure and function</strong>, and are made of <strong>immunoglobulins</strong>.</p></div>
+
+<figure>
+<div class="fcap">Fig. 3B.1 — Antibody structure</div>
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="b1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7791"/></marker></defs>
+<!-- heavy chains (the Y core) -->
+<path d="M360,300 L360,190 L268,96" stroke="#5b3a9e" stroke-width="15" stroke-linecap="round" fill="none"/>
+<path d="M360,190 L452,96" stroke="#5b3a9e" stroke-width="15" stroke-linecap="round" fill="none"/>
+<!-- light chains -->
+<path d="M300,60 L228,132" stroke="#d1497a" stroke-width="12" stroke-linecap="round" fill="none"/>
+<path d="M420,60 L492,132" stroke="#d1497a" stroke-width="12" stroke-linecap="round" fill="none"/>
+<!-- extend heavy arms up past light -->
+<path d="M268,96 L300,60" stroke="#5b3a9e" stroke-width="15" stroke-linecap="round" fill="none"/>
+<path d="M452,96 L420,60" stroke="#5b3a9e" stroke-width="15" stroke-linecap="round" fill="none"/>
+
+<!-- variable region highlight -->
+<rect x="212" y="44" width="106" height="52" rx="10" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5 3" transform="rotate(-45 265 70)"/>
+<rect x="402" y="44" width="106" height="52" rx="10" fill="none" stroke="#0f766e" stroke-width="1.6" stroke-dasharray="5 3" transform="rotate(45 455 70)"/>
+
+<!-- antigen -->
+<polygon points="278,26 292,10 306,26" fill="#a45d08"/>
+<polygon points="414,26 428,10 442,26" fill="#a45d08"/>
+<text x="360" y="18" text-anchor="middle" font-size="10" font-weight="700" fill="#a45d08">ANTIGEN binds here</text>
+
+<!-- labels -->
+<line x1="150" y1="86" x2="222" y2="76" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+<text x="146" y="76" text-anchor="end" font-size="11" font-weight="700" fill="#0f766e">Variable region</text>
+<text x="146" y="91" text-anchor="end" font-size="9.5" fill="#6b7791">unique to each antibody</text>
+
+<line x1="152" y1="150" x2="232" y2="128" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+<text x="148" y="146" text-anchor="end" font-size="11" font-weight="700" fill="#d1497a">Light chain</text>
+
+<line x1="568" y1="150" x2="490" y2="130" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+<text x="572" y="146" text-anchor="start" font-size="11" font-weight="700" fill="#5b3a9e">Heavy chain</text>
+<text x="572" y="161" text-anchor="start" font-size="9.5" fill="#6b7791">determines the antibody</text>
+<text x="572" y="174" text-anchor="start" font-size="9.5" fill="#6b7791">type, e.g. IgG, IgA</text>
+
+<!-- Fab bracket -->
+<path d="M196,120 q-14,-40 22,-78" fill="none" stroke="#6b7791" stroke-width="1.3"/>
+<text x="120" y="196" font-size="11" font-weight="700" fill="#151d2b">Fab</text>
+<text x="120" y="211" font-size="9.5" fill="#6b7791">fragment antigen</text>
+<text x="120" y="223" font-size="9.5" fill="#6b7791">binding</text>
+<line x1="160" y1="200" x2="212" y2="150" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+
+<!-- constant region -->
+<line x1="470" y1="205" x2="378" y2="205" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+<text x="476" y="202" font-size="11" font-weight="700" fill="#5b3a9e">Constant region</text>
+<text x="476" y="217" font-size="9.5" fill="#6b7791">same within a class</text>
+
+<!-- Fc -->
+<rect x="300" y="248" width="120" height="62" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.4"/>
+<text x="360" y="270" text-anchor="middle" font-size="11.5" font-weight="700" fill="#5b3a9e">Fc region</text>
+<text x="360" y="285" text-anchor="middle" font-size="9" fill="#33405a">fragment crystallisable</text>
+<text x="360" y="299" text-anchor="middle" font-size="9" fill="#33405a">binds cell receptors</text>
+
+<text x="112" y="270" font-size="10" font-weight="700" fill="#151d2b">Fc binding causes:</text>
+<text x="112" y="286" font-size="9.5" fill="#33405a">&#183; opsonisation</text>
+<text x="112" y="299" font-size="9.5" fill="#33405a">&#183; cell lysis</text>
+<text x="112" y="312" font-size="9.5" fill="#33405a">&#183; degranulation of mast cells</text>
+<line x1="240" y1="286" x2="296" y2="280" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b1)"/>
+</svg>
+<figcaption>The <strong>Fab</strong> ends vary so they can bind any antigen; the <strong>Fc</strong> stem is constant within a class and is what recruits the rest of the immune system.</figcaption>
+</figure>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>Two structural facts do most of the work: the <strong>heavy chain determines the antibody type</strong> (IgG, IgA and so on), and the <strong>Fc region binds to various cell receptors</strong>, causing <strong>opsonisation</strong>, <strong>cell lysis</strong>, and <strong>degranulation of mast cells</strong>.</p></div>
+<details class="qz"><summary>Which part of the antibody determines its class, and which part actually recruits other immune cells?</summary><div class="ans"><p>The <strong>heavy chain</strong> determines the type or class (IgG, IgA, IgM, IgD, IgE). The <strong>Fc region</strong> — fragment crystallisable — binds to cell receptors and thereby triggers opsonisation, cell lysis and mast cell degranulation. The <strong>Fab</strong> region, with its variable end, does the antigen binding.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s4">
+      <div class="slhead"><div class="tag">04</div><div class="ttl"><h2>The five immunoglobulins</h2><p>One of a group of structurally related proteins that act as antibodies. Five classes with different functions.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:12%">Class</th><th>Function</th></tr></thead>
+<tbody>
+<tr><td><strong>IgA</strong></td><td><strong>Mucosal surfaces</strong> — the antibody of secretions.</td></tr>
+<tr><td><strong>IgD</strong></td><td><strong>Antigen receptors on B cells.</strong></td></tr>
+<tr><td><strong>IgE</strong></td><td><strong>Binds to allergens</strong> and triggers <strong>histamine release from mast cells</strong>.</td></tr>
+<tr><td><strong>IgG</strong></td><td>The <strong>majority of antibody-based immunity</strong> against invading pathogens.</td></tr>
+<tr><td><strong>IgM</strong></td><td>The <strong>early antibody</strong>, with <strong>high affinity for antigen</strong>, secreted before there is sufficient IgG to do the job.</td></tr>
+</tbody></table></div>
+
+<div class="box tip"><span class="lab">Memory hook</span>
+<p><strong>A</strong> for mucos<strong>A</strong>l surfaces (saliva &mdash; directly relevant to oral health). <strong>D</strong> for the B cell <strong>D</strong>oorbell (receptor). <strong>E</strong> for <strong>E</strong>llergy. <strong>G</strong> for the <strong>G</strong>eneral workhorse &mdash; the bulk of immunity. <strong>M</strong> for i<strong>M</strong>mediate &mdash; the first one made.</p></div>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p><strong>IgA</strong> is the dominant immunoglobulin in <strong>saliva</strong>, making it the first antibody defence at every mucosal surface in the mouth.</p></div>
+<details class="qz"><summary>A blood test shows raised IgM but low IgG against an organism. Is this a recent or a long-standing infection?</summary><div class="ans"><p><strong>Recent.</strong> IgM is the <strong>early</strong> antibody, secreted with high affinity for antigen before there is sufficient IgG to take over. A predominance of IgM with little IgG therefore indicates a current or very recent first exposure, rather than established or past immunity.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s5">
+      <div class="slhead"><div class="tag">05</div><div class="ttl"><h2>MHC &mdash; the signpost system</h2><p>The Major Histocompatibility Complex is how a cell tells the immune system what is inside it.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>A <strong>protein membrane complex that all self cells display</strong></li>
+<li>There are <strong>three types</strong> — class I, II and III</li>
+<li>MHC proteins act as <strong>&ldquo;signposts&rdquo;</strong> that display <strong>fragmented pieces of an antigen</strong> on the host cell&rsquo;s surface</li>
+<li>The fragments <strong>may be self or non-self</strong></li>
+<li>If non-self, the host cell may acquire this antigen by <strong>engulfment</strong> (if a neutrophil or macrophage), or — if the host cell is <strong>infected by a bacterium, virus, or cancer</strong> — it may display the antigens on its surface with a <strong>Class I MHC molecule</strong></li>
+<li><strong>Viruses and cancerous cells</strong> have a tendency to display <strong>unusual, non-self antigens</strong> on their surface. These non-self antigens <strong>initiate the specific immunity</strong> of the host&rsquo;s body</li>
+</ul>
+
+<div class="box hy"><span class="lab">The pairing you must know</span>
+<p><strong>CD4+ binds MHC class II</strong> (on antigen presenting cells). <strong>CD8+ binds MHC class I</strong> (on any infected body cell). Remember it by multiplication: <strong>4 &times; 2 = 8, and 8 &times; 1 = 8</strong>.</p></div>
+
+<figure>
+<div class="fcap">Fig. 3B.2 — MHC class I and II presentation</div>
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<!-- CLASS I -->
+<text x="180" y="24" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1f5f9e" font-family="IBM Plex Mono, monospace">MHC CLASS I</text>
+<text x="180" y="40" text-anchor="middle" font-size="9.5" fill="#6b7791">on any infected body cell</text>
+<rect x="60" y="56" width="240" height="70" rx="10" fill="#e6f0f9" stroke="#1f5f9e" stroke-width="2"/>
+<text x="180" y="96" text-anchor="middle" font-size="10.5" fill="#33405a">virus-infected / cancerous cell</text>
+<!-- MHC I molecule -->
+<rect x="164" y="42" width="32" height="16" rx="4" fill="#1f5f9e"/>
+<polygon points="172,42 180,32 188,42" fill="#a45d08"/>
+<!-- CD8 cell -->
+<circle cx="180" cy="192" r="34" fill="#efeaf9" stroke="#5b3a9e" stroke-width="2"/>
+<text x="180" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e">CD8+</text>
+<text x="180" y="205" text-anchor="middle" font-size="9" fill="#6b7791">cytotoxic</text>
+<rect x="170" y="150" width="20" height="12" rx="3" fill="#5b3a9e"/>
+<line x1="180" y1="150" x2="180" y2="60" stroke="#5b3a9e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="180" y="244" text-anchor="middle" font-size="9.5" fill="#33405a">&#8594; kills the cell</text>
+
+<!-- divider -->
+<line x1="360" y1="30" x2="360" y2="240" stroke="#dfe4ee" stroke-width="1"/>
+
+<!-- CLASS II -->
+<text x="540" y="24" text-anchor="middle" font-size="11.5" font-weight="700" fill="#0f766e" font-family="IBM Plex Mono, monospace">MHC CLASS II</text>
+<text x="540" y="40" text-anchor="middle" font-size="9.5" fill="#6b7791">on antigen presenting cells</text>
+<rect x="420" y="56" width="240" height="70" rx="10" fill="#e3f3f1" stroke="#0f766e" stroke-width="2"/>
+<text x="540" y="96" text-anchor="middle" font-size="10.5" fill="#33405a">macrophage / dendritic cell</text>
+<rect x="524" y="42" width="32" height="16" rx="4" fill="#0f766e"/>
+<polygon points="532,42 540,32 548,42" fill="#a45d08"/>
+<!-- CD4 cell -->
+<circle cx="540" cy="192" r="34" fill="#fdedf3" stroke="#d1497a" stroke-width="2"/>
+<text x="540" y="190" text-anchor="middle" font-size="11" font-weight="700" fill="#d1497a">CD4+</text>
+<text x="540" y="205" text-anchor="middle" font-size="9" fill="#6b7791">helper</text>
+<rect x="530" y="150" width="20" height="12" rx="3" fill="#d1497a"/>
+<line x1="540" y1="150" x2="540" y2="60" stroke="#d1497a" stroke-width="1.4" stroke-dasharray="4 3"/>
+<text x="540" y="244" text-anchor="middle" font-size="9.5" fill="#33405a">&#8594; secretes cytokines, directs others</text>
+</svg>
+</figure>
+<details class="qz"><summary>Why must a cytotoxic T cell recognise MHC class I rather than class II?</summary><div class="ans"><p>Because class I is displayed by <strong>any</strong> infected body cell — a cell harbouring a virus or turning cancerous displays its abnormal antigens on class I. The cytotoxic (CD8+) cell's job is to kill such cells, so it must read the molecule that ordinary cells carry. Class II is restricted to antigen presenting cells and is read by CD4+ helper cells, whose job is to <em>direct</em> rather than kill.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s6">
+      <div class="slhead"><div class="tag">06</div><div class="ttl"><h2>T lymphocytes</h2><p>Cellular immunity is mediated by T lymphocytes. Two subtypes, two very different jobs.</p></div></div>
+      <div class="slbody">
+
+<h3>General properties</h3>
+<ul>
+<li>Each T cell is <strong>genetically programmed to recognise a specific cell-bound antigen</strong>, by means of an <strong>antigen-specific T cell receptor</strong></li>
+<li>Can <strong>only be activated by a surface-presented antigen</strong> — <strong>not</strong> by soluble ones</li>
+<li>Two types, defined by their receptor: <strong>CD4+</strong> and <strong>CD8+</strong></li>
+</ul>
+
+<h3>Helper T cells (CD4+)</h3>
+<div class="box def"><span class="lab">The master regulator</span>
+<p>Helper T cells are <strong>the master regulator of the immune system</strong>. When activated they <strong>secrete cytokines</strong>, influencing the function of <strong>all other cells of the immune system</strong>, including other T cells, B cells, macrophages and natural killer cells.</p></div>
+<ul>
+<li><strong>HIV selectively destroys these cells</strong></li>
+<li>The <strong>symptoms of HIV show their importance</strong> — losing the regulator collapses the whole system</li>
+<li>When defective, they <strong>cannot recognise antigens</strong></li>
+<li>Binds <strong>MHC class II</strong> on antigen presenting cells</li>
+</ul>
+
+<h3>Cytotoxic T cells (CD8+)</h3>
+<ul>
+<li>Primary function is acting as a <strong>cytotoxic cell</strong>; can also secrete cytokines</li>
+<li>Release the cytotoxins <strong>perforin</strong> and <strong>granulysin</strong></li>
+<li>These <strong>form pores in the target cell&rsquo;s plasma membrane</strong>, causing <strong>ions and water to flow into the target cell</strong>, which makes the cell <strong>expand and eventually lyse</strong></li>
+<li>Can also <strong>induce apoptosis</strong></li>
+<li>Binds <strong>MHC class I</strong></li>
+</ul>
+
+<div class="box mem"><span class="lab">Link to Lecture 2</span>
+<p>Note the two killing routes. Pore formation causes <strong>ions and water to rush in</strong> until the cell lyses — this is the swelling-then-rupture pattern of <strong>necrosis</strong>. Alternatively the cell can be told to undergo <strong>apoptosis</strong>, which is tidy and provokes no inflammation. The same cell can trigger either death pathway from Lecture 2.</p></div>
+<details class="qz"><summary>Why is HIV so devastating when it destroys only one cell type?</summary><div class="ans"><p>Because the cell it destroys is the <strong>CD4+ helper T cell</strong> — the <strong>master regulator</strong> of the immune system. Helper T cells secrete cytokines that influence the function of essentially every other immune cell: other T cells, B cells, macrophages and natural killer cells. Removing the regulator disables coordination across the entire system, which is why the symptoms of HIV demonstrate their importance so starkly.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s7">
+      <div class="slhead"><div class="tag">07</div><div class="ttl"><h2>Natural killer cells</h2><p>A lymphocyte that kills without needing to be taught first.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>A <strong>type of T lymphocyte</strong></li>
+<li>Has <strong>no T cell receptors</strong> and <strong>no surface cell immunoglobulins</strong></li>
+<li>Also called <strong>large granular lymphocytes</strong></li>
+<li>Able to <strong>lyse a variety of tumour cells, virally infected cells and some normal cells</strong> — <strong>without previous sensitisation</strong></li>
+<li>Has an <strong>Fc receptor for IgG</strong>, so it <strong>can lyse cells coated with IgG antibodies</strong></li>
+<li><strong>Class I MHC molecules protect normal cells</strong> from being killed</li>
+</ul>
+
+<div class="box hy"><span class="lab">The elegance of the system</span>
+<p>Section 5 explained that virally infected and cancerous cells display abnormal antigens on MHC class I. Some such cells evade cytotoxic T cells by <strong>losing MHC class I entirely</strong>. That is exactly the loophole NK cells close: because <strong>class I protects normal cells</strong>, a cell that has shed its class I becomes an NK target. Losing your identity badge is itself the trigger.</p></div>
+<details class="qz"><summary>Why does 'no previous sensitisation' make NK cells different from cytotoxic T cells?</summary><div class="ans"><p>A cytotoxic T cell is <strong>genetically programmed to recognise one specific antigen</strong> and must encounter it presented on MHC before it can act. An NK cell has <strong>no T cell receptor</strong> at all and can lyse tumour cells, virally infected cells and some normal cells <strong>immediately</strong>, without having met them before. It is therefore part of the rapid, non-specific defence rather than the specific, memory-based one.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s8">
+      <div class="slhead"><div class="tag">08</div><div class="ttl"><h2>B lymphocytes and plasma cells</h2><p>The humoral arm: B cells become antibody factories.</p></div></div>
+      <div class="slbody">
+
+<h3>Distribution</h3>
+<ul>
+<li><strong>10&ndash;20% circulate</strong></li>
+<li>The remainder reside in <strong>bone marrow, lymph nodes, spleen and tonsils</strong></li>
+</ul>
+
+<h3>Activation</h3>
+<ol class="steps">
+<li><b>The receptor</b><div>On the surface of B cells there is an <strong>antigen receptor complex (IgM)</strong>. Each B cell receptor has a <strong>unique antigen specificity</strong>.</div></li>
+<li><b>Binding</b><div>B cells <strong>can be activated by soluble antigens</strong> — unlike T cells, which require surface-presented antigen. When an antigen binds the receptor, the B cell becomes activated.</div></li>
+<li><b>Transformation</b><div>The activated B cell turns into a <strong>PLASMA CELL</strong>.</div></li>
+<li><b>Antibody production</b><div>Plasma cells <strong>secrete antibodies</strong>, which are the <strong>mediators of humoral immunity</strong>.</div></li>
+<li><b>Amplification</b><div>Activation also <strong>induces cell division</strong>, increasing the numbers of that specific B cell.</div></li>
+</ol>
+
+<div class="box hy"><span class="lab">Key contrast</span>
+<p><strong>B cells can be activated by soluble antigens; T cells cannot.</strong> T cells can only be activated by a surface-presented antigen. This single difference explains why the humoral arm handles free-floating toxins and extracellular organisms, while the cellular arm handles what is hiding <em>inside</em> cells.</p></div>
+
+<div class="box mem"><span class="lab">Why this matters in 3B</span>
+<p>Plasma cells are one of the three defining cells of chronic inflammation. Seeing them in a section tells you that a <strong>humoral immune response has been running long enough</strong> for B cells to have been activated and transformed.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s9">
+      <div class="slhead"><div class="tag">09</div><div class="ttl"><h2>The macrophage</h2><p>The single most important cell in chronic inflammation — and the most dangerous.</p></div></div>
+      <div class="slbody">
+
+<h3>Why it is critically important</h3>
+<div class="grid">
+<div class="cd"><div class="k">Function 1</div><h4>Digests microbes</h4></div>
+<div class="cd"><div class="k">Function 2</div><h4>Engulfs foreign materials</h4></div>
+<div class="cd"><div class="k">Function 3</div><h4>Presents antigens to T cells</h4></div>
+<div class="cd"><div class="k">Function 4</div><h4>Secretes many active substances</h4></div>
+</div>
+
+<h3>What activated macrophages release</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:34%">Product</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td><strong>Oxygen species, nitric oxide</strong></td><td>Toxic to cells</td></tr>
+<tr><td><strong>Proteases</strong></td><td>Toxic to extracellular matrix</td></tr>
+<tr><td><strong>Cytokines</strong></td><td>Recruitment signallers — bring in more cells</td></tr>
+<tr><td><strong>Growth factors</strong></td><td>Fibrosis stimulators</td></tr>
+<tr><td><strong>Growth factors</strong></td><td>New vessel stimulators (angiogenesis)</td></tr>
+</tbody></table></div>
+
+<div class="box warn"><span class="lab">Double-edged</span>
+<p>The macrophage is a <strong>powerful defensive cell</strong> — but it <strong>can produce considerable damage if inappropriately activated</strong>. Read the table again: the same cell that kills microbes also dissolves matrix, recruits more inflammatory cells, and drives fibrosis. That is the engine of chronic tissue destruction.</p></div>
+<details class="qz"><summary>Chronic inflammation is described as causing tissue destruction AND attempts at healing simultaneously. Which cell explains both, and how?</summary><div class="ans"><p>The <strong>macrophage</strong>. Its secreted products do both at once: reactive oxygen species and nitric oxide are <strong>toxic to cells</strong> and proteases are <strong>toxic to the extracellular matrix</strong> (destruction), while growth factors simultaneously stimulate <strong>fibrosis and new vessel formation</strong> (healing). Cytokines recruit still more cells, sustaining the process.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s10">
+      <div class="slhead"><div class="tag">10</div><div class="ttl"><h2>Chronic inflammation defined</h2><p>The same goal as acute inflammation, but the body cannot achieve it.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Chronic inflammation</strong> is a <strong>prolonged inflammatory response</strong> lasting <strong>weeks or months</strong>, in which <strong>tissue damage continues while the body attempts to heal the injured part</strong>.</p></div>
+
+<h3>Why it happens: persistent irritation</h3>
+<ol class="steps">
+<li><b>The body cannot remove or destroy the agent</b><div>The stop condition from Lecture 3A is never met, so the mediators keep being produced.</div></li>
+<li><b>Features of the stimulus</b><div>Some agents are inherently resistant — non-digestible, walled in, or able to survive inside macrophages.</div></li>
+<li><b>Immune system reactions</b><div>The immune response itself may sustain the inflammation, as in autoimmune disease.</div></li>
+</ol>
+
+<h3>Two routes in</h3>
+<div class="grid two">
+<div class="cd"><div class="k">Route 1</div><h4>Following acute inflammation</h4><p>May be the <strong>result of acute inflammation</strong> that failed to resolve.</p></div>
+<div class="cd"><div class="k">Route 2</div><h4>De novo</h4><p>May <strong>arise de novo</strong> — with <strong>no acute phase</strong> at all.</p></div>
+</div>
+
+<div class="box hy"><span class="lab">The defining paradox</span>
+<p>&ldquo;Tissue damage continues <em>while</em> the body attempts to heal.&rdquo; In acute inflammation, damage and healing are sequential. In chronic inflammation they run <strong>simultaneously and indefinitely</strong> — which is why the histology shows destruction, fibrosis and new vessels all in the same field.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s11">
+      <div class="slhead"><div class="tag">11</div><div class="ttl"><h2>The cells &mdash; and the self-sustaining loop</h2><p>Chronic inflammation is a cellular process. Three cells, plus fibroblasts.</p></div></div>
+      <div class="slbody">
+
+<div class="pills">
+<span class="pill">Lymphocytes</span>
+<span class="pill">Plasma cells</span>
+<span class="pill">Macrophages</span>
+<span class="pill e">Fibroblasts</span>
+</div>
+<p>It may also have an <strong>acute exacerbation</strong> superimposed on the chronic picture.</p>
+
+<h3>Lymphocytes in chronic inflammation</h3>
+<ul>
+<li>Emigrate using the <strong>same mechanisms</strong> described in acute inflammation (margination, adhesion, diapedesis, chemotaxis)</li>
+<li>Have a <strong>reciprocal relationship</strong> to macrophages</li>
+<li>Can be <strong>activated by contact with antigens</strong></li>
+<li>Activated lymphocytes produce <strong>lymphokines</strong>, which <strong>stimulate monocytes and macrophages</strong></li>
+<li>Cytokines from macrophages (<strong>monokines</strong>) in turn <strong>activate lymphocytes</strong></li>
+<li><strong>This loop results in the persistence of chronic inflammation</strong></li>
+</ul>
+
+<figure>
+<div class="fcap">Fig. 3B.3 — The macrophage&ndash;lymphocyte loop that sustains chronic inflammation</div>
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="b3" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#5b3a9e"/></marker></defs>
+<!-- macrophage -->
+<circle cx="210" cy="125" r="58" fill="#efeaf9" stroke="#5b3a9e" stroke-width="2.5"/>
+<text x="210" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#5b3a9e">MACROPHAGE</text>
+<text x="210" y="139" text-anchor="middle" font-size="9.5" fill="#6b7791">activated</text>
+<!-- lymphocyte -->
+<circle cx="510" cy="125" r="58" fill="#fdedf3" stroke="#d1497a" stroke-width="2.5"/>
+<text x="510" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#d1497a">LYMPHOCYTE</text>
+<text x="510" y="139" text-anchor="middle" font-size="9.5" fill="#6b7791">activated</text>
+<!-- arrows -->
+<path d="M268,98 q92,-52 184,0" fill="none" stroke="#5b3a9e" stroke-width="2.2" marker-end="url(#b3)"/>
+<text x="360" y="58" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e">monokines</text>
+<text x="360" y="72" text-anchor="middle" font-size="9.5" fill="#6b7791">macrophage cytokines activate lymphocytes</text>
+<path d="M452,152 q-92,52 -184,0" fill="none" stroke="#d1497a" stroke-width="2.2" marker-end="url(#b3)"/>
+<text x="360" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#d1497a">lymphokines</text>
+<text x="360" y="219" text-anchor="middle" font-size="9.5" fill="#6b7791">stimulate monocytes and macrophages</text>
+<!-- persistence label -->
+<text x="360" y="132" text-anchor="middle" font-size="10" font-style="italic" fill="#6b7791">no external stimulus</text>
+<text x="360" y="146" text-anchor="middle" font-size="10" font-style="italic" fill="#6b7791">needed to continue</text>
+</svg>
+<figcaption>Each cell type activates the other. Once running, the loop is self-sustaining — which is why chronic inflammation persists.</figcaption>
+</figure>
+
+<h3>Macrophages and monocytes</h3>
+<p><strong>Key player in chronic inflammation.</strong> Two populations exist:</p>
+<div class="tw"><table>
+<thead><tr><th style="width:26%">Population</th><th>Detail</th></tr></thead>
+<tbody>
+<tr><td><strong>Tissue residents</strong></td><td>Diffusely spread through connective tissue, and <strong>clustered in certain locations</strong>: liver (<strong>Kupffer cells</strong>), spleen, lymph nodes (<strong>sinus histiocytes</strong>), lungs (<strong>alveolar macrophages</strong>).</td></tr>
+<tr><td><strong>Mobile pool</strong></td><td><strong>Monocytes</strong> in the circulation.</td></tr>
+</tbody></table></div>
+
+<ul>
+<li><strong>Blood pool half-life: 1 day</strong> (monocyte). <strong>Tissue life span: several months</strong> (macrophage)</li>
+<li>Movement to tissue is governed by the <strong>same emigration process</strong> discussed in acute inflammation</li>
+<li><strong>Accumulate approximately 48 hours after the stimulus</strong> — which is exactly why acute inflammation lasts a maximum of about 2 days before the picture changes</li>
+<li>Monocytes <strong>transform in tissues into macrophages</strong>; normal function is <strong>phagocytosis</strong></li>
+<li>Can be <strong>activated by cytokines, bacterial endotoxins, or T lymphocytes</strong></li>
+<li>Activation produces: <strong>increased cell size</strong>, <strong>increased levels of lysosomal enzymes</strong>, <strong>more active metabolism</strong>, and a <strong>greater ability to phagocytose and kill</strong> ingested microbes</li>
+<li>Activated macrophages also <strong>secrete a wide range of biologically active products</strong>; <strong>if unchecked these cause tissue injury and fibrosis</strong></li>
+</ul>
+
+<h3>What decides whether macrophages accumulate</h3>
+<div class="grid two">
+<div class="cd"><div class="k">Short-lived stimulus</div><h4>They disperse</h4><p>Macrophages either <strong>die off</strong> or <strong>move into the lymphatics</strong> and travel to the lymph nodes.</p></div>
+<div class="cd"><div class="k">Long-term stimulus</div><h4>They accumulate</h4><ul><li>Continued <strong>recruitment of monocytes</strong></li><li>Local <strong>proliferation of macrophages</strong></li><li><strong>Immobilisation</strong> of macrophages</li></ul></div>
+</div>
+<details class="qz"><summary>Acute inflammation is said to last a maximum of about two days. What cellular event explains that limit?</summary><div class="ans"><p>Macrophages <strong>accumulate approximately 48 hours after the stimulus</strong>. Up to that point the infiltrate is neutrophil-dominant, which is the acute picture. Once macrophages arrive in number — and, if the stimulus persists, begin the self-sustaining loop with lymphocytes — the histological picture becomes mononuclear, which is by definition chronic.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s12">
+      <div class="slhead"><div class="tag">12</div><div class="ttl"><h2>Causes of chronic inflammation</h2><p>Three broad causes when it follows acute inflammation, plus five that arise de novo.</p></div></div>
+      <div class="slbody">
+
+<h3>Causes</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:26%">Cause</th><th>Detail</th><th style="width:28%">Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>Persistent infections</strong></td><td>Organisms the body cannot clear</td><td><strong>Tubercle bacilli</strong> &#8594; tuberculosis<br><strong>Treponema pallidum</strong> &#8594; syphilis</td></tr>
+<tr><td><strong>Prolonged exposure to potentially toxic agents</strong></td><td>Exogenous or endogenous</td><td><strong>Exogenous:</strong> silica particles &#8594; silicosis<br><strong>Endogenous:</strong> toxic plasma lipid &#8594; atherosclerosis</td></tr>
+<tr><td><strong>Autoimmunity</strong></td><td>Reactions against the individual&rsquo;s own tissues. <strong>Autoantigens develop a self-perpetuating immune reaction.</strong></td><td>Rheumatoid arthritis; lupus erythematosus</td></tr>
+</tbody></table></div>
+
+<h3>Chronic inflammation arising <em>de novo</em></h3>
+<p>With <strong>no acute phase</strong> at all:</p>
+<ol class="steps">
+<li><b>Sterile foreign bodies</b><div><strong>Suture material</strong>, <strong>implants</strong> — non-digestible, so frustrated phagocytosis continues indefinitely.</div></li>
+<li><b>Asbestos</b><div>A physically indestructible fibre.</div></li>
+<li><b>Some micro-organisms</b><div><strong>Mycobacterium tuberculosis</strong>, <strong>Mycobacterium leprae</strong> — organisms that survive inside macrophages.</div></li>
+<li><b>Idiopathic diseases</b><div><strong>Sarcoidosis</strong> — cause unknown.</div></li>
+</ol>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p><strong>Suture material and implants</strong> are listed explicitly. Any material left in the tissues that cannot be digested will provoke a chronic response — which is why biocompatibility of dental materials matters, and why retained foreign bodies are removed.</p></div>
+<details class="qz"><summary>Give one cause of chronic inflammation for each of: persistent infection, exogenous toxin, endogenous toxin, and autoimmunity.</summary><div class="ans"><p><strong>Persistent infection</strong> — tubercle bacilli (tuberculosis) or <em>Treponema pallidum</em> (syphilis). <strong>Exogenous toxin</strong> — silica particles causing silicosis. <strong>Endogenous toxin</strong> — toxic plasma lipid causing atherosclerosis. <strong>Autoimmunity</strong> — rheumatoid arthritis or lupus erythematosus, where autoantigens set up a self-perpetuating immune reaction.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s13">
+      <div class="slhead"><div class="tag">13</div><div class="ttl"><h2>Histological features</h2><p>Three things a pathologist looks for in a chronic lesion.</p></div></div>
+      <div class="slbody">
+
+<ol class="steps">
+<li><b>Infiltration of mononuclear cells</b><div><strong>Macrophages, lymphocytes, plasma cells.</strong> Contrast with the neutrophil infiltrate of acute inflammation.</div></li>
+<li><b>Tissue destruction</b><div><strong>Induced by the inflammatory cells themselves</strong> — not only by the original agent.</div></li>
+<li><b>Attempts at healing by connective tissue replacement</b><div>Of damaged tissue, via <strong>angiogenesis</strong> and <strong>fibrosis</strong>.</div></li>
+</ol>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>Point 2 is the one students miss. In chronic inflammation, a substantial share of the damage is caused by <strong>the host&rsquo;s own inflammatory cells</strong>, not by the causative agent. The macrophage products from section 9 are the mechanism.</p></div>
+
+<h3>Forms of acute and chronic inflammation</h3>
+<p>There are <strong>morphological variations</strong> in the basic patterns of inflammation. These are due to:</p>
+<div class="pills">
+<span class="pill">Severity of the reaction</span>
+<span class="pill">Specific cause</span>
+<span class="pill">Particular tissue involved</span>
+<span class="pill">Site involved</span>
+</div>
+<p>The five named forms, covered in sections 14&ndash;17:</p>
+<div class="pills">
+<span class="pill e">Serous</span><span class="pill e">Fibrous</span><span class="pill e">Suppurative</span><span class="pill e">Ulcerative</span><span class="pill e">Granulomatous</span>
+</div>
+
+      </div>
+    </section>
+    <section class="sl" id="s14">
+      <div class="slhead"><div class="tag">14</div><div class="ttl"><h2>Serous and fibrous inflammation</h2><p>Two forms distinguished by how badly the vessels leak — and therefore by what leaks out.</p></div></div>
+      <div class="slbody">
+
+<h3>Serous inflammation</h3>
+<ul>
+<li>Marked by the <strong>outpouring of a thin fluid</strong>, derived either from the <strong>blood serum</strong> or from <strong>secretions of the cells lining the peritoneum, pleura or pericardium</strong></li>
+<li>A <strong>skin blister</strong> from a burn or a viral infection is a good example</li>
+<li>Produces a <strong>serous exudate</strong> in body cavities:
+  <ul>
+  <li><strong>Pleura</strong> &#8594; pleurisy</li>
+  <li><strong>Pericardium</strong> &#8594; pericarditis — <strong>often caused by viruses</strong>; leads to exudate accumulation in the space between the two layers</li>
+  <li><strong>Synovium</strong> &#8594; synovitis — <strong>often due to viruses or autoimmune responses</strong></li>
+  </ul>
+</li>
+</ul>
+
+<h3>Fibrous inflammation</h3>
+<ul>
+<li>Generally a <strong>more severe injury</strong> with <strong>greater vascular permeability</strong></li>
+<li><strong>Molecules of fibrin leak out</strong> and a <strong>fibrinous exudate</strong> develops</li>
+<li>Often characteristic of inflammation in <strong>body cavities</strong> such as the pericardium or pleura</li>
+<li>Fibrinous exudates <strong>may be removed by fibrinolysis and by macrophages</strong> &#8594; <strong>resolution</strong></li>
+<li><strong>When fibrin is not fully removed</strong>, it may stimulate the <strong>ingrowth of fibroblasts and blood vessels</strong>, which <strong>organise it and cause scarring</strong></li>
+</ul>
+
+<h4>Fibrosis is the outcome</h4>
+<p>Fibrous tissue with <strong>dense collagen deposition</strong>. Examples:</p>
+<div class="pills">
+<span class="pill">Rheumatoid arthritis</span>
+<span class="pill">Fibrous pericarditis</span>
+<span class="pill">Ankylosis of the TMJ</span>
+</div>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p><strong>Ankylosis of the temporomandibular joint</strong> is a direct consequence of fibrous inflammation. Dense collagen deposition within the joint restricts movement — a fibrotic end-stage of a chronic inflammatory process.</p></div>
+
+<h3>Worked example: pericarditis</h3>
+<p>Pericarditis is useful because, depending on severity, <strong>both serous and fibrous forms are possible</strong>.</p>
+<ul>
+<li>Inflammation of the pericardium — the <strong>&lsquo;Glad-Wrap&rsquo;-like sac surrounding the heart</strong></li>
+<li>Can be caused by <strong>infection, autoimmune disease, trauma or malignancy</strong></li>
+</ul>
+<h4>Pathology</h4>
+<ul>
+<li><strong>Serous</strong> inflammation produces a <strong>straw-coloured fluid</strong>, often in <strong>large quantities</strong>, derived from the <strong>mesothelial cells</strong> lining the pericardial cavity</li>
+<li><strong>If chronic</strong>, the process can also become <strong>fibrous</strong>, leading to <strong>adhesions and constrictive pericarditis</strong></li>
+</ul>
+<h4>Treatment</h4>
+<ul>
+<li>Due to the <strong>large accumulation of fluid the heart may have trouble beating effectively</strong></li>
+<li>This requires <strong>surgical drainage</strong> of the fluid</li>
+<li><strong>If it becomes fibrosed, life expectancy is greatly decreased</strong></li>
+</ul>
+<details class="qz"><summary>Two patients have pericarditis. One recovers fully; the other develops constrictive pericarditis. What determined the difference?</summary><div class="ans"><p>Whether the <strong>fibrinous exudate was removed</strong>. If fibrin is cleared by <strong>fibrinolysis and macrophages</strong>, the outcome is <strong>resolution</strong>. If it is <strong>not fully removed</strong>, it stimulates the ingrowth of <strong>fibroblasts and blood vessels</strong> which organise it into <strong>scar</strong> — producing adhesions and constrictive pericarditis, which greatly decreases life expectancy.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s15">
+      <div class="slhead"><div class="tag">15</div><div class="ttl"><h2>Suppurative inflammation</h2><p>Pus, abscesses, and the two kinds of tract that drain them.</p></div></div>
+      <div class="slbody">
+
+<ul>
+<li>Characterised by <strong>large accumulations of pus</strong>, consisting of <strong>neutrophils, necrotic cells and oedema fluid</strong></li>
+<li>Certain organisms produce this — e.g. <strong>Staphylococci</strong></li>
+<li><strong>Abscesses</strong> are <strong>focal, localised collections of purulent inflammatory tissue</strong> buried in a tissue, organ or confined space</li>
+<li>Follows acute inflammation &#8594; abscess formation</li>
+</ul>
+
+<h3>The structure of an abscess</h3>
+<figure>
+<div class="fcap">Fig. 3B.4 — Zones of an abscess</div>
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="b4" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7791"/></marker></defs>
+<!-- outer -->
+<circle cx="250" cy="130" r="108" fill="#e3f3f1" stroke="#0f766e" stroke-width="2"/>
+<!-- neutrophil zone -->
+<circle cx="250" cy="130" r="76" fill="#fdf0dc" stroke="#a45d08" stroke-width="2"/>
+<!-- necrotic centre -->
+<circle cx="250" cy="130" r="44" fill="#fdedf3" stroke="#d1497a" stroke-width="2"/>
+<text x="250" y="126" text-anchor="middle" font-size="10.5" font-weight="700" fill="#d1497a">necrotic</text>
+<text x="250" y="141" text-anchor="middle" font-size="10.5" font-weight="700" fill="#d1497a">centre</text>
+<!-- labels -->
+<line x1="380" y1="62" x2="300" y2="88" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b4)"/>
+<text x="388" y="52" font-size="11" font-weight="700" fill="#0f766e">Granulation tissue</text>
+<text x="388" y="67" font-size="9.5" fill="#33405a">vascular dilation, fibroblastic proliferation</text>
+<text x="388" y="81" font-size="9.5" fill="#33405a">— the body walling off the source</text>
+
+<line x1="380" y1="130" x2="316" y2="130" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b4)"/>
+<text x="388" y="126" font-size="11" font-weight="700" fill="#a45d08">Zone of neutrophils</text>
+<text x="388" y="141" font-size="9.5" fill="#33405a">around the necrotic focus</text>
+
+<line x1="380" y1="196" x2="286" y2="162" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b4)"/>
+<text x="388" y="192" font-size="11" font-weight="700" fill="#d1497a">Central region</text>
+<text x="388" y="207" font-size="9.5" fill="#33405a">necrotic white cells and tissue</text>
+
+<text x="250" y="252" text-anchor="middle" font-size="10" font-style="italic" fill="#b3243c">Defence cells are unable to reach the abscess centre</text>
+</svg>
+</figure>
+
+<h3>Draining tracts &mdash; a distinction worth getting right</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Term</th><th>Definition</th></tr></thead>
+<tbody>
+<tr><td><strong>Fistula</strong></td><td>A <strong>non-epithelial lined tract</strong>.</td></tr>
+<tr><td><strong>Sinus</strong></td><td>An <strong>epithelial lined channel</strong> joining the abscess cavity to an epithelial surface. Allows <strong>drainage of the abscess</strong> — and therefore <strong>no pain</strong>.</td></tr>
+</tbody></table></div>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p>A patient with a chronically draining <strong>sinus</strong> from a periapical abscess is often <strong>pain-free</strong>, because the sinus continuously vents the pressure. The absence of pain does <strong>not</strong> mean the infection has resolved — it means it has found an escape route. This is why a symptomless sinus tract still requires treatment.</p></div>
+<details class="qz"><summary>Why is an abscess difficult to treat with antibiotics alone?</summary><div class="ans"><p>Because <strong>defence cells are unable to reach the abscess</strong> — it is walled off by granulation tissue, with a necrotic centre that has no effective blood supply. Neither immune cells nor drugs delivered in the blood penetrate reliably. As Lecture 3A noted, it is the <strong>release of pus</strong> that allows organisation and healing to proceed, which is why drainage is the definitive treatment.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s16">
+      <div class="slhead"><div class="tag">16</div><div class="ttl"><h2>Ulcerative inflammation</h2></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p>An <strong>ulcer</strong> is a <strong>localised loss of epithelium, with exposure of the underlying connective tissue</strong>.</p></div>
+
+<h3>Causes</h3>
+<ol class="steps">
+<li><b>Continuous physical or chemical injury</b><div>Persistent trauma that prevents the epithelium re-forming.</div></li>
+<li><b>Secondary infection</b><div>Colonisation of the exposed surface.</div></li>
+<li><b>Some specific bacteria</b><div>Organisms that produce ulceration directly.</div></li>
+<li><b>Immune reactions</b><div><strong>Ulcerative colitis</strong>; skin diseases.</div></li>
+<li><b>Attempts at repair</b><div>The healing process itself contributes to the appearance.</div></li>
+</ol>
+
+<p>A common site outside the mouth is the <strong>oesophagus</strong>.</p>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p>Oral ulceration is one of the most common presentations in oral medicine, and this list is the framework for working through the differential. Section 18 expands it into a full classification of acquired causes.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s17">
+      <div class="slhead"><div class="tag">17</div><div class="ttl"><h2>Granulomatous inflammation</h2><p>The most distinctive form of chronic inflammation — and the one with the most specific vocabulary.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p>Characterised by <strong>granuloma formation</strong> — a <strong>grain-like lump in the tissues</strong>: an <strong>aggregate of chronic inflammatory cells</strong> with <strong>tissue damage and destruction</strong>.</p></div>
+
+<div class="box warn"><span class="lab">Do not confuse</span>
+<p><strong>Granuloma</strong> is not <strong>granulation tissue</strong>. Granulation tissue is the vascular scaffolding of <em>healing</em> (Lecture 3A). A granuloma is an aggregate of chronic inflammatory cells associated with tissue <em>damage and destruction</em>. The words are similar; the meanings are opposite.</p></div>
+
+<h3>What a granuloma actually is</h3>
+<ul>
+<li>A <strong>focal area of granulomatous inflammation</strong></li>
+<li>Consists of a <strong>microscopic aggregation of macrophages</strong> that are <strong>transformed into epithelium-like cells</strong></li>
+<li><strong>Surrounded by a collar of mononuclear leukocytes</strong> — principally <strong>lymphocytes</strong> and some <strong>plasma cells</strong></li>
+</ul>
+
+<figure>
+<div class="fcap">Fig. 3B.5 — The structure of a granuloma</div>
+<svg viewBox="0 0 720 280" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="b5" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7791"/></marker></defs>
+<!-- lymphocyte collar -->
+<circle cx="250" cy="140" r="112" fill="#fdedf3" stroke="#d1497a" stroke-width="2"/>
+<!-- epithelioid zone -->
+<circle cx="250" cy="140" r="80" fill="#efeaf9" stroke="#5b3a9e" stroke-width="2"/>
+<!-- caseous centre -->
+<circle cx="250" cy="140" r="40" fill="#fdf0dc" stroke="#a45d08" stroke-width="2"/>
+<text x="250" y="136" text-anchor="middle" font-size="10" font-weight="700" fill="#a45d08">caseous</text>
+<text x="250" y="150" text-anchor="middle" font-size="10" font-weight="700" fill="#a45d08">necrosis</text>
+<!-- giant cell -->
+<ellipse cx="250" cy="66" rx="26" ry="17" fill="#fff" stroke="#5b3a9e" stroke-width="2"/>
+<circle cx="240" cy="62" r="3" fill="#5b3a9e"/><circle cx="248" cy="59" r="3" fill="#5b3a9e"/>
+<circle cx="257" cy="61" r="3" fill="#5b3a9e"/><circle cx="262" cy="68" r="3" fill="#5b3a9e"/>
+<circle cx="238" cy="71" r="3" fill="#5b3a9e"/>
+<!-- lymphocytes in collar -->
+<circle cx="250" cy="242" r="7" fill="#d1497a"/><circle cx="180" cy="228" r="7" fill="#d1497a"/>
+<circle cx="320" cy="228" r="7" fill="#d1497a"/><circle cx="148" cy="90" r="7" fill="#d1497a"/>
+<circle cx="352" cy="90" r="7" fill="#d1497a"/><circle cx="140" cy="170" r="7" fill="#d1497a"/>
+<circle cx="360" cy="170" r="7" fill="#d1497a"/>
+<!-- labels -->
+<line x1="420" y1="66" x2="280" y2="66" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b5)"/>
+<text x="428" y="62" font-size="11" font-weight="700" fill="#5b3a9e">Giant cell</text>
+<text x="428" y="77" font-size="9.5" fill="#33405a">multinucleate, &gt;50 nuclei</text>
+
+<line x1="420" y1="130" x2="320" y2="122" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b5)"/>
+<text x="428" y="126" font-size="11" font-weight="700" fill="#5b3a9e">Epithelioid cells</text>
+<text x="428" y="141" font-size="9.5" fill="#33405a">macrophages transformed into</text>
+<text x="428" y="154" font-size="9.5" fill="#33405a">epithelium-like cells</text>
+
+<line x1="420" y1="196" x2="300" y2="212" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b5)"/>
+<text x="428" y="192" font-size="11" font-weight="700" fill="#d1497a">Collar of mononuclear cells</text>
+<text x="428" y="207" font-size="9.5" fill="#33405a">principally lymphocytes,</text>
+<text x="428" y="220" font-size="9.5" fill="#33405a">some plasma cells</text>
+
+<line x1="420" y1="250" x2="272" y2="172" stroke="#6b7791" stroke-width="1.3" marker-end="url(#b5)"/>
+<text x="428" y="252" font-size="11" font-weight="700" fill="#a45d08">Central necrosis</text>
+<text x="428" y="267" font-size="9.5" fill="#33405a">in some types, e.g. caseous in TB</text>
+</svg>
+</figure>
+
+<h3>Macrophage differentiation</h3>
+<div class="grid two">
+<div class="cd"><div class="k">Form 1</div><h4>Epithelioid cells</h4><ul>
+<li><strong>Resemble epithelial cells</strong></li>
+<li>Flat, elongated</li>
+<li>Oval nucleus</li>
+<li>Eosinophilic cytoplasm</li>
+<li><strong>Unable to phagocytose</strong></li>
+<li><strong>Release inflammatory and immune mediators</strong></li>
+</ul></div>
+<div class="cd"><div class="k">Form 2</div><h4>Giant cells</h4><ul>
+<li><strong>Very large</strong></li>
+<li><strong>Multinucleate: &gt;50 nuclei</strong></li>
+<li>Form <strong>where macrophages have difficulty destroying particles</strong></li>
+<li>Arise by <strong>fusion of macrophages</strong> — probably accidental</li>
+</ul></div>
+</div>
+
+<h4>Two named giant cells</h4>
+<div class="tw"><table>
+<thead><tr><th style="width:34%">Type</th><th>Distinguishing feature</th></tr></thead>
+<tbody>
+<tr><td><strong>Langhans&rsquo; giant cell</strong></td><td>Nuclei arranged in a <strong>horse-shoe shaped cluster</strong></td></tr>
+<tr><td><strong>Foreign body giant cell</strong></td><td>Nuclei <strong>scattered throughout</strong> the cell</td></tr>
+</tbody></table></div>
+
+<div class="box tip"><span class="lab">Memory hook</span>
+<p><strong>Lang</strong>hans&rsquo; &#8594; nuclei <strong>lined up</strong> in a horseshoe. <strong>Foreign body</strong> &#8594; nuclei <strong>flung about</strong> at random. Note that epithelioid cells lose the ability to phagocytose — they have given up eating in order to become secretory.</p></div>
+
+<h3>Formation of a granuloma</h3>
+<ol class="steps">
+<li><b>Necrosis occurs (in some types)</b><div>For example <strong>caseous necrosis in TB</strong>.</div></li>
+<li><b>The necrosis is walled in</b><div>Surrounded by <strong>epithelioid cells, macrophages, and some giant cells</strong>.</div></li>
+<li><b>An outer zone forms</b><div>Outside this, a region of <strong>lymphocytes and macrophages</strong>.</div></li>
+<li><b>The reaction is maintained</b><div><strong>Continued release of immune reaction modulators and toxins</strong> keeps the process going.</div></li>
+<li><b>Granulomata may coalesce</b><div>They can become <strong>so large they coalesce</strong>, leading to <strong>considerable tissue destruction</strong>.</div></li>
+</ol>
+
+<h3>Diseases with granulomata</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:22%">Category</th><th>Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>Infectious</strong></td><td><strong>Mycobacterial</strong> — tuberculosis, leprosy · <strong>Mycotic (fungal)</strong> · <strong>Treponemal</strong> — syphilis · <strong>Parasitic</strong></td></tr>
+<tr><td><strong>Chemical</strong></td><td>Talc; asbestosis</td></tr>
+<tr><td><strong>Autoimmune</strong></td><td>Rheumatoid nodule; Crohn&rsquo;s disease</td></tr>
+<tr><td><strong>Unknown / idiopathic</strong></td><td>Sarcoidosis; <strong>orofacial granulomatosis</strong></td></tr>
+</tbody></table></div>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p><strong>Orofacial granulomatosis</strong> appears in the idiopathic category and presents with persistent lip or facial swelling. Crohn&rsquo;s disease, also granulomatous, can produce oral manifestations too — so granulomatous inflammation is directly relevant to oral medicine practice.</p></div>
+<details class="qz"><summary>Distinguish a granuloma from granulation tissue, and Langhans' from foreign body giant cells.</summary><div class="ans"><p><strong>Granulation tissue</strong> is the vascular, fibroblastic scaffolding laid down during <em>healing and repair</em>. A <strong>granuloma</strong> is an aggregate of chronic inflammatory cells — macrophages transformed into epithelioid cells with a collar of lymphocytes — associated with tissue <em>damage and destruction</em>.</p><p><strong>Langhans&rsquo;</strong> giant cells have nuclei in a <strong>horse-shoe shaped cluster</strong>; <strong>foreign body</strong> giant cells have nuclei <strong>scattered throughout</strong> the cell.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s18">
+      <div class="slhead"><div class="tag">18</div><div class="ttl"><h2>Acquired factors: a classification</h2><p>A nine-part framework for working through the cause of an oral lesion. Learn it as a checklist.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:8%">#</th><th style="width:40%">Category</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>1</strong></td><td>Physical and chemical agents</td><td>Biting; burn</td></tr>
+<tr><td><strong>2</strong></td><td>Infectious organisms</td><td>HSV (herpes simplex virus)</td></tr>
+<tr><td><strong>3</strong></td><td>Inflammatory processes</td><td>&mdash;</td></tr>
+<tr><td><strong>4</strong></td><td>Immune diseases</td><td>Bullous pemphigoid</td></tr>
+<tr><td><strong>5</strong></td><td>Nutritional deficiency and metabolic diseases</td><td>B vitamin deficiency</td></tr>
+<tr><td><strong>6</strong></td><td>Neoplastic disease</td><td>SCC (squamous cell carcinoma)</td></tr>
+<tr><td><strong>7</strong></td><td>Psychological factors</td><td>Self-harm</td></tr>
+<tr><td><strong>8</strong></td><td>Iatrogenic factors</td><td>Numb lip; dental procedure injury</td></tr>
+<tr><td><strong>9</strong></td><td>Idiopathic</td><td>Stevens&ndash;Johnson syndrome</td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">How to use this</span>
+<p>This is a <strong>differential diagnosis scaffold</strong>. Faced with an oral lesion of unclear cause, walk the nine categories in order rather than jumping to the most familiar diagnosis. Categories 6 and 8 — neoplasia and iatrogenic injury — are the two most consequential to miss.</p></div>
+<details class="qz"><summary>A patient presents with a persistent ulcer on the lateral tongue. Walk the nine categories.</summary><div class="ans"><p><strong>1 Physical/chemical</strong> — chronic biting or a sharp cusp? <strong>2 Infectious</strong> — HSV or other organism? <strong>3 Inflammatory</strong> — an ongoing inflammatory process? <strong>4 Immune</strong> — bullous pemphigoid or similar? <strong>5 Nutritional/metabolic</strong> — B vitamin deficiency? <strong>6 Neoplastic</strong> — squamous cell carcinoma, critical to exclude in a persistent lateral tongue ulcer. <strong>7 Psychological</strong> — self-harm? <strong>8 Iatrogenic</strong> — injury from a dental procedure, or trauma to a numb lip? <strong>9 Idiopathic</strong> — e.g. Stevens&ndash;Johnson. The point of the checklist is that it forces category 6 to be considered rather than assumed away.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s19">
+      <div class="slhead"><div class="tag">19</div><div class="ttl"><h2>Oral example: periodontal disease</h2><p>Everything in Lectures 3A and 3B, applied to the single most common inflammatory disease in dentistry.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Periodontal disease</strong> is a <strong>response by the body to plaque bacteria</strong> on the teeth at or below the gum line. This induces inflammation of either the <strong>gingiva</strong> or the <strong>periodontium</strong> &mdash; <strong>gingivitis</strong> or <strong>periodontitis</strong>. It is the <strong>second most common cause of tooth loss</strong>. <strong>Genetic or environmental factors</strong> can place people at higher risk.</p></div>
+
+<h3>How it starts</h3>
+<ol class="steps">
+<li><b>Plaque bacteria accumulate</b><div>At the interface of the tooth and gingiva.</div></li>
+<li><b>Bacteria release damaging substances</b><div>Aerobic and anaerobic bacteria release <strong>metabolic acids</strong>, <strong>extracellular enzymes</strong> and <strong>LPS</strong> (lipopolysaccharide).</div></li>
+<li><b>Tissue is damaged</b><div>These can <strong>directly or indirectly damage the sulcular epithelium</strong> and the underlying connective tissue.</div></li>
+<li><b>Mediators are released</b><div>The body releases mediators to <strong>activate the inflammatory response</strong>.</div></li>
+</ol>
+
+<h3>Gingivitis &mdash; acute inflammation in the mouth</h3>
+<ul>
+<li><strong>Acute inflammation is triggered</strong>: vessels <strong>dilate</strong>, <strong>permeability increases</strong> and <strong>leukocytes migrate</strong> — exactly the three tissue events of Lecture 3A</li>
+<li><strong>Neutrophils provide a barrier</strong> between the plaque mass and the crevicular epithelium</li>
+<li>They <strong>phagocytose some bacteria</strong>, but this is <strong>not a critical mechanism</strong> in the control of plaque microorganisms</li>
+</ul>
+
+<h4>The cardinal signs, in the gingiva</h4>
+<div class="tw"><table>
+<thead><tr><th style="width:34%">Clinical finding</th><th>Cardinal sign</th></tr></thead>
+<tbody>
+<tr><td>Red, swollen gingiva</td><td><strong>Rubor</strong> and <strong>Tumor</strong></td></tr>
+<tr><td>Increase in intra-crevicular temperature</td><td><strong>Calor</strong></td></tr>
+<tr><td>Pain on probing</td><td><strong>Dolor</strong></td></tr>
+<tr><td>Papilla does not deflect food debris</td><td><strong>Functio laesa</strong></td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>That table is a perfect exam answer: it maps a routine clinical examination directly onto the five cardinal signs. Note especially <em>functio laesa</em> — the papilla&rsquo;s <strong>function</strong> is to deflect food debris, and inflammation removes it.</p></div>
+
+<h3>Periodontitis &mdash; chronic inflammation in the mouth</h3>
+<ul>
+<li><strong>Chronic inflammation of the supporting tissues of the teeth</strong></li>
+<li><strong>Large infiltration of macrophages and lymphocytes</strong> — the mononuclear picture of section 13</li>
+<li><strong>Bacterial and host damage</strong> to the tissues — again, the host&rsquo;s own cells contribute</li>
+<li>The body has <strong>difficulty removing the stimulus</strong>, as it is <strong>technically outside the body</strong> — there is <strong>no blood supply directly to the infected site</strong></li>
+</ul>
+
+<div class="box hy"><span class="lab">Why periodontitis is the perfect model of chronic inflammation</span>
+<p>Return to section 10: chronic inflammation occurs when the body <strong>cannot remove or destroy</strong> the agent. Plaque sits on a <strong>non-shedding, non-vascularised surface outside the body</strong>. The immune system literally cannot reach it. The stop condition can never be met, so the inflammation cannot switch off — and the host&rsquo;s own response destroys the supporting tissues. This is also why <strong>mechanical plaque removal</strong>, not immunity or antibiotics, is the definitive treatment.</p></div>
+
+<h3>Periodontal abscesses</h3>
+<ul>
+<li>If the <strong>neutrophil influx is overwhelmed</strong>, an abscess can develop</li>
+<li>An abscess results from the <strong>degranulation of many neutrophils in a confined area</strong>, attacking the host tissues and causing <strong>pronounced localised tissue damage</strong></li>
+<li><strong>Blockage of the gingival crevicular orifice</strong> can also cause an abscess, as it <strong>prevents the flow of GCF</strong> (gingival crevicular fluid) from the apex of the sulcus to the mouth</li>
+</ul>
+
+<div class="box mem"><span class="lab">Full circle</span>
+<p>Note that the tissue damage in a periodontal abscess comes from <strong>neutrophil degranulation</strong> — the self-harm mechanism from Lecture 3A section 14. And the second cause is purely mechanical: block the drainage and pressure builds, exactly as with the sinus in section 15.</p></div>
+<details class="qz"><summary>Why does periodontitis persist when the immune system is functioning normally?</summary><div class="ans"><p>Because the stimulus &mdash; plaque &mdash; sits on the tooth surface, which is <strong>technically outside the body</strong> with <strong>no blood supply directly to the infected site</strong>. The body therefore <strong>cannot remove or destroy</strong> the agent, which is the first cause of persistent irritation listed in section 10. Inflammation only switches off when the injurious agent is removed, so the response continues indefinitely and the host&rsquo;s own macrophages and lymphocytes damage the supporting tissues.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s20">
+      <div class="slhead"><div class="tag">20</div><div class="ttl"><h2>Summary and glossary</h2></div></div>
+      <div class="slbody">
+
+<h3>Summary of inflammation</h3>
+<div class="grid">
+<div class="cd"><div class="k">Point 1</div><h4>Temporal and cellular overlap</h4><p>Acute and chronic are not separate diseases but two ends of one continuum.</p></div>
+<div class="cd"><div class="k">Point 2</div><h4>Can resolve the injury</h4><p>The response exists to destroy, dilute or isolate the agent and heal the damage.</p></div>
+<div class="cd"><div class="k">Point 3</div><h4>Can cause substantial tissue damage</h4><p>Especially when the agent cannot be removed and the response cannot switch off.</p></div>
+</div>
+
+<h3>Glossary</h3>
+<dl class="gloss">
+<dt>Antibody</dt><dd>Blood protein made by plasma cells in response to an antigen; binds it to render it harmless.</dd>
+<dt>Antigen</dt><dd>Any substance the body regards as foreign or potentially dangerous; usually a protein.</dd>
+<dt>Autoantigen</dt><dd>A self molecule recognised as foreign, as in autoimmune disease.</dd>
+<dt>CD4+</dt><dd>Helper T cell; binds MHC class II; master regulator; destroyed by HIV.</dd>
+<dt>CD8+</dt><dd>Cytotoxic T cell; binds MHC class I; releases perforin and granulysin.</dd>
+<dt>Cytokine</dt><dd>Protein released by cells that enhances the immune response via surface receptors.</dd>
+<dt>Epithelioid cell</dt><dd>Macrophage transformed into an epithelium-like cell; cannot phagocytose; secretes mediators.</dd>
+<dt>Fab</dt><dd>Fragment antigen binding — the variable arms of an antibody.</dd>
+<dt>Fc</dt><dd>Fragment crystallisable — binds cell receptors; causes opsonisation, lysis, mast cell degranulation.</dd>
+<dt>Fistula</dt><dd>A non-epithelial lined tract.</dd>
+<dt>Foreign body giant cell</dt><dd>Giant cell with nuclei scattered throughout.</dd>
+<dt>Granuloma</dt><dd>Aggregate of chronic inflammatory cells; macrophages transformed into epithelioid cells with a lymphocyte collar.</dd>
+<dt>Kupffer cells</dt><dd>Resident tissue macrophages of the liver.</dd>
+<dt>Langhans&rsquo; giant cell</dt><dd>Giant cell with nuclei in a horse-shoe shaped cluster.</dd>
+<dt>Lymphokine</dt><dd>Cytokine from an activated lymphocyte; stimulates monocytes and macrophages.</dd>
+<dt>MHC</dt><dd>Major Histocompatibility Complex; membrane signposts displaying antigen fragments.</dd>
+<dt>Monokine</dt><dd>Cytokine from a macrophage; activates lymphocytes.</dd>
+<dt>Natural killer cell</dt><dd>Large granular lymphocyte; lyses targets without previous sensitisation.</dd>
+<dt>Opsonisation</dt><dd>Coating of a target to make it easier to phagocytose.</dd>
+<dt>Perforin</dt><dd>Cytotoxin forming pores in a target cell membrane, causing lysis.</dd>
+<dt>Plasma cell</dt><dd>Activated B lymphocyte that secretes antibody.</dd>
+<dt>Sinus</dt><dd>An epithelial lined channel joining an abscess cavity to an epithelial surface.</dd>
+<dt>Sinus histiocytes</dt><dd>Resident tissue macrophages of the lymph nodes.</dd>
+<dt>Vasculitis</dt><dd>Inflammation of the blood vessels.</dd>
+</dl>
+
+      </div>
+    </section>
+
+
+    <section class="sl" id="reading">
+      <div class="slhead"><div class="tag">&#9733;</div><div class="ttl"><h2>Reading &amp; sources</h2></div></div>
+      <div class="slbody">
+<p><strong>Suggested reading.</strong> Cross, S. S. (2024). <em>Underwood&rsquo;s Pathology: A Clinical Approach.</em> Sheffield: Elsevier. <strong>Chapter 9.</strong></p>
+<p>These notes were compiled from the DOH 233 lecture material delivered by Dr Joseph Ryan, Oral Medicine Specialist. All figures are original schematics drawn for these notes.</p>
+</div>
+    </section>
+
+    <div class="foot">
+      <div class="nx"><a href="pathology_l3a_acute_inflammation.html"><span>Previous</span><b>L3A · Acute Inflammation</b></a></div>
+      <p>Study notes for DOH 233 Pathological Basis of Oral &amp; Systemic Disease, compiled from lecture material by Dr Joseph Ryan. All diagrams are original schematics drawn to illustrate the lecture concepts.</p>
+    </div>
+  </main>
+</div>
+
+<button class="totop" id="totop" aria-label="Back to top">&#8593;</button>
+<script>
+(function(){
+  var bar=document.getElementById('bar'),
+      links=[].slice.call(document.querySelectorAll('.rail a[href^="#"]')),
+      secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));}),
+      top=document.getElementById('totop'),
+      rail=document.getElementById('rail'),
+      ticking=false;
+
+  function paint(){
+    var h=document.documentElement,
+        max=h.scrollHeight-h.clientHeight,
+        y=h.scrollTop||document.body.scrollTop;
+    if(bar) bar.style.width=(max>0?(y/max*100):0)+'%';
+    if(top) top.classList.toggle('show',y>420);
+    var i,cur=-1,off=h.clientHeight*0.28;
+    for(i=0;i<secs.length;i++){
+      if(secs[i] && secs[i].getBoundingClientRect().top<=off) cur=i;
+    }
+    for(i=0;i<links.length;i++) links[i].classList.toggle('on',i===cur);
+    ticking=false;
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(paint); } }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+  paint();
+
+  if(top) top.addEventListener('click',function(){ scrollTo({top:0,behavior:'smooth'}); });
+
+  var rt=document.getElementById('railtoggle');
+  if(rt) rt.addEventListener('click',function(){ rail.classList.toggle('open'); });
+  // close the mobile rail after picking a section
+  links.forEach(function(a){ a.addEventListener('click',function(){
+    if(innerWidth<=1040) rail.classList.remove('open');
+  });});
+
+  // theme
+  var tb=document.getElementById('theme');
+  if(tb) tb.addEventListener('click',function(){
+    var d=document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',d?'light':'dark');
+    tb.textContent=d?'\u25D1':'\u25D0';
+    tb.setAttribute('aria-label',d?'Switch to dark theme':'Switch to light theme');
+  });
+
+  // expand / collapse every self-test at once
+  function setAll(open){
+    [].forEach.call(document.querySelectorAll('details.qz'),function(d){ d.open=open; });
+  }
+  var ea=document.getElementById('expandall'), ca=document.getElementById('collapseall');
+  if(ea) ea.addEventListener('click',function(){setAll(true);});
+  if(ca) ca.addEventListener('click',function(){setAll(false);});
+  var pr=document.getElementById('printme');
+  if(pr) pr.addEventListener('click',function(){print();});
+})();
+</script>
+</body>
+</html>

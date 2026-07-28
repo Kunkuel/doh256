@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>L3A · Acute Inflammation — DOH 233 Pathology Notes</title>
+<meta name="description" content="DOH 233 study notes: Acute Inflammation">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DOH 233 — Pathology study notes
+   Design system: "The Slide Box"
+   Colour is derived from haematoxylin & eosin staining:
+   haematoxylin stains nuclei violet-blue, eosin stains
+   cytoplasm pink. Ground is cool slide glass, ink is slate.
+   ============================================================ */
+:root{
+  --haem:#5b3a9e;         /* haematoxylin — primary */
+  --haem-d:#402a70;
+  --haem-l:#efeaf9;
+  --eosin:#d1497a;        /* eosin — accent */
+  --eosin-l:#fdedf3;
+  --ink:#151d2b;
+  --ink-2:#33405a;
+  --muted:#6b7791;
+  --rule:#dfe4ee;
+  --rule-2:#eaedf4;
+  --paper:#ffffff;
+  --glass:#eef1f7;        /* slide-glass ground */
+  --teal:#0f766e;
+  --teal-l:#e3f3f1;
+  --amber:#a45d08;
+  --amber-l:#fdf0dc;
+  --crim:#b3243c;
+  --crim-l:#fceaed;
+  --blue:#1f5f9e;
+  --blue-l:#e6f0f9;
+  --r:10px;
+  --sh:0 1px 2px rgba(21,29,43,.04),0 10px 30px -12px rgba(21,29,43,.14);
+  --rail-w:262px;
+  --top-h:58px;
+  --f-disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+[data-theme="dark"]{
+  --haem:#a98ce0;--haem-d:#c4b0ec;--haem-l:#241c3c;
+  --eosin:#f08bb0;--eosin-l:#3a1f2c;
+  --ink:#e9edf6;--ink-2:#c2cadb;--muted:#93a0ba;
+  --rule:#2c3450;--rule-2:#232a42;
+  --paper:#161c2e;--glass:#0e131f;
+  --teal:#5ecfc0;--teal-l:#12302d;
+  --amber:#e0a24a;--amber-l:#332415;
+  --crim:#f2778c;--crim-l:#361a21;
+  --blue:#7bb2e6;--blue-l:#152740;
+  --sh:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--glass);color:var(--ink);
+  font-family:var(--f-body);font-size:17px;line-height:1.68;
+  -webkit-font-smoothing:antialiased;
+  transition:background .25s,color .25s;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+/* ---------- reading progress ---------- */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;z-index:60;background:transparent;pointer-events:none}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--haem),var(--eosin))}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;height:var(--top-h);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(1.6) blur(12px);
+  border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:18px;padding:0 20px;
+}
+.brand{display:flex;align-items:baseline;gap:9px;text-decoration:none;color:var(--ink);flex:none}
+.brand b{font-family:var(--f-disp);font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.brand span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.switch{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.switch a{
+  font-family:var(--f-mono);font-size:11.5px;font-weight:500;letter-spacing:.06em;
+  text-decoration:none;color:var(--muted);padding:5px 10px;border-radius:7px;
+  border:1px solid transparent;white-space:nowrap;
+}
+.switch a:hover{background:var(--haem-l);color:var(--haem)}
+.switch a[aria-current="page"]{background:var(--haem);color:#fff;border-color:var(--haem)}
+[data-theme="dark"] .switch a[aria-current="page"]{color:#12172a}
+.tbtn{
+  flex:none;background:none;border:1px solid var(--rule);color:var(--muted);
+  width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px;line-height:1;
+  display:grid;place-items:center;
+}
+.tbtn:hover{border-color:var(--haem);color:var(--haem)}
+.railtoggle{display:none}
+
+/* ---------- layout ---------- */
+.shell{max-width:1340px;margin:0 auto;display:grid;grid-template-columns:var(--rail-w) minmax(0,1fr);gap:38px;padding:0 26px 100px}
+.content{min-width:0;padding-top:34px}
+
+/* ---------- TOC rail (a slide rack) ---------- */
+.rail{position:sticky;top:calc(var(--top-h) + 22px);height:calc(100vh - var(--top-h) - 44px);overflow-y:auto;padding:34px 0 30px;scrollbar-width:thin}
+.rail::-webkit-scrollbar{width:5px}
+.rail::-webkit-scrollbar-thumb{background:var(--rule);border-radius:4px}
+.rail h2{font-family:var(--f-mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-left:14px}
+.rail ol{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule-2)}
+.rail li{margin:0}
+.rail a{
+  display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--muted);
+  font-size:13.6px;line-height:1.4;padding:7px 10px 7px 14px;margin-left:-2px;
+  border-left:2px solid transparent;transition:color .15s,border-color .15s;
+}
+.rail a em{font-family:var(--f-mono);font-style:normal;font-size:10.5px;opacity:.65;flex:none;min-width:17px}
+.rail a:hover{color:var(--haem)}
+.rail a.on{color:var(--haem);border-left-color:var(--eosin);font-weight:600;background:linear-gradient(90deg,var(--haem-l),transparent)}
+.rail .rtool{margin-top:16px;padding-left:14px;display:flex;flex-direction:column;gap:7px}
+.rail .rtool button{
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--muted);padding:7px 9px;border-radius:7px;cursor:pointer;text-align:left;
+}
+.rail .rtool button:hover{border-color:var(--haem);color:var(--haem)}
+
+/* ---------- hero ---------- */
+.hero{margin-bottom:40px}
+.eyebrow{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--eosin);margin-bottom:14px}
+.hero h1{
+  font-family:var(--f-disp);font-weight:600;font-size:clamp(2.1rem,4.6vw,3.15rem);
+  line-height:1.05;letter-spacing:-.022em;margin:0 0 16px;color:var(--ink);
+  font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 40;
+}
+.hero .lede{font-size:1.11rem;color:var(--ink-2);max-width:60ch;margin:0 0 22px}
+.hero .facts{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.hero .facts div{padding:13px 26px 13px 0;margin-right:26px;border-right:1px solid var(--rule)}
+.hero .facts div:last-child{border-right:0}
+.hero .facts dt{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.hero .facts dd{margin:0;font-size:.94rem;font-weight:600;color:var(--ink)}
+
+/* ---------- section = a mounted slide ---------- */
+section.sl{
+  background:var(--paper);border:1px solid var(--rule);border-radius:var(--r);
+  margin-bottom:20px;box-shadow:var(--sh);scroll-margin-top:calc(var(--top-h) + 16px);
+  overflow:hidden;
+}
+/* the frosted label end of a microscope slide */
+.slhead{display:flex;align-items:flex-start;gap:0;border-bottom:1px solid var(--rule-2)}
+.slhead .tag{
+  flex:none;width:64px;align-self:stretch;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--haem),var(--haem-d));
+  color:#fff;font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.04em;
+}
+[data-theme="dark"] .slhead .tag{color:#12172a}
+.slhead .ttl{padding:19px 26px 16px}
+.slhead h2{font-family:var(--f-disp);font-weight:600;font-size:1.42rem;line-height:1.2;letter-spacing:-.015em;margin:0;color:var(--ink);font-variation-settings:"SOFT" 0,"WONK" 1,"opsz" 24}
+.slhead p{margin:5px 0 0;color:var(--muted);font-size:.95rem}
+.slbody{padding:22px 26px 26px}
+.slbody>:first-child{margin-top:0}
+.slbody>:last-child{margin-bottom:0}
+
+h3{font-family:var(--f-body);font-weight:700;font-size:1.07rem;margin:26px 0 8px;color:var(--ink);letter-spacing:-.005em}
+h3::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--eosin);margin-right:9px;vertical-align:middle}
+h4{font-size:.97rem;margin:16px 0 4px;color:var(--haem);font-weight:700}
+p{margin:9px 0}
+ul,ol{margin:9px 0;padding-left:21px}
+li{margin:5px 0}
+li::marker{color:var(--eosin)}
+strong{font-weight:700;color:var(--ink)}
+em.term{font-style:normal;font-weight:700;color:var(--haem);border-bottom:1.5px dotted var(--haem);cursor:help}
+code{font-family:var(--f-mono);font-size:.88em;background:var(--haem-l);color:var(--haem);padding:1px 5px;border-radius:4px}
+hr.rule{border:0;border-top:1px solid var(--rule-2);margin:24px 0}
+
+/* ---------- callouts ---------- */
+.box{border-radius:9px;padding:15px 17px 15px 16px;margin:18px 0;border:1px solid;border-left-width:3px;font-size:.98rem}
+.box>p:first-child{margin-top:0}.box>p:last-child{margin-bottom:0}
+.box .lab{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.def{background:var(--haem-l);border-color:var(--haem)}       .def .lab{color:var(--haem)}
+.hy{background:var(--eosin-l);border-color:var(--eosin)}      .hy .lab{color:var(--eosin)}
+.cl{background:var(--teal-l);border-color:var(--teal)}        .cl .lab{color:var(--teal)}
+.warn{background:var(--crim-l);border-color:var(--crim)}      .warn .lab{color:var(--crim)}
+.tip{background:var(--amber-l);border-color:var(--amber)}     .tip .lab{color:var(--amber)}
+.mem{background:var(--blue-l);border-color:var(--blue)}       .mem .lab{color:var(--blue)}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:18px 0;border:1px solid var(--rule);border-radius:9px}
+table{border-collapse:collapse;width:100%;font-size:.94rem;background:var(--paper)}
+th,td{padding:10px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule-2)}
+thead th{
+  background:var(--haem-l);color:var(--haem);font-family:var(--f-mono);
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;
+  border-bottom:1px solid var(--rule);
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--haem-l)}
+td strong{color:var(--haem)}
+table ul{margin:0;padding-left:17px}
+
+/* ---------- grids of cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px;margin:18px 0}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(285px,1fr))}
+.cd{border:1px solid var(--rule);border-radius:9px;padding:15px 16px;background:var(--paper)}
+.cd .k{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--eosin);margin-bottom:6px;font-weight:600}
+.cd h4{margin:0 0 5px;color:var(--ink);font-size:1rem}
+.cd p{margin:0;font-size:.93rem;color:var(--ink-2)}
+.cd ul{margin:6px 0 0;padding-left:17px;font-size:.92rem;color:var(--ink-2)}
+
+/* ---------- numbered steps ---------- */
+ol.steps{list-style:none;padding:0;counter-reset:st;margin:18px 0}
+ol.steps>li{counter-increment:st;position:relative;padding:0 0 16px 44px;border-left:2px solid var(--rule-2);margin:0 0 0 15px}
+ol.steps>li:last-child{border-left-color:transparent;padding-bottom:0}
+ol.steps>li::before{
+  content:counter(st);position:absolute;left:-15px;top:-2px;width:29px;height:29px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--haem);color:var(--haem);
+  font-family:var(--f-mono);font-size:12px;font-weight:600;display:grid;place-items:center;
+}
+ol.steps b{display:block;color:var(--ink);margin-bottom:2px}
+ol.steps>li>div{font-size:.95rem;color:var(--ink-2)}
+
+/* ---------- pills ---------- */
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}
+.pill{background:var(--haem-l);color:var(--haem);border:1px solid color-mix(in srgb,var(--haem) 25%,transparent);padding:4px 12px;border-radius:99px;font-size:.87rem;font-weight:600}
+.pill.e{background:var(--eosin-l);color:var(--eosin);border-color:color-mix(in srgb,var(--eosin) 25%,transparent)}
+
+/* ---------- figures ---------- */
+figure{margin:22px 0;padding:16px;background:var(--glass);border:1px solid var(--rule);border-radius:9px}
+figure svg{display:block;width:100%;height:auto}
+.fcap{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;text-align:center}
+figcaption{font-size:.86rem;color:var(--muted);margin-top:11px;text-align:center}
+
+/* ---------- self-test ---------- */
+details.qz{border:1px solid var(--rule);border-left:3px solid var(--eosin);border-radius:9px;margin:16px 0;background:var(--paper)}
+details.qz>summary{
+  cursor:pointer;padding:12px 16px;font-weight:600;font-size:.96rem;list-style:none;
+  display:flex;align-items:center;gap:10px;color:var(--ink);
+}
+details.qz>summary::-webkit-details-marker{display:none}
+details.qz>summary::before{
+  content:"?";font-family:var(--f-mono);flex:none;width:21px;height:21px;border-radius:5px;
+  background:var(--eosin-l);color:var(--eosin);display:grid;place-items:center;font-size:12px;font-weight:700;
+}
+details.qz>summary::after{content:"Show";margin-left:auto;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+details.qz[open]>summary::after{content:"Hide"}
+details.qz .ans{padding:0 16px 15px 47px;font-size:.95rem;color:var(--ink-2);border-top:1px solid var(--rule-2);padding-top:13px;margin-top:0}
+details.qz .ans>:first-child{margin-top:0}
+details.qz .ans ol,details.qz .ans ul{padding-left:19px}
+
+/* ---------- glossary ---------- */
+dl.gloss{margin:16px 0;display:grid;grid-template-columns:minmax(140px,auto) 1fr;gap:0}
+dl.gloss dt{font-weight:700;color:var(--haem);padding:9px 16px 9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem}
+dl.gloss dd{margin:0;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:.95rem;color:var(--ink-2)}
+dl.gloss dt:last-of-type,dl.gloss dd:last-of-type{border-bottom:0}
+
+/* ---------- footer ---------- */
+.foot{margin-top:34px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:.86rem}
+.foot .nx{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.foot .nx a{
+  flex:1 1 210px;text-decoration:none;border:1px solid var(--rule);border-radius:9px;padding:13px 15px;
+  background:var(--paper);color:var(--ink);transition:border-color .15s;
+}
+.foot .nx a:hover{border-color:var(--haem)}
+.foot .nx span{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.foot .nx b{font-weight:600;font-size:.97rem}
+
+.totop{position:fixed;right:20px;bottom:20px;width:42px;height:42px;border-radius:50%;
+  background:var(--haem);color:#fff;border:0;cursor:pointer;font-size:17px;box-shadow:var(--sh);
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+.totop.show{opacity:.92;pointer-events:auto}
+.totop:hover{opacity:1}
+[data-theme="dark"] .totop{color:#12172a}
+
+:focus-visible{outline:2px solid var(--eosin);outline-offset:2px;border-radius:3px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1040px){
+  .shell{grid-template-columns:1fr;gap:0;padding:0 20px 90px}
+  .railtoggle{display:grid;place-items:center;flex:none;background:none;border:1px solid var(--rule);
+    color:var(--muted);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:15px}
+  .rail{position:static;height:auto;overflow:visible;padding:20px 0 0;display:none}
+  .rail.open{display:block}
+  .rail ol{columns:2;column-gap:20px;border-left:0}
+  .rail li{break-inside:avoid}
+  .rail a{border-left:0;padding-left:0}
+  .rail a.on{background:none}
+  .content{padding-top:24px}
+  .brand span{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .rail ol{columns:1}
+  .slbody{padding:18px 17px 22px}
+  .slhead .ttl{padding:16px 17px 14px}
+  .slhead .tag{width:48px;font-size:11.5px}
+  .hero .facts div{border-right:0;padding-right:0;margin-right:0;width:100%;padding-top:9px;padding-bottom:9px;border-bottom:1px solid var(--rule-2)}
+  .hero .facts div:last-child{border-bottom:0}
+  dl.gloss{grid-template-columns:1fr}
+  dl.gloss dt{padding-bottom:0;border-bottom:0}
+  .switch a{padding:5px 8px;font-size:10.5px}
+}
+
+/* ---------- print ---------- */
+@media print{
+  :root{--paper:#fff;--glass:#fff}
+  body{background:#fff;font-size:10.5pt;color:#000}
+  .topbar,.rail,.prog,.totop,.foot .nx{display:none!important}
+  .shell{display:block;max-width:none;padding:0}
+  .content{padding-top:0}
+  section.sl{break-inside:avoid;box-shadow:none;border:1px solid #bbb;margin-bottom:12px}
+  .slhead .tag{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  thead th,.box,.pill,.cd .k{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  details.qz{break-inside:avoid}
+  details.qz>summary::after{content:""}
+  details.qz .ans{display:block!important}
+  figure{break-inside:avoid;border:1px solid #ddd}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="prog"><i id="bar"></i></div>
+
+<header class="topbar">
+  <a class="brand" href="index.html"><b>Pathology</b><span>DOH 233</span></a>
+  <nav class="switch" aria-label="Lectures"><a href="pathology_l1_intro.html">L1</a><a href="pathology_l2_cell_injury.html">L2</a><a href="pathology_l3a_acute_inflammation.html" aria-current="page">L3A</a><a href="pathology_l3b_chronic_inflammation.html">L3B</a></nav>
+  <button class="railtoggle" id="railtoggle" aria-label="Show contents">&#9776;</button>
+  <button class="tbtn" id="theme" aria-label="Switch to dark theme">&#9681;</button>
+</header>
+
+<div class="shell">
+  <aside class="rail" id="rail">
+    <h2>On this page</h2>
+    <ol><li><a href="#s1"><em>01</em><span>Vocabulary you need first</span></a></li><li><a href="#s2"><em>02</em><span>Word roots &amp; prefixes</span></a></li><li><a href="#s3"><em>03</em><span>Why inflammation exists</span></a></li><li><a href="#s4"><em>04</em><span>What inflammation is</span></a></li><li><a href="#s5"><em>05</em><span>The inflammatory cells</span></a></li><li><a href="#s6"><em>06</em><span>Exudate, transudate, oedema, pus</span></a></li><li><a href="#s7"><em>07</em><span>Acute vs chronic</span></a></li><li><a href="#s8"><em>08</em><span>Starting and stopping</span></a></li><li><a href="#s9"><em>09</em><span>The 5 cardinal signs</span></a></li><li><a href="#s10"><em>10</em><span>What acute inflammation achieves</span></a></li><li><a href="#s11"><em>11</em><span>Tissue event A — vascular flow</span></a></li><li><a href="#s12"><em>12</em><span>Tissue event B — permeability</span></a></li><li><a href="#s13"><em>13</em><span>Tissue event C — leukocyte emigration</span></a></li><li><a href="#s14"><em>14</em><span>Phagocytosis &amp; self-harm</span></a></li><li><a href="#s15"><em>15</em><span>Chemical mediators</span></a></li><li><a href="#s16"><em>16</em><span>Sequelae — the four outcomes</span></a></li><li><a href="#s17"><em>17</em><span>Regeneration &amp; repair</span></a></li><li><a href="#s18"><em>18</em><span>Wound types</span></a></li><li><a href="#s19"><em>19</em><span>Glossary</span></a></li></ol>
+    <div class="rtool">
+      <button id="expandall">Reveal all answers</button>
+      <button id="collapseall">Hide all answers</button>
+      <button id="printme">Print / save PDF</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="hero">
+      <div class="eyebrow">L3A &nbsp;/&nbsp; Pathological basis of oral &amp; systemic disease</div>
+      <h1>Acute Inflammation</h1>
+      <p class="lede">Inflammation is the connective tissue&rsquo;s response to injury &mdash; a reaction of blood vessels with accumulation of fluid and leukocytes. This lecture works through the vascular and cellular machinery that produces it, and where it can go next.</p>
+      <dl class="facts"><div><dt>Lecturer</dt><dd>Dr Joseph Ryan</dd></div><div><dt>Sections</dt><dd>19</dd></div><div><dt>Core reading</dt><dd>Underwood&rsquo;s Ch. 9</dd></div><div><dt>Links to</dt><dd>L2 cell injury &#8594; L3B chronic</dd></div></dl>
+    </div>
+
+    <section class="sl" id="s1">
+      <div class="slhead"><div class="tag">01</div><div class="ttl"><h2>Vocabulary you need first</h2><p>The lecture opens by testing terms from Lectures 1 and 2. Cover the right-hand column and recite them.</p></div></div>
+      <div class="slbody">
+
+<dl class="gloss">
+  <dt>Pathology</dt><dd>The study of disease and its causes.</dd>
+  <dt>Aetiology</dt><dd>The cause of a disease.</dd>
+  <dt>Hypoxia</dt><dd>A condition in which tissues are deprived of an adequate supply of oxygen.</dd>
+  <dt>Homeostasis</dt><dd>The ability of a living organism to adjust its internal environment to maintain a stable equilibrium.</dd>
+  <dt>Necrosis</dt><dd>Unprogrammed cell death.</dd>
+  <dt>Apoptosis</dt><dd>Programmed cell death.</dd>
+</dl>
+
+<h3>Tissue and injury terms</h3>
+<dl class="gloss">
+  <dt>Parenchyma</dt><dd>The functional part of an organ, as opposed to supporting tissue — e.g. a neuron.</dd>
+  <dt>Stroma</dt><dd>The tissue structure of an organ that serves to support it — e.g. connective tissue.</dd>
+  <dt>Dystrophic calcification</dt><dd>Mineralisation of soft tissues occurring <strong>without</strong> a systemic mineral imbalance.</dd>
+  <dt>Caseous</dt><dd>Cheesy (in appearance) — the classic necrosis of tuberculosis.</dd>
+  <dt>Endothelium</dt><dd>A thin layer of flat epithelial cells that lines the lymph and blood vessels.</dd>
+  <dt>Infarct</dt><dd>An area of dead tissue caused by a loss of blood supply.</dd>
+</dl>
+
+<div class="box mem"><span class="lab">Why this matters</span>
+<p><strong>Parenchyma vs stroma</strong> is the distinction the whole of repair rests on. Parenchymal cells can sometimes <em class="term">regenerate</em>; stroma is what <em class="term">repairs</em> by laying down collagen. Get these two straight now and section 17 becomes easy.</p></div>
+<details class="qz"><summary>Define dystrophic calcification, and say what makes it 'dystrophic'.</summary><div class="ans"><p>Mineralisation of soft tissue that occurs <strong>without any systemic mineral imbalance</strong> — calcium levels in the blood are normal. It is 'dystrophic' because the calcium deposits in tissue that is already damaged or dying, rather than because there is too much calcium in the body.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s2">
+      <div class="slhead"><div class="tag">02</div><div class="ttl"><h2>Word roots &amp; prefixes</h2><p>Medical vocabulary is modular. Learn the parts and you can decode terms you have never seen.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:16%">Prefix</th><th style="width:42%">Meaning</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Hyper-</strong></td><td>Excessive, or above</td><td>Hyper<strong>trophy</strong> — excessive growth</td></tr>
+<tr><td><strong>Cyto-</strong></td><td>Cell</td><td>Cyto<strong>logy</strong> — the study of cells</td></tr>
+<tr><td><strong>Hepato-</strong></td><td>Liver</td><td>Hepato<strong>cyte</strong> — a liver cell</td></tr>
+<tr><td><strong>Cardio-</strong></td><td>Heart</td><td>Cardi<strong>ac</strong> — relating to the heart</td></tr>
+<tr><td><strong>Pyo-</strong></td><td>Pus</td><td>Pyo<strong>genic</strong> — pus-producing</td></tr>
+<tr><td><strong>Dia-</strong></td><td>Through</td><td>Dia<strong>pedesis</strong> — moving through (a vessel wall)</td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>The suffix <code>-itis</code> is added to a tissue or organ name to denote <strong>inflammation</strong> of it — pancreat<strong>itis</strong>, pericard<strong>itis</strong>, pulp<strong>itis</strong>, gingiv<strong>itis</strong>.</p></div>
+<details class="qz"><summary>Without looking it up, what would 'pyogenic' and 'diapedesis' mean?</summary><div class="ans"><p><strong>Pyogenic</strong> = pus-producing (<em>pyo-</em> pus + <em>-genic</em> producing). <strong>Diapedesis</strong> = the movement of white blood cells <em>through</em> the vessel wall (<em>dia-</em> through).</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s3">
+      <div class="slhead"><div class="tag">03</div><div class="ttl"><h2>Why inflammation exists</h2><p>The logic that makes everything else in this lecture follow.</p></div></div>
+      <div class="slbody">
+
+<ol class="steps">
+<li><b>A stimulus injures cells</b><div>An injurious stimulus can damage <strong>parenchymal</strong> or <strong>stromal</strong> cells.</div></li>
+<li><b>The same stimulus provokes the connective tissue</b><div>That very same stimulus triggers a complex reaction in the surrounding connective tissue.</div></li>
+<li><b>That reaction is inflammation</b><div>Inflammation <em>is</em> the connective tissue's response to injury.</div></li>
+</ol>
+
+<h3>What the response has to achieve</h3>
+<p>To resolve an injury, the body must:</p>
+<ul>
+<li><strong>Destroy, dilute or isolate</strong> the injurious agent</li>
+<li><strong>Heal or replace</strong> the damaged tissue</li>
+</ul>
+
+<div class="box hy"><span class="lab">The goal</span>
+<p>To rid the organism of both the <strong>initial cause</strong> of the injury <em>and</em> its <strong>consequences</strong>. Inflammation is therefore closely linked with repair — they are two halves of one process.</p></div>
+
+<div class="box warn"><span class="lab">If it fails</span>
+<p>Where inflammation is defective, <strong>infections never heal</strong> and <strong>wounds become permanent festering sores</strong>. Inflammation is unpleasant, but its absence is far worse.</p></div>
+<details class="qz"><summary>Inflammation causes pain, swelling and loss of function. Why is it still described as protective?</summary><div class="ans"><p>Because its purpose is to destroy, dilute or isolate the injurious agent and to heal or replace damaged tissue. The signs we experience as unpleasant are side effects of the vascular and cellular machinery doing that job. Where the response is defective, infections never resolve and wounds persist as festering sores.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s4">
+      <div class="slhead"><div class="tag">04</div><div class="ttl"><h2>What inflammation is</h2><p>A precise definition, and three properties worth memorising.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Inflammation</strong> is the <strong>connective tissue response to injury</strong>: a reaction of the blood vessels, with accumulation of fluid and leukocytes in the tissues. It involves many cells, vessels, and intra- and extracellular components. It is a <strong>protective</strong> response — but it <strong>can be harmful</strong>.</p></div>
+
+<h3>Three properties to remember</h3>
+<div class="grid">
+<div class="cd"><div class="k">Property 1</div><h4>Stereotyped</h4><p>Fundamentally the <strong>same reaction</strong> regardless of the tissue type and the cause of injury.</p></div>
+<div class="cd"><div class="k">Property 2</div><h4>Overlapping</h4><p>Consists of a group of responses that <strong>overlap and are inter-related</strong> — not a tidy sequence.</p></div>
+<div class="cd"><div class="k">Property 3</div><h4>Shared with immunity</h4><p>Immune cells and inflammatory cells are <strong>the same cells</strong>, and the two responses may overlap.</p></div>
+</div>
+
+<div class="box mem"><span class="lab">Carry this forward</span>
+<p>Property 3 is the bridge into Lecture 3B. Because the cells are shared, an <strong>immune response can trigger an inflammatory response</strong> — which is exactly what happens in many chronic inflammatory diseases.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s5">
+      <div class="slhead"><div class="tag">05</div><div class="ttl"><h2>The inflammatory cells</h2><p>Leukocytes are the workforce. Know which cell does what, and which arrives first.</p></div></div>
+      <div class="slbody">
+
+<h3>General facts about leukocytes</h3>
+<div class="grid">
+<div class="cd"><div class="k">Job</div><h4>Three functions</h4><ul><li>Defend against invasion by pathogens</li><li>Identify and destroy foreign/abnormal cells</li><li>Clean up debris</li></ul></div>
+<div class="cd"><div class="k">Behaviour</div><h4>Seek out and destroy</h4><p>Highly mobile — they travel to the site of injury rather than waiting for it to come to them.</p></div>
+<div class="cd"><div class="k">Numbers</div><h4>~7 million per mL</h4><p>Of blood, on average. <strong>Two-thirds are neutrophils.</strong> Produced generally from the <strong>bone marrow</strong>.</p></div>
+</div>
+
+<h3>Polymorphonuclear cells (granulocytes)</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Cell</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>Neutrophils</strong></td><td><strong>Phagocytotic specialists</strong> · <strong>first-line defenders</strong> · scavenge and clean up debris. Two-thirds of all circulating leukocytes.</td></tr>
+<tr><td><strong>Eosinophils</strong></td><td>Normally associated with <strong>allergic conditions</strong>; defence in <strong>parasitic infections</strong> (worms). <strong>Red staining</strong> on histology.</td></tr>
+<tr><td><strong>Basophils</strong></td><td>The <strong>least common and least understood</strong>. Similar to mast cells — they store <strong>histamine and heparin</strong>.</td></tr>
+</tbody></table></div>
+
+<h3>Mononuclear cells (agranulocytes)</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Cell</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>Monocytes</strong></td><td><strong>Precursor phagocytes.</strong> In tissue they enlarge and mature into <strong>macrophages</strong>. Can last for <strong>months to years</strong> — the amount digested determines the life span.</td></tr>
+<tr><td><strong>Lymphocytes</strong></td><td>Two types. <strong>B lymphocytes</strong> produce antibodies and prime antigens for destruction. <strong>T lymphocytes</strong> are involved in cell-mediated immunity (cancer cells, virus-invaded cells).</td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p><strong>Neutrophil = acute. Macrophage and lymphocyte = chronic.</strong> Which cell dominates a histological section is how a pathologist dates the inflammation. This single fact links Lectures 3A and 3B.</p></div>
+<details class="qz"><summary>A biopsy shows a dense infiltrate of neutrophils. Roughly how old is this process, and what would you expect if it were months old?</summary><div class="ans"><p>Neutrophil-dominant means <strong>acute</strong> — the process is recent (minutes to a couple of days). If it were months old you would expect a <strong>mononuclear</strong> infiltrate instead: macrophages, lymphocytes and plasma cells, together with fibroblasts laying down collagen.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s6">
+      <div class="slhead"><div class="tag">06</div><div class="ttl"><h2>Exudate, transudate, oedema and pus</h2><p>Four fluid terms that are constantly confused. The difference between the first two is protein.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:22%">Term</th><th>Definition</th><th style="width:24%">Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Exudate</strong></td><td>Inflammatory extravascular fluid with a <strong>high protein content</strong>. Requires a <strong>significant alteration to the permeability</strong> of vessels.</td><td>Inflammation</td></tr>
+<tr><td><strong>Transudate</strong></td><td>Fluid with a <strong>low protein content</strong> — an ultrafiltrate of blood plasma. Due to <strong>hydrostatic imbalance</strong> across the endothelium, with <strong>normal vessel permeability</strong>.</td><td>Left-sided cardiac failure</td></tr>
+<tr><td><strong>Oedema</strong></td><td>An <strong>excess of fluid in the interstitial spaces</strong> — this can be either an exudate or a transudate.</td><td>Either mechanism</td></tr>
+<tr><td><strong>Pus</strong></td><td>A <strong>purulent exudate</strong> — inflammatory exudate rich in leukocytes (mainly neutrophils) and cellular debris.</td><td>Abscess</td></tr>
+</tbody></table></div>
+
+<figure>
+<div class="fcap">Fig. 3A.1 — Exudate vs transudate: the same oedema, two different mechanisms</div>
+<svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+<defs>
+<marker id="a1" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7791"/></marker>
+</defs>
+<!-- EXUDATE -->
+<text x="175" y="24" text-anchor="middle" font-size="12" font-weight="600" fill="#d1497a" letter-spacing="1.5">EXUDATE</text>
+<text x="175" y="41" text-anchor="middle" font-size="9.5" fill="#6b7791" font-family="Source Sans 3, sans-serif">permeability is abnormal</text>
+<rect x="45" y="60" width="260" height="52" rx="6" fill="#fdedf3" stroke="#d1497a" stroke-width="2"/>
+<!-- gaps in endothelium -->
+<line x1="45" y1="60" x2="110" y2="60" stroke="#d1497a" stroke-width="3"/>
+<line x1="140" y1="60" x2="205" y2="60" stroke="#d1497a" stroke-width="3"/>
+<line x1="235" y1="60" x2="305" y2="60" stroke="#d1497a" stroke-width="3"/>
+<text x="175" y="92" text-anchor="middle" font-size="10" fill="#33405a" font-family="Source Sans 3, sans-serif">vessel lumen</text>
+<!-- leaking big dots = protein -->
+<circle cx="125" cy="52" r="6" fill="#5b3a9e"/><circle cx="220" cy="48" r="7" fill="#5b3a9e"/><circle cx="125" cy="34" r="5" fill="#5b3a9e"/>
+<circle cx="222" cy="30" r="5.5" fill="#5b3a9e"/>
+<line x1="125" y1="60" x2="125" y2="42" stroke="#6b7791" stroke-width="1.4" marker-end="url(#a1)"/>
+<line x1="220" y1="60" x2="220" y2="40" stroke="#6b7791" stroke-width="1.4" marker-end="url(#a1)"/>
+<rect x="45" y="128" width="260" height="60" rx="6" fill="#fff" stroke="#dfe4ee"/>
+<text x="175" y="148" text-anchor="middle" font-size="10.5" font-weight="600" fill="#151d2b" font-family="Source Sans 3, sans-serif">HIGH protein · cells escape too</text>
+<text x="175" y="166" text-anchor="middle" font-size="9.5" fill="#6b7791" font-family="Source Sans 3, sans-serif">endothelium is leaky</text>
+<text x="175" y="181" text-anchor="middle" font-size="9.5" fill="#6b7791" font-family="Source Sans 3, sans-serif">e.g. inflammation</text>
+
+<!-- TRANSUDATE -->
+<text x="545" y="24" text-anchor="middle" font-size="12" font-weight="600" fill="#1f5f9e" letter-spacing="1.5">TRANSUDATE</text>
+<text x="545" y="41" text-anchor="middle" font-size="9.5" fill="#6b7791" font-family="Source Sans 3, sans-serif">permeability is normal</text>
+<rect x="415" y="60" width="260" height="52" rx="6" fill="#e6f0f9" stroke="#1f5f9e" stroke-width="2"/>
+<text x="545" y="92" text-anchor="middle" font-size="10" fill="#33405a" font-family="Source Sans 3, sans-serif">vessel lumen</text>
+<!-- small dots only = water -->
+<circle cx="490" cy="50" r="2.6" fill="#1f5f9e"/><circle cx="545" cy="45" r="2.6" fill="#1f5f9e"/><circle cx="600" cy="50" r="2.6" fill="#1f5f9e"/>
+<circle cx="518" cy="34" r="2.6" fill="#1f5f9e"/><circle cx="573" cy="33" r="2.6" fill="#1f5f9e"/>
+<line x1="490" y1="60" x2="490" y2="44" stroke="#6b7791" stroke-width="1.4" marker-end="url(#a1)"/>
+<line x1="600" y1="60" x2="600" y2="44" stroke="#6b7791" stroke-width="1.4" marker-end="url(#a1)"/>
+<!-- pressure arrow -->
+<text x="545" y="128" text-anchor="middle" font-size="9" fill="#1f5f9e" font-family="Source Sans 3, sans-serif">&#8593; hydrostatic pressure pushes water out</text>
+<rect x="415" y="136" width="260" height="52" rx="6" fill="#fff" stroke="#dfe4ee"/>
+<text x="545" y="156" text-anchor="middle" font-size="10.5" font-weight="600" fill="#151d2b" font-family="Source Sans 3, sans-serif">LOW protein · ultrafiltrate</text>
+<text x="545" y="173" text-anchor="middle" font-size="9.5" fill="#6b7791" font-family="Source Sans 3, sans-serif">e.g. left-sided cardiac failure</text>
+
+<!-- both to oedema -->
+<line x1="175" y1="190" x2="330" y2="222" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a1)"/>
+<line x1="545" y1="190" x2="392" y2="222" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a1)"/>
+<rect x="270" y="226" width="182" height="30" rx="15" fill="#5b3a9e"/>
+<text x="361" y="246" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff" letter-spacing="1">OEDEMA</text>
+</svg>
+<figcaption>Oedema simply means excess interstitial fluid — the clinically useful question is always <em>which mechanism produced it</em>.</figcaption>
+</figure>
+
+<div class="box tip"><span class="lab">Starling&rsquo;s law</span>
+<p>Normally the <strong>osmotic pressure</strong> in the blood almost exactly balances the <strong>hydrostatic pressure</strong> forcing fluid out. When blood pressure substantially exceeds osmotic pressure the balance tips and fluid accumulates — for example <strong>pulmonary oedema</strong> caused by increased left-sided heart failure.</p></div>
+<details class="qz"><summary>A patient has pleural fluid with a low protein content. Is this inflammatory? What is the likely mechanism?</summary><div class="ans"><p>Low protein means it is a <strong>transudate</strong>, so it is <strong>not</strong> inflammatory. Vessel permeability is normal; the fluid is an ultrafiltrate of plasma driven out by a <strong>hydrostatic imbalance</strong> across the endothelium — classically cardiac failure. An inflammatory effusion would be an <strong>exudate</strong>, with high protein, because permeability itself is altered.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s7">
+      <div class="slhead"><div class="tag">07</div><div class="ttl"><h2>Acute vs chronic</h2><p>Inflammation divides into two — but the boundary is blurred, not sharp.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:26%">&nbsp;</th><th>Acute inflammatory response</th><th>Chronic inflammatory response</th></tr></thead>
+<tbody>
+<tr><td><strong>Timing of onset</strong></td><td>The <strong>immediate</strong> response to an injury</td><td>A <strong>delayed</strong> response</td></tr>
+<tr><td><strong>Duration</strong></td><td>Lasts <strong>minutes to a maximum of 2 days</strong></td><td>A <strong>prolonged</strong> response — weeks to months</td></tr>
+<tr><td><strong>Dominant cells</strong></td><td>Neutrophils</td><td>Lymphocytes, plasma cells, macrophages</td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>There is a <strong>temporal and cellular overlap</strong> between the two. They are not separate diseases but two ends of one continuum — a chronic lesion can have an acute exacerbation, and an acute process can slide into chronicity.</p></div>
+
+<figure>
+<div class="fcap">Fig. 3A.2 — The two responses overlap in time</div>
+<svg viewBox="0 0 720 170" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<line x1="50" y1="130" x2="690" y2="130" stroke="#dfe4ee" stroke-width="2"/>
+<text x="55" y="150" font-size="9.5" fill="#6b7791" font-family="IBM Plex Mono, monospace">INJURY</text>
+<text x="250" y="150" font-size="9.5" fill="#6b7791" font-family="IBM Plex Mono, monospace">2 DAYS</text>
+<text x="450" y="150" font-size="9.5" fill="#6b7791" font-family="IBM Plex Mono, monospace">WEEKS</text>
+<text x="630" y="150" font-size="9.5" fill="#6b7791" font-family="IBM Plex Mono, monospace">MONTHS</text>
+<line x1="55" y1="124" x2="55" y2="136" stroke="#6b7791"/><line x1="265" y1="124" x2="265" y2="136" stroke="#6b7791"/>
+<line x1="465" y1="124" x2="465" y2="136" stroke="#6b7791"/><line x1="645" y1="124" x2="645" y2="136" stroke="#6b7791"/>
+<!-- acute curve -->
+<path d="M55,120 C90,20 200,25 300,105 C330,118 350,120 380,120" fill="none" stroke="#d1497a" stroke-width="3"/>
+<text x="150" y="40" font-size="11.5" font-weight="700" fill="#d1497a">ACUTE</text>
+<text x="150" y="56" font-size="9.5" fill="#6b7791">neutrophils</text>
+<!-- chronic curve -->
+<path d="M180,120 C280,110 320,60 430,55 C540,50 600,58 690,55" fill="none" stroke="#5b3a9e" stroke-width="3"/>
+<text x="500" y="40" font-size="11.5" font-weight="700" fill="#5b3a9e">CHRONIC</text>
+<text x="500" y="112" font-size="9.5" fill="#6b7791">macrophages, lymphocytes, plasma cells</text>
+<!-- overlap shading -->
+<rect x="180" y="20" width="200" height="105" fill="#5b3a9e" opacity="0.06"/>
+<text x="280" y="90" text-anchor="middle" font-size="9.5" fill="#6b7791" font-style="italic">overlap</text>
+</svg>
+</figure>
+
+      </div>
+    </section>
+    <section class="sl" id="s8">
+      <div class="slhead"><div class="tag">08</div><div class="ttl"><h2>Starting and stopping</h2><p>Control is exerted by mediators at both ends of the process.</p></div></div>
+      <div class="slbody">
+
+<div class="grid two">
+<div class="cd"><div class="k">Switching on</div><h4>How does the body know to involve inflammation?</h4><p><strong>Mediators</strong> — either singly, in combination, or as a sequence — can stimulate and amplify the response. Sources include <strong>necrotic cells</strong> and <strong>mast cells</strong>.</p></div>
+<div class="cd"><div class="k">Switching off</div><h4>How does the body know how to stop?</h4><p>When the <strong>injurious agent is removed</strong> and the mediators are either <strong>displaced or inhibited</strong>.</p></div>
+</div>
+
+<div class="box mem"><span class="lab">Link to chronic inflammation</span>
+<p>Read the stop condition carefully: inflammation ends only when the agent is <em>gone</em>. If the body <strong>cannot remove or destroy</strong> the stimulus, the mediators keep being produced and the process cannot switch off — which is precisely the definition of chronic inflammation in Lecture 3B.</p></div>
+
+      </div>
+    </section>
+    <section class="sl" id="s9">
+      <div class="slhead"><div class="tag">09</div><div class="ttl"><h2>Acute inflammation: the 5 cardinal signs</h2><p>Clinical signs and symptoms, each associated with an underlying cellular and tissue change.</p></div></div>
+      <div class="slbody">
+
+<figure>
+<div class="fcap">Fig. 3A.3 — The five cardinal signs and their mechanisms</div>
+<svg viewBox="0 0 720 300" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<!-- rows -->
+<g font-size="11">
+<rect x="30" y="20" width="660" height="46" rx="8" fill="#fdedf3" stroke="#d1497a" stroke-width="1.4"/>
+<text x="52" y="42" font-size="13" font-weight="700" fill="#d1497a" font-family="IBM Plex Mono, monospace">RUBOR</text>
+<text x="52" y="58" font-size="10.5" fill="#33405a">Redness</text>
+<text x="300" y="42" font-size="10.5" fill="#151d2b" font-weight="600">Mechanism</text>
+<text x="300" y="58" font-size="10.5" fill="#33405a">Vasodilation &#8594; increased blood flow to the region</text>
+
+<rect x="30" y="72" width="660" height="46" rx="8" fill="#fdf0dc" stroke="#a45d08" stroke-width="1.4"/>
+<text x="52" y="94" font-size="13" font-weight="700" fill="#a45d08" font-family="IBM Plex Mono, monospace">CALOR</text>
+<text x="52" y="110" font-size="10.5" fill="#33405a">Heat</text>
+<text x="300" y="94" font-size="10.5" fill="#151d2b" font-weight="600">Mechanism</text>
+<text x="300" y="110" font-size="10.5" fill="#33405a">Increased warm blood flow through newly opened capillary beds</text>
+
+<rect x="30" y="124" width="660" height="46" rx="8" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.4"/>
+<text x="52" y="146" font-size="13" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">DOLOR</text>
+<text x="52" y="162" font-size="10.5" fill="#33405a">Pain</text>
+<text x="300" y="146" font-size="10.5" fill="#151d2b" font-weight="600">Mechanism</text>
+<text x="300" y="162" font-size="10.5" fill="#33405a">Mediators: prostaglandins and bradykinin; pressure from swelling</text>
+
+<rect x="30" y="176" width="660" height="46" rx="8" fill="#e6f0f9" stroke="#1f5f9e" stroke-width="1.4"/>
+<text x="52" y="198" font-size="13" font-weight="700" fill="#1f5f9e" font-family="IBM Plex Mono, monospace">TUMOR</text>
+<text x="52" y="214" font-size="10.5" fill="#33405a">Swelling</text>
+<text x="300" y="198" font-size="10.5" fill="#151d2b" font-weight="600">Mechanism</text>
+<text x="300" y="214" font-size="10.5" fill="#33405a">Exudate accumulating in the interstitial tissues — oedema</text>
+
+<rect x="30" y="228" width="660" height="52" rx="8" fill="#e3f3f1" stroke="#0f766e" stroke-width="1.4"/>
+<text x="52" y="250" font-size="13" font-weight="700" fill="#0f766e" font-family="IBM Plex Mono, monospace">FUNCTIO</text>
+<text x="52" y="264" font-size="13" font-weight="700" fill="#0f766e" font-family="IBM Plex Mono, monospace">LAESA</text>
+<text x="150" y="264" font-size="10.5" fill="#33405a">Loss of function</text>
+<text x="300" y="250" font-size="10.5" fill="#151d2b" font-weight="600">Mechanism</text>
+<text x="300" y="266" font-size="10.5" fill="#33405a">Pain and swelling together prevent the part from being used normally</text>
+</g>
+</svg>
+</figure>
+
+<div class="box tip"><span class="lab">Memory hook</span>
+<p>The four classical Latin signs all end in <strong>-or</strong>: <strong>rub</strong>or, <strong>cal</strong>or, <strong>dol</strong>or, <strong>tum</strong>or. <em>Functio laesa</em> was the fifth to be added and is the one most often forgotten in exams.</p></div>
+<details class="qz"><summary>List all five cardinal signs with their English meanings and one mechanism each.</summary><div class="ans"><p><strong>Rubor</strong> (redness) — vasodilation. <strong>Calor</strong> (heat) — increased blood flow. <strong>Dolor</strong> (pain) — prostaglandins and bradykinin. <strong>Tumor</strong> (swelling) — exudate in the interstitium. <strong>Functio laesa</strong> (loss of function) — the combined effect of pain and swelling.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s10">
+      <div class="slhead"><div class="tag">10</div><div class="ttl"><h2>What acute inflammation achieves</h2><p>Three functional products of the response.</p></div></div>
+      <div class="slbody">
+
+<ol class="steps">
+<li><b>Exudate formation</b><div>An increased volume of extracellular fluid, which <strong>dilutes and flushes away toxins</strong>.</div></li>
+<li><b>Infiltrate formation</b><div>Cells arrive at the site: <strong>neutrophils</strong> (polymorphonuclear leukocytes) and <strong>macrophages</strong> (histiocytes).</div></li>
+<li><b>Granulation tissue formation</b><div>Lays down the <strong>scaffolding for healing and repair</strong>.</div></li>
+</ol>
+
+<div class="box mem"><span class="lab">Note the design</span>
+<p>Each product maps onto one of the goals from section 3: exudate <em>dilutes</em> the agent, infiltrate <em>destroys</em> it, and granulation tissue <em>heals</em> the damage.</p></div>
+
+<h3>The three tissue events</h3>
+<p>The rest of this lecture works through the machinery that delivers those three products:</p>
+<div class="pills">
+<span class="pill">A · Changes in vascular flow and calibre</span>
+<span class="pill">B · Changes in vascular permeability</span>
+<span class="pill">C · Leukocyte exudation</span>
+</div>
+
+      </div>
+    </section>
+    <section class="sl" id="s11">
+      <div class="slhead"><div class="tag">11</div><div class="ttl"><h2>Tissue event A — vascular flow and calibre</h2><p>Three changes, in strict order. The timing detail is examinable.</p></div></div>
+      <div class="slbody">
+
+<ol class="steps">
+<li><b>Transient vasoconstriction of arterioles</b><div>Lasts <strong>seconds to minutes</strong> only. Easy to overlook because it is so brief — but it is the first event.</div></li>
+<li><b>Vasodilation</b><div>Initially involves the <strong>arterioles</strong>, then includes vessels which would otherwise be closed. <strong>Opens new capillary beds</strong> in the area and <strong>increases blood flow</strong> to the region.<br><strong>&#8594; This produces HEAT and ERYTHEMA</strong> (calor and rubor).</div></li>
+<li><b>Slowing of circulation: stasis</b><div>Driven by <strong>increased permeability of the vessel walls</strong> &#8594; <strong>decreased plasma volume</strong> &#8594; <strong>increased red blood cell concentration</strong>, so the blood becomes viscous and slows.<br><strong>Timing:</strong> may not occur for <strong>15&ndash;30 minutes</strong> with a mild stimulus, but within <strong>a few minutes</strong> after a severe injury.</div></li>
+</ol>
+
+<figure>
+<div class="fcap">Fig. 3A.4 — Vascular calibre changes and what each one produces</div>
+<svg viewBox="0 0 720 210" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="a4" markerWidth="10" markerHeight="10" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7791"/></marker></defs>
+<!-- normal -->
+<text x="90" y="26" text-anchor="middle" font-size="10" fill="#6b7791" font-family="IBM Plex Mono, monospace">NORMAL</text>
+<rect x="30" y="70" width="120" height="26" rx="13" fill="#e6f0f9" stroke="#1f5f9e" stroke-width="1.6"/>
+<circle cx="55" cy="83" r="6" fill="#d1497a"/><circle cx="80" cy="83" r="6" fill="#d1497a"/><circle cx="105" cy="83" r="6" fill="#d1497a"/><circle cx="130" cy="83" r="6" fill="#d1497a"/>
+<text x="90" y="120" text-anchor="middle" font-size="9.5" fill="#6b7791">steady flow</text>
+
+<line x1="158" y1="83" x2="185" y2="83" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a4)"/>
+
+<!-- constriction -->
+<text x="253" y="26" text-anchor="middle" font-size="10" fill="#a45d08" font-family="IBM Plex Mono, monospace">1 · CONSTRICT</text>
+<rect x="196" y="76" width="115" height="14" rx="7" fill="#fdf0dc" stroke="#a45d08" stroke-width="1.6"/>
+<circle cx="220" cy="83" r="4" fill="#d1497a"/><circle cx="250" cy="83" r="4" fill="#d1497a"/><circle cx="280" cy="83" r="4" fill="#d1497a"/>
+<text x="253" y="120" text-anchor="middle" font-size="9.5" fill="#6b7791">seconds&#8211;minutes</text>
+<text x="253" y="134" text-anchor="middle" font-size="9.5" fill="#6b7791">transient only</text>
+
+<line x1="319" y1="83" x2="346" y2="83" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a4)"/>
+
+<!-- dilation -->
+<text x="424" y="26" text-anchor="middle" font-size="10" fill="#d1497a" font-family="IBM Plex Mono, monospace">2 · DILATE</text>
+<rect x="357" y="58" width="134" height="50" rx="25" fill="#fdedf3" stroke="#d1497a" stroke-width="2"/>
+<circle cx="382" cy="72" r="6" fill="#d1497a"/><circle cx="412" cy="83" r="6" fill="#d1497a"/><circle cx="442" cy="70" r="6" fill="#d1497a"/><circle cx="468" cy="90" r="6" fill="#d1497a"/><circle cx="398" cy="97" r="6" fill="#d1497a"/>
+<text x="424" y="128" text-anchor="middle" font-size="10" font-weight="700" fill="#d1497a">HEAT + ERYTHEMA</text>
+<text x="424" y="143" text-anchor="middle" font-size="9.5" fill="#6b7791">new capillary beds open</text>
+
+<line x1="499" y1="83" x2="526" y2="83" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a4)"/>
+
+<!-- stasis -->
+<text x="608" y="26" text-anchor="middle" font-size="10" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">3 · STASIS</text>
+<rect x="537" y="58" width="140" height="50" rx="25" fill="#efeaf9" stroke="#5b3a9e" stroke-width="2"/>
+<circle cx="556" cy="72" r="6.5" fill="#d1497a"/><circle cx="574" cy="86" r="6.5" fill="#d1497a"/><circle cx="592" cy="70" r="6.5" fill="#d1497a"/>
+<circle cx="610" cy="88" r="6.5" fill="#d1497a"/><circle cx="628" cy="72" r="6.5" fill="#d1497a"/><circle cx="646" cy="88" r="6.5" fill="#d1497a"/>
+<circle cx="663" cy="72" r="6.5" fill="#d1497a"/><circle cx="592" cy="98" r="6.5" fill="#d1497a"/>
+<text x="608" y="128" text-anchor="middle" font-size="9.5" fill="#6b7791">plasma has leaked out &#8594;</text>
+<text x="608" y="142" text-anchor="middle" font-size="9.5" fill="#6b7791">blood is concentrated &amp; slow</text>
+<text x="608" y="160" text-anchor="middle" font-size="9.5" font-weight="700" fill="#5b3a9e">sets the stage for margination</text>
+</svg>
+<figcaption>Stasis is not a failure — it is what allows leukocytes to leave the centre of the stream and reach the vessel wall.</figcaption>
+</figure>
+<details class="qz"><summary>Why does stasis have to happen before leukocytes can leave the bloodstream?</summary><div class="ans"><p>In normal flow, cells are carried in the <strong>centre of the vessel</strong> by the fast axial stream. Stasis slows the circulation and concentrates the blood, which allows white cells to move outward to the vessel <strong>margins</strong> — margination. Without slowing the stream, leukocytes would simply be swept past the site of injury.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s12">
+      <div class="slhead"><div class="tag">12</div><div class="ttl"><h2>Tissue event B — vascular permeability</h2><p>How the endothelium becomes leaky, and the five ways it happens.</p></div></div>
+      <div class="slbody">
+
+<h3>The principle</h3>
+<ul>
+<li>Occurs in the <strong>microcirculation</strong></li>
+<li>Usually a <strong>balance</strong> exists between the interstitial (extracellular) fluid and the plasma</li>
+<li>During inflammation, the <strong>endothelium becomes leaky</strong></li>
+<li>There is an <strong>outflow of fluid</strong> from the vessels, containing <strong>blood cells and proteins</strong></li>
+<li>This fluid is an <strong>exudate</strong></li>
+<li><strong>Oedema</strong> results from the accumulation of excess fluid in the interstitial tissues</li>
+</ul>
+
+<h3>Five mechanisms of vascular leakage</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:26%">Mechanism</th><th>Features</th></tr></thead>
+<tbody>
+<tr><td><strong>Endothelial gaps</strong></td><td><strong>Most common.</strong> Reversible and short-term — the <strong>immediate transient response</strong>.</td></tr>
+<tr><td><strong>Cytoskeletal reorganisation</strong></td><td><strong>Cytokine-induced.</strong> Produces reversible leakage.</td></tr>
+<tr><td><strong>Direct injury</strong></td><td>Usually in <strong>necrotising injuries</strong>. Normally immediate leakage, lasting <strong>several hours</strong> — the <strong>immediate sustained response</strong>.</td></tr>
+<tr><td><strong>Leukocyte-dependent injury</strong></td><td>Leukocytes may become active and <strong>damage the vessels</strong> themselves.</td></tr>
+<tr><td><strong>Leakage from new vessels</strong></td><td>Occurs <strong>during repair</strong>, as new vessels are immature and inherently leaky.</td></tr>
+</tbody></table></div>
+
+<div class="box tip"><span class="lab">Classic experiment</span>
+<p>Increased permeability is concentrated in the <strong>post-capillary venules</strong>. This was demonstrated by injecting <strong>carbon particles</strong> into a rat and then administering <strong>histamine</strong>: the carbon labelled precisely where the vessels leaked. Endothelial cells become leaky either from <strong>direct endothelial cell injury</strong> or via <strong>chemical mediators</strong>.</p></div>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>Distinguish the <strong>immediate transient</strong> response (endothelial gaps; reversible, short-lived) from the <strong>immediate sustained</strong> response (direct injury; lasts several hours). Examiners like this pair because the names are similar but the mechanisms are not.</p></div>
+<details class="qz"><summary>Name the five mechanisms of vascular leakage and say which is most common.</summary><div class="ans"><p><strong>Endothelial gaps</strong> (most common; reversible, immediate transient response), <strong>cytoskeletal reorganisation</strong> (cytokine-induced, reversible), <strong>direct injury</strong> (necrotising injuries; immediate sustained, several hours), <strong>leukocyte-dependent injury</strong>, and <strong>leakage from new vessels</strong> during repair.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s13">
+      <div class="slhead"><div class="tag">13</div><div class="ttl"><h2>Tissue event C — leukocyte emigration</h2><p>The accumulation of leukocytes is the major feature of inflammation. This sequence is the heart of the lecture.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Why leukocytes matter</span>
+<p>Their functions at the site are to <strong>engulf and degrade bacteria</strong>, <strong>immune complexes</strong>, and <strong>cell debris</strong>. A defined sequence of events produces their accumulation.</p></div>
+
+<figure>
+<div class="fcap">Fig. 3A.5 — The leukocyte emigration sequence</div>
+<svg viewBox="0 0 720 330" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs>
+<marker id="a5" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#5b3a9e"/></marker>
+<radialGradient id="wbc"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#efeaf9"/></radialGradient>
+</defs>
+<!-- vessel -->
+<rect x="20" y="52" width="680" height="96" fill="#fdedf3"/>
+<line x1="20" y1="52" x2="700" y2="52" stroke="#d1497a" stroke-width="3"/>
+<line x1="20" y1="148" x2="700" y2="148" stroke="#d1497a" stroke-width="3"/>
+<text x="34" y="46" font-size="9" fill="#6b7791" font-family="IBM Plex Mono, monospace">ENDOTHELIUM</text>
+<text x="34" y="105" font-size="9.5" fill="#b06a86" font-family="IBM Plex Mono, monospace">LUMEN</text>
+<text x="34" y="172" font-size="9" fill="#6b7791" font-family="IBM Plex Mono, monospace">INTERSTITIAL TISSUE</text>
+
+<!-- 1 margination -->
+<circle cx="95" cy="90" r="14" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<path d="M88,86 a4,4 0 1,0 5,-3 M97,92 a4,4 0 1,0 4,4" fill="none" stroke="#5b3a9e" stroke-width="1.4"/>
+<line x1="95" y1="108" x2="95" y2="130" stroke="#5b3a9e" stroke-width="1.6" marker-end="url(#a5)"/>
+<text x="95" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">1</text>
+<text x="95" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#151d2b">Margination</text>
+<text x="95" y="237" text-anchor="middle" font-size="9" fill="#6b7791">cells move out of</text>
+<text x="95" y="249" text-anchor="middle" font-size="9" fill="#6b7791">the axial stream</text>
+
+<!-- 2 pavementing -->
+<circle cx="205" cy="136" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<circle cx="233" cy="136" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<circle cx="261" cy="136" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<text x="233" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">2</text>
+<text x="233" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#151d2b">Pavementing</text>
+<text x="233" y="237" text-anchor="middle" font-size="9" fill="#6b7791">wall appears entirely</text>
+<text x="233" y="249" text-anchor="middle" font-size="9" fill="#6b7791">covered by leukocytes</text>
+
+<!-- 3 adhesion -->
+<circle cx="360" cy="136" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2.5"/>
+<line x1="350" y1="147" x2="350" y2="151" stroke="#0f766e" stroke-width="2.5"/>
+<line x1="360" y1="148" x2="360" y2="152" stroke="#0f766e" stroke-width="2.5"/>
+<line x1="370" y1="147" x2="370" y2="151" stroke="#0f766e" stroke-width="2.5"/>
+<text x="360" y="205" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">3</text>
+<text x="360" y="222" text-anchor="middle" font-size="10.5" font-weight="700" fill="#151d2b">Adhesion</text>
+<text x="360" y="237" text-anchor="middle" font-size="9" fill="#6b7791">attachment to endothelial</text>
+<text x="360" y="249" text-anchor="middle" font-size="9" fill="#6b7791">surface; blood flows past</text>
+
+<!-- 4 diapedesis -->
+<circle cx="480" cy="150" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<path d="M478,158 q-6,14 2,26" fill="none" stroke="#5b3a9e" stroke-width="2"/>
+<circle cx="484" cy="188" r="11" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2" stroke-dasharray="3 2"/>
+<text x="480" y="228" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">4</text>
+<text x="480" y="245" text-anchor="middle" font-size="10.5" font-weight="700" fill="#151d2b">Diapedesis</text>
+<text x="480" y="260" text-anchor="middle" font-size="9" fill="#6b7791">amoeboid movement</text>
+<text x="480" y="272" text-anchor="middle" font-size="9" fill="#6b7791">through the wall</text>
+
+<!-- 5 chemotaxis -->
+<circle cx="590" cy="196" r="12" fill="url(#wbc)" stroke="#5b3a9e" stroke-width="2"/>
+<line x1="606" y1="200" x2="648" y2="212" stroke="#0f766e" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#a5)"/>
+<circle cx="668" cy="218" r="7" fill="#0f766e" opacity=".25"/>
+<circle cx="668" cy="218" r="3.5" fill="#0f766e"/>
+<text x="668" y="240" text-anchor="middle" font-size="8.5" fill="#0f766e">target</text>
+<text x="600" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#5b3a9e" font-family="IBM Plex Mono, monospace">5</text>
+<text x="600" y="287" text-anchor="middle" font-size="10.5" font-weight="700" fill="#151d2b">Chemotaxis</text>
+<text x="600" y="302" text-anchor="middle" font-size="9" fill="#6b7791">directed migration along</text>
+<text x="600" y="314" text-anchor="middle" font-size="9" fill="#6b7791">a chemical gradient</text>
+</svg>
+<figcaption>Then follows phagocytosis with intracellular degradation, and extracellular release of leukocyte products.</figcaption>
+</figure>
+
+<h3>The sequence in words</h3>
+<ol class="steps">
+<li><b>Margination, or pavementing</b><div>In normal blood flow, cells remain toward the <strong>centre</strong> of the vessel. During <strong>stasis</strong>, white blood cells move outward toward the vessel walls — the margins. <strong>Pavementing</strong> occurs when the entire wall appears to be covered by these white cells.</div></li>
+<li><b>Adhesion</b><div><strong>Attachment</strong> of the white cells to the endothelial surface. Blood then flows past <em>without disturbing</em> them. Involves a complex chemical reaction, mediated in part by inflammatory agents and chemicals.</div></li>
+<li><b>Diapedesis</b><div>The process by which white cells <strong>move from the blood vessel into the interstitial fluid</strong>, using <strong>amoeboid-like movements</strong>.</div></li>
+<li><b>Chemotaxis</b><div>The <strong>unidirectional migration</strong> of cells <strong>along a chemical gradient</strong>. This is <strong>not</strong> a random movement — it is directed.</div></li>
+<li><b>Phagocytosis and intracellular degradation</b><div>Ingestion and destruction of the target (see section 14).</div></li>
+<li><b>Extracellular release of leukocyte products</b><div>Which, as section 14 shows, can damage the host&rsquo;s own tissue.</div></li>
+</ol>
+
+<div class="box tip"><span class="lab">Memory hook</span>
+<p><strong>M-A-D-C-P</strong>: <strong>M</strong>argination &#8594; <strong>A</strong>dhesion &#8594; <strong>D</strong>iapedesis &#8594; <strong>C</strong>hemotaxis &#8594; <strong>P</strong>hagocytosis. Note the logic: you must reach the wall before you can stick to it, stick before you can cross it, and cross before you can follow a gradient.</p></div>
+<details class="qz"><summary>Distinguish diapedesis from chemotaxis.</summary><div class="ans"><p><strong>Diapedesis</strong> is the physical process of a white cell crossing the vessel wall into interstitial fluid, by amoeboid movement. <strong>Chemotaxis</strong> is what happens next: unidirectional migration <em>along a chemical gradient</em> toward the target. Diapedesis is about <em>getting out</em>; chemotaxis is about <em>knowing where to go</em>, and is directed rather than random.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s14">
+      <div class="slhead"><div class="tag">14</div><div class="ttl"><h2>Phagocytosis &mdash; and how it harms the host</h2><p>'-phage' means to eat. But eating goes wrong in two specific, named ways.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Definition</span>
+<p><strong>Phagocytosis</strong> is the ingestion and digestion of cell debris and micro-organisms.</p></div>
+
+<h3>The four steps</h3>
+<ol class="steps">
+<li><b>Recognition</b><div>The phagocyte identifies the target as foreign or as debris.</div></li>
+<li><b>Adhesion</b><div>The phagocyte binds to the target.</div></li>
+<li><b>Engulfment</b><div>The membrane surrounds the target, forming a <strong>phagosome</strong>.</div></li>
+<li><b>Killing or degradation</b><div>The phagosome fuses with a lysosome to form a <strong>phagolysosome</strong>, in which the ingested material is destroyed.</div></li>
+</ol>
+
+<h3>Self-harm: when phagocytosis damages the host</h3>
+<p>Ideally a phagocyte surrounds its target to form a phagosome, which then fuses with a lysosome to destroy the target. <strong>However, sometimes the destructive lysosomal products are released into the extracellular space instead.</strong> There are two named ways this happens:</p>
+
+<div class="grid two">
+<div class="cd" style="border-left:3px solid var(--crim)"><div class="k">Failure mode 1</div><h4>Regurgitation during feeding</h4><p>The <strong>phagocytic vacuole is not completely closed</strong>, so lysosomal contents spill out into the surrounding tissue while the cell is still ingesting.</p></div>
+<div class="cd" style="border-left:3px solid var(--crim)"><div class="k">Failure mode 2</div><h4>Frustrated phagocytosis</h4><p>Cells attempt to digest <strong>non-digestible materials</strong> — for example <strong>flat surfaces</strong> that cannot be engulfed. Unable to close a vacuole, the cell discharges its enzymes externally.</p></div>
+</div>
+
+<div class="box warn"><span class="lab">Consequence</span>
+<p>Both mechanisms cause <strong>cell and tissue damage</strong>, which <strong>further stimulates the inflammatory response</strong> — a self-amplifying loop. This is one important way in which a protective response becomes a harmful one.</p></div>
+<details class="qz"><summary>A suture left in the tissues provokes ongoing inflammation. Which phagocytic failure mode explains this, and why does it perpetuate?</summary><div class="ans"><p><strong>Frustrated phagocytosis.</strong> The suture is a non-digestible material with a surface that cannot be engulfed, so macrophages cannot close a phagocytic vacuole around it and instead release lysosomal enzymes into the extracellular space. That causes tissue damage, which further stimulates inflammation — and because the stimulus cannot be removed, the loop continues. (Lecture 3B lists sterile foreign bodies such as suture material as a cause of chronic inflammation arising <em>de novo</em>.)</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s15">
+      <div class="slhead"><div class="tag">15</div><div class="ttl"><h2>Chemical mediators of inflammation</h2><p>Learn these by the effect they produce, not as an alphabetical list.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:34%">Effect</th><th>Mediator(s)</th></tr></thead>
+<tbody>
+<tr><td><strong>Vasodilation</strong></td><td>Prostaglandins</td></tr>
+<tr><td><strong>Increased vascular permeability</strong></td><td>Histamine, bradykinin, leukotrienes</td></tr>
+<tr><td><strong>Chemotaxis</strong></td><td>Complement, leukotrienes</td></tr>
+<tr><td><strong>Fever</strong></td><td>Prostaglandins</td></tr>
+<tr><td><strong>Pain</strong></td><td>Prostaglandins, bradykinin</td></tr>
+<tr><td><strong>Tissue damage</strong></td><td>Neutrophil and macrophage contents</td></tr>
+</tbody></table></div>
+
+<div class="box cl"><span class="lab">Clinical link</span>
+<p>Prostaglandins appear three times in that table — vasodilation, fever <em>and</em> pain. That is exactly why <strong>NSAIDs</strong>, which inhibit prostaglandin synthesis, are simultaneously anti-inflammatory, antipyretic and analgesic. One mechanism, three clinical effects.</p></div>
+<details class="qz"><summary>Which single mediator class accounts for vasodilation, fever and pain — and what drug class targets it?</summary><div class="ans"><p><strong>Prostaglandins</strong>, targeted by <strong>NSAIDs</strong>. This is why one drug can reduce swelling, bring down a temperature and relieve pain at the same time.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s16">
+      <div class="slhead"><div class="tag">16</div><div class="ttl"><h2>Sequelae &mdash; the four outcomes</h2><p>Every episode of acute inflammation ends in one of four ways.</p></div></div>
+      <div class="slbody">
+
+<figure>
+<div class="fcap">Fig. 3A.6 — Where acute inflammation goes next</div>
+<svg viewBox="0 0 720 250" xmlns="http://www.w3.org/2000/svg" font-family="Source Sans 3, sans-serif">
+<defs><marker id="a6" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#6b7791"/></marker></defs>
+<rect x="20" y="100" width="150" height="50" rx="9" fill="#5b3a9e"/>
+<text x="95" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">ACUTE</text>
+<text x="95" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">INFLAMMATION</text>
+
+<line x1="172" y1="118" x2="242" y2="42" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a6)"/>
+<line x1="172" y1="122" x2="242" y2="102" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a6)"/>
+<line x1="172" y1="130" x2="242" y2="152" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a6)"/>
+<line x1="172" y1="136" x2="242" y2="212" stroke="#6b7791" stroke-width="1.6" marker-end="url(#a6)"/>
+
+<rect x="248" y="18" width="230" height="46" rx="9" fill="#e3f3f1" stroke="#0f766e" stroke-width="1.6"/>
+<text x="266" y="40" font-size="12" font-weight="700" fill="#0f766e">Resolution</text>
+<text x="266" y="55" font-size="9.5" fill="#33405a">complete return to normal &mdash; rare</text>
+
+<rect x="248" y="80" width="230" height="46" rx="9" fill="#fdf0dc" stroke="#a45d08" stroke-width="1.6"/>
+<text x="266" y="102" font-size="12" font-weight="700" fill="#a45d08">Suppuration</text>
+<text x="266" y="117" font-size="9.5" fill="#33405a">pus forms &#8594; abscess</text>
+
+<rect x="248" y="142" width="230" height="46" rx="9" fill="#fdedf3" stroke="#d1497a" stroke-width="1.6"/>
+<text x="266" y="164" font-size="12" font-weight="700" fill="#d1497a">Repair &amp; regeneration</text>
+<text x="266" y="179" font-size="9.5" fill="#33405a">the most common outcome</text>
+
+<rect x="248" y="204" width="230" height="42" rx="9" fill="#efeaf9" stroke="#5b3a9e" stroke-width="1.6"/>
+<text x="266" y="224" font-size="12" font-weight="700" fill="#5b3a9e">Chronic inflammation</text>
+<text x="266" y="239" font-size="9.5" fill="#33405a">stimulus persists &#8594; Lecture 3B</text>
+
+<text x="600" y="44" text-anchor="middle" font-size="9.5" fill="#6b7791">structure AND</text>
+<text x="600" y="57" text-anchor="middle" font-size="9.5" fill="#6b7791">function restored</text>
+<text x="600" y="106" text-anchor="middle" font-size="9.5" fill="#6b7791">walled-off collection</text>
+<text x="600" y="119" text-anchor="middle" font-size="9.5" fill="#6b7791">needs to drain</text>
+<text x="600" y="168" text-anchor="middle" font-size="9.5" fill="#6b7791">scar replaces</text>
+<text x="600" y="181" text-anchor="middle" font-size="9.5" fill="#6b7791">lost tissue</text>
+<text x="600" y="228" text-anchor="middle" font-size="9.5" fill="#6b7791">damage continues while</text>
+<text x="600" y="241" text-anchor="middle" font-size="9.5" fill="#6b7791">the body tries to heal</text>
+</svg>
+</figure>
+
+<h3>Resolution</h3>
+<ul>
+<li>A <strong>complete restoration</strong> of normal structure and function</li>
+<li><strong>Rarely occurs</strong></li>
+<li>Requires a <strong>minor injury</strong></li>
+<li>Requires <strong>labile cells</strong> — those able to regenerate</li>
+</ul>
+
+<h3>Suppuration</h3>
+<ul>
+<li>The <strong>formation of pus</strong></li>
+<li>Pus consists of <strong>neutrophils</strong>, <strong>cell debris</strong>, and <strong>bacteria</strong> (pyogenic bacteria)</li>
+<li>An <strong>abscess</strong> is a <strong>localised collection of pus</strong></li>
+<li><strong>Release of pus</strong> allows organisation and healing with <strong>scarring</strong></li>
+</ul>
+
+<div class="box cl"><span class="lab">Clinical link</span>
+<p>The last point is the entire rationale for <strong>incision and drainage</strong>. An abscess is walled off from the blood supply, so neither immune cells nor antibiotics reach it reliably. Healing begins only once the pus is released.</p></div>
+<details class="qz"><summary>Why is complete resolution rare, and what two conditions must be met for it?</summary><div class="ans"><p>Resolution requires that the injury be <strong>minor</strong> and that the tissue contains <strong>labile cells</strong> capable of regeneration. Most injuries are either too extensive or involve tissue whose cells cannot divide, so the defect is filled with connective tissue instead — repair with scarring rather than resolution.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s17">
+      <div class="slhead"><div class="tag">17</div><div class="ttl"><h2>Regeneration and repair</h2><p>The most common outcome of acute inflammation. Note carefully that regeneration and repair are not synonyms.</p></div></div>
+      <div class="slbody">
+
+<div class="box def"><span class="lab">Two different words</span>
+<p><strong>Regeneration</strong> — replacement by <strong>parenchymal cell division</strong>. The functional tissue itself is restored.<br>
+<strong>Repair</strong> — restoration by <strong>connective tissue</strong>. The defect is filled with collagen; function is not fully restored.</p></div>
+
+<p>Both involve the restoration or replacement of tissue lost as a result of necrosis.</p>
+
+<h3>The steps back to normal</h3>
+<ol class="steps">
+<li><b>Neutralise the injurious agent</b><div>The cause must be dealt with first.</div></li>
+<li><b>Parenchymal cells regenerate / stromal cells repair</b><div>The two compartments respond in their own ways.</div></li>
+<li><b>Neutralisation or decay of chemical mediators</b><div>The signals that drove the response are removed.</div></li>
+<li><b>Return to normal vascular permeability</b><div>The endothelium seals; exudation stops.</div></li>
+<li><b>Cessation of leukocytic infiltration</b><div>No further cells are recruited.</div></li>
+<li><b>Death of neutrophils by apoptosis</b><div>Note: <strong>apoptosis</strong>, not necrosis — the cells are cleared without provoking further inflammation.</div></li>
+<li><b>Removal of waste products by the lymphatics</b><div>The site is cleared.</div></li>
+</ol>
+
+<div class="box hy"><span class="lab">High yield</span>
+<p>Step 6 is a lovely link back to Lecture 2. Neutrophils are removed by <strong>apoptosis</strong> precisely <em>because</em> apoptosis does not elicit inflammation. Had they died by necrosis, their contents would spill and restart the whole process.</p></div>
+
+<h3>What regeneration requires</h3>
+<ul>
+<li>Cells that are <strong>capable of division and differentiation</strong></li>
+<li>The <strong>stroma to be retained</strong> — the architectural framework must survive, or there is nothing for new cells to build on</li>
+</ul>
+
+<h3>Cell types by regenerative capacity</h3>
+<div class="tw"><table>
+<thead><tr><th style="width:18%">Type</th><th>Behaviour</th><th style="width:28%">Examples</th></tr></thead>
+<tbody>
+<tr><td><strong>Labile</strong></td><td><strong>Continue to multiply throughout life</strong>; functionally short-lived cells. Capable of an <strong>increased rate</strong> of multiplication if required.</td><td>Epithelial cells (<strong>oral mucosa</strong>, skin), haemopoietic cells, lymphoid cells</td></tr>
+<tr><td><strong>Stable</strong></td><td><strong>Capable of regenerating if necessary</strong>, but do not divide and differentiate under normal circumstances. Normally long-lived. Replace number and weight of cells and restore function — but the <strong>histological anatomy may be abnormal</strong>.</td><td>Liver, fibroblasts, smooth muscle</td></tr>
+<tr><td><strong>Permanent</strong></td><td>Highly differentiated, extremely specialised. <strong>Unable to undergo mitosis</strong> or differentiate. <strong>Replaced by scar tissue</strong> &#8594; <strong>loss of function</strong>.</td><td>Nerve cells, striated muscle</td></tr>
+</tbody></table></div>
+
+<h3>Stem cells</h3>
+<ul>
+<li>Highly <strong>undifferentiated</strong>, immature cells with <strong>rapid mitosis</strong></li>
+<li><strong>Pluripotential</strong> — capable of differentiating into <strong>any</strong> cell type</li>
+<li><strong>Multipotential</strong> — capable of differentiating into a <strong>limited number</strong> of cell types, e.g. fibroblasts into osteoblasts</li>
+</ul>
+
+<h3>Repair in detail</h3>
+<ul>
+<li><strong>Replacement of tissue defects by collagen</strong> — this is wound healing</li>
+<li><strong>Organisation</strong> proceeds in three stages:</li>
+</ul>
+<ol class="steps">
+<li><b>Initial replacement by granulation tissue</b><div>Characterised by increased capillary budding and inflammatory exudate.</div></li>
+<li><b>Replacement of granulation tissue by collagen</b><div>Fibroblasts lay down matrix.</div></li>
+<li><b>Maturation of collagen: scar tissue</b><div>The collagen remodels and strengthens into a mature scar.</div></li>
+</ol>
+
+<div class="box cl"><span class="lab">Dental relevance</span>
+<p><strong>Oral mucosa is a labile tissue</strong> — which is why minor mucosal injuries heal so quickly and so completely. Compare with a nerve injury after a third molar extraction, where <strong>permanent cells</strong> cannot regenerate and function may not return.</p></div>
+<details class="qz"><summary>A patient loses cardiac muscle after a myocardial infarct. Will this regenerate? What determines the outcome?</summary><div class="ans"><p>No. Striated muscle consists of <strong>permanent cells</strong> — highly differentiated and unable to undergo mitosis. The defect is therefore <strong>replaced by scar tissue</strong>, with a corresponding <strong>loss of function</strong>. Contrast with the liver (stable cells), which can regenerate if needed, and oral mucosa (labile cells), which multiplies continuously throughout life.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s18">
+      <div class="slhead"><div class="tag">18</div><div class="ttl"><h2>Wound types</h2><p>A wound is any disruption of tissues or organs of the body caused by injury — most commonly physical or mechanical trauma.</p></div></div>
+      <div class="slbody">
+
+<div class="tw"><table>
+<thead><tr><th style="width:20%">Wound</th><th>Features</th><th style="width:24%">Example</th></tr></thead>
+<tbody>
+<tr><td><strong>Abrasion</strong></td><td>An <strong>open surface wound</strong>. Superficial — surface layers of epithelium only. A <strong>friction injury</strong>.</td><td>Carpet burn</td></tr>
+<tr><td><strong>Contusion</strong></td><td>A <strong>bruise</strong>. A <strong>blunt injury</strong> with damage to <strong>deep tissues</strong> and <strong>haemorrhage</strong>. The surface stays intact.</td><td>Blunt trauma</td></tr>
+<tr><td><strong>Avulsion</strong></td><td>A <strong>large, open wound</strong> with <strong>extensive loss of tissue volume</strong>. Caused by cutting, gouging, tearing.</td><td><strong>Avulsion of a tooth</strong> — dislocation of a tooth from its socket</td></tr>
+<tr><td><strong>Puncture</strong></td><td>A <strong>small, deep wound</strong> caused by <strong>sharp objects</strong>.</td><td>Needle-stick injury; dog bite</td></tr>
+<tr><td><strong>Laceration</strong></td><td><strong>Open wounds with ragged edges</strong> extending deep into tissues. <strong>Crushing</strong> of tissues, with <strong>necrotic debris and blood clot</strong>. <strong>Contaminated</strong>.</td><td>Laceration of the tongue</td></tr>
+<tr><td><strong>Incisional / surgical</strong></td><td><strong>Clean</strong> — made under aseptic conditions. <strong>Minimal tissue loss</strong>; margins are <strong>sharp and clean</strong> and can be <strong>approximated</strong>. The situation is controlled to provide <strong>ideal conditions for healing</strong>.</td><td>Surgical incision</td></tr>
+</tbody></table></div>
+
+<div class="box hy"><span class="lab">The organising principle</span>
+<p>Read the table as a spectrum of <strong>healing potential</strong>. A surgical incision has clean approximable margins, minimal tissue loss and no contamination, so it heals fast with a fine scar. A laceration has ragged crushed edges, necrotic debris and contamination, so it heals slowly with a broad scar and a high infection risk. Everything about wound management is an attempt to move a wound leftward along that spectrum.</p></div>
+<details class="qz"><summary>A patient presents with a contusion. Why is there no open wound, and what has been damaged?</summary><div class="ans"><p>A contusion is a <strong>bruise</strong> caused by <strong>blunt</strong> injury. The force is transmitted through the intact surface to the <strong>deep tissues</strong>, damaging vessels there and producing <strong>haemorrhage</strong> into the tissue. Because the epithelium is not breached there is no open wound — which also means no direct route for contamination.</p></div></details>
+      </div>
+    </section>
+    <section class="sl" id="s19">
+      <div class="slhead"><div class="tag">19</div><div class="ttl"><h2>Glossary &mdash; every term in this lecture</h2><p>Use this as a final pass before an exam. Cover the definitions and work down the list.</p></div></div>
+      <div class="slbody">
+
+<dl class="gloss">
+<dt>Abrasion</dt><dd>Superficial open surface wound from friction.</dd>
+<dt>Abscess</dt><dd>A localised collection of pus.</dd>
+<dt>Adhesion</dt><dd>Attachment of leukocytes to the endothelial surface.</dd>
+<dt>Avulsion</dt><dd>Large open wound with extensive loss of tissue volume.</dd>
+<dt>Chemotaxis</dt><dd>Unidirectional migration of cells along a chemical gradient; not random.</dd>
+<dt>Contusion</dt><dd>A bruise — blunt injury damaging deep tissues with haemorrhage.</dd>
+<dt>Diapedesis</dt><dd>Movement of white cells from vessel to interstitial fluid by amoeboid motion.</dd>
+<dt>Exudate</dt><dd>Inflammatory extravascular fluid, high protein, requires altered permeability.</dd>
+<dt>Frustrated phagocytosis</dt><dd>Failure to engulf non-digestible material, causing external enzyme release.</dd>
+<dt>Granulation tissue</dt><dd>Scaffolding of new capillaries and matrix laid down for healing and repair.</dd>
+<dt>Labile cells</dt><dd>Cells that multiply throughout life, e.g. oral mucosa, skin, haemopoietic.</dd>
+<dt>Laceration</dt><dd>Open wound with ragged edges, crushing, necrotic debris; contaminated.</dd>
+<dt>Margination</dt><dd>Movement of white cells out of the axial stream toward vessel walls.</dd>
+<dt>Oedema</dt><dd>Excess fluid in the interstitial spaces — exudate or transudate.</dd>
+<dt>Pavementing</dt><dd>When the vessel wall appears entirely covered by adherent leukocytes.</dd>
+<dt>Permanent cells</dt><dd>Cells unable to divide, replaced by scar, e.g. nerve, striated muscle.</dd>
+<dt>Phagolysosome</dt><dd>The fused phagosome and lysosome in which ingested material is destroyed.</dd>
+<dt>Pluripotential</dt><dd>Capable of differentiating into any cell type.</dd>
+<dt>Multipotential</dt><dd>Capable of differentiating into a limited number of cell types.</dd>
+<dt>Pus</dt><dd>Purulent exudate rich in neutrophils, cell debris and bacteria.</dd>
+<dt>Regeneration</dt><dd>Replacement of lost tissue by parenchymal cell division.</dd>
+<dt>Regurgitation during feeding</dt><dd>Leakage of lysosomal contents from an incompletely closed vacuole.</dd>
+<dt>Repair</dt><dd>Restoration of a tissue defect by connective tissue — collagen and scar.</dd>
+<dt>Resolution</dt><dd>Complete restoration of normal structure and function; rare.</dd>
+<dt>Stable cells</dt><dd>Cells that regenerate only when needed, e.g. liver, fibroblasts, smooth muscle.</dd>
+<dt>Stasis</dt><dd>Slowing of the circulation from plasma loss and rbc concentration.</dd>
+<dt>Suppuration</dt><dd>The formation of pus.</dd>
+<dt>Transudate</dt><dd>Low-protein ultrafiltrate of plasma from hydrostatic imbalance.</dd>
+</dl>
+
+      </div>
+    </section>
+
+
+    <section class="sl" id="reading">
+      <div class="slhead"><div class="tag">&#9733;</div><div class="ttl"><h2>Reading &amp; sources</h2></div></div>
+      <div class="slbody">
+<p><strong>Required reading.</strong> Cross, S. S. (2024). <em>Underwood&rsquo;s Pathology: A Clinical Approach</em> (8th edition). Sheffield: Elsevier. <strong>Chapter 9 &mdash; Acute inflammation.</strong></p>
+<p>These notes were compiled from the DOH 233 lecture material delivered by Dr Joseph Ryan, Oral Medicine Specialist. All figures are original schematics drawn for these notes.</p>
+</div>
+    </section>
+
+    <div class="foot">
+      <div class="nx"><a href="pathology_l2_cell_injury.html"><span>Previous</span><b>L2 · Cellular Responses to Stress &amp; Injury</b></a><a href="pathology_l3b_chronic_inflammation.html"><span>Next</span><b>L3B · Chronic Inflammation</b></a></div>
+      <p>Study notes for DOH 233 Pathological Basis of Oral &amp; Systemic Disease, compiled from lecture material by Dr Joseph Ryan. All diagrams are original schematics drawn to illustrate the lecture concepts.</p>
+    </div>
+  </main>
+</div>
+
+<button class="totop" id="totop" aria-label="Back to top">&#8593;</button>
+<script>
+(function(){
+  var bar=document.getElementById('bar'),
+      links=[].slice.call(document.querySelectorAll('.rail a[href^="#"]')),
+      secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));}),
+      top=document.getElementById('totop'),
+      rail=document.getElementById('rail'),
+      ticking=false;
+
+  function paint(){
+    var h=document.documentElement,
+        max=h.scrollHeight-h.clientHeight,
+        y=h.scrollTop||document.body.scrollTop;
+    if(bar) bar.style.width=(max>0?(y/max*100):0)+'%';
+    if(top) top.classList.toggle('show',y>420);
+    var i,cur=-1,off=h.clientHeight*0.28;
+    for(i=0;i<secs.length;i++){
+      if(secs[i] && secs[i].getBoundingClientRect().top<=off) cur=i;
+    }
+    for(i=0;i<links.length;i++) links[i].classList.toggle('on',i===cur);
+    ticking=false;
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(paint); } }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+  paint();
+
+  if(top) top.addEventListener('click',function(){ scrollTo({top:0,behavior:'smooth'}); });
+
+  var rt=document.getElementById('railtoggle');
+  if(rt) rt.addEventListener('click',function(){ rail.classList.toggle('open'); });
+  // close the mobile rail after picking a section
+  links.forEach(function(a){ a.addEventListener('click',function(){
+    if(innerWidth<=1040) rail.classList.remove('open');
+  });});
+
+  // theme
+  var tb=document.getElementById('theme');
+  if(tb) tb.addEventListener('click',function(){
+    var d=document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',d?'light':'dark');
+    tb.textContent=d?'\u25D1':'\u25D0';
+    tb.setAttribute('aria-label',d?'Switch to dark theme':'Switch to light theme');
+  });
+
+  // expand / collapse every self-test at once
+  function setAll(open){
+    [].forEach.call(document.querySelectorAll('details.qz'),function(d){ d.open=open; });
+  }
+  var ea=document.getElementById('expandall'), ca=document.getElementById('collapseall');
+  if(ea) ea.addEventListener('click',function(){setAll(true);});
+  if(ca) ca.addEventListener('click',function(){setAll(false);});
+  var pr=document.getElementById('printme');
+  if(pr) pr.addEventListener('click',function(){print();});
+})();
+</script>
+</body>
+</html>
