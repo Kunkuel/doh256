@@ -499,6 +499,7 @@ input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}
       <a href="osteology.html" aria-current="page">Osteology</a>
       <a href="brain.html">Brain &amp; nervous system</a>
       <a href="cranial_nerves.html">Cranial nerves</a>
+      <a href="ospe.html">OSPE deck</a>
     </nav>
   </div>
 </header>
@@ -1516,7 +1517,7 @@ function moveSel(d){
   items[selIdx] && items[selIdx].classList.remove('sel');
   selIdx = (selIdx + d + items.length) % items.length;
   items[selIdx].classList.add('sel');
-  items[selIdx].scrollIntoView({block:'nearest'});
+  if(typeof items[selIdx].scrollIntoView==='function') items[selIdx].scrollIntoView({block:'nearest'});
 }
 function jumpTo(it){
   closeSearch();
