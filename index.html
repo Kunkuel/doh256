@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="gated" lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="googlebot" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dentistry · Year 2 — Study Hub</title>
 
+<noscript><style>body{display:none!important}html{background:#101420}</style><div style="font:15px system-ui;color:#eee;background:#101420;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px">These notes require JavaScript.</div></noscript>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRSXTH4XCL"></script>
 <script>
@@ -146,28 +149,6 @@
     font-family:'DM Mono',monospace;font-size:11.5px;color:var(--dim);white-space:nowrap;margin-left:auto;
   }
 
-  /* ===== LATEST STRIP ===== */
-  .latest{margin:26px 0 4px;}
-  .lat-head{
-    display:flex;align-items:center;gap:9px;margin-bottom:11px;
-    font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;color:var(--muted);
-  }
-  .lat-head .pulse{width:6px;height:6px;border-radius:50%;background:var(--c255);box-shadow:0 0 0 3px rgba(45,212,191,.16);}
-  .lat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:8px;}
-  .lat{
-    display:flex;align-items:center;gap:10px;text-decoration:none;padding:11px 13px;
-    background:var(--card);border:1px solid var(--line);border-radius:11px;
-    transition:all .18s var(--ease);
-  }
-  .lat:hover{background:var(--card-hi);border-color:var(--lc);transform:translateY(-2px);}
-  .lat .lb{
-    font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--lc);
-    background:rgba(255,255,255,.07);              /* fallback */
-    background:color-mix(in srgb,var(--lc) 15%,transparent);
-    border-radius:5px;padding:3px 6px;flex:none;
-  }
-  .lat .lt{font-size:13px;color:var(--text-2);line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .lat:hover .lt{color:var(--text);}
 
   /* ===== SEMESTER ===== */
   .semester{margin-top:40px;}
@@ -308,11 +289,11 @@
     .course-note{display:none;}
     .res-desc{display:none;}
     .res{padding:12px 10px;}
-    .lat-grid{grid-template-columns:1fr;}
     .sem-meta{display:none;}
   }
 
   /* ===== PASSWORD GATE ===== */
+  html.gated body{overflow:hidden}
   #gate-overlay{
     position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;
     background:var(--bg);padding:20px;
@@ -371,7 +352,7 @@
     <h1 class="fade">Year 2 <span class="grad">Study Hub</span></h1>
     <p class="sub fade">Semester 2, 2026 · every lecture note, slide deck and flashcard deck, organised by unit.</p>
     <div class="stats fade">
-      <span class="stat"><b>49</b> resources</span>
+      <span class="stat"><b>51</b> resources</span>
       <span class="stat"><b>4</b> units</span>
       <span class="stat">Semesters <b>1 &amp; 2</b></span>
     </div>
@@ -393,36 +374,10 @@
         <button class="chip" data-unit="233" style="--ca:var(--c233)" data-on="false">233</button>
       </div>
       <button class="tb-btn" id="toggleall" type="button">Expand all</button>
-      <div class="count" id="count">48 resources</div>
+      <div class="count" id="count">51 resources</div>
     </div>
   </div>
 
-  <!-- ============ LATEST ============ -->
-  <div class="latest" id="latest">
-    <div class="lat-head"><span class="pulse"></span> Recently added</div>
-    <div class="lat-grid">
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l6_infectious_disease.html"><span class="lb">233</span><span class="lt">Oral Infectious Disease</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="sinuses.html"><span class="lb">255</span><span class="lt">Nose &amp; Paranasal Sinuses</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="salivary_glands.html"><span class="lb">255</span><span class="lt">Salivary Glands &amp; Fossae</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="eye_ear.html"><span class="lb">255</span><span class="lt">The Eye &amp; Ear</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="tmj.html"><span class="lb">255</span><span class="lt">TMJ &amp; Mastication</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="oral_cavity.html"><span class="lb">255</span><span class="lt">The Oral Cavity</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l5c_immunodeficiency.html"><span class="lb">233</span><span class="lt">Immunodeficiency</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l5b_autoimmunity_transplantation.html"><span class="lb">233</span><span class="lt">Autoimmunity &amp; Transplantation</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l5a_hypersensitivity.html"><span class="lb">233</span><span class="lt">Hypersensitivity Reactions</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l4_healing_repair.html"><span class="lb">233</span><span class="lt">Healing and Repair</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="facial_expression.html"><span class="lb">255</span><span class="lt">Scalp &amp; Facial Nerve</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="blood_supply.html"><span class="lb">255</span><span class="lt">Blood Supply of Head &amp; Neck</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l3b_chronic_inflammation.html"><span class="lb">233</span><span class="lt">Chronic Inflammation</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l3a_acute_inflammation.html"><span class="lb">233</span><span class="lt">Acute Inflammation</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="ospe.html"><span class="lb">255</span><span class="lt">OSPE Image Deck</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l2_cell_injury.html"><span class="lb">233</span><span class="lt">Cellular Responses to Injury</span></a>
-      <a class="lat" style="--lc:var(--c233)" href="pathology_l1_intro.html"><span class="lb">233</span><span class="lt">Introduction to Pathology</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="cranial_nerves.html"><span class="lb">255</span><span class="lt">Cranial Nerves (I–XII)</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="brain.html"><span class="lb">255</span><span class="lt">Brain &amp; Nervous System</span></a>
-      <a class="lat" style="--lc:var(--c255)" href="osteology.html"><span class="lb">255</span><span class="lt">Osteology</span></a>
-    </div>
-  </div>
 
   <main id="main">
 
@@ -432,7 +387,7 @@
         <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
         <span class="sem-tag">Year 2 ·</span>
         <span class="sem-title">Semester 2</span>
-        <span class="sem-meta">4 units · 22 resources</span>
+        <span class="sem-meta">4 units · 24 resources</span>
       </button>
       <div class="sem-rule"></div>
       <div class="sem-body">
@@ -453,10 +408,16 @@
             </span>
           </button>
           <div class="course-body">
-            <div class="grp">Periodontics &amp; endodontics · Dr Jake Ball · 1 note</div>
+            <div class="grp">Periodontics &amp; endodontics · Dr Jake Ball · 3 notes</div>
             <div class="rows">
               <a class="res" style="--dot:#3dd68c" href="nonsurgical_perio_therapy.html" data-keywords="non-surgical periodontal therapy nspt debridement scaling root planing rsd oral hygiene instruction subgingival biofilm calculus reassessment healing jake ball periodontics 256">
                 <span class="dot"></span><span class="res-txt"><span class="res-name">Non-Surgical Periodontal Therapy</span><span class="res-desc">NSPT — debridement, scaling &amp; root surface debridement, OHI, reassessment &amp; healing</span></span><span class="res-tag">NOTES</span>
+              </a>
+              <a class="res" style="--dot:#3dd68c" href="healing_after_nspt.html" data-keywords="healing after non-surgical periodontal therapy long junctional epithelium lje repair reattachment new attachment regeneration probing armitage badersten waerhaug caton zander shimono katayanagi ppd cal bop jake ball periodontics 256">
+                <span class="dot"></span><span class="res-txt"><span class="res-name">Healing After Non-Surgical Periodontal Therapy</span><span class="res-desc">Probing limitations, repair vs regeneration &amp; the long junctional epithelium</span></span><span class="res-tag">NOTES</span>
+              </a>
+              <a class="res" style="--dot:#3dd68c" href="risk_factors_indicators.html" data-keywords="risk factors risk indicators risk determinants risk markers smoking tobacco pack years 5 as diabetes mellitus hba1c age gender race ses genetics stress obesity alcohol bleeding on probing periodontitis jake ball periodontics 256">
+                <span class="dot"></span><span class="res-txt"><span class="res-name">Risk Factors &amp; Risk Indicators</span><span class="res-desc">Smoking, diabetes, genetics, stress &amp; the four risk categories</span></span><span class="res-tag">NOTES</span>
               </a>
             </div>
             <div class="empty">
@@ -768,28 +729,85 @@
 
 <script>
 /* ===== PASSWORD GATE =====
-   Note: this runs in the browser, so it is a soft gate only — the check happens
-   client-side and can be bypassed by viewing source. Fine for keeping casual
-   visitors out; not real security for sensitive material. */
+   The password is not stored here. What is stored is a PBKDF2-SHA256
+   derivation of it (250,000 iterations, random salt), so reading this source
+   gives an attacker a hash to grind rather than a password to read.
+
+   This is still a CLIENT-SIDE gate. The page content exists in the file, so a
+   determined visitor with devtools can reach it regardless. It raises the cost
+   from "view source" to "write a cracker and run it", and combined with
+   noindex/robots.txt it keeps the material out of search results. For real
+   protection the content itself would have to be encrypted, or served from
+   behind an authenticating host. */
 (function(){
-  var KEY = atob('S3VuazIwMjY=');
+  var SALT_B64 = 'o8Is9hEHaC6IZ00b502Z+w==';
+  var HASH_B64 = 'Fh9dg3BUJR7bu2NAMOhfRRo9CBZsLY90QDRQ1ZCheQI=';
+  var ITER = 250000;
+  var STORE = 'hubUnlockedUntil';
+  var DAYS = 30;
+
   var overlay = document.getElementById('gate-overlay');
-  var input = document.getElementById('gate-input');
-  var btn = document.getElementById('gate-btn');
-  var err = document.getElementById('gate-err');
-  try { if (sessionStorage.getItem('hubUnlocked') === '1') overlay.classList.add('hidden'); } catch(e){}
-  function unlock(){
-    if (input.value === KEY){
-      try { sessionStorage.setItem('hubUnlocked','1'); } catch(e){}
-      overlay.classList.add('hidden');
-      // release focus from the now-hidden gate so page shortcuts work right away
-      input.blur();
-      if (document.body) document.body.focus();
-    } else {
-      err.textContent = 'Incorrect password';
-      input.value = ''; input.focus();
-    }
+  var input   = document.getElementById('gate-input');
+  var btn     = document.getElementById('gate-btn');
+  var err     = document.getElementById('gate-err');
+  if (!overlay) return;
+
+  function b64ToBytes(b64){
+    var bin = atob(b64), out = new Uint8Array(bin.length);
+    for (var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+    return out;
   }
+  function bytesToB64(buf){
+    var bytes = new Uint8Array(buf), s = '';
+    for (var i=0;i<bytes.length;i++) s += String.fromCharCode(bytes[i]);
+    return btoa(s);
+  }
+
+  function reveal(){
+    overlay.classList.add('hidden');
+    document.documentElement.classList.remove('gated');
+    if (input) input.blur();
+    if (document.body) document.body.focus();
+  }
+
+  // already unlocked and not expired?
+  try {
+    var until = parseInt(localStorage.getItem(STORE) || '0', 10);
+    if (until && Date.now() < until) { reveal(); return; }
+  } catch(e){}
+
+  async function derive(pw){
+    var enc = new TextEncoder();
+    var key = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
+    var bits = await crypto.subtle.deriveBits(
+      { name:'PBKDF2', salt: b64ToBytes(SALT_B64), iterations: ITER, hash:'SHA-256' },
+      key, 256);
+    return bytesToB64(bits);
+  }
+
+  var busy = false;
+  async function unlock(){
+    if (busy) return;
+    var pw = input.value;
+    if (!pw) return;
+    busy = true;
+    err.textContent = 'Checking\u2026';
+    try {
+      var got = await derive(pw);
+      if (got === HASH_B64){
+        try { localStorage.setItem(STORE, String(Date.now() + DAYS*864e5)); } catch(e){}
+        err.textContent = '';
+        reveal();
+      } else {
+        err.textContent = 'Incorrect password';
+        input.value = ''; input.focus();
+      }
+    } catch(e) {
+      err.textContent = 'This browser cannot run the check (needs HTTPS).';
+    }
+    busy = false;
+  }
+
   btn.addEventListener('click', unlock);
   input.addEventListener('keydown', function(e){ if (e.key === 'Enter') unlock(); });
 })();
@@ -801,7 +819,6 @@
   var clearBtn = document.getElementById('clearbtn');
   var countEl  = document.getElementById('count');
   var noRes    = document.getElementById('noresults');
-  var latest   = document.getElementById('latest');
   var toggleAll= document.getElementById('toggleall');
   var toolbar  = document.getElementById('toolbar');
 
@@ -881,7 +898,6 @@
       return r.style.display !== 'none' && r.closest('.course').style.display !== 'none';
     }).length;
 
-    latest.style.display = (searching || unitFilter) ? 'none' : '';
     noRes.style.display = visibleShown === 0 ? 'block' : 'none';
 
     if (searching)          countEl.textContent = visibleShown + (visibleShown === 1 ? ' match' : ' matches');

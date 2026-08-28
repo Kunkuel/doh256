@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Healing After Non-Surgical Periodontal Therapy — Study Notes</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --paper: #ffffff;
+    --ink: #1f2330;
+    --muted: #5b6172;
+    --accent: #8b1e3f;       /* deep maroon */
+    --accent-soft: #f3e0e6;
+    --teal: #1f6f73;
+    --teal-soft: #e0eded;
+    --gold: #b48a2a;
+    --gold-soft: #f5ecd3;
+    --green: #3b6e3a;
+    --green-soft: #e2eddf;
+    --rule: #e2ded5;
+    --code: #f1efe8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  header.title {
+    border-bottom: 3px double var(--accent);
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  header.title .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 34px;
+    margin: 6px 0 4px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  header.title .meta {
+    color: var(--muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0 36px;
+    border-radius: 4px;
+  }
+  nav.toc h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 22px;
+    columns: 2;
+    column-gap: 28px;
+  }
+  nav.toc li {
+    margin: 4px 0;
+    break-inside: avoid;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--muted);
+  }
+  nav.toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  section { margin: 40px 0; }
+  h2.section {
+    font-size: 24px;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  h4 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 16px 0 6px;
+  }
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  strong { color: var(--accent); }
+  em.author { color: var(--teal); font-style: italic; }
+
+  /* Callout boxes */
+  .box {
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-left: 4px solid;
+  }
+  .box.key   { background: var(--accent-soft); border-color: var(--accent); }
+  .box.note  { background: var(--teal-soft);   border-color: var(--teal); }
+  .box.warn  { background: var(--gold-soft);   border-color: var(--gold); }
+  .box.fact  { background: var(--green-soft);  border-color: var(--green); }
+  .box h4 { margin-top: 0; color: inherit; }
+  .box.key   h4 { color: var(--accent); }
+  .box.note  h4 { color: var(--teal); }
+  .box.warn  h4 { color: var(--gold); }
+  .box.fact  h4 { color: var(--green); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 15px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #fafaf6; }
+
+  /* Stage cards */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stage {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 4px;
+  }
+  .stage .label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stage h5 {
+    margin: 4px 0 8px;
+    font-size: 17px;
+    color: var(--accent);
+  }
+  .stage .time {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .stage ul { padding-left: 18px; margin: 0; font-size: 14px; }
+
+  /* Two column flow */
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 12px 0;
+  }
+  @media (max-width: 720px) {
+    .twocol { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+  }
+
+  /* Refs */
+  .refs {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .refs li { margin: 6px 0; line-height: 1.4; }
+
+  /* Subtle citation tag */
+  .cite {
+    display: inline-block;
+    background: var(--code);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-style: normal;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.green { background: var(--green); }
+
+  hr.sep {
+    border: 0;
+    border-top: 1px dashed var(--rule);
+    margin: 28px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="title">
+    <div class="eyebrow">DOH 256 · Periodontics &amp; Endodontics</div>
+    <h1>Healing After Non-Surgical Periodontal Therapy</h1>
+    <div class="meta">Lecture by Dr Jake Ball — structured study notes</div>
+  </header>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#clinical">Clinical evaluation of healing</a></li>
+      <li><a href="#probing">A word on periodontal probing</a></li>
+      <li><a href="#armitage">Armitage 1977 — where the probe stops</a></li>
+      <li><a href="#repro">Badersten 1985 — reproducibility</a></li>
+      <li><a href="#defs">Four healing definitions</a></li>
+      <li><a href="#histo">Histological healing after SRD</a></li>
+      <li><a href="#lje">The long junctional epithelium</a></li>
+      <li><a href="#transient">Is the LJE permanent?</a></li>
+      <li><a href="#exam">High-yield exam summary</a></li>
+      <li><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+
+  <!-- CLINICAL -->
+  <section id="clinical">
+    <h2 class="section">1. Clinical evaluation of periodontal healing</h2>
+    <p>Four parameters are used to evaluate healing following scaling and root debridement:</p>
+    <p><span class="pill">PPD</span><span class="pill teal">Recession</span><span class="pill gold">CAL</span><span class="pill green">BOP</span></p>
+
+    <h3>Expected magnitude of change <span class="cite">Cobb 1996</span></h3>
+    <table>
+      <thead><tr><th>Initial probing depth</th><th>Mean reduction in PD (mm)</th><th>CAL change (mm)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1–3 mm</strong></td><td>0.03 <em>(negligible)</em></td><td><strong>−0.34</strong> <em>(loss)</em></td></tr>
+        <tr><td><strong>4–6 mm</strong></td><td>−1.29</td><td><strong>+0.55</strong> <em>(gain)</em></td></tr>
+        <tr><td><strong>≥ 7 mm</strong></td><td>−2.16</td><td><strong>+1.29</strong> <em>(gain)</em></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>Why review at 3 months?</h4>
+      <p>The <strong>greatest change in probing depth reduction and gain in clinical attachment occurs within 1–3 months</strong> post-SRP for incisors and premolars <span class="cite">Badersten et al. 1984</span> and molars <span class="cite">Loos et al. 1989</span> — although <strong>healing and maturation of the periodontium may continue over the following 9–12 months</strong> <span class="cite">Badersten et al. 1984</span>.</p>
+    </div>
+  </section>
+
+  <!-- PROBING -->
+  <section id="probing">
+    <h2 class="section">2. A word on periodontal probing</h2>
+    <ul>
+      <li>Periodontal probes assess the health of the periodontium and are used to <strong>evaluate change throughout the treatment process</strong>.</li>
+      <li>A <strong>tapered probe, tip diameter 0.5 mm, at a force of 0.25 N (25 g)</strong> may be most suitable for assessment <span class="cite">Bulthuis et al. 1998</span>.</li>
+    </ul>
+
+    <div class="box note">
+      <h4>How much is 0.25 N?</h4>
+      <p>Roughly the pressure required to <strong>blanch your fingernail</strong>. Use this as the calibration cue in clinic.</p>
+    </div>
+
+    <h3>Why histological ≠ clinical sulcus depth <span class="cite">Listgarten 1980, review</span></h3>
+    <ul>
+      <li><strong>Insertion force</strong></li>
+      <li><strong>Connective tissue destruction</strong> — the probe meets decreased resistance from gingival tissues at diseased sites</li>
+      <li>The probe may <strong>pass the apical cells of the junctional epithelium</strong> <span class="cite">Armitage 1977</span></li>
+      <li><strong>Angle of insertion</strong></li>
+      <li><strong>Contour of the tooth surface</strong></li>
+      <li><strong>Presence of calculus</strong></li>
+    </ul>
+  </section>
+
+  <!-- ARMITAGE -->
+  <section id="armitage">
+    <h2 class="section">3. Armitage et al. 1977 — where does the probe tip actually stop?</h2>
+    <p>Investigated the level at which the periodontal probe corresponds to the level of <strong>connective tissue attachment</strong>, at a standardised force of <strong>0.25 N</strong>, in three tissue states.</p>
+    <table>
+      <thead><tr><th>Tissue state</th><th>Probe tip relative to JE</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Healthy gingiva</strong></td><td>Stopped <strong>short</strong> of JE by <strong>0.39 mm</strong></td></tr>
+        <tr><td><strong>Experimental gingivitis</strong></td><td>Stopped <strong>short</strong> of JE by <strong>0.10 mm</strong></td></tr>
+        <tr><td><strong>Advanced periodontitis</strong></td><td>Went <strong>past</strong> JE by <strong>0.24 mm</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="box warn">
+      <h4>The pattern to remember</h4>
+      <p>As inflammation increases, the probe penetrates further. In health it <strong>under-reads</strong>; in disease it <strong>over-reads</strong>. Probing depth is therefore a <strong>clinical approximation</strong>, not a histological measurement.</p>
+    </div>
+  </section>
+
+  <!-- REPRODUCIBILITY -->
+  <section id="repro">
+    <h2 class="section">4. Badersten et al. 1985 — reproducibility of probing</h2>
+    <p>Studied reproducibility of probing level measurements in <strong>incisors, canines and premolars</strong>, examining both <strong>inter-</strong> and <strong>intra-examiner</strong> reproducibility.</p>
+    <ul>
+      <li><strong>90% of recordings</strong> could be reproduced within <strong>± 1.0 mm</strong> for both inter- and intra-examiner recordings.</li>
+      <li>Reproducibility <strong>improved following non-surgical periodontal therapy</strong>.</li>
+      <li>Reproducibility <strong>varied significantly</strong> between tooth types, tooth surfaces and pocket depths.</li>
+    </ul>
+    <div class="box note">
+      <h4>Clinical consequence</h4>
+      <p>A change of <strong>1 mm or less</strong> between visits may simply be measurement error. Only changes <strong>beyond ± 1 mm</strong> should be interpreted as genuine disease progression or improvement.</p>
+    </div>
+  </section>
+
+  <!-- DEFINITIONS -->
+  <section id="defs">
+    <h2 class="section">5. Four definitions you must be able to separate</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Repair</strong></td>
+          <td>Healing of a wound by tissue that <strong>does not fully restore the architecture or function</strong> of the part. <strong>This is what occurs following SRD at periodontal pockets.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Reattachment</strong></td>
+          <td>To attach again — the <strong>reunion of epithelial and connective tissues with root surfaces and bone</strong>, such as occurs after an incision or injury. Not to be confused with new attachment.</td>
+        </tr>
+        <tr>
+          <td><strong>New attachment</strong></td>
+          <td>Union of connective tissue or epithelium with a root surface <strong>that has been deprived of its original attachment apparatus</strong>. May be epithelial adhesion and/or connective tissue adaptation or attachment, and may include new cementum.</td>
+        </tr>
+        <tr>
+          <td><strong>Regeneration</strong></td>
+          <td>Reproduction or reconstitution of a lost or injured part. <strong>The ultimate goal of periodontal therapy.</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>The central tension of this lecture</h4>
+      <p>The <strong>ultimate goal</strong> is to <strong>regenerate</strong> the lost attachment apparatus — but periodontal treatment by SRD generally results in wound healing by <strong>repair</strong>, not regeneration. The attachment formed is <strong>primarily a long junctional epithelium rather than new connective tissue attachment</strong> <span class="cite">Waerhaug 1978; Caton &amp; Zander 1979</span>.</p>
+    </div>
+
+    <div class="box warn">
+      <h4>Distinguishing reattachment from new attachment</h4>
+      <p><strong>Reattachment</strong> — the root surface <em>still has</em> its original attachment apparatus (e.g. after a clean incision). <strong>New attachment</strong> — the root surface has been <em>stripped</em> of it by disease. The word "new" signals that something was lost first.</p>
+    </div>
+  </section>
+
+  <!-- HISTOLOGY -->
+  <section id="histo">
+    <h2 class="section">6. Histological healing response following SRD</h2>
+
+    <h3>Waerhaug 1978a/b</h3>
+    <ul>
+      <li>After non-surgical SRD the <strong>pocket epithelium remains</strong> — its remnants give rise to <strong>reformation of the junctional epithelium</strong>.</li>
+      <li>JE forms (as a <strong>long junctional epithelium, LJE</strong>) at the tooth surface in areas <strong>previously covered by subgingival calculus and plaque</strong> → the <strong>pathological pocket is reversible</strong>.</li>
+      <li><strong>Ideal healing can only take place if adequate daily supragingival plaque control is performed.</strong></li>
+      <li>New subgingival plaque can reform if <strong>remnants of subgingival plaque are left behind</strong>, or if <strong>supragingival plaque remains on the tooth surface for prolonged periods</strong>.</li>
+    </ul>
+
+    <h3>Healing timeline</h3>
+    <div class="stages">
+      <div class="stage">
+        <div class="label">By 2 weeks</div>
+        <h5>Dento-epithelial junction</h5>
+        <div class="time">Waerhaug 1978a</div>
+        <ul><li>New dento-epithelial junction appears <strong>complete</strong></li><li>Granulation tissue of the soft tissue wall may take <strong>longer</strong> to be fully replaced with collagen</li></ul>
+      </div>
+      <div class="stage">
+        <div class="label">30–60 days</div>
+        <h5>Collagen maturation</h5>
+        <div class="time">Biagini et al. 1998</div>
+        <ul><li><strong>4–8 weeks</strong> for <strong>precisely orientated collagen bundle fibres</strong> to form</li></ul>
+      </div>
+    </div>
+
+    <h3>What kind of attachment forms?</h3>
+    <ul>
+      <li>Healing following SRP occurs by <strong>formation of an LJE, not new connective tissue attachment</strong> <span class="cite">Caton &amp; Zander 1979</span>, or with <strong>minimal CT only</strong> <span class="cite">Beaumont et al. 1984</span>.</li>
+      <li>Critically, the LJE provides a <strong>proper barrier function against plaque infection</strong> and is <strong>not inferior</strong> to a dento-gingival junction of normal length <span class="cite">Magnusson et al. 1983; Beaumont et al. 1984</span>.</li>
+    </ul>
+
+    <div class="box fact">
+      <h4>The race for the root surface</h4>
+      <p><strong>It is the cells that repopulate the root surface that determine the nature of the attachment that forms.</strong> In LJE formation, the <strong>faster-migrating epithelial cells</strong> arrive first, preventing the <strong>slower-migrating PDL cells</strong> from reaching the surface. This <strong>epithelial downgrowth in turn prevents new connective tissue attachment</strong>.</p>
+      <p>This single mechanism is also the entire rationale for <strong>guided tissue regeneration</strong> — a membrane exists to exclude epithelium so the PDL cells can win the race.</p>
+    </div>
+  </section>
+
+  <!-- LJE -->
+  <section id="lje">
+    <h2 class="section">7. The long junctional epithelium</h2>
+
+    <h3>Characteristics <span class="cite">Shimono et al. 2003</span></h3>
+    <ul>
+      <li><strong>Similar ultrastructure</strong> to junctional epithelium of normal length.</li>
+      <li>Composed of <strong>non-keratinised squamous epithelium</strong>.</li>
+      <li>Consists of <strong>2–3 layers aligned parallel</strong> to the tooth surface.</li>
+      <li>Attaches to the cementum surface by <strong>hemidesmosomes and basal lamina</strong>.</li>
+      <li><strong>Permeable</strong>, due to its wide intercellular spaces.</li>
+      <li><strong>Fewer capillaries</strong> in the connective tissue compared with normal JE.</li>
+      <li>Can be <strong>produced rapidly</strong> during wound healing, due to <strong>high proliferative activity</strong> of the epithelium.</li>
+    </ul>
+
+    <h3>Length comparison</h3>
+    <table>
+      <thead><tr><th>Epithelium</th><th>Length</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Junctional epithelium of <strong>normal length</strong></td><td><strong>~0.1–1.4 mm</strong></td><td><span class="cite">Stanley 1955</span></td></tr>
+        <tr><td><strong>Long</strong> junctional epithelium</td><td><strong>~2.5 mm</strong></td><td><span class="cite">Caton &amp; Zander 1979</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- TRANSIENT -->
+  <section id="transient">
+    <h2 class="section">8. Is the LJE permanent?</h2>
+    <ul>
+      <li>It has been suggested that the LJE is a <strong>transient feature of the healing process</strong> on the path to connective tissue attachment, and <strong>not the final healing stage</strong> <span class="cite">Listgarten et al. 1982</span>.</li>
+      <li>Epithelial cells of the LJE can <strong>migrate coronally at 4 weeks post-treatment</strong>, resulting in a <strong>shorter LJE over time</strong> <span class="cite">Katayanagi 1992</span>.</li>
+      <li>Therefore a rapidly produced LJE <strong>may become shorter over time, being replaced by connective tissue</strong> <span class="cite">Katayanagi 1992</span>.</li>
+    </ul>
+  </section>
+
+  <!-- EXAM -->
+  <hr class="sep" />
+  <section id="exam">
+    <h2 class="section">9. High-yield exam summary</h2>
+
+    <div class="box key">
+      <h4>Conclusion points from the lecture</h4>
+      <ul>
+        <li>Clinical parameters (<strong>PPD, CAL, BOP</strong>) are how we evaluate the healing response to periodontal therapy.</li>
+        <li>Histological studies show healing occurs <strong>via repair with formation of an LJE</strong>, which has a <strong>similar ultrastructure</strong> to JE of normal length.</li>
+        <li>The <strong>LJE provides barrier function similar to</strong> JE of normal length.</li>
+        <li>The LJE <strong>may be transient</strong>, eventually replaced by connective tissue.</li>
+        <li>Knowledge of these clinical and histological changes allows the clinician to <strong>accurately diagnose persistent sites</strong> of inflammation and plan treatment, and to <strong>inform the patient</strong> of the changes that will occur after treatment.</li>
+      </ul>
+    </div>
+
+    <div class="box note">
+      <h4>Numbers worth memorising</h4>
+      <table>
+        <thead><tr><th>Number</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><strong>0.5 mm / 0.25 N (25 g)</strong></td><td>Probe tip diameter and force (Bulthuis 1998)</td></tr>
+          <tr><td><strong>0.39 / 0.10 / −0.24 mm</strong></td><td>Probe short of JE in health / gingivitis; past JE in periodontitis (Armitage 1977)</td></tr>
+          <tr><td><strong>90% within ± 1.0 mm</strong></td><td>Probing reproducibility (Badersten 1985)</td></tr>
+          <tr><td><strong>2 weeks</strong></td><td>New dento-epithelial junction complete (Waerhaug 1978a)</td></tr>
+          <tr><td><strong>30–60 days (4–8 weeks)</strong></td><td>Precisely orientated collagen bundle fibres (Biagini 1998)</td></tr>
+          <tr><td><strong>4 weeks</strong></td><td>Coronal migration of LJE cells begins (Katayanagi 1992)</td></tr>
+          <tr><td><strong>0.1–1.4 mm vs ~2.5 mm</strong></td><td>Normal JE vs LJE length (Stanley 1955; Caton &amp; Zander 1979)</td></tr>
+          <tr><td><strong>1–3 months / 9–12 months</strong></td><td>Greatest clinical change / continued maturation (Badersten 1984)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box fact">
+      <h4>Author–finding pairings</h4>
+      <ul>
+        <li><strong>Bulthuis et al. 1998</strong> — probe design and force</li>
+        <li><strong>Listgarten 1980</strong> — review of why clinical ≠ histological sulcus depth</li>
+        <li><strong>Armitage et al. 1977</strong> — probe tip position in health, gingivitis, periodontitis</li>
+        <li><strong>Badersten et al. 1985</strong> — probing reproducibility, 90% within ± 1 mm</li>
+        <li><strong>Waerhaug 1978a/b</strong> — pocket epithelium remnants reform JE; pocket is reversible</li>
+        <li><strong>Caton &amp; Zander 1979</strong> — healing by LJE, not new CT attachment; LJE ~2.5 mm</li>
+        <li><strong>Beaumont et al. 1984</strong> — minimal CT attachment; LJE barrier function</li>
+        <li><strong>Magnusson et al. 1983</strong> — LJE not inferior as a barrier</li>
+        <li><strong>Biagini et al. 1998</strong> — 30–60 days to orientated collagen bundles</li>
+        <li><strong>Shimono et al. 2003</strong> — ultrastructural characteristics of LJE</li>
+        <li><strong>Stanley 1955</strong> — normal JE length</li>
+        <li><strong>Listgarten et al. 1982</strong> — LJE possibly transient</li>
+        <li><strong>Katayanagi 1992</strong> — coronal migration at 4 weeks, LJE shortens</li>
+      </ul>
+    </div>
+
+    <div class="box warn">
+      <h4>Likely long-answer prompts</h4>
+      <ul>
+        <li>"Describe the healing that occurs following non-surgical periodontal therapy." → repair not regeneration → pocket epithelium remnants → LJE formation → race for the root surface → barrier function equivalent → possibly transient.</li>
+        <li>"Define repair, reattachment, new attachment and regeneration." → the four-row table, then state which one SRD achieves.</li>
+        <li>"Discuss the limitations of periodontal probing." → Listgarten's factors, Armitage's three tissue states, Badersten's ± 1 mm reproducibility, and the clinical consequence for diagnosing progression.</li>
+        <li>"Why is supragingival plaque control essential after SRD?" → Waerhaug: ideal healing requires it; residual or re-formed plaque allows new subgingival plaque and recolonisation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <hr class="sep" />
+  <section id="refs">
+    <h2 class="section">10. Reference list (as cited in lecture)</h2>
+    <ol class="refs">
+      <li>Armitage GC, Svanberg GK, Löe H (1977) — microscopic evaluation of clinical measurements of connective tissue attachment levels.</li>
+      <li>Badersten A, Nilvéus R, Egelberg J (1984, 1985) — effect of non-surgical periodontal therapy; reproducibility of probing attachment level measurements.</li>
+      <li>Beaumont RH, O'Leary TJ, Kafrawy AH (1984) — relative resistance of long junctional epithelial adhesions and connective tissue attachments to plaque-induced inflammation.</li>
+      <li>Biagini G, et al. (1998) — collagen bundle orientation during periodontal wound healing.</li>
+      <li>Bulthuis HM, et al. (1998) — probe tip diameter and probing force.</li>
+      <li>Caton JG, Zander HA (1979) — the attachment between tooth and gingival tissues after periodic root planing and soft tissue curettage.</li>
+      <li>Cobb CM (1996) — non-surgical pocket therapy: mechanical.</li>
+      <li>Katayanagi H (1992) — coronal migration of long junctional epithelium after treatment.</li>
+      <li>Listgarten MA (1980) — periodontal probing: what does it mean? (review)</li>
+      <li>Listgarten MA, Rosenberg S, Lerner S (1982) — progressive replacement of epithelial attachment by a connective tissue junction after experimental periodontal surgery in rats.</li>
+      <li>Loos B, Nylund K, Claffey N, Egelberg J (1989) — clinical effects of root debridement in molar and non-molar teeth.</li>
+      <li>Magnusson I, Runstad L, Nyman S, Lindhe J (1983) — a long junctional epithelium — a locus minoris resistentiae in plaque infection?</li>
+      <li>Shimono M, et al. (2003) — biological characteristics of the junctional epithelium.</li>
+      <li>Stanley HR (1955) — the cyclic phenomenon of periodontitis.</li>
+      <li>Waerhaug J (1978a, 1978b) — healing of the dento-epithelial junction following subgingival plaque control, I and II.</li>
+    </ol>
+  </section>
+
+</div>
+</body>
+</html>

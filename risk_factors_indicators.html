@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk Factors &amp; Risk Indicators — Study Notes</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --paper: #ffffff;
+    --ink: #1f2330;
+    --muted: #5b6172;
+    --accent: #8b1e3f;       /* deep maroon */
+    --accent-soft: #f3e0e6;
+    --teal: #1f6f73;
+    --teal-soft: #e0eded;
+    --gold: #b48a2a;
+    --gold-soft: #f5ecd3;
+    --green: #3b6e3a;
+    --green-soft: #e2eddf;
+    --rule: #e2ded5;
+    --code: #f1efe8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  header.title {
+    border-bottom: 3px double var(--accent);
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  header.title .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 34px;
+    margin: 6px 0 4px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  header.title .meta {
+    color: var(--muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0 36px;
+    border-radius: 4px;
+  }
+  nav.toc h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 22px;
+    columns: 2;
+    column-gap: 28px;
+  }
+  nav.toc li {
+    margin: 4px 0;
+    break-inside: avoid;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--muted);
+  }
+  nav.toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  section { margin: 40px 0; }
+  h2.section {
+    font-size: 24px;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  h4 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 16px 0 6px;
+  }
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  strong { color: var(--accent); }
+  em.author { color: var(--teal); font-style: italic; }
+
+  /* Callout boxes */
+  .box {
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-left: 4px solid;
+  }
+  .box.key   { background: var(--accent-soft); border-color: var(--accent); }
+  .box.note  { background: var(--teal-soft);   border-color: var(--teal); }
+  .box.warn  { background: var(--gold-soft);   border-color: var(--gold); }
+  .box.fact  { background: var(--green-soft);  border-color: var(--green); }
+  .box h4 { margin-top: 0; color: inherit; }
+  .box.key   h4 { color: var(--accent); }
+  .box.note  h4 { color: var(--teal); }
+  .box.warn  h4 { color: var(--gold); }
+  .box.fact  h4 { color: var(--green); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 15px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #fafaf6; }
+
+  /* Stage cards */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stage {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 4px;
+  }
+  .stage .label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stage h5 {
+    margin: 4px 0 8px;
+    font-size: 17px;
+    color: var(--accent);
+  }
+  .stage .time {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .stage ul { padding-left: 18px; margin: 0; font-size: 14px; }
+
+  /* Two column flow */
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 12px 0;
+  }
+  @media (max-width: 720px) {
+    .twocol { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+  }
+
+  /* Refs */
+  .refs {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .refs li { margin: 6px 0; line-height: 1.4; }
+
+  /* Subtle citation tag */
+  .cite {
+    display: inline-block;
+    background: var(--code);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-style: normal;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.green { background: var(--green); }
+
+  hr.sep {
+    border: 0;
+    border-top: 1px dashed var(--rule);
+    margin: 28px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="title">
+    <div class="eyebrow">DOH 256 · Periodontics &amp; Endodontics</div>
+    <h1>Risk Factors &amp; Risk Indicators</h1>
+    <div class="meta">Lecture by Dr Jake Ball — structured study notes</div>
+  </header>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#defs">Definitions — the four categories</a></li>
+      <li><a href="#smoking">Risk factor: tobacco smoking</a></li>
+      <li><a href="#smoke-mech">Smoking — pathogenic mechanisms</a></li>
+      <li><a href="#cessation">The dental professional's role in cessation</a></li>
+      <li><a href="#diabetes">Risk factor: diabetes mellitus</a></li>
+      <li><a href="#bacteria">Risk factor: pathogenic bacteria in plaque</a></li>
+      <li><a href="#determinants">Risk determinants: age, gender, race, SES</a></li>
+      <li><a href="#genetics">Risk determinant: genetics</a></li>
+      <li><a href="#stress">Risk determinant: stress</a></li>
+      <li><a href="#indicators">Risk indicators: visits, obesity, alcohol</a></li>
+      <li><a href="#markers">Risk markers: past disease &amp; BOP</a></li>
+      <li><a href="#exam">High-yield exam summary</a></li>
+      <li><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+
+  <!-- DEFINITIONS -->
+  <section id="defs">
+    <h2 class="section">1. Definitions — the four categories</h2>
+    <table>
+      <thead><tr><th>Term</th><th>Definition</th><th>Evidence base</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Risk factor</strong></td>
+          <td><strong>Environmental, behavioural or biologic</strong> factors which, when present, <strong>increase the likelihood</strong> that an individual will develop disease. Exposure <strong>must occur before disease onset</strong>. Exposure can be at single, multiple or continuous time points. Interventions can be identified which, when implemented, help <strong>modify</strong> the risk factor.</td>
+          <td><strong>Cross-sectional AND longitudinal</strong> studies</td>
+        </tr>
+        <tr>
+          <td><strong>Risk determinant</strong><br /><em>(background characteristic)</em></td>
+          <td>Sometimes substituted for "risk factor", but should be reserved for risk factors that <strong>cannot be modified</strong>.</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Risk indicator</strong></td>
+          <td><strong>Probable</strong> risk factors identified in cross-sectional studies but <strong>not yet confirmed</strong> longitudinally.</td>
+          <td><strong>Cross-sectional only</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Risk predictor / marker</strong></td>
+          <td>Associated with increased risk for disease but <strong>do not cause</strong> the disease.</td>
+          <td>Cross-sectional and longitudinal</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>The discriminators</h4>
+      <p><strong>Factor vs determinant</strong> = modifiable or not. <strong>Factor vs indicator</strong> = confirmed longitudinally or not. <strong>Factor vs marker</strong> = causal or merely associated. Getting an item into the right category is a classic short-answer question.</p>
+    </div>
+  </section>
+
+  <!-- SMOKING -->
+  <section id="smoking">
+    <h2 class="section">2. Risk factor: tobacco smoking</h2>
+
+    <h3>Why smoking qualifies as a risk factor <span class="cite">Genco &amp; Borgnakke 2013</span></h3>
+    <ol>
+      <li><strong>Consistency</strong> of results across many studies</li>
+      <li><strong>Strength</strong> of the association</li>
+      <li><strong>Dose–response</strong> of the association</li>
+      <li><strong>Temporal sequence</strong> of smoking and periodontal disease</li>
+      <li><strong>Biologic plausibility</strong></li>
+    </ol>
+
+    <h3>Dose-dependent increase in prevalence and severity</h3>
+    <ul>
+      <li><strong>OR 2–5 for loss of attachment</strong> and <strong>OR 3–7 for radiographic bone loss</strong> <span class="cite">Grossi et al. 1994, 1995</span></li>
+      <li>Current smokers show <strong>greater disease progression</strong> in CAL and RBL <span class="cite">Machtei et al. 1999</span></li>
+      <li>Increased <strong>severity</strong> of periodontitis associated with smoking <span class="cite">Eke et al. 2012</span></li>
+      <li><strong>5.3× greater risk of PPD &gt; 3.5 mm</strong> in smokers vs non-smokers <span class="cite">Stoltenberg et al. 1993</span></li>
+      <li>LOA is <strong>pronounced in the anterior maxilla and mandible</strong> <span class="cite">Preber &amp; Bergström 1986</span></li>
+      <li>Greater risk of <strong>tooth loss</strong> <span class="cite">Salvi et al. 2014; Dannewitz et al. 2006</span></li>
+    </ul>
+
+    <h3>Poorer response to non-surgical therapy</h3>
+    <ul>
+      <li>Significantly <strong>less PPD reduction</strong> in smokers <span class="cite">Preber et al. 1995; Darby et al. 2005</span></li>
+      <li>Significantly <strong>less BOP reduction despite greater plaque reduction</strong> <span class="cite">Preber &amp; Bergström 1986</span></li>
+      <li>Inferior improvement in PPD and CAL <span class="cite">Renvert et al. 1998; Darby et al. 2005</span>, with greater persistence of <em>P. intermedia</em> <span class="cite">Darby 2005</span> and <em>A.a</em> <span class="cite">Renvert 1998</span> post-SRD</li>
+    </ul>
+
+    <h3>Poorer response to surgical therapy</h3>
+    <ul>
+      <li>Significantly <strong>less PPD reduction and less CAL gain</strong> immediately after active therapy and during <strong>6 years of maintenance</strong> <span class="cite">Ah et al. 1994</span></li>
+      <li>Poorer healing (decreased PPD/CAL response, <strong>membrane exposure</strong>) following <strong>guided tissue regeneration</strong> for intra-bony defects <span class="cite">Tonetti et al. 1995</span> and recession defects <span class="cite">Trombelli &amp; Scabbia 1997</span></li>
+    </ul>
+
+    <div class="box fact">
+      <h4>Cessation is beneficial — and this is the hopeful message for patients</h4>
+      <ul>
+        <li>Comparable healing response in <strong>former smokers who quit ≥ 1 year ago</strong> <span class="cite">Grossi et al. 1997; Preshaw et al. 2005</span></li>
+        <li>May take <strong>24 months</strong> for this to become clinically evident <span class="cite">Rosa et al. 2014</span></li>
+      </ul>
+    </div>
+
+    <div class="box warn">
+      <h4>The classic exam trap</h4>
+      <p>Smokers show <strong>less bleeding on probing despite having more disease</strong>, because reduced vascularity masks the inflammatory signal. BOP therefore <strong>under-estimates disease in smokers</strong> — do not read a "quiet" chart as health.</p>
+    </div>
+  </section>
+
+  <!-- MECHANISM -->
+  <section id="smoke-mech">
+    <h2 class="section">3. Smoking — pathogenic mechanisms</h2>
+    <p>Approximately <strong>4000 toxic substances</strong> are reported in tobacco, including <strong>carbon monoxide, oxidising radicals, carcinogens (e.g. nitrosamine) and nicotine</strong> <span class="cite">Genco &amp; Borgnakke 2013</span>.</p>
+
+    <table>
+      <thead><tr><th>System altered</th><th>Effect</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Microbiology</strong><br /><em>(controversial)</em></td>
+          <td>Greater prevalence of <strong>anaerobes</strong> due to reduced oxygen tension in pockets — more <em>T. forsythia</em> and <em>P. gingivalis</em> in smokers <span class="cite">Zambon et al. 1996, Erie County study, pooled samples</span>.<br /><strong>In contrast:</strong> no differences in <em>A.a</em>, <em>P.g</em>, <em>P.i</em> <span class="cite">Preber et al. 1992</span>; no difference in <em>P.g</em>, <em>A.a</em>, <em>P.i</em>, <em>E.c</em>, <em>F.n</em> <span class="cite">Boström et al. 1998</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>Gingival blood flow</strong></td>
+          <td><strong>Reduced vascularity</strong> — rather than simple vasoconstriction by nicotine, it is now known there is <strong>reduced vascular density and angiogenesis</strong>, impairing the inflammatory response <span class="cite">Rezavandi et al. 2002</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>PMNs &amp; phagocytosis</strong></td>
+          <td>Impaired <strong>phagocytosis</strong> <span class="cite">MacFarlane et al. 1992</span>, impaired <strong>chemotaxis</strong> <span class="cite">Ryder 1994</span>, <strong>reduced adherence</strong> <span class="cite">Barbour et al. 1997</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>Cytokine production</strong></td>
+          <td>Cytokine imbalance in GCF → <strong>increased IL-6, IL-8, TNF-α</strong> <span class="cite">Boström 1998, 1999; Giannopoulou 2003</span>; <strong>reduced IL-1, chemokines, T-reg and NK cells</strong> <span class="cite">Tymkiw 2011; Petropoulos 2004</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>T-cell subsets</strong></td>
+          <td>Increased <strong>CD3+, CD4+, CD8+</strong> T cells and increased T-cell proliferation <span class="cite">Loos et al. 2004</span>.</td>
+        </tr>
+        <tr>
+          <td><strong>Wound healing</strong></td>
+          <td>Poor healing response due to <strong>impairment of fibroblasts</strong> <span class="cite">James et al. 1999</span>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- CESSATION -->
+  <section id="cessation">
+    <h2 class="section">4. The dental professional's role in smoking cessation</h2>
+    <p>Dental practitioners should <strong>always ask about current and past smoking</strong>.</p>
+
+    <div class="box key">
+      <h4>Pack-years</h4>
+      <p><strong>Pack-years = number of packs smoked per day × number of years smoking.</strong></p>
+      <p><strong>1 pack-year</strong> = the cumulative exposure of smoking <strong>1 pack of 20 cigarettes per day for 1 year</strong>. E.g. a smoker of 20 cigarettes/day for 15 years has <strong>15 pack-years</strong>.</p>
+    </div>
+
+    <p><strong>Former smokers should always be congratulated</strong> for quitting. Document <strong>how much they used to smoke, how many they smoked, and when they quit</strong>.</p>
+
+    <h3>Brief intervention — the 5 A's</h3>
+    <table>
+      <thead><tr><th>Step</th><th>What it involves</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ASK</strong></td><td>Ask about smoking status — part of the medical history</td></tr>
+        <tr><td><strong>ADVISE</strong></td><td>Advise smokers of the association between oral disease and smoking</td></tr>
+        <tr><td><strong>ASSESS</strong></td><td>Assess interest in and readiness to attempt cessation</td></tr>
+        <tr><td><strong>ASSIST</strong></td><td>Assist the quit attempt — willpower alone, self-help materials, primary care intervention programs, <strong>nicotine replacement therapy</strong> (patches, lozenges, gum, nasal spray, inhalator), <strong>varenicline (Champix)</strong></td></tr>
+        <tr><td><strong>ARRANGE</strong></td><td>Arrange follow-up or referral to smoking cessation services</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- DIABETES -->
+  <section id="diabetes">
+    <h2 class="section">5. Risk factor: diabetes mellitus</h2>
+
+    <h3>Scale and definition</h3>
+    <ul>
+      <li>In Australia, an estimated <strong>1.2 million people over 2 years old</strong> have diabetes mellitus — <strong>5.1% of the population</strong>.</li>
+      <li><strong>T2DM accounted for 85%</strong> of total DM diagnoses in 2014–15.</li>
+      <li>DM is a chronic condition characterised by <strong>hyperglycaemia secondary to an absolute or relative decrease in insulin</strong>.</li>
+    </ul>
+
+    <h3>Classification</h3>
+    <ul>
+      <li><strong>T1DM</strong> — autoimmune-mediated destruction of pancreatic <strong>beta-cells</strong>, normally responsible for producing insulin.</li>
+      <li><strong>T2DM</strong> — combination of <strong>peripheral insulin resistance and progressive insulin secretory failure</strong>. Most common form; colloquially "lifestyle" related.</li>
+      <li><strong>Hyperglycaemia of pregnancy</strong> (including gestational diabetes) — onset or first recognition during pregnancy; usually resolves post-partum.</li>
+      <li><strong>Other</strong> — hyperglycaemia secondary to another primary disorder (drug-induced, cystic fibrosis, pancreatitis, Cushing syndrome).</li>
+    </ul>
+
+    <h3>Diagnostic thresholds</h3>
+    <table>
+      <thead><tr><th>Test</th><th>Diagnostic of DM</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>HbA1c</strong> — glycated haemoglobin, formed by non-enzymatic binding of sugars to haemoglobin; a <strong>surrogate marker for hyperglycaemia over the preceding 3 months</strong></td>
+          <td><strong>≥ 48 mmol/mol (6.5%)</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Fasting BGL</strong> (confirmed on two occasions)</td>
+          <td><strong>≥ 7.0 mmol/L</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Random BGL</strong> (confirmed on two occasions)</td>
+          <td><strong>≥ 11.1 mmol/L</strong></td>
+        </tr>
+        <tr>
+          <td><strong>OGTT</strong> — 75 g glucose load, samples before and after; also diagnoses <strong>"prediabetes"</strong> where levels lie between normal and diagnostic</td>
+          <td>Fasting <strong>≥ 7.0 mmol/L</strong> or 2-hour post-load <strong>≥ 11.1 mmol/L</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>The evidence</h3>
+    <ul>
+      <li>Greater prevalence and severity of periodontitis with <strong>poor metabolic control</strong> — diabetics are <strong>2× more likely to exhibit LOA</strong> <span class="cite">Grossi et al. 1994; Emrich et al. 1991</span>.</li>
+      <li>Poorer response to therapy with poor control — after NSPT, patients with poor metabolic control show <strong>greater prevalence of attachment loss (&gt; 2 mm)</strong> and <strong>greater and faster occurrence of PPD &gt; 4 mm</strong> <span class="cite">Tervonen &amp; Karjalainen 1997</span>.</li>
+      <li>A small body of evidence supports <strong>adverse effects of periodontal disease on glycaemic control, diabetes complications, and development of T2DM</strong> (and possibly gestational diabetes) <span class="cite">Borgnakke et al. 2013</span>.</li>
+    </ul>
+
+    <h3>Periodontal treatment may improve diabetic control</h3>
+    <table>
+      <thead><tr><th>Time after NSPT</th><th>HbA1c improvement</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td><strong>3 months</strong></td><td>~<strong>0.38%</strong></td><td><span class="cite">Corbella et al. 2013</span></td></tr>
+        <tr><td><strong>4 months</strong></td><td><strong>0.29–0.6%</strong></td><td><span class="cite">Gay et al. 2014; Simpson et al. 2015</span></td></tr>
+        <tr><td><strong>6 months</strong></td><td><strong>0.31%</strong></td><td><span class="cite">Corbella et al. 2013</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>Mechanism — the AGE/RAGE axis</h4>
+      <p>Hyperglycaemia drives formation of <strong>advanced glycation end-products (AGEs)</strong> and expression of their signalling receptor <strong>RAGE</strong>, resulting in:</p>
+      <ul>
+        <li><strong>Immune cell dysfunction</strong></li>
+        <li><strong>Altered phenotype and function</strong> of cells in the periodontium</li>
+        <li><strong>Cytokine imbalance</strong> and increased production of <strong>pro-inflammatory cytokines</strong></li>
+      </ul>
+      <p>Hyperglycaemia also increases <strong>ROS and oxidative stress</strong> — directly and indirectly via AGE/RAGE — and <strong>modulates the RANKL/OPG ratio</strong>. All of this is complemented by <strong>ecological shifts in the subgingival biofilm</strong> and <strong>increased adipokines</strong>. End result: <strong>accelerated periodontitis</strong>.</p>
+      <p><strong>The relationship is bidirectional.</strong></p>
+    </div>
+  </section>
+
+  <!-- BACTERIA -->
+  <section id="bacteria">
+    <h2 class="section">6. Risk factor: pathogenic bacteria in plaque</h2>
+    <p>The <strong>composition or quality</strong> of the plaque biofilm may increase risk for periodontitis in a susceptible person.</p>
+    <ul>
+      <li>Plaque accumulation at the gingival margin causes gingivitis, reversible with oral hygiene <span class="cite">Löe et al. 1965</span>.</li>
+      <li><strong>But plaque accumulation does not mean someone will develop periodontitis</strong> — this depends on the <strong>interaction between host and plaque</strong>.</li>
+    </ul>
+
+    <div class="box fact">
+      <h4>The three established aetiologic agents <span class="cite">Genco et al. 1996</span></h4>
+      <p>Identified in both cross-sectional and longitudinal studies:</p>
+      <ul>
+        <li><em><strong>Aggregatibacter actinomycetemcomitans</strong></em></li>
+        <li><em><strong>Porphyromonas gingivalis</strong></em></li>
+        <li><em><strong>Tannerella forsythia</strong></em></li>
+      </ul>
+    </div>
+
+    <h3>Additional evidence implicating these organisms <span class="cite">Haffajee &amp; Socransky 1994</span></h3>
+    <ol>
+      <li>Their <strong>elimination or suppression impacts the success of therapy</strong></li>
+      <li>There is a <strong>host response</strong> to these pathogens</li>
+      <li><strong>Virulence factors</strong> are associated with these pathogens</li>
+      <li><strong>Inoculation into animal models induces periodontal disease</strong></li>
+    </ol>
+
+    <p>Moderate evidence — though not fully meeting the criteria for causation — also implicates <em>Campylobacter rectus</em>, <em>Eubacterium nodatum</em>, <em>Fusobacterium nucleatum</em>, <em>Prevotella intermedia</em>, <em>Prevotella nigrescens</em>, <em>Peptostreptococcus micros</em>, <em>Streptococcus intermedius</em> and <em>Treponema denticola</em> <span class="cite">Genco et al. 1996</span>.</p>
+
+    <ul>
+      <li><strong>Keystone pathogens</strong> such as <em>P. gingivalis</em> induce a shift from a <strong>symbiotic</strong> microbial community to a <strong>dysbiotic</strong> one.</li>
+      <li>→ The <strong>quantity</strong> of plaque may matter less than the <strong>quality</strong> of plaque in determining risk.</li>
+      <li><strong>Anatomic factors</strong> — furcations, root concavities, developmental grooves, cervical enamel projections, enamel pearls, root grooves, calculus — increase plaque retention at a site and challenge the clinician. Not clear risk factors for periodontitis, but may drive <strong>susceptibility at specific teeth</strong> <span class="cite">Bleiden et al. 1999</span>.</li>
+    </ul>
+  </section>
+
+  <!-- DETERMINANTS -->
+  <section id="determinants">
+    <h2 class="section">7. Risk determinants: age, gender, race, SES</h2>
+
+    <h3>Age</h3>
+    <ul>
+      <li>Prevalence <span class="cite">Brown et al. 1990; Eke et al. 2012</span> and severity <span class="cite">Grossi et al. 1994; Eke et al. 2012</span> of periodontitis <strong>increase with age</strong>, shown in longitudinal studies.</li>
+      <li>Likely due to <strong>prolonged exposure to risk factors and cumulative tissue destruction over a lifetime</strong>, rather than an age-related intrinsic deficiency affecting susceptibility.</li>
+    </ul>
+
+    <h3>Gender</h3>
+    <ul>
+      <li><strong>Males &gt; females</strong> for risk of attachment loss <span class="cite">Beck et al. 1990; Oliver et al. 1991</span>.</li>
+      <li><strong>Females &gt; males</strong> for risk of tooth loss <span class="cite">Gilbert et al. 2002</span>.</li>
+      <li>There appears to be <strong>no inherent difference in susceptibility</strong>; disparities likely reflect <strong>lifestyle differences</strong> — smoking, attendance at health practitioners, attitudes towards oral hygiene.</li>
+    </ul>
+
+    <h3>Race</h3>
+    <ul>
+      <li><span class="cite">Oliver et al. 1991</span> — greater prevalence in Black populations than White across all age groups.</li>
+      <li><span class="cite">Beck et al. 1990</span> — greater extent and severity, <strong>but only when analysed with socio-economic factors</strong>.</li>
+      <li><span class="cite">Eke et al. 2012</span> — differences in prevalence across ethnic groups.</li>
+      <li>Certain groups may be more susceptible, but <strong>SES and education may contribute to and modulate the results</strong> — the two are confounded.</li>
+    </ul>
+
+    <h3>Socio-economic status</h3>
+    <ul>
+      <li><strong>Lower education</strong> — individuals with <strong>less than 12 years of education</strong> were more than <strong>2× at risk</strong> of periodontal pocketing (<strong>26% vs 11%</strong>) <span class="cite">Oliver et al. 1991; Brown et al. 1994; Eke et al. 2012</span>.</li>
+      <li><strong>Poorer financial situation</strong> — increased risk of attachment loss for having 4+ sites with loss of attachment <span class="cite">Beck et al. 1990</span>.</li>
+    </ul>
+
+    <div class="box warn">
+      <h4>Confounding matters here</h4>
+      <ul>
+        <li><span class="cite">Grossi et al. 1994</span> — when <strong>adjusted for oral hygiene and smoking status</strong>, the association between SES and more severe periodontal disease was <strong>not seen</strong>.</li>
+        <li><span class="cite">Oliver et al. 1991</span> — level of income made <strong>little difference</strong> to prevalence or extent of attachment loss.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- GENETICS -->
+  <section id="genetics">
+    <h2 class="section">8. Risk determinant: genetics</h2>
+    <ul>
+      <li><strong>Genetic variance is a major determinant of the differential risk of periodontitis</strong> <span class="cite">Kinane et al. 2005</span>.</li>
+      <li>Genes play a role in <strong>predisposition to and progression of</strong> periodontal disease, by impairing <strong>(a) inflammatory and/or (b) immune responses</strong>.</li>
+      <li><strong>To date, no major disease gene mutation has been identified</strong> which results in periodontitis in otherwise systemically healthy individuals.</li>
+    </ul>
+
+    <h3>Not everyone is equally susceptible</h3>
+    <ul>
+      <li><strong>Not all individuals will develop periodontitis</strong> <span class="cite">Löe et al. 1986</span>.</li>
+      <li><strong>Only a subset of the population will develop severe disease</strong> <span class="cite">Lindhe et al. 1989</span>.</li>
+      <li>Systemic disease (e.g. diabetes) and environmental factors (smoking, oral hygiene) are <strong>plausible modifiers</strong> of susceptibility and progression — but the <strong>effectiveness of the individual's immune response</strong> also determines the extent of destruction, so the <strong>genetic profile plays a role in susceptibility</strong>.</li>
+    </ul>
+
+    <div class="box fact">
+      <h4>Twin study — Michalowicz et al. 2000</h4>
+      <ul>
+        <li>Statistically significant <strong>genetic variance for both severity and extent</strong> of disease.</li>
+        <li>Periodontitis estimated to have approximately <strong>50% heritability</strong>, <strong>unaltered after adjusting for behavioural variables including smoking</strong>.</li>
+        <li><strong>No evidence for heritability of gingivitis</strong> after adjusting for environmental factors (smoking, OH).</li>
+      </ul>
+    </div>
+    <p>The <strong>IL-1 genotype</strong> has been proposed as conferring increased risk of progression and severity of chronic periodontitis.</p>
+  </section>
+
+  <!-- STRESS -->
+  <section id="stress">
+    <h2 class="section">9. Risk determinant: stress</h2>
+    <p>The association of psychological stress with periodontal disease was first postulated in early studies of <strong>acute necrotising ulcerative gingivitis</strong>. Psychological stress, distress, <strong>inadequate coping mechanisms</strong> and self-neglect have been linked to greater prevalence and severity of periodontitis.</p>
+
+    <ul>
+      <li><strong>Inadequate coping OR 1.7</strong> and <strong>financial strain OR 2.24</strong> associated with greater attachment loss after adjusting for age, gender and cigarette smoking — <strong>adequate coping may decrease risk</strong> <span class="cite">Genco et al. 1999</span>.</li>
+      <li>Stress may induce <strong>neglect of oral hygiene and increased plaque accumulation</strong> <span class="cite">Deinzer et al. 2001</span>.</li>
+    </ul>
+
+    <h3>Three biological pathways</h3>
+    <div class="stages">
+      <div class="stage">
+        <div class="label">Pathway 1</div>
+        <h5>Autonomic nervous system</h5>
+        <ul>
+          <li>Mediated by <strong>adrenergic sympathetic stimulation</strong></li>
+          <li>Release of <strong>adrenaline and noradrenaline</strong> → <strong>decreased blood flow</strong></li>
+          <li>Alters immune responses: differentiation and maturation of T cells, growth of cytotoxic T cells, antibody production by B cells/plasma cells</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="label">Pathway 2</div>
+        <h5>HPA axis</h5>
+        <ul>
+          <li>Stress → hypothalamus releases <strong>CRF</strong> and <strong>AVP</strong> → <strong>ACTH</strong> into circulation → <strong>glucocorticoids</strong></li>
+          <li><strong>GCs</strong> initially <em>inhibit</em> immune cells (macrophages, T-cell development); <strong>prolonged exposure stimulates</strong> them</li>
+          <li><strong>CRF</strong> stimulates cytokine production (IL-1 by monocytes, IL-2) and T-cell proliferation</li>
+          <li><strong>ACTH</strong> inhibits IFN-γ production and receptor expression, blocking macrophage activation; promotes B-cell proliferation but inhibits antibody production</li>
+        </ul>
+      </div>
+      <div class="stage">
+        <div class="label">Pathway 3</div>
+        <h5>Neuropeptides</h5>
+        <ul>
+          <li>Nerve fibres release neuropeptides that modulate the immune system</li>
+          <li><strong>Substance P</strong> is released from sensory <strong>C-type nerve fibres</strong> found in the periodontium</li>
+          <li>SP causes <strong>vasodilatation</strong>, increases blood flow and stimulates immune cells</li>
+          <li>Beneficial short-term — but <strong>long-lasting emotional stress excessively increases SP release</strong>, producing <strong>imbalanced inflammatory reactions promoting tissue damage</strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDICATORS -->
+  <section id="indicators">
+    <h2 class="section">10. Risk indicators</h2>
+
+    <h3>Infrequent dental visits</h3>
+    <ul>
+      <li>Non-compliant, irregularly maintained patients tend to experience <strong>greater attachment loss, deeper probing depths and more tooth loss</strong>.</li>
+      <li>Only a minority comply with the prescribed regimen — approximately <strong>20% dropout rate</strong> in maintenance.</li>
+      <li><strong>Recall frequency affects compliance</strong>: <strong>39% compliant</strong> when recommended a <strong>5–7-monthly</strong> recall, compared with <strong>9%</strong> when recommended <strong>2-monthly</strong> recalls <span class="cite">Wilson et al. 1984</span>.</li>
+      <li>Factors affecting compliance <span class="cite">Tan et al. 1992</span>: fear, economic factors, indifferent behaviour of the clinician, longer appointment time, change in socio-economic factors, stress, family influence.</li>
+      <li>Difficult to exclude the contribution of <strong>confounding variables</strong> in longitudinal studies.</li>
+    </ul>
+
+    <h3>Obesity</h3>
+    <ul>
+      <li>Defined as <strong>abnormal or excessive fat accumulation that presents a risk to health</strong> <span class="cite">Linden et al. 2013</span>; obese if <strong>BMI ≥ 30 kg/m²</strong>.</li>
+      <li>A <strong>modest positive association</strong> between obesity and prevalent periodontitis has been demonstrated — <strong>OR 1.35–1.81</strong> <span class="cite">Chaffee &amp; Weston 2010; Suvan et al. 2011</span>.</li>
+      <li>Suggested <strong>pro-inflammatory link</strong>.</li>
+    </ul>
+
+    <h3>Alcohol</h3>
+    <ul>
+      <li>Alcohol consumption may be associated, <strong>in a dose-dependent manner</strong>, with increased severity of clinical attachment loss.</li>
+      <li><strong>OR 1.22 at 5 standard drinks per week</strong>, increasing to <strong>OR 1.67 at 20 standard drinks per week</strong> <span class="cite">Genco &amp; Borgnakke 2013</span>.</li>
+      <li><strong>Further studies are required</strong> to understand the association more fully.</li>
+    </ul>
+  </section>
+
+  <!-- MARKERS -->
+  <section id="markers">
+    <h2 class="section">11. Risk markers</h2>
+
+    <h3>Previous history of periodontitis</h3>
+    <p>A previous history of periodontitis <strong>may</strong> increase the risk of future attachment loss — but the evidence <strong>conflicts</strong>:</p>
+    <div class="twocol">
+      <div class="box warn">
+        <h4>Against</h4>
+        <p>In a longitudinal study of disease progression among <strong>untreated</strong> patients, <strong>previous attachment loss was a poor predictor</strong> of future attachment loss progression <span class="cite">Lindhe et al. 1983</span>.</p>
+      </div>
+      <div class="box fact">
+        <h4>For</h4>
+        <p>Past history of disease <strong>was a prognostic factor</strong> for further breakdown in untreated subjects with moderate to advanced periodontitis <span class="cite">Machtei et al. 1997b</span>.</p>
+      </div>
+    </div>
+
+    <h3>Bleeding on probing</h3>
+    <p>BOP is only <strong>moderately associated</strong> with future CAL loss.</p>
+    <table>
+      <thead><tr><th>Study</th><th>Design</th><th>Finding</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Lang et al. 1986</strong></td>
+          <td>4 years; advanced periodontitis patients maintained 3–5-monthly</td>
+          <td>Pockets bleeding at <strong>all 4 recalls had a 30% chance of losing attachment</strong>. A <strong>limited but useful prognostic indicator</strong> during maintenance.</td>
+        </tr>
+        <tr>
+          <td><strong>Lang et al. 1990</strong></td>
+          <td>1.5 years; periodontitis patients maintained 2–6-monthly; only bleeding sites debrided</td>
+          <td>BOP had only a <strong>6% positive predictive value</strong> for disease progression, but <strong>absence of BOP had a 98% negative predictive value</strong> for periodontal stability.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box key">
+      <h4>The interpretation that gets marks</h4>
+      <p>BOP is a <strong>poor positive predictor but an excellent negative predictor</strong>. Bleeding does not tell you a site will break down; <strong>the absence of bleeding tells you, with 98% confidence, that it will not</strong>. This is why "no BOP" is the clinical endpoint we aim for.</p>
+    </div>
+  </section>
+
+  <!-- EXAM -->
+  <hr class="sep" />
+  <section id="exam">
+    <h2 class="section">12. High-yield exam summary</h2>
+
+    <div class="box key">
+      <h4>Conclusion points from the lecture</h4>
+      <ul>
+        <li>Risk assessment involves <strong>identifying elements that may predispose a patient to developing periodontitis</strong>, or that may <strong>influence the progression</strong> of existing disease.</li>
+        <li>Patients may require <strong>modification of their prognosis and treatment plan</strong> in accordance with their risk status.</li>
+        <li>Beyond evaluating risk, patients should be <strong>educated regarding their risk</strong>, and suitable <strong>intervention strategies</strong> implemented where appropriate.</li>
+      </ul>
+    </div>
+
+    <div class="box note">
+      <h4>Sorting the categories — the one-page version</h4>
+      <table>
+        <thead><tr><th>Category</th><th>Items from this lecture</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Risk factors</strong><br /><em>(modifiable, longitudinally confirmed)</em></td><td>Tobacco smoking · Diabetes mellitus · Pathogenic bacteria in plaque</td></tr>
+          <tr><td><strong>Risk determinants</strong><br /><em>(non-modifiable background)</em></td><td>Age · Gender · Race · Socio-economic status · Genetics · Stress</td></tr>
+          <tr><td><strong>Risk indicators</strong><br /><em>(cross-sectional only)</em></td><td>Infrequent dental visits · Obesity · Alcohol</td></tr>
+          <tr><td><strong>Risk markers</strong><br /><em>(associated, not causal)</em></td><td>Previous history of periodontitis · Bleeding on probing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box fact">
+      <h4>Numbers to have at your fingertips</h4>
+      <table>
+        <thead><tr><th>Number</th><th>What it is</th></tr></thead>
+        <tbody>
+          <tr><td><strong>OR 2–5 / 3–7</strong></td><td>Smoking: LOA / RBL (Grossi 1994, 1995)</td></tr>
+          <tr><td><strong>5.3×</strong></td><td>Risk of PPD &gt; 3.5 mm in smokers (Stoltenberg 1993)</td></tr>
+          <tr><td><strong>≥ 1 year / 24 months</strong></td><td>Quit duration for comparable healing / time to clinical evidence (Grossi 1997; Rosa 2014)</td></tr>
+          <tr><td><strong>4000</strong></td><td>Toxic substances in tobacco (Genco &amp; Borgnakke 2013)</td></tr>
+          <tr><td><strong>1.2 million / 5.1% / 85%</strong></td><td>Australians with DM / proportion of population / share that is T2DM</td></tr>
+          <tr><td><strong>≥ 48 mmol/mol (6.5%)</strong></td><td>HbA1c diagnostic of DM</td></tr>
+          <tr><td><strong>≥ 7.0 / ≥ 11.1 mmol/L</strong></td><td>Fasting / random BGL diagnostic of DM</td></tr>
+          <tr><td><strong>2×</strong></td><td>Diabetics' likelihood of LOA vs non-diabetics (Grossi 1994; Emrich 1991)</td></tr>
+          <tr><td><strong>0.29–0.6%</strong></td><td>HbA1c improvement after NSPT (range across studies)</td></tr>
+          <tr><td><strong>50%</strong></td><td>Heritability of periodontitis (Michalowicz 2000)</td></tr>
+          <tr><td><strong>OR 1.7 / 2.24</strong></td><td>Inadequate coping / financial strain (Genco 1999)</td></tr>
+          <tr><td><strong>~20% / 39% vs 9%</strong></td><td>Maintenance dropout / compliance at 5–7-monthly vs 2-monthly recall (Wilson 1984)</td></tr>
+          <tr><td><strong>BMI ≥ 30 · OR 1.35–1.81</strong></td><td>Obesity threshold and periodontitis odds ratio</td></tr>
+          <tr><td><strong>OR 1.22 / 1.67</strong></td><td>Alcohol at 5 / 20 standard drinks per week</td></tr>
+          <tr><td><strong>26% vs 11%</strong></td><td>Pocketing risk with &lt; 12 years education</td></tr>
+          <tr><td><strong>30% · 6% PPV · 98% NPV</strong></td><td>BOP prognostics (Lang 1986, 1990)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box warn">
+      <h4>Likely long-answer prompts</h4>
+      <ul>
+        <li>"Define risk factor, risk determinant, risk indicator and risk marker, giving an example of each." → the four-row definition table plus one item from the sorting table for each.</li>
+        <li>"Discuss smoking as a risk factor for periodontitis." → Genco &amp; Borgnakke's five criteria → dose-response ORs → response to non-surgical and surgical therapy → mechanisms → cessation benefit → the clinician's role (5 A's, pack-years).</li>
+        <li>"Explain the bidirectional relationship between diabetes and periodontitis." → diabetes worsens perio via AGE/RAGE, ROS, RANKL/OPG → perio worsens glycaemic control → HbA1c improvement figures after NSPT.</li>
+        <li>"How useful is bleeding on probing in predicting disease progression?" → Lang 1986 30% figure → Lang 1990 6% PPV vs 98% NPV → the interpretation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- REFS -->
+  <hr class="sep" />
+  <section id="refs">
+    <h2 class="section">13. Reference list (as cited in lecture)</h2>
+    <ol class="refs">
+      <li>Ah MK, Johnson GK, Kaldahl WB, Patil KD, Kalkwarf KL (1994) — the effect of smoking on the response to periodontal therapy.</li>
+      <li>Barbour SE, et al. (1997) — tobacco and smoking: environmental factors that modify the host response.</li>
+      <li>Beck JD, Koch GG, Rozier RG, Tudor GE (1990) — prevalence and risk indicators for periodontal attachment loss in a population of older community-dwelling adults.</li>
+      <li>Bleiden TM, et al. (1999) — anatomical factors and site-level susceptibility.</li>
+      <li>Borgnakke WS, Ylöstalo PV, Taylor GW, Genco RJ (2013) — effect of periodontal disease on diabetes.</li>
+      <li>Boström L, Linder LE, Bergström J (1998, 1999) — smoking, GCF cytokines and subgingival microflora.</li>
+      <li>Brown LJ, Oliver RC, Löe H (1990); Brown LJ, et al. (1994) — periodontal status in the US population.</li>
+      <li>Chaffee BW, Weston SJ (2010) — association between chronic periodontal disease and obesity: a systematic review and meta-analysis.</li>
+      <li>Corbella S, et al. (2013) — effect of periodontal treatment on glycaemic control.</li>
+      <li>Dannewitz B, et al. (2006) — loss of molars in periodontally treated patients.</li>
+      <li>Darby IB, Hodge PJ, Riggio MP, Kinane DF (2005) — clinical and microbiological effect of scaling and root planing in smoker and non-smoker chronic periodontitis patients.</li>
+      <li>Deinzer R, et al. (2001) — stress, oral hygiene neglect and plaque accumulation.</li>
+      <li>Eke PI, Dye BA, Wei L, Thornton-Evans GO, Genco RJ (2012) — prevalence of periodontitis in adults in the United States.</li>
+      <li>Emrich LJ, Shlossman M, Genco RJ (1991) — periodontal disease in non-insulin-dependent diabetes mellitus.</li>
+      <li>Gay IC, et al. (2014) — effect of periodontal therapy on glycaemic control.</li>
+      <li>Genco RJ, et al. (1996) — current view of risk factors for periodontal diseases.</li>
+      <li>Genco RJ, Ho AW, Grossi SG, Dunford RG, Tedesco LA (1999) — relationship of stress, distress and inadequate coping behaviors to periodontal disease.</li>
+      <li>Genco RJ, Borgnakke WS (2013) — risk factors for periodontal disease.</li>
+      <li>Giannopoulou C, Kamma JJ, Mombelli A (2003) — effect of inflammation, smoking and stress on gingival crevicular fluid cytokine level.</li>
+      <li>Gilbert GH, Duncan RP, Shelton BJ (2002) — social determinants of tooth loss.</li>
+      <li>Grossi SG, et al. (1994, 1995, 1997) — assessment of risk for periodontal disease I and II; response to periodontal therapy in smokers.</li>
+      <li>Haffajee AD, Socransky SS (1994) — microbial etiological agents of destructive periodontal diseases.</li>
+      <li>James JA, et al. (1999) — effects of tobacco products on the attachment and growth of periodontal ligament fibroblasts.</li>
+      <li>Kinane DF, Shiba H, Hart TC (2005) — the genetic basis of periodontitis.</li>
+      <li>Lang NP, Joss A, Orsanic T, Gusberti FA, Siegrist BE (1986) — bleeding on probing: a predictor for the progression of periodontal disease?</li>
+      <li>Lang NP, Adler R, Joss A, Nyman S (1990) — absence of bleeding on probing: an indicator of periodontal stability.</li>
+      <li>Linden GJ, et al. (2013) — all-cause mortality and periodontitis; definitions of obesity.</li>
+      <li>Lindhe J, Haffajee AD, Socransky SS (1983) — progression of periodontal disease in adult subjects in the absence of periodontal therapy.</li>
+      <li>Lindhe J, Okamoto H, Yoneyama T, Haffajee A, Socransky SS (1989) — longitudinal changes in periodontal disease in untreated subjects.</li>
+      <li>Löe H, Theilade E, Jensen SB (1965) — experimental gingivitis in man.</li>
+      <li>Löe H, Anerud A, Boysen H, Morrison E (1986) — natural history of periodontal disease in man.</li>
+      <li>Loos BG, et al. (2004) — systemic markers of inflammation in periodontitis.</li>
+      <li>MacFarlane GD, et al. (1992) — refractory periodontitis associated with abnormal polymorphonuclear leukocyte phagocytosis and cigarette smoking.</li>
+      <li>Machtei EE, et al. (1997b, 1999) — prognostic factors and progression of periodontal disease.</li>
+      <li>Michalowicz BS, et al. (2000) — evidence of a substantial genetic basis for risk of adult periodontitis.</li>
+      <li>Oliver RC, Brown LJ, Löe H (1991) — variations in the prevalence and extent of periodontitis.</li>
+      <li>Petropoulos G, et al. (2004) — cytokine profiles in smokers.</li>
+      <li>Preber H, Bergström J (1986) — effect of cigarette smoking on periodontal healing following surgical therapy.</li>
+      <li>Preber H, Bergström J, Linder LE (1992) — occurrence of periopathogens in smoker and non-smoker patients.</li>
+      <li>Preber H, Linder L, Bergström J (1995) — periodontal healing and periopathogenic microflora in smokers and non-smokers.</li>
+      <li>Preshaw PM, et al. (2005) — smoking cessation and periodontal outcomes.</li>
+      <li>Renvert S, Dahlén G, Wikström M (1998) — the clinical and microbiological effects of non-surgical periodontal therapy in smokers and non-smokers.</li>
+      <li>Rezavandi K, Palmer RM, Odell EW, Scott DA, Wilson RF (2002) — expression of ICAM-1 and E-selectin in gingival tissues of smokers and non-smokers.</li>
+      <li>Rosa EF, et al. (2014) — effect of smoking cessation on periodontal tissues.</li>
+      <li>Ryder MI (1994) — nicotine effects on neutrophil chemotaxis.</li>
+      <li>Salvi GE, et al. (2014) — risk factors associated with tooth loss.</li>
+      <li>Simpson TC, et al. (2015) — treatment of periodontal disease for glycaemic control in people with diabetes mellitus (Cochrane review).</li>
+      <li>Stoltenberg JL, et al. (1993) — association between cigarette smoking, bacterial pathogens and periodontal status.</li>
+      <li>Suvan J, D'Aiuto F, Moles DR, Petrie A, Donos N (2011) — association between overweight/obesity and periodontitis in adults: a systematic review.</li>
+      <li>Tan AES, et al. (1992) — factors affecting patient compliance with periodontal maintenance.</li>
+      <li>Tervonen T, Karjalainen K (1997) — periodontal disease related to diabetic status.</li>
+      <li>Tonetti MS, Pini-Prato G, Cortellini P (1995) — effect of cigarette smoking on periodontal healing following GTR in infrabony defects.</li>
+      <li>Trombelli L, Scabbia A (1997) — healing response of gingival recession defects following guided tissue regeneration in smokers and non-smokers.</li>
+      <li>Tymkiw KD, et al. (2011) — influence of smoking on gingival crevicular fluid cytokines.</li>
+      <li>Wilson TG, Glover ME, Malik AK, Schoen JA, Dorsett D (1984) — compliance with maintenance therapy in a private periodontal practice.</li>
+      <li>Zambon JJ, et al. (1996) — cigarette smoking increases the risk for subgingival infection with periodontal pathogens (Erie County study).</li>
+    </ol>
+  </section>
+
+</div>
+</body>
+</html>
