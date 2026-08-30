@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html class="gated" lang="en" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="googlebot" content="noindex,nofollow">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>[PRIVATE] Neoplasia Part 1 &middot; DOH 233 Pathology</title>
-<noscript><style>body{display:none!important}html{background:#101420}</style><div style="font:15px system-ui;color:#eee;background:#101420;position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px">These notes require JavaScript.</div></noscript>
 <meta name="description" content="PRIVATE study copy: DOH 233 L7A — Neoplasia Part 1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -355,42 +354,9 @@ dl.gloss dt:last-of-type,dl.gloss dd:last-of-type{border-bottom:0}
   color:var(--muted);display:block;margin-bottom:2px;
 }
 @media print{.plate{break-inside:avoid}.privbar{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-
-
-/* ---------- password gate ---------- */
-html.gated body{overflow:hidden}
-html.gated .shell,html.gated .topbar,html.gated .privbar,html.gated .prog,html.gated .totop{
-  filter:blur(9px);pointer-events:none;user-select:none}
-#gate-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;
-  justify-content:center;background:rgba(16,20,30,.82);backdrop-filter:blur(3px)}
-#gate-overlay.hidden{display:none}
-#gate-card{background:var(--paper);border:1px solid var(--rule);border-radius:14px;
-  padding:30px 28px;width:min(360px,90vw);text-align:center;box-shadow:0 20px 60px -20px rgba(0,0,0,.5)}
-#gate-card .lock{font-size:24px;margin-bottom:10px}
-#gate-card h2{font-family:var(--f-disp);font-size:1.2rem;font-weight:600;margin:0 0 6px;color:var(--ink)}
-#gate-card p{font-size:12.5px;color:var(--muted);margin:0 0 18px}
-#gate-input{width:100%;padding:11px 13px;border:1px solid var(--rule);border-radius:9px;
-  font-family:var(--f-body);font-size:14px;background:var(--glass);color:var(--ink);outline:none}
-#gate-input:focus{border-color:var(--haem)}
-#gate-btn{margin-top:11px;width:100%;padding:11px;border:0;border-radius:9px;cursor:pointer;
-  background:var(--haem);color:#fff;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.06em}
-#gate-btn:hover{background:var(--haem-d)}
-#gate-err{color:var(--crim);font-size:12px;margin-top:10px;min-height:1.1em}
-@media print{#gate-overlay{display:none!important}html.gated .shell{filter:none!important}}
-
 </style>
 </head>
 <body>
-<div id="gate-overlay">
-  <div id="gate-card">
-    <div class="lock">&#128274;</div>
-    <h2>Private study notes</h2>
-    <p>DOH 233 &middot; enter the password to continue</p>
-    <input id="gate-input" type="password" placeholder="Password" autocomplete="off" autofocus>
-    <button id="gate-btn" type="button">Enter</button>
-    <div id="gate-err"></div>
-  </div>
-</div>
 
 <div class="privbar">Private study copy &mdash; contains lecture-slide figures &middot; do not upload to the public site</div>
 <div class="prog"><i id="bar"></i></div>
@@ -906,91 +872,6 @@ syndromes.</div></li>
   if(ca) ca.addEventListener('click',function(){setAll(false);});
   var pr=document.getElementById('printme');
   if(pr) pr.addEventListener('click',function(){print();});
-})();
-</script>
-<script>
-/* ===== PASSWORD GATE =====
-   The password is not stored here. What is stored is a PBKDF2-SHA256
-   derivation of it (250,000 iterations, random salt), so reading this source
-   gives an attacker a hash to grind rather than a password to read.
-
-   This is still a CLIENT-SIDE gate. The page content exists in the file, so a
-   determined visitor with devtools can reach it regardless. It raises the cost
-   from "view source" to "write a cracker and run it", and combined with
-   noindex/robots.txt it keeps the material out of search results. For real
-   protection the content itself would have to be encrypted, or served from
-   behind an authenticating host. */
-(function(){
-  var SALT_B64 = 'MFhauayHkWVgGFaN416sbA==';
-  var HASH_B64 = '/T8Txan82Xm7M2YMBVptrVQQxYc4OnTU/IFY5e8zt6Y=';
-  var ITER = 250000;
-  var STORE = 'hubUnlockedUntil';
-  var DAYS = 30;
-
-  var overlay = document.getElementById('gate-overlay');
-  var input   = document.getElementById('gate-input');
-  var btn     = document.getElementById('gate-btn');
-  var err     = document.getElementById('gate-err');
-  if (!overlay) return;
-
-  function b64ToBytes(b64){
-    var bin = atob(b64), out = new Uint8Array(bin.length);
-    for (var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
-    return out;
-  }
-  function bytesToB64(buf){
-    var bytes = new Uint8Array(buf), s = '';
-    for (var i=0;i<bytes.length;i++) s += String.fromCharCode(bytes[i]);
-    return btoa(s);
-  }
-
-  function reveal(){
-    overlay.classList.add('hidden');
-    document.documentElement.classList.remove('gated');
-    if (input) input.blur();
-    if (document.body) document.body.focus();
-  }
-
-  // already unlocked and not expired?
-  try {
-    var until = parseInt(localStorage.getItem(STORE) || '0', 10);
-    if (until && Date.now() < until) { reveal(); return; }
-  } catch(e){}
-
-  async function derive(pw){
-    var enc = new TextEncoder();
-    var key = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
-    var bits = await crypto.subtle.deriveBits(
-      { name:'PBKDF2', salt: b64ToBytes(SALT_B64), iterations: ITER, hash:'SHA-256' },
-      key, 256);
-    return bytesToB64(bits);
-  }
-
-  var busy = false;
-  async function unlock(){
-    if (busy) return;
-    var pw = input.value;
-    if (!pw) return;
-    busy = true;
-    err.textContent = 'Checking\u2026';
-    try {
-      var got = await derive(pw);
-      if (got === HASH_B64){
-        try { localStorage.setItem(STORE, String(Date.now() + DAYS*864e5)); } catch(e){}
-        err.textContent = '';
-        reveal();
-      } else {
-        err.textContent = 'Incorrect password';
-        input.value = ''; input.focus();
-      }
-    } catch(e) {
-      err.textContent = 'This browser cannot run the check (needs HTTPS).';
-    }
-    busy = false;
-  }
-
-  btn.addEventListener('click', unlock);
-  input.addEventListener('keydown', function(e){ if (e.key === 'Enter') unlock(); });
 })();
 </script>
 </body>
