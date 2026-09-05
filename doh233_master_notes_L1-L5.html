@@ -28,6 +28,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .find .cnt{font-size:12.5px;color:var(--mute);min-width:64px;text-align:right}
 .tbtn{height:34px;border:1px solid var(--rule);background:var(--sheet);color:var(--ink);border-radius:6px;padding:0 12px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap}
 .tbtn.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#cover{min-width:150px;justify-content:center}#answers{min-width:128px;justify-content:center}.tbtn{display:inline-flex;align-items:center}
 .tbtn.sq{width:34px;padding:0}
 #menu{display:none}
 
@@ -75,10 +76,10 @@ strong{font-weight:700}
 
 /* the highlighter */
 mark{background:var(--hl);color:inherit;padding:.04em .18em;margin:0 -.02em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;box-shadow:inset 0 -.25em var(--hlb)}
-body.cover mark{background:var(--ink);color:transparent;box-shadow:none;cursor:pointer;border-radius:2px;transition:background .15s,color .15s}
-body.cover mark::selection{color:transparent}
-body.cover mark.peek{background:var(--hl);color:var(--ink);box-shadow:inset 0 -.25em var(--hlb)}
-body.cover mark *{color:inherit}
+body.covering mark{background:var(--ink);color:transparent;box-shadow:none;cursor:pointer;border-radius:2px;transition:background .15s,color .15s}
+body.covering mark::selection{color:transparent}
+body.covering mark.peek{background:var(--hl);color:var(--ink);box-shadow:inset 0 -.25em var(--hlb)}
+body.covering mark *{color:inherit}
 
 /* margin notes */
 aside.mn{float:right;clear:right;width:var(--marg);margin:2px calc(-1 * (var(--marg) + var(--gap))) 16px 24px;font-size:13.5px;line-height:1.5;color:var(--ink2);padding:0 0 0 12px;border-left:2px solid var(--rule)}
@@ -1567,11 +1568,15 @@ html[data-mode=night] .hit.cur{background:#3fcf95;color:#0b2a1f}
   nb.addEventListener('click',function(){ var n=root.getAttribute('data-mode')==='night'; root.setAttribute('data-mode',n?'day':'night'); nb.textContent=n?'◐':'◑'; });
   // cover highlights
   var cb=document.getElementById('cover');
-  cb.addEventListener('click',function(){ body.classList.toggle('cover'); cb.classList.toggle('on'); document.querySelectorAll('mark.peek').forEach(function(m){m.classList.remove('peek')}); });
-  document.addEventListener('click',function(e){ var m=e.target.closest('mark'); if(m && body.classList.contains('cover')){ m.classList.toggle('peek'); } });
+  cb.addEventListener('click',function(){ body.classList.toggle('covering'); cb.classList.toggle('on'); document.querySelectorAll('mark.peek').forEach(function(m){m.classList.remove('peek')}); });
+  document.addEventListener('click',function(e){ var m=e.target.closest('mark'); if(m && body.classList.contains('covering')){ m.classList.toggle('peek'); } });
   // answers
   var ab=document.getElementById('answers'), open=false;
-  ab.addEventListener('click',function(){ open=!open; document.querySelectorAll('details.drill').forEach(function(d){d.open=open}); ab.textContent=open?'Hide answers':'Show answers'; });
+  ab.addEventListener('click',function(){
+    var anchor=null, before=0; document.querySelectorAll('main h2, main h3, main p, main table').forEach(function(e){ if(!anchor){ var t=e.getBoundingClientRect().top; if(t>=60){ anchor=e; before=t; } } });
+    open=!open; document.querySelectorAll('details.drill').forEach(function(d){d.open=open}); ab.textContent=open?'Hide answers':'Show answers';
+    if(anchor){ var after=anchor.getBoundingClientRect().top; if(Math.abs(after-before)>1) scrollBy({top:after-before,behavior:'instant'}); }
+  });
   // scroll spy — only ever scrolls the sidebar itself, never the page
   var chs=[].slice.call(document.querySelectorAll('section.ch')), navch=[].slice.call(document.querySelectorAll('nav.side .nch'));
   var h2s=[].slice.call(document.querySelectorAll('section.ch h2[id]')), subl={}; document.querySelectorAll('nav.side .sub a').forEach(function(a){subl[a.getAttribute('href').slice(1)]=a});
