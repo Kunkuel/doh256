@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DOH 244 · S2 Weeks 1–6 · High-Yield Summary</title>
+<style>
+:root{
+  --ink:#1a1f2e; --ink-soft:#4a5266; --paper:#fbfaf7; --card:#fff;
+  --line:#e6e2d8; --rule:#cdc6b5;
+  --accent:#0f6b6a; --accent-soft:#e6f1f0; --accent-deep:#0a4948;
+  --gold:#b08400; --gold-soft:#fbf3d6;
+  --rose:#a83333; --rose-soft:#fde9e9;
+  --indigo:#3a4d8f; --indigo-soft:#e8ecf7;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Iowan Old Style","Charter","Source Serif Pro",Georgia,serif;
+  font-size:15.5px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:40px 26px 90px}
+header.title{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:22px;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.title h1{font-size:32px;margin:0 0 4px;letter-spacing:-.01em;line-height:1.1}
+.title .sub,.title .meta{font-family:"Inter","Helvetica Neue",Arial,sans-serif;font-size:12px;color:var(--ink-soft)}
+.title .meta{text-align:right}
+.core{background:var(--accent-soft);border-left:4px solid var(--accent);padding:12px 16px;margin:0 0 26px;border-radius:2px}
+.core strong{color:var(--accent-deep)}
+
+nav.toc{position:sticky;top:0;z-index:5;background:rgba(251,250,247,.96);backdrop-filter:blur(4px);
+  border-bottom:1px solid var(--line);margin:0 -26px 28px;padding:8px 26px;
+  font-family:"Inter",Arial,sans-serif;font-size:12.5px;display:flex;gap:4px 14px;flex-wrap:wrap}
+nav.toc a{color:var(--ink-soft);text-decoration:none;white-space:nowrap}
+nav.toc a:hover{color:var(--accent)}
+nav.toc a b{color:var(--accent);font-weight:600}
+
+h2{font-size:23px;margin:44px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--rule);scroll-margin-top:52px}
+h2 .wk{font-family:"Inter",Arial,sans-serif;font-size:11px;font-weight:600;color:var(--accent);margin-left:10px;letter-spacing:.06em}
+h3{font-size:16.5px;margin:20px 0 6px;color:var(--accent-deep)}
+
+table{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:14px}
+th,td{border:1px solid var(--line);padding:6px 9px;vertical-align:top;text-align:left}
+th{background:var(--accent-soft);font-family:"Inter",Arial,sans-serif;font-size:12px;letter-spacing:.02em;color:var(--accent-deep)}
+td:first-child{font-weight:600;white-space:nowrap;width:1%}
+td:first-child.w{white-space:normal;width:22%}
+tr:nth-child(even) td{background:#fdfcfa}
+
+ul,ol{margin:6px 0 12px;padding-left:22px}
+li{margin:3px 0}
+li::marker{color:var(--accent)}
+p{margin:6px 0 10px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0 14px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}nav.toc{position:static}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:3px;padding:10px 14px}
+.card h4{margin:0 0 6px;font-size:14px;font-family:"Inter",Arial,sans-serif;color:var(--accent-deep)}
+.card ul,.card ol{margin:4px 0 0;padding-left:18px;font-size:14px}
+
+.flow{background:var(--card);border:1px solid var(--line);padding:9px 14px;margin:8px 0 14px;font-size:14px;border-radius:3px}
+.flow b{color:var(--accent-deep)}
+.arrow{color:var(--accent);padding:0 3px}
+
+.hy{background:var(--gold-soft);border-left:4px solid var(--gold);padding:9px 14px;margin:10px 0;border-radius:2px;font-size:14.5px}
+.hy b{color:#7a5a00}
+.warn{background:var(--rose-soft);border-left:4px solid var(--rose);padding:9px 14px;margin:10px 0;border-radius:2px;font-size:14.5px}
+.warn b{color:var(--rose)}
+.note{background:var(--indigo-soft);border-left:4px solid var(--indigo);padding:9px 14px;margin:10px 0;border-radius:2px;font-size:14.5px}
+.note b{color:var(--indigo)}
+
+.nums{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin:10px 0}
+.num{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--accent);padding:8px 11px;border-radius:2px}
+.num .v{font-family:"Inter",Arial,sans-serif;font-weight:600;font-size:17px;color:var(--accent-deep)}
+.num .l{font-size:13px;color:var(--ink-soft);line-height:1.35}
+small.src{display:block;color:var(--ink-soft);font-size:12px;margin-top:-6px;margin-bottom:10px;font-family:"Inter",Arial,sans-serif}
+footer{margin-top:50px;padding-top:12px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--ink-soft);font-family:"Inter",Arial,sans-serif}
+@media print{nav.toc{display:none}body{font-size:12.5px}.wrap{padding:0}h2{break-after:avoid}table,.card,.hy,.warn,.note{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="title">
+  <div>
+    <div class="sub">DOH 244 Foundations of Restorative Dentistry · Session 2 · Dr Katia Weber</div>
+    <h1>Anterior Restorative Dentistry — Weeks 1–6 Summary</h1>
+  </div>
+  <div class="meta">Consolidated by topic, not by week<br>Duplicate content merged · course-specific figures flagged</div>
+</header>
+
+<div class="core"><strong>Thread through all six weeks:</strong> diagnose before you cut (lesion + pulp + periodontium + occlusion + patient) → control disease → choose the least invasive plan → shade on a hydrated tooth → isolate and protect the neighbour → conservative, lesion-centred preparation → bond per manufacturer → layer anatomically (opaque dentin inside, translucent enamel outside) → cure every increment → finish, then polish → verify margins, contact, occlusion → maintain, and when something goes wrong, repair before you replace.</div>
+
+<nav class="toc">
+  <a href="#s1"><b>1</b> Caries diagnosis</a>
+  <a href="#s2"><b>2</b> Aesthetic analysis</a>
+  <a href="#s3"><b>3</b> Shade</a>
+  <a href="#s4"><b>4</b> Pre-op assessment</a>
+  <a href="#s5"><b>5</b> Class III</a>
+  <a href="#s6"><b>6</b> Class IV</a>
+  <a href="#s7"><b>7</b> Isolation · matrix · index</a>
+  <a href="#s8"><b>8</b> Adhesion · shrinkage · curing</a>
+  <a href="#s9"><b>9</b> Layering</a>
+  <a href="#s10"><b>10</b> Finishing · polishing</a>
+  <a href="#s11"><b>11</b> Acceptance</a>
+  <a href="#s12"><b>12</b> Existing restorations</a>
+  <a href="#s13"><b>13</b> Failure</a>
+  <a href="#s14"><b>14</b> Evidence</a>
+  <a href="#s15"><b>15</b> Distinctions</a>
+  <a href="#s16"><b>16</b> Numbers</a>
+</nav>
+
+<!-- ============================== 1 ============================== -->
+<h2 id="s1">1. Caries diagnosis and management <span class="wk">WEEK 1</span></h2>
+
+<p><b>Disease vs lesion.</b> Caries is a dynamic process (demineralisation &gt; remineralisation over time); the lesion is the tissue sign. Restoring a lesion does not remove disease susceptibility.</p>
+
+<div class="grid">
+  <div class="card"><h4>Four core determinants</h4>
+    <ul><li>Susceptible host and tooth (anatomy, saliva, fluoride, host factors)</li><li>Cariogenic biofilm (composition, pH)</li><li>Fermentable carbohydrate — <b>frequency</b> matters more than amount</li><li>Time (repeated low-pH episodes without recovery)</li></ul>
+    <p style="font-size:13px;margin:6px 0 0"><b>Primary modifiers:</b> anatomy, saliva, biofilm, fluoride, diet, OH, immune, genetic. <b>Secondary:</b> SES, education, lifestyle, environment, age, ethnicity, occupation.</p>
+  </div>
+  <div class="card"><h4>Four diagnostic axes — record for every lesion</h4>
+    <ol><li><b>Site/surface</b> (smooth, proximal, cervical, root; adjacent to restoration?)</li><li><b>Surface integrity</b> — cavitated or non-cavitated (opaque ≠ cavity)</li><li><b>Severity</b> — initial / moderate / extensive</li><li><b>Activity</b> — active / inactive</li></ol>
+  </div>
+</div>
+
+<div class="hy"><b>Severity and activity are independent.</b> An initial lesion can be active; a dark cavitated lesion can be inactive. Diet: fermentable carbohydrate drives caries; acidic food/drink drives erosive wear (sweetened acidic products do both).</div>
+
+<table>
+<tr><th>Severity</th><th>Description</th><th>Management</th></tr>
+<tr><td>Initial</td><td>Earliest visible mineral change (opaque white/brown), no obvious breakdown</td><td>Active: risk control, plaque/fluoride, monitor — operative care not automatic. Inactive: monitor; aesthetic treatment only if justified</td></tr>
+<tr><td>Moderate</td><td>Localised breakdown or shallow cavity</td><td>Decide on cavitation, cleansability, depth, activity, progression, symptoms, aesthetic/functional need</td></tr>
+<tr><td>Extensive</td><td>Frank cavitation into dentin, substantial loss</td><td>Restoration usually required — first assess pulp, restorability, remaining structure, risk</td></tr>
+</table>
+
+<table>
+<tr><th>Activity</th><th>Enamel appearance</th><th>Dentin / site</th></tr>
+<tr><td>Active</td><td>Matte, opaque, rough; plaque-stagnation site</td><td>Soft or leathery; progression on serial review</td></tr>
+<tr><td>Inactive</td><td>Smooth, shiny, hard; may be dark-stained</td><td>Cleansable, stable over time</td></tr>
+</table>
+
+<div class="warn"><b>Colour alone proves nothing.</b> Separate stain / inactive lesion / active lesion by texture, lustre, cavitation, plaque stagnation, risk context and serial change. Assess texture gently — never force a sharp explorer into a non-cavitated surface. A single radiograph gives depth, not activity.</div>
+
+<div class="flow"><b>Assessment sequence:</b> clean &amp; dry, inspect <span class="arrow">→</span> risk history (sugar frequency, OH, fluoride, saliva/xerostomia, medications) <span class="arrow">→</span> radiograph (depth; lesions not visible clinically; beneath sealants/restorations) <span class="arrow">→</span> longitudinal comparison <span class="arrow">→</span> integrated diagnosis with symptoms and priorities.</div>
+
+<p><b>Restoration is not the endpoint.</b> Reinforce brushing and interdental cleaning, reduce sugar frequency, optimise fluoride, manage dry mouth, set recall and radiographic review interval.</p>
+
+<!-- ============================== 2 ============================== -->
+<h2 id="s2">2. Aesthetic analysis and optics <span class="wk">WEEKS 1 · 4 · 5</span></h2>
+
+<p>Anterior teeth cut, support speech and lips, and carry facial harmony and self-esteem. A technically sound restoration fails if the patient's expectation was never clarified. <b>Success = aesthetics + function + biology + longevity</b>, never one alone.</p>
+
+<table>
+<tr><th>Element (six)</th><th>Assess and reproduce</th><th>Restorative implication</th></tr>
+<tr><td>Shape / form</td><td>Outline, incisal contour, facial line angles, cervical contour, width-to-length; square / triangular / oval type</td><td>Line angles control apparent width; a flat, over-contoured face reflects light broadly and looks artificial</td></tr>
+<tr><td>Symmetry &amp; proportion</td><td>Contralateral tooth, central–lateral relationship, midline, gingival levels, embrasure progression</td><td>Use opposite tooth as guide; aim for natural, not mathematical, symmetry</td></tr>
+<tr><td>Position &amp; alignment</td><td>Rotation, inclination, arch position, incisal level, diastema, overjet/overbite, space</td><td>Malposition may need orthodontics; gingival discrepancy may need periodontics — restoration cannot correct every cause</td></tr>
+<tr><td>Surface texture</td><td>Developmental depressions, lobes, perikymata, cracks, age-matched texture</td><td>Texture breaks up reflected light; too little = flat, too much = stain-retentive</td></tr>
+<tr><td>Colour</td><td><b>Value first</b>, then chroma, then hue; cervical → incisal variation; substrate</td><td>Value errors are noticed before hue errors; thickness and background alter apparent shade</td></tr>
+<tr><td>Translucency / opacity</td><td>Dentin opacity + chroma, enamel translucency, incisal halo</td><td>Too opaque = flat; too translucent = grey / low value; one opaque mass = monochromatic block</td></tr>
+</table>
+
+<h3>Optics</h3>
+<p><b>Enamel</b> is relatively translucent — transmits light; thickness and texture shape the final look. <b>Dentin</b> is relatively opaque and chromatic — absorbs, scatters, reflects; supplies internal body and colour. Restorations must recreate this interaction with opacity, translucency, shade and layer thickness.</p>
+
+<h3>Visual illusion by contour (cosmetic contouring — preserve enamel)</h3>
+<table>
+<tr><th>To make a tooth appear…</th><th>Do this</th></tr>
+<tr><td>Narrower</td><td>Move mesiofacial and distofacial line angles closer together (inward)</td></tr>
+<tr><td>Wider</td><td>Move line angles / developmental depressions farther apart; flatten depressions</td></tr>
+<tr><td>Shorter</td><td>Emphasise horizontal elements (gingival perikymata); move gingival height of contour more incisally</td></tr>
+<tr><td>Longer</td><td>Reduce horizontal cues; emphasise vertical form</td></tr>
+</table>
+<p><b>Golden proportion</b> — apparent frontal widths central : lateral : canine ≈ <b>1.618 : 1 : 0.618</b>. Visible width, not anatomical width; a reference, not a rule. The central facial highlight is bordered by line angles and depressions — finishing changes perceived size, not just anatomy.</p>
+
+<h3>Anterior restorative options</h3>
+<table>
+<tr><th>Option</th><th>Key points</th></tr>
+<tr><td class="w">Direct composite</td><td>Conservative, additive/defect-oriented, repairable, one visit, lower cost. Technique-sensitive: isolation, remaining enamel, shade/opacity, layering, curing, finishing, occlusal design</td></tr>
+<tr><td class="w">Indirect (ceramic, lab / CAD-CAM)</td><td>For extensive loss, multiple surfaces, major colour/form change, or demands not predictably met directly. More reduction, planning, cost, visits; success depends on prep, fit, substrate-specific surface treatment, cementation, occlusion. Partial-coverage can be conservative</td></tr>
+<tr><td class="w">Interdisciplinary</td><td>Orthodontics for position/alignment; periodontics for soft-tissue/gingival discrepancies</td></tr>
+</table>
+<div class="note"><b>No size rule.</b> A large defect does not automatically require an indirect restoration. Romero et al. chose direct composite for a large lateral-incisor fracture because circumferential enamel remained and no ferrule existed for an indirect option — one case report, not a comparative trial.</div>
+
+<!-- ============================== 3 ============================== -->
+<h2 id="s3">3. Shade selection <span class="wk">STATED ONCE — REPEATED IN WEEKS 1, 2, 4, 5</span></h2>
+<ol>
+<li><b>Before preparation and before rubber dam</b>, on a clean, hydrated tooth. Dehydration raises value and opacity → restoration too light.</li>
+<li>Consistent cool artificial light or daylight; avoid yellow-biased incandescent light and strong surrounding colours. Neutral surroundings, brief comparisons, rest the eyes.</li>
+<li>Assess the restoration area, not one whole-tooth tab. <b>Map optical zones</b>: cervical/body dentin, facial enamel, incisal translucency, local effects.</li>
+<li><b>Cured composite trial</b>: place unbonded composite on the relevant facial area (no etch, no adhesive), light-cure it — polymerisation changes colour/translucency — compare, then flick off with a probe.</li>
+<li>Layered case: choose a more opaque dentin/body shade + a more translucent enamel shade. Incisal effects only if present in the reference tooth.</li>
+<li>Dark substrate: plan masking deliberately; simply increasing opacity gives a lifeless block.</li>
+<li>Electronic device (e.g. EasyShade): calibrate, tip flat and stable on the intended area, follow device mode instructions.</li>
+</ol>
+
+<!-- ============================== 4 ============================== -->
+<h2 id="s4">4. Pre-operative assessment — universal anterior checklist <span class="wk">WEEKS 2 · 3 · 5</span></h2>
+<table>
+<tr><th>Domain</th><th>What to determine</th></tr>
+<tr><td>Concern &amp; history</td><td>Colour, shape, space, fracture, sensitivity, function; expectations; for trauma — timing, symptoms, fragment availability, urgent management/referral first</td></tr>
+<tr><td>Lesion / defect extent</td><td>Non-cavitated vs cavitated; dentin depth and pulp proximity; existing restoration margins/colour; crack lines; unsupported enamel; restorability; substrate quality (enamel vs dentin vs sclerotic). Clinical + radiographic together</td></tr>
+<tr><td>Activity &amp; cleansability</td><td>Active or arrested; can the patient keep it plaque-free? A detectable lesion ≠ automatic restoration</td></tr>
+<tr><td>Pulp</td><td>Spontaneous / thermal / biting pain; sensibility tests vs control teeth; periapical radiograph when indicated. A positive sensibility response ≠ measurement of pulpal blood flow</td></tr>
+<tr><td>Periodontium</td><td>Mobility, percussion, attachment, gingival margin, biological width, inflammation, isolation and margin access</td></tr>
+<tr><td>Caries risk</td><td>Plaque control, sugar frequency, fluoride, saliva, attendance — stabilise active disease before elective aesthetics</td></tr>
+<tr><td>Occlusion</td><td><b>Mark centric and excursive contacts before preparation</b> (palatal contacts, anterior guidance); overjet/overbite, space, wear facets, bruxism, edge-to-edge loading</td></tr>
+<tr><td>Aesthetics</td><td>Hydrated shade, photographs, smile/facial views, proportions, line angles, incisal position, texture, incisal halo; patient priorities; mock-up / wax-up / silicone index when form is uncertain</td></tr>
+<tr><td>Tooth &amp; contact</td><td>Rotation, inclination, arch position, contact tightness, embrasures, access for instruments and matrix</td></tr>
+<tr><td>Patient factors</td><td>Hygiene, attendance, time, cost, maintenance, direct vs indirect trade-offs, consent</td></tr>
+</table>
+<div class="note"><b>Simulation vs clinic.</b> A plastic tooth is a standardised exercise. A real tooth requires diagnosis of cause, pulp, supporting tissues, prognosis, goals and alternatives before any restorative step.</div>
+
+<!-- ============================== 5 ============================== -->
+<h2 id="s5">5. Class III — proximal, incisal angle intact <span class="wk">WEEK 2</span></h2>
+
+<p><b>Definition.</b> Proximal surface of an incisor or canine <b>not</b> involving the incisal edge/angle. Involvement of the incisal edge/angle → Class IV. Class III recreates proximal surface, contact, embrasures, lingual contour and appearance while preserving facial enamel.</p>
+
+<h3>Access route — decision rule</h3>
+<table>
+<tr><th>Route</th><th>When</th><th>Caveat</th></tr>
+<tr><td class="w">Palatal / lingual</td><td>Often preferred: direct conservative access, leaves facial enamel intact; lesion nearer palatal surface</td><td>Not if it sacrifices more sound tissue or prevents controlled excavation</td></tr>
+<tr><td class="w">Facial / buccal</td><td>Lesion facially positioned, facial enamel undermined/defective, large lesion, or palatal access less conservative</td><td>Visible margin → careful bevel, shade, contour, polish</td></tr>
+<tr><td class="w">Strictly proximal</td><td>Very small, exclusively proximal lesion after separation and visual control; preparation reproduces lesion size/shape</td><td>Major risk of adjacent-tooth damage</td></tr>
+</table>
+<div class="hy"><b>Palatal access is an aesthetic preference, not a rule.</b> Choose the route that permits complete diagnosis and controlled caries removal with the least loss of sound enamel and dentin.</div>
+
+<h3>Preparation principles (Class III and IV)</h3>
+<ul>
+<li>Smallest bur that gives controlled access; match instrument to lesion — do not enlarge the lesion to fit a standard form. Spoon excavator / slow round bur as appropriate.</li>
+<li>Bonded composite preparations need <b>no routine mechanical undercuts</b> or standard internal form.</li>
+<li>Remove friable infected soft dentin and unsupported enamel; clean accessible peripheral margins; round stress-concentrating irregularities.</li>
+<li>Deep lesion: <b>colour is not the excavation endpoint</b> — dark dentin may be hard/inactive. Use hardness, depth, peripheral seal and the deep-caries protocol. Weigh optical shadowing through facial enamel against tissue loss and pulpal risk.</li>
+<li>Adjacent lesions: complete in the order that preserves access, matrix control and contact — smaller-first is sometimes useful, not a universal rule.</li>
+</ul>
+
+<h3>Enamel bevel — course rule</h3>
+<table>
+<tr><th>Point</th><th>Detail</th></tr>
+<tr><td>Location</td><td>Facial/labial enamel margin. Course cross-section shows a facial bevel, not indiscriminate palatal removal</td></tr>
+<tr><td>Angle / instrument</td><td>≈45° to external surface; fine-grit flame or round diamond</td></tr>
+<tr><td>Width</td><td>Class III ≈ 0.5–1.2 mm (audio guide); Class IV 0.5–2 mm (diagram ≈ 1–1.5 mm). Adjusted to missing structure and need for bond area / blending</td></tr>
+<tr><td>Benefits</td><td>↑ enamel bonding area, exposes prism ends, gradual composite-to-enamel colour and contour transition. A non-linear/irregular bevel is less visually obvious than a straight line (but preps more enamel — use deliberately)</td></tr>
+<tr><td>Modify / omit</td><td>No bevel on cementum or dentin; not if it needlessly enlarges the prep; not where a thin composite margin would sit in heavy functional contact</td></tr>
+</table>
+<div class="warn"><b>Too absolute — correct in an exam:</b> "always bevel", "remove all dark dentin", "etch 30 s enamel / 15 s dentin always". Bevel suitable enamel only; excavate by hardness/depth/protocol; etch and adhesive times are product-specific (memorise 30/15 s only as the simulation-clinic protocol).</div>
+
+<h3>Class III sequence (12 steps)</h3>
+<div class="flow">Diagnose &amp; plan <span class="arrow">→</span> LA (aids field control; never replaces isolation) <span class="arrow">→</span> record occlusion <span class="arrow">→</span> shade on hydrated tooth (cured trial) <span class="arrow">→</span> rubber dam <span class="arrow">→</span> pre-wedge / fender <span class="arrow">→</span> most conservative access, excavate <span class="arrow">→</span> remove unsupported enamel, bevel where indicated <span class="arrow">→</span> clear polyester strip + wedge beyond all margins <span class="arrow">→</span> etch &amp; bond per system <span class="arrow">→</span> proximal enamel shell → dentin/body → final enamel (cure each) <span class="arrow">→</span> finish, floss, reassess occlusion after dam removal</div>
+
+<!-- ============================== 6 ============================== -->
+<h2 id="s6">6. Class IV — proximal plus incisal angle <span class="wk">WEEK 3</span></h2>
+
+<p><b>Definition.</b> Proximal surface of an anterior tooth <b>including</b> the incisal angle/edge; carious, traumatic, or lost restoration. Adds to Class III: incisal-edge form, optical stratification, fracture resistance, compatibility with anterior guidance — and must resist functional loading at the edge.</p>
+
+<h3>Palatal scaffold</h3>
+<table>
+<tr><th>Aid</th><th>Role</th><th>Limit</th></tr>
+<tr><td class="w">Silicone index</td><td>Transfers planned palatal + incisal contour from wax-up, digital replica or intact pre-op form; repeatable scaffold for first enamel shell</td><td>Controls only what it recorded — verify seating, orientation, incisal length, palatal clearance, no dam/wedge interference <b>before</b> bonding</td></tr>
+<tr><td class="w">Clear matrix + wedge + finger support</td><td>Can form the palatal wall when no index available</td><td>Less repeatable</td></tr>
+</table>
+<div class="flow"><b>Index workflow:</b> obtain intended form (wax-up / printed replica / pre-op) <span class="arrow">→</span> rigid silicone index of palatal surfaces + incisal edges of tooth and stable neighbours, trimmed to seat under dam <span class="arrow">→</span> trial-seat before etching <span class="arrow">→</span> after adhesive, controlled enamel increment in index at the defect, seat without distortion, remove excess, cure <span class="arrow">→</span> remove index, inspect shell for continuity, thickness, adaptation, incisal length before internal layers</div>
+
+<h3>Class IV sequence</h3>
+<div class="flow">Diagnose &amp; consent <span class="arrow">→</span> LA <span class="arrow">→</span> record occlusion <span class="arrow">→</span> shade (enamel + dentin/body) <span class="arrow">→</span> plan form (contralateral, wax-up, digital) <span class="arrow">→</span> rubber dam <span class="arrow">→</span> pre-wedge/shield if contact involved <span class="arrow">→</span> defect-centred preparation, extend proximally only to access/finish/contour (just free of contact) <span class="arrow">→</span> 45° facial bevel 0.5–2 mm <span class="arrow">→</span> protect neighbour (matrix / PTFE), etch &amp; bond <span class="arrow">→</span> palatal shell → proximal wall/contact → dentin core (mamelons if present) → effects (only if needed; keep opacity off the edge) → facial enamel feathered over bevel <span class="arrow">→</span> final cure from extra aspects <span class="arrow">→</span> finish, polish, occlusion, review</div>
+
+<h3>The two assigned case reports — do not merge their protocols</h3>
+<table>
+<tr><th></th><th>Gao et al. 2021 (JPD)</th><th>Romero et al. 2017 (JPD)</th></tr>
+<tr><td>Case</td><td>32 y; maxillary L central; horizontal dentin fracture, no pulp exposure, no root fracture</td><td>38 y; large maxillary L lateral fracture; mild sensitivity, non-lingering cold, normal periapical</td></tr>
+<tr><td>Planning</td><td>Contralateral digitally modelled → 3D-printed replica → palatal <b>and</b> labial silicone indices</td><td>Diagnostic cast + wax-up → conventional PVS lingual matrix</td></tr>
+<tr><td>Bevel</td><td>1.5 mm, 45° labial; slight lingual recontouring</td><td>1.5 mm, <b>75°</b> facial extended as "infinite bevel"; 45° lingual functional bevel</td></tr>
+<tr><td>Etch</td><td>35% H₃PO₄ enamel 20 s, rinse 30 s; universal adhesive</td><td>35% H₃PO₄ enamel + dentin 15 s, rinse 30 s; two adhesive layers</td></tr>
+<tr><td>Layering</td><td>Pre-heated enamel palatal shell (~0.5 mm) → incremental dentin → facial enamel shaped with labial index → characterise, polish</td><td>Lingual shell → opaque white + dentin/body → incisal effects → facial enamel → texture, polish</td></tr>
+<tr><td>Outcome / limit</td><td>Efficient digital technique, immediate result; single report, no control</td><td>Followed to 24 months; single report — cannot establish superiority or population longevity</td></tr>
+</table>
+<p>Shared support from both: pre-op planning, rubber dam, neighbour protection, conservative enamel prep, palatal guide, layered composite, careful finishing, occlusal verification. <b>Course prescription for exams: 45°, 0.5–2 mm facial bevel.</b></p>
+
+<!-- ============================== 7 ============================== -->
+<h2 id="s7">7. Isolation, neighbour protection, matrix and wedge <span class="wk">WEEKS 2 · 3 · 5 · 6</span></h2>
+<table>
+<tr><th>Aid</th><th>Function</th></tr>
+<tr><td>Rubber dam</td><td>Visibility, moisture control (saliva, blood, crevicular fluid), soft-tissue protection/retraction, adhesive predictability. Lecture shows it as preferred; the requirement is effective, stable contamination control per course protocol — "mandatory in every case" is too absolute. Supplement with floss ligature, retraction, haemostasis as margin demands</td></tr>
+<tr><td>Pre-wedge</td><td>Slight separation <b>before</b> preparation; protects adjacent surface; improves access; compensates for matrix thickness when re-establishing contact</td></tr>
+<tr><td>Fender / shield</td><td>Barrier against rotary damage to adjacent tooth — a wedge alone does not protect the full proximal surface</td></tr>
+<tr><td>Clear polyester strip</td><td>Protects neighbour from etchant, adhesive, composite; forms proximal contour; transmits light. Round sharp corners; extend beyond every margin</td></tr>
+<tr><td>Definitive wedge</td><td>Presses matrix to cervical margin, limits overhang, stabilises strip, slight separation, supports contact. Trim without injuring papilla</td></tr>
+<tr><td>Contact formation</td><td>Matrix and wedge assist but do not guarantee contact — adapt the first proximal increment deliberately; verify with floss after removal</td></tr>
+<tr><td>Final contour</td><td>Press strip against last enamel increment to reduce finishing; avoid flattening, over-bulking, or displacing the contact</td></tr>
+</table>
+<p><b>Pre-wedge vs definitive wedge:</b> separates/protects before prep vs adapts/stabilises matrix during restoration. <b>Matrix vs wedge vs index:</b> contains/shapes proximal surface vs seals/stabilises cervically vs reproduces planned palatal + incisal anatomy.</p>
+
+<!-- ============================== 8 ============================== -->
+<h2 id="s8">8. Adhesion, polymerisation shrinkage and curing <span class="wk">WEEKS 2 · 4 · 6</span></h2>
+
+<h3>Adhesive protocol</h3>
+<ul>
+<li>Protect neighbour; keep field dry and uncontaminated at every stage.</li>
+<li>Etch only where intended; rinse thoroughly if phosphoric acid. Course/simulation protocol: <b>30 s enamel, 15 s dentin</b> — clinically follow current manufacturer's instructions.</li>
+<li>Dry enamel appropriately; do not desiccate dentin — moisture level depends on the system.</li>
+<li>Active application, evaporate solvent, air-thin to prevent pooling, cure for specified time. Layer number per product.</li>
+<li>Longer, shorter or improvised timings reduce performance. Contamination → weak bond → marginal defect, sensitivity, debonding.</li>
+</ul>
+
+<h3>Shrinkage and stress</h3>
+<table>
+<tr><th>Concept</th><th>Meaning</th></tr>
+<tr><td>Shrinkage</td><td>Volumetric contraction as monomers polymerise. Pre-gel flow relieves stress; post-gel, flow is lost and stress rises</td></tr>
+<tr><td>Shrinkage stress</td><td>Develops when bonded surfaces restrain contraction. If it exceeds bond/tooth tolerance → debonding, enamel strain, marginal gap → staining, microleakage, sensitivity, marginal fracture, recurrent caries risk</td></tr>
+<tr><td>C-factor</td><td>Ratio of <b>bonded to unbonded</b> surfaces. High ratio restricts flow and raises stress — Class I is more constrained than an open Class IV</td></tr>
+<tr><td>Other variables</td><td>Composite volume and modulus, cavity compliance/geometry, adhesive performance, curing conditions, increment size, placement technique</td></tr>
+</table>
+<div class="note"><b>"Maximum two bonded walls per increment"</b> is a teaching heuristic, not the definition of C-factor or a universal rule.</div>
+
+<h3>Why increments</h3>
+<ul>
+<li>Better adaptation to walls and margins; smaller volume polymerised per cycle</li>
+<li>Keeps each layer within validated curing depth; favourable light access</li>
+<li>Builds dentin and enamel anatomy deliberately rather than carving a bulk mass</li>
+<li>Reduces opposing-wall restraint where increment design allows</li>
+</ul>
+<p>Lecture demonstrates conventional increments <b>≤ 2 mm</b> — a course rule for the shown material; actual curing depth is product-specific and bulk-fill systems have their own validated protocols.</p>
+
+<h3>Light-curing — factors that determine adequate cure</h3>
+<p>Material and shade/opacity, increment thickness, light output and wavelength compatibility, clean tip, distance, angle (as perpendicular as access allows), exposure time, stability, access from additional aspects after matrix/index removal. Eye protection; never look at the light. Under-cure → voids, poor properties, wear, fracture.</p>
+
+<!-- ============================== 9 ============================== -->
+<h2 id="s9">9. Anatomical layering <span class="wk">WEEKS 2 · 3 · 4 · 5</span></h2>
+<div class="hy"><b>Optical logic:</b> dentin/body composite = opacity, chroma, internal volume and form. Enamel composite = translucent outer shell and surface light behaviour. Excess body → flat/opaque. Excess enamel → grey. One thick opaque mass hides the substrate but loses depth.</div>
+<div class="grid">
+  <div class="card"><h4>Class III — three increments</h4>
+    <ol><li><b>Proximal enamel shell</b> against clear matrix: cervical seal, proximal wall, emergence, contact — cure</li><li><b>Dentin/body core</b>: opaque/chromatic; stop short of surface — cure</li><li><b>Final enamel</b> on the access surface (facial or palatal), feathered over bevel, shaped with strip — cure</li></ol>
+    <p style="font-size:13px;margin:6px 0 0">A very small shallow prep may take one well-chosen increment — do not add layers for complexity.</p>
+  </div>
+  <div class="card"><h4>Class IV — five stages after bonding</h4>
+    <ol><li><b>Palatal enamel shell</b> (index or supported matrix) — thin scaffold, must not consume space for body and facial layers</li><li><b>Proximal wall / contact</b> (strip + wedge): emergence, contact, embrasures, incisal corner</li><li><b>Dentin/body core</b> in controlled increments; mamelons/lobes if visible in reference tooth</li><li><b>Optical effects</b> only if required; keep opacity away from incisal edge</li><li><b>Facial enamel</b>: convexity, line angles, no over-contour; cure from extra aspects after index removal</li></ol>
+  </div>
+</div>
+<p><b>Controlled contour.</b> Build close to intended anatomy ("pre-finishing" concept — Paolone 2021). A small allowance for finishing is fine; bulky over-building is not protective — it lengthens finishing and risks margins, contact, line angles, enamel and occlusion.</p>
+
+<!-- ============================== 10 ============================== -->
+<h2 id="s10">10. Finishing and polishing <span class="wk">WEEK 4 (+5, 6)</span></h2>
+<table>
+<tr><th></th><th>Finishing</th><th>Polishing</th></tr>
+<tr><td>Purpose</td><td>Removes gross excess; corrects contour, anatomy, margins, contact, occlusion. Removes meaningful material; leaves fine scratches</td><td>Progressively finer abrasives remove finishing scratches, reduce roughness, create enamel-like gloss with minimal material removal</td></tr>
+<tr><td>Why both</td><td colspan="2">Correct shape but rough → plaque, stain, gingival irritation. Glossy but wrong shape → over-contoured, high, uncleanable. Polishing cannot fix an open margin, defective bond or uncontrolled caries</td></tr>
+</table>
+
+<h3>Composite — three-stage sequence</h3>
+<ol>
+<li><b>Gross excess</b>: flash, overhangs, occlusal interference — disc, diamond, multi-bladed carbide finishing bur</li>
+<li><b>Fine finishing</b>: macro-contour, line angles, embrasures, ridges, grooves, fossae, texture — medium → fine → extra-fine</li>
+<li><b>Polish / gloss</b>: extra-fine discs &lt; 8 µm, rubber/silicone points, SiC brushes, felt with ≈1.5–0.5 µm paste</li>
+</ol>
+<p><b>Abrasive rule:</b> coarse → fine without skipping the grit that removes the previous scratches; light pressure, constant movement, cooling. A superficial shine does not prove deep scratches are gone — inspect wet and dry. Colour bands (gold/silver/red/yellow/brown/green) belong to the illustrated system only — confirm each manufacturer's grit code.</p>
+<p><b>Timing (lecture):</b> finish immediately; polish at <b>24–48 h</b>. Course-specific — many modern systems allow same-visit polishing. Never dismiss with harmful interference, gross overhang, sharp edge or plaque-retentive excess.</p>
+
+<table>
+<tr><th>Site</th><th>Instrument and technique</th></tr>
+<tr><td>Anterior facial</td><td>Flexible discs for broad convexity; fine/extra-fine tapered diamond or carbide for line angles and texture. Change angle through cervical, middle, incisal thirds — don't flatten the profile</td></tr>
+<tr><td>Anterior cervical</td><td>Scalpel blade to shave accessible flash, directed away from tissue and enamel</td></tr>
+<tr><td>Anterior proximal</td><td>Abrasive strips below/around contact, coarse → fine, short controlled strokes — excessive use opens or flattens the contact</td></tr>
+<tr><td>Palatal concavity</td><td>Small flame, egg or rounded bur that fits without flattening marginal ridges or creating interference</td></tr>
+<tr><td>Posterior occlusal</td><td>Anatomy-preserving fine burs, then points, cups or brushes that enter grooves and fossae</td></tr>
+</table>
+<p><b>Protect anatomy:</b> establish contour during placement; finishing refines, it does not create. Check line angles from frontal and incisal views (inward = narrower, flattened = broad). Recheck floss after proximal work. Preserve functional contacts and marginal ridges; remove only interferences.</p>
+
+<h3>Amalgam finishing and polishing</h3>
+<ul>
+<li><b>Indication:</b> most well-carved and condensed modern amalgams need no routine later finishing; do it when anatomy, contour, margins or texture need refinement. Less important for high-copper (less tarnish and marginal breakdown) than low-copper.</li>
+<li><b>Timing:</b> no additional finishing/polishing within <b>24 h</b> — crystallisation incomplete. Gross excess, unsafe overhang or interference is still corrected at placement.</li>
+<li><b>Finishing:</b> low-speed green carborundum or white alumina stone → explorer check → large round finishing bur, light pressure (small round bur only to define grooves without removing contacts) → hold bur/stone ≈<b>45° to the margin</b> so unprepared tooth guides the instrument and limits amalgam removal → smooth, scratch-free before polishing.</li>
+<li><b>Polishing:</b> coarse rubber point at low speed with air-water to satin finish → wash between grits → medium → fine to high lustre (brown/medium/green order is product-specific). Alternative: brush or cup with flour of pumice slurry.</li>
+<li><b>Heat:</b> low speed, light intermittent pressure, movement, air-water cooling; <b>&gt; 60 °C</b> can cause irreparable pulpal/restoration damage. A <b>cloudy surface</b> after overheating = surface mercury enrichment → ↑ corrosion, ↓ strength.</li>
+<li>Do not erase contacts, grooves, fossae, ridges chasing polish. A strip between two contacting amalgams can eliminate the contact. Final: explorer margins, articulating paper, floss, clean surface.</li>
+</ul>
+
+<!-- ============================== 11 ============================== -->
+<h2 id="s11">11. Acceptance checklist and common errors <span class="wk">ALL WEEKS</span></h2>
+<table>
+<tr><th>Domain</th><th>Criterion</th></tr>
+<tr><td>Margins</td><td>Continuous, sealed, smooth; no flash, ledge, step, gap, void or exposed bonding resin; cervical cleansability</td></tr>
+<tr><td>Proximal</td><td>Contact with controlled floss resistance, no shredding or catching; emergence profile and embrasures cleansable; no black triangle</td></tr>
+<tr><td>Form</td><td>Length, width, convexity, line angles, incisal edge, palatal contour, ridges/grooves/fossae, symmetry with neighbours</td></tr>
+<tr><td>Occlusion</td><td>After dam removal: centric, protrusive, lateral — comfortable, no restoration-threatening interference, guidance preserved</td></tr>
+<tr><td>Surface</td><td>Scratches removed progressively; smoothness and gloss match enamel without flattening texture</td></tr>
+<tr><td>Aesthetics</td><td>Value, chroma, translucency, shade transition, texture integrated in the full smile; phonetics if relevant</td></tr>
+<tr><td>Tissues / maintenance</td><td>No soft-tissue injury; patient can clean it, understands review, hygiene, diet, fluoride, trauma/parafunction advice</td></tr>
+</table>
+
+<table>
+<tr><th>Error</th><th>Consequence</th><th>Prevention</th></tr>
+<tr><td class="w">Restoring before diagnosis</td><td>Missed pulp, root, periodontal or trauma problem</td><td>Full clinical + radiographic assessment first</td></tr>
+<tr><td class="w">Shade after dehydration</td><td>Too light / opaque</td><td>Select and cure trial before prolonged isolation</td></tr>
+<tr><td class="w">No pre-op occlusion</td><td>Over-built palatal, heavy incisal contact, "bite feels off"</td><td>Record centric and excursions before preparation</td></tr>
+<tr><td class="w">Access by habit / over-preparation</td><td>Facial scar, needless tissue loss, weaker bond substrate</td><td>Lesion-position and conservation decide the route; defect-centred outline</td></tr>
+<tr><td class="w">No neighbour protection</td><td>Iatrogenic proximal enamel damage</td><td>Pre-wedge, fender, strip, PTFE</td></tr>
+<tr><td class="w">Over-excavating dark dentin</td><td>Needless dentin loss, pulpal risk</td><td>Hardness, depth, seal, protocol — not colour</td></tr>
+<tr><td class="w">Indiscriminate bevel / straight abrupt margin</td><td>Over-extension, weak margin / visible outline</td><td>Bevel suitable enamel only; gradual, possibly non-linear facial bevel</td></tr>
+<tr><td class="w">Index not fully seated</td><td>Wrong incisal length or palatal contour</td><td>Trial-seat, check stability and clearance before bonding</td></tr>
+<tr><td class="w">Thick palatal shell / opaque at edge</td><td>No room for dentin + enamel / lost incisal translucency</td><td>Controlled first layer; stop opaque layers short of edge and surface</td></tr>
+<tr><td class="w">Bulk or thick uncured increment</td><td>Poor adaptation, under-cure, weak material</td><td>Increments within curing depth; light close; cure each</td></tr>
+<tr><td class="w">Poor matrix adaptation / over-contouring</td><td>Open contact, flat contour, overhang, plaque retention</td><td>Stabilise strip, build proximal shell deliberately, shape each layer before curing</td></tr>
+<tr><td class="w">Skipping grits / stationary heavy pressure</td><td>Hidden scratches; heat, grooves, lost contour</td><td>Sequential abrasives; light pressure, movement, cooling</td></tr>
+<tr><td class="w">Aggressive strips / over-polishing</td><td>Open or flat contact; flattened line angles and texture</td><td>Contour during placement; stop when smoothness and matching lustre achieved</td></tr>
+<tr><td class="w">Ignoring occlusion</td><td>Sensitivity, wear, chipping, fracture, debonding</td><td>Check static and dynamic contacts after isolation</td></tr>
+</table>
+
+<!-- ============================== 12 ============================== -->
+<h2 id="s12">12. Managing an existing restoration or fracture <span class="wk">WEEKS 5 · 6</span></h2>
+
+<p><b>First question: why does it not match / what exactly is the defect?</b> Clean and rehydrate, clarify the concern, diagnose whether it is surface stain/gloss, value/chroma/opacity, thickness, contour, texture, margin, disease — or a combination. Do not start by replacing.</p>
+
+<table>
+<tr><th>Option</th><th>Suitable when</th><th>Limits / safeguards</th></tr>
+<tr><td class="w">Monitor &amp; maintain</td><td>Acceptable, asymptomatic, cleansable, inactive, stable, structurally insignificant</td><td>Record baseline and risk; define review; act on progression, disease, symptoms or patient concern</td></tr>
+<tr><td class="w">Refinish / repolish</td><td>Superficial stain, roughness, small flash/excess, gloss or texture mismatch, correctable contour; restoration otherwise sound</td><td>Preserve contact, anatomy, thickness, margins. Cannot correct internal shade/opacity error, deep caries, widespread debonding</td></tr>
+<tr><td class="w">Repair</td><td>Localised chip, void, marginal defect, wear area or colour layer; sound bonded bulk remains and is accessible</td><td>Must leave a cleansable margin and durable bonding surface; correct the original cause</td></tr>
+<tr><td class="w">Replace</td><td>Extensive shade/contour error, recurrent caries, widespread marginal failure, fracture, poor substrate, inadequate retention or remaining restoration</td><td>Enlarges intervention and sacrifices tissue — diagnose and control the cause first; must be justified</td></tr>
+<tr><td class="w">Treat tooth / tissues</td><td>Pulpal/periapical disease, significant tooth fracture, periodontal disease, trauma, unrestorable loss</td><td>Never treat a restoration defect in isolation — urgent, VPT, endodontic, periodontal, surgical care follows diagnosis</td></tr>
+</table>
+
+<h3>Repair technique and silane</h3>
+<ul>
+<li>Confirm the remainder is worth keeping and the defect is localised and accessible.</li>
+<li>Isolate, clean, remove weak/contaminated material, mechanically roughen/prepare a clean retentive finishable interface without unnecessary tooth removal.</li>
+<li>Identify every exposed substrate — enamel, dentin, aged resin matrix, exposed filler, ceramic — surface treatment is substrate-specific.</li>
+<li><b>Silane is not a universal stand-alone or mandatory step.</b> Indicated when silica-containing filler or silica-based ceramic is exposed; follow the repair system. Silane couples to inorganic surfaces; adhesive bonds across the prepared interface — sequence depends on substrates and product.</li>
+<li>Add composite, cure, finish, polish; restore shade, contact, emergence, thickness, occlusion; then address the risk that caused the defect.</li>
+<li>Patient must understand longevity, cost and invasiveness of repair vs replacement.</li>
+</ul>
+
+<h3>Fractured incisor with fragment</h3>
+<div class="flow">Trauma assessment (history, soft tissue, mobility/displacement, percussion/palpation, sensibility baseline, occlusion, extent, radiographs; rule out root/alveolar injury) <span class="arrow">→</span> fragment: keep hydrated, clean gently, check completeness, trial-fit without forcing <span class="arrow">→</span> pulpal diagnosis: enamel–dentin fracture vs exposure; maturity; pulpal/periapical status — <b>exposure ≠ automatic RCT</b>; VPT may suit selected vital teeth <span class="arrow">→</span> reattach if isolation, adaptation and bonding achievable; otherwise direct composite or other option <span class="arrow">→</span> isolate, bond, stabilise, remove excess, cure, refine planned external reinforcement <span class="arrow">→</span> verify incisal position, palatal contour, contacts, tissues; sensibility and radiographic <b>follow-up</b> — pulpal complications appear late</div>
+<p>Reattachment reproduces original colour, texture, incisal anatomy and wear while conserving tissue; prognosis depends on injury severity, hydration, fit, substrate, adhesive control and loading.</p>
+
+<h3>Proximal space, dark colour, suspected caries</h3>
+<div class="flow">Diagnose (activity, extent, contact/papilla, restorability, pulp, periodontium, risk, occlusion; radiograph if indicated — do not assume it is only aesthetic) <span class="arrow">→</span> control disease and inflammation; plan isolable, finishable, cleanable margins <span class="arrow">→</span> direct composite with matrix/wedge for contact, emergence, cervical adaptation; alternatives only when indicated <span class="arrow">→</span> verify margins, floss, colour, surface, occlusion; post-op radiograph for deep/hard-to-see proximal restorations — not automatic, cannot detect every gap</div>
+
+<!-- ============================== 13 ============================== -->
+<h2 id="s13">13. How anterior restorations fail <span class="wk">WEEK 6</span></h2>
+
+<h3>Definitions</h3>
+<table>
+<tr><th>Term</th><th>Meaning</th></tr>
+<tr><td>Failure</td><td>Unacceptable biological, mechanical, functional or aesthetic outcome that requires intervention or stops the restoration serving its purpose — under stated criteria. Old or imperfect ≠ failed</td></tr>
+<tr><td>Success</td><td>Meets all stated clinical criteria without unacceptable defect or intervention</td></tr>
+<tr><td>Survival</td><td>Remains in service — may include a repaired restoration, depending on the study</td></tr>
+<tr><td>Defect</td><td>A finding; size, activity, symptoms, progression, cleansability and structural effect decide monitor / refinish / repair / replace</td></tr>
+<tr><td>Failure event</td><td>Study endpoint (repair, replacement, fracture, loss) — definitions differ; identify the criterion before comparing survival figures. The intervention threshold is itself part of the measured outcome</td></tr>
+<tr><td>AFR</td><td>Annualised failure estimate within a study: AFR ≈ 1 − S<sup>1/y</sup>. Depends on follow-up, event definition, case mix, tooth type, size, operator, statistics. 5% AFR ≠ every patient has 5% risk per year, and ≠ lifetime prognosis</td></tr>
+</table>
+
+<h3>Four failure domains</h3>
+<p><b>Biological</b> (secondary caries, pulpal/periapical disease, plaque-retentive margin, gingival inflammation) · <b>Mechanical</b> (composite/tooth fracture, debonding, marginal breakdown, wear) · <b>Functional</b> (high contact, excursive interference, altered guidance, open contact, food trapping) · <b>Aesthetic</b> (mismatch, discolouration, marginal stain, opacity error, visible line, poor shape/texture/gloss — an intact restoration can still be a valid failure in the anterior region).</p>
+
+<h3>Six anterior failure modes</h3>
+<table>
+<tr><th>Mode</th><th>Possible causes</th><th>First questions</th></tr>
+<tr><td class="w">Fracture (restoration or tooth)</td><td>Trauma, hard object, parafunction, thin/unsupported material, unsupported enamel, void, under-cure, occlusal overload</td><td>Tooth or only composite? Pulp exposed? Fragment available?</td></tr>
+<tr><td class="w">Loss of adhesion</td><td>Contamination, poor surface treatment or adhesive handling, insufficient cure, unfavourable substrate, stress, design error</td><td>Where did separation occur; which substrate/interface failed?</td></tr>
+<tr><td class="w">Marginal stain / defect</td><td>Superficial stain, finishing damage, wear, marginal breakdown, poor adaptation, bond degradation, caries</td><td>Stain only? Loss of integrity? Active disease? Reproducible symptoms?</td></tr>
+<tr><td class="w">Colour mismatch / discolouration</td><td>Shade after dehydration, wrong material/thickness, substrate show-through, roughness, diet, smoking, ageing of tooth or composite</td><td>Superficial, internal, in the tooth, or form rather than colour?</td></tr>
+<tr><td class="w">Loss of anatomy</td><td>Wear, bruxism, nail biting, erosion, wrong material, insufficient thickness, over-finishing</td><td>Active? Local or generalised? Alters guidance or space?</td></tr>
+<tr><td class="w">Secondary caries</td><td>Caries risk, plaque stagnation, defective contour/margin, diet, fluoride, dry mouth, time</td><td>Active and cavitated? Depth? Repairable after disease control?</td></tr>
+</table>
+
+<div class="warn"><b>Diagnostic cautions.</b> Marginal stain is not a diagnosis — clean, dry, check continuity, texture, activity, symptoms, imaging only when indicated. Sensitivity is not proof of a failed bond — consider pulpal disease, exposed dentin, crack, trauma, occlusal overload, periodontal source, adjacent teeth. Complete debonding ≠ one defective product. Colour mismatch ≠ wrong tab alone.</div>
+
+<h3>Why failures happen — six factor levels</h3>
+<p>Separate background risk from the immediate mechanism (bruxism = patient risk; thin incisal extension = design; high protrusive contact = local loading).</p>
+<table>
+<tr><th>Level</th><th>Examples</th><th>Response</th></tr>
+<tr><td>Patient</td><td>Caries activity, OH, diet, xerostomia/medicines, trauma exposure, bruxism, nail biting, smoking, expectations, attendance, SES</td><td>Assess without blame, control modifiable risk, realistic maintenance plan</td></tr>
+<tr><td>Tooth &amp; defect</td><td>Central-incisor exposure, size/surfaces, available enamel, sclerotic dentin, support, pulp status, position, overjet/overbite, space</td><td>Conservative design and prognosis matched to tissue and load; treat disease and pulp first</td></tr>
+<tr><td>Design</td><td>Thickness, incisal extension, adaptation, contact, contours, line angles, margin position, cleansability</td><td>Plan anatomy and thickness before placement; avoid unsupported enamel, thin composite, bulk, inaccessible margins</td></tr>
+<tr><td>Material</td><td>Mechanical/optical properties, polishability, curing depth, shade range, adhesive–primer–substrate compatibility</td><td>Familiar evidence-supported system within indications; current instructions</td></tr>
+<tr><td>Operator</td><td>Diagnosis, isolation, prep, surface treatment, adhesive, increments, curing, finishing, occlusal adjustment, intervention threshold</td><td>Reproducible protocol, verify each stage, record contacts, repair over replacement</td></tr>
+<tr><td>Maintenance &amp; time</td><td>Plaque/stain, wear, changing occlusion, tooth colour change, new trauma, recall, repeated intervention</td><td>Review risk and function; maintain; intervene by progression and significance</td></tr>
+</table>
+<p><b>Typical chains:</b> contamination → weak bond → marginal defect/debonding · unsupported enamel → flex → fracture · thick increment / bad light position → under-cure → wear/fracture · missed excursive contact → incisal overload → chip/wear/debond · rough or over-contoured surface → plaque, stain, gingivitis → reintervention · automatic replacement of a small defect → tissue loss → larger restorative cycle.</p>
+
+<h3>Structured assessment of a suspected failure</h3>
+<div class="flow">History (onset, progression, trauma, pain triggers, previous repairs, habits, dry mouth, expectations) <span class="arrow">→</span> clean and view wet/dry, magnification, facial/incisal/profile, compare with photographs <span class="arrow">→</span> restoration and tooth (fracture, margin, contact, contour, wear, colour, cracks, unsupported enamel) <span class="arrow">→</span> biology (caries activity, periodontium, pulp/periapical, sensibility, percussion) <span class="arrow">→</span> function (centric, protrusive, lateral, guidance, wear facets, parafunction) <span class="arrow">→</span> imaging for a defined question only <span class="arrow">→</span> judge severity, activity, progression, cause, recurrence risk <span class="arrow">→</span> least invasive suitable management + review</div>
+
+<h3>Patient communication</h3>
+<p>Composite is repairable and reliable, not permanent. Practical, risk-matched advice (no opening packaging with restored incisors, manage nail biting) without blame or unrealistic bans. When the problem is mainly aesthetic, replacing an intact restoration improves looks but removes tissue and enlarges the future intervention.</p>
+
+<!-- ============================== 14 ============================== -->
+<h2 id="s14">14. Evidence on longevity <span class="wk">WEEK 6</span></h2>
+<table>
+<tr><th>Paper</th><th>Design</th><th>Findings</th><th>Interpretation</th></tr>
+<tr><td class="w">Demarco et al. 2017 (Braz Oral Res)</td><td>Critical review of factors affecting direct composite longevity, anterior and posterior</td><td>AFR <b>1–5% anterior</b>, <b>1–3% posterior</b>. Posterior failures mainly secondary caries and fracture; <b>aesthetic concerns</b> lead anterior intervention</td><td>Brand matters less than sound procedure; patient, cavity, operator, occlusal, socioeconomic and treatment-decision factors all affect outcome</td></tr>
+<tr><td class="w">Collares et al. 2017 (J Dent Res)</td><td>Retrospective practice-based network: <b>72,196</b> anterior composites, <b>29,855</b> patients, <b>47</b> dentists, <b>24</b> practices, 1996–2011; mean <b>4.8 y</b>, max <b>13 y</b></td><td>Mean AFR <b>4.6% at 5 y</b> (95% CI 4.5–4.6; lecture quotes 4.9% overall); dentist-specific AFR <b>2–11%</b>; higher adjusted risk in young children and adults &gt; 65; <b>central incisors</b> most prone to failure and replacement; more failures upper than lower</td><td>Clinically acceptable performance with large operator and case variation. Associations, not causal mechanisms — case mix, selection, recording and intervention thresholds all vary</td></tr>
+</table>
+<p>AFR comparisons are only meaningful when tooth type, indication, size, follow-up, operator setting and the definitions of repair, replacement, survival and failure are comparable. Age and tooth-position findings are not reasons to deny treatment or blame a patient.</p>
+
+<!-- ============================== 15 ============================== -->
+<h2 id="s15">15. Exam-focused distinctions — merged <span class="wk">ALL WEEKS</span></h2>
+<table>
+<tr><th>Do not confuse</th><th>Correct distinction</th></tr>
+<tr><td class="w">Caries disease vs lesion</td><td>Ongoing process vs tissue sign it produces; restoring the lesion does not cure the disease</td></tr>
+<tr><td class="w">Severity vs activity</td><td>How much tissue vs whether mineral loss is progressing — independent judgements</td></tr>
+<tr><td class="w">Clinical exam vs radiograph</td><td>Surface integrity and activity vs depth and longitudinal change</td></tr>
+<tr><td class="w">Stain vs (secondary) caries</td><td>Colour is insufficient — texture, lustre, cavitation, plaque, risk, change over time, imaging when indicated</td></tr>
+<tr><td class="w">Actual vs apparent dimensions</td><td>Line angles and surface features change perceived width/length without changing physical size</td></tr>
+<tr><td class="w">Class III vs Class IV</td><td>Both proximal anterior; only IV includes the incisal angle/edge → adds incisal form, guidance, load, optical depth</td></tr>
+<tr><td class="w">Preferred vs mandatory access</td><td>Palatal often preferable; the most conservative controlled route is chosen case by case</td></tr>
+<tr><td class="w">Discoloured vs infected dentin</td><td>Dark ≠ soft/active/infected; colour is not an excavation endpoint</td></tr>
+<tr><td class="w">Enamel vs dentin composite</td><td>Translucent outer shell vs internal opacity, chroma, volume</td></tr>
+<tr><td class="w">Palatal shell vs dentin core</td><td>Translucent outer scaffold vs internal volume/opacity/chroma</td></tr>
+<tr><td class="w">Facial bevel vs occlusal adjustment</td><td>Bond area and optical transition vs removing harmful contacts while preserving anatomy</td></tr>
+<tr><td class="w">Course protocol vs paper / product</td><td>30/15 s etch, 45° 0.5–2 mm bevel, ≤ 2 mm increments, 24–48 h polish are course rules; papers show variation; products define clinical timings</td></tr>
+<tr><td class="w">Shrinkage vs shrinkage stress</td><td>Volumetric contraction vs stress from restraint by bonded surfaces</td></tr>
+<tr><td class="w">C-factor vs two-wall rule</td><td>Bonded : unbonded ratio vs a teaching heuristic</td></tr>
+<tr><td class="w">Finishing vs polishing</td><td>Shape, margins, contact, occlusion vs scratch removal and gloss with negligible form change</td></tr>
+<tr><td class="w">Gloss vs smoothness</td><td>Shiny can hide deep scratches — inspect wet and dry, progress through all grits</td></tr>
+<tr><td class="w">Composite vs amalgam timing</td><td>Composite: finish now, polish 24–48 h. Amalgam: no extra finishing/polishing before 24 h</td></tr>
+<tr><td class="w">Surface defect vs disease control</td><td>Polishing reduces roughness; it does not treat caries or a defective seal</td></tr>
+<tr><td class="w">Refinish vs repair vs replace</td><td>Surface change vs adding material to a local defect vs remove and remake — choose the least invasive that resolves the diagnosed problem</td></tr>
+<tr><td class="w">Silane vs adhesive</td><td>Couples to suitable inorganic surfaces vs bonds across the prepared interface; sequence is substrate- and product-dependent</td></tr>
+<tr><td class="w">Pulp exposure vs RCT</td><td>Exposure requires pulpal diagnosis; VPT may preserve vitality; RCT follows pulpal/periapical indication</td></tr>
+<tr><td class="w">Direct vs indirect</td><td>Intraoral vs extraoral fabrication — the words alone do not determine quality or invasiveness</td></tr>
+<tr><td class="w">Failure vs defect · success vs survival</td><td>Unacceptable outcome vs a finding · meets all criteria vs still in service (may be repaired)</td></tr>
+<tr><td class="w">Fracture vs debonding · wear vs fracture</td><td>Cohesive failure vs interface separation · progressive loss vs discrete event</td></tr>
+<tr><td class="w">Static vs dynamic occlusion</td><td>Centric is only part; protrusive/lateral guidance can be the decisive stress</td></tr>
+<tr><td class="w">Risk factor vs cause · AFR vs prognosis</td><td>Association ≠ mechanism or blame · annualised study estimate ≠ lifetime prediction</td></tr>
+<tr><td class="w">Real tooth vs simulation</td><td>Diagnosis and prognosis vs standardised exercise</td></tr>
+</table>
+
+<h3>Answer templates</h3>
+<table>
+<tr><th>Question type</th><th>Sequence</th></tr>
+<tr><td class="w">Describe a lesion</td><td>Site/surface → cavitated or not → severity → activity → supporting clinical and radiographic evidence</td></tr>
+<tr><td class="w">Plan caries management</td><td>Patient risk → cleansability and depth → non-operative vs operative → maintenance and monitoring</td></tr>
+<tr><td class="w">Plan an aesthetic restoration</td><td>Expectation → full aesthetic analysis → least invasive option → material optics and isolation → review in the smile</td></tr>
+<tr><td class="w">Class III / IV (five phases)</td><td><b>Assess</b> lesion, dentin/pulp, cleansability, aesthetics, position/contact, occlusion → <b>Plan</b> need, access, shade/layers, isolation, protection, matrix/index → <b>Prepare</b> LA, pre-wedge/shield, lesion-centred entry, conservative excavation, unsupported enamel, bevel → <b>Restore</b> matrix/wedge, etch/bond, shell → body → enamel, cure each → <b>Evaluate</b> margins, floss, contour, polish, centric/excursions, prevention</td></tr>
+<tr><td class="w">Failed / chipped / stained restoration</td><td>Describe finding and symptoms → involved structure and mechanism → biological and occlusal risk → severity and progression → least invasive option → correct the cause → verify aesthetics and function → review</td></tr>
+</table>
+
+<!-- ============================== 16 ============================== -->
+<h2 id="s16">16. Numbers to memorise</h2>
+<div class="nums">
+  <div class="num"><div class="v">30 s / 15 s</div><div class="l">Course etch: enamel / dentin (product-specific clinically)</div></div>
+  <div class="num"><div class="v">45° · 0.5–2 mm</div><div class="l">Course facial enamel bevel (Class III audio ≈0.5–1.2 mm; IV diagram ≈1–1.5 mm)</div></div>
+  <div class="num"><div class="v">≤ 2 mm</div><div class="l">Conventional composite increment (lecture); curing depth is product-specific</div></div>
+  <div class="num"><div class="v">24–48 h</div><div class="l">Composite: finish immediately, polish later (course rule)</div></div>
+  <div class="num"><div class="v">≥ 24 h</div><div class="l">Amalgam: no additional finishing/polishing earlier (crystallisation)</div></div>
+  <div class="num"><div class="v">&gt; 60 °C</div><div class="l">Irreparable pulpal/amalgam damage; cloudy = surface Hg enrichment</div></div>
+  <div class="num"><div class="v">45°</div><div class="l">Bur/stone to amalgam margin — tooth guides the instrument</div></div>
+  <div class="num"><div class="v">&lt; 8 µm · 1.5–0.5 µm</div><div class="l">Extra-fine disc grit · polishing paste</div></div>
+  <div class="num"><div class="v">1.618 : 1 : 0.618</div><div class="l">Golden proportion, apparent frontal widths CI : LI : C — a guide</div></div>
+  <div class="num"><div class="v">1–5% · 1–3%</div><div class="l">AFR anterior · posterior (Demarco 2017)</div></div>
+  <div class="num"><div class="v">4.6% (4.9%)</div><div class="l">Collares 5-y AFR abstract (lecture figure); dentist range 2–11%</div></div>
+  <div class="num"><div class="v">72,196 / 29,855</div><div class="l">Collares restorations / patients; 47 dentists, 24 practices, mean 4.8 y, max 13 y</div></div>
+  <div class="num"><div class="v">20 s vs 15 s</div><div class="l">Gao (enamel, 35%) vs Romero (enamel+dentin, 35%); both rinse 30 s — never merge</div></div>
+  <div class="num"><div class="v">45° vs 75°</div><div class="l">Gao 1.5 mm labial bevel vs Romero 1.5 mm "infinite" facial + 45° lingual</div></div>
+  <div class="num"><div class="v">≈ 0.5 mm</div><div class="l">Gao's pre-heated palatal enamel shell — case example only</div></div>
+</div>
+
+<footer>
+Sources: Weber KR, DOH244 Session 2 lectures Weeks 13–18 (Charles Sturt University, 2026); Ritter, Boushell &amp; Walter, Sturdevant's Art and Science of Operative Dentistry 7th ed (Ch 2, 4, 8, 9, 10); Gao et al. J Prosthet Dent 2021;125:555–559; Romero et al. J Prosthet Dent 2017;118:447–451; Paolone et al. Dent J 2021;9:79; Demarco et al. Braz Oral Res 2017;31(S1):e56; Collares et al. J Dent Res 2017;96(10):1092–1099. Practical-exam weightings and kit details mentioned only in transcripts are not treated as examinable — confirm the current assessment brief.
+</footer>
+
+</div>
+</body>
+</html>
