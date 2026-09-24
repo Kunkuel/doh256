@@ -1,0 +1,2246 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DOH 233 exam recall: Lectures 1 to 5c</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F2F7; --glass:#FFFFFF; --ink:#221C33; --muted:#655D78; --rule:#DED7E7;
+  --haem:#4B3D93; --haem-ink:#FFFFFF; --haem-wash:#ECE8F7;
+  --eosin:#C23E6C; --eosin-wash:#FCF1F5;
+  --good:#2C7A60; --good-wash:#E6F3EE; --warn:#9C5F12; --warn-wash:#FBF2E4; --bad:#B3334C; --bad-wash:#FBE9ED;
+  --frost:#EEEAF3; --frost-dot:rgba(34,28,51,.10); --coverslip:rgba(75,61,147,.14);
+  --shadow:rgba(34,28,51,.28);
+  --serif:'Literata', Georgia, 'Times New Roman', serif;
+  --sans:'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15121D; --glass:#1E1A29; --ink:#ECE8F3; --muted:#A9A1BA; --rule:#352E46;
+    --haem:#B0A4F4; --haem-ink:#15121D; --haem-wash:#28223D;
+    --eosin:#F283A9; --eosin-wash:#2A1A24;
+    --good:#72CCA9; --good-wash:#16271F; --warn:#E5AE62; --warn-wash:#2A2014; --bad:#F2879A; --bad-wash:#2C181D;
+    --frost:#262134; --frost-dot:rgba(236,232,243,.08); --coverslip:rgba(176,164,244,.16);
+    --shadow:rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15121D; --glass:#1E1A29; --ink:#ECE8F3; --muted:#A9A1BA; --rule:#352E46;
+  --haem:#B0A4F4; --haem-ink:#15121D; --haem-wash:#28223D;
+  --eosin:#F283A9; --eosin-wash:#2A1A24;
+  --good:#72CCA9; --good-wash:#16271F; --warn:#E5AE62; --warn-wash:#2A2014; --bad:#F2879A; --bad-wash:#2C181D;
+  --frost:#262134; --frost-dot:rgba(236,232,243,.08); --coverslip:rgba(176,164,244,.16);
+  --shadow:rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top, 0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5}
+.wrap{max-width:920px;margin:0 auto;padding:28px 20px 64px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--haem);outline-offset:2px}
+kbd{font-family:var(--sans);font-size:.72rem;font-weight:600;border:1px solid currentColor;border-radius:4px;padding:0 4px;opacity:.7;margin-left:4px}
+
+/* masthead */
+.mast{display:flex;flex-direction:column;gap:18px;margin-bottom:18px}
+.hub{display:inline-block;font-size:.86rem;font-weight:600;color:var(--haem);text-decoration:none;margin-bottom:10px}
+.hub:hover{text-decoration:underline;text-underline-offset:3px}
+.mast h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.9rem, 4.6vw, 2.7rem);line-height:1.08;letter-spacing:-.01em;margin:0;font-variation-settings:'opsz' 72}
+.mast .sub{margin:8px 0 0;color:var(--muted);max-width:62ch;font-size:.97rem}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);overflow-x:auto}
+.tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 9px;font-weight:600;font-size:1rem;color:var(--muted);cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tab[aria-selected="true"]{color:var(--haem);border-bottom-color:var(--haem)}
+.tab:hover{color:var(--ink)}
+
+/* filters */
+.filters{display:flex;flex-direction:column;gap:10px;margin:16px 0 10px}
+.row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rowlabel{font-size:.86rem;color:var(--muted);margin-right:4px}
+.chip{appearance:none;border:1px solid var(--rule);background:var(--glass);border-radius:999px;padding:5px 12px;font-size:.88rem;font-weight:500;cursor:pointer;line-height:1.3}
+.chip:hover{border-color:var(--haem)}
+.chip[aria-pressed="true"]{background:var(--haem);border-color:var(--haem);color:var(--haem-ink)}
+.chip-focus[aria-pressed="false"]{border-color:color-mix(in srgb, var(--eosin) 45%, var(--rule))}
+.chip-focus[aria-pressed="true"]{background:var(--eosin);border-color:var(--eosin);color:#fff}
+:root[data-theme="dark"] .chip-focus[aria-pressed="true"]{color:#15121D}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip-focus[aria-pressed="true"]{color:#15121D}}
+.search input{width:100%;max-width:420px;font:inherit;font-size:.95rem;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--glass);color:var(--ink)}
+
+/* tally */
+.tally{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:6px 0 22px}
+.tbar{display:flex;height:8px;border-radius:999px;overflow:hidden;background:var(--rule);flex:1 1 100%}
+.tbar .seg{flex-basis:0;min-width:0}
+.seg-got{background:var(--good)} .seg-shaky{background:var(--warn)} .seg-missed{background:var(--bad)} .seg-un{background:var(--rule)}
+.tleg{margin:0;font-size:.86rem;color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px}
+.tleg .li{white-space:nowrap;margin-right:12px}
+.tleg b{color:var(--ink);font-weight:600}
+.tleg .tscope{margin-left:2px}
+.k{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px}
+.k-got{background:var(--good)} .k-shaky{background:var(--warn)} .k-missed{background:var(--bad)} .k-un{background:var(--rule)}
+.linkbtn{appearance:none;background:none;border:0;padding:2px 0;color:var(--haem);font-size:.86rem;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.reset{margin-left:auto;color:var(--muted)}
+
+/* buttons */
+.btn{appearance:none;border:1px solid var(--rule);background:var(--glass);border-radius:8px;padding:8px 14px;font-weight:600;font-size:.92rem;cursor:pointer}
+.btn:hover:not(:disabled){border-color:var(--haem)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn-primary{background:var(--haem);border-color:var(--haem);color:var(--haem-ink)}
+.btn-primary:hover:not(:disabled){filter:brightness(1.08)}
+.btn-wide{width:100%;padding:12px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+/* bank */
+.bank-tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:16px}
+.seg-mini{display:inline-flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.seg-mini button{appearance:none;border:0;background:var(--glass);padding:6px 12px;font-size:.88rem;font-weight:500;cursor:pointer;border-right:1px solid var(--rule)}
+.seg-mini button:last-child{border-right:0}
+.seg-mini button[aria-pressed="true"]{background:var(--haem-wash);color:var(--haem);font-weight:700}
+.check{display:inline-flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+.check input{accent-color:var(--haem);width:16px;height:16px}
+.count{color:var(--muted);font-size:.88rem;margin-left:auto}
+.grp{margin-bottom:28px}
+.grp-h{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--rule);font-variation-settings:'opsz' 40}
+.grp-code{color:var(--haem)}
+.item{display:grid;grid-template-columns:58px 1fr;background:var(--glass);border:1px solid var(--rule);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.item-label{background-color:var(--frost);background-image:radial-gradient(var(--frost-dot) .8px, transparent .9px);background-size:3px 3px;border-right:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 4px}
+.item-label .code{font-family:var(--serif);font-weight:600;font-size:.98rem;color:var(--haem)}
+.item-label .dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--rule)}
+.item.is-got .dot{background:var(--good);border-color:var(--good)}
+.item.is-shaky .dot{background:var(--warn);border-color:var(--warn)}
+.item.is-missed .dot{background:var(--bad);border-color:var(--bad)}
+.item-body{padding:12px 16px 14px;min-width:0}
+.meta{margin:0 0 4px;font-size:.8rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center}
+.pred{display:inline-flex;align-items:center;gap:5px;color:var(--eosin);font-weight:600}
+.pred i{width:7px;height:7px;border-radius:50%;background:var(--eosin);display:inline-block}
+.stype{border:1px solid var(--rule);border-radius:4px;padding:0 5px;font-weight:600}
+.q{font-family:var(--serif);font-weight:500;font-size:1.06rem;line-height:1.45;margin:0 0 10px;font-variation-settings:'opsz' 18}
+.btn-reveal{padding:5px 12px;font-size:.86rem}
+
+/* answer typography */
+.ans{font-family:var(--serif);font-size:.98rem;line-height:1.6;margin-top:12px;padding:14px 16px;background:var(--eosin-wash);border-left:3px solid var(--eosin);border-radius:0 6px 6px 0;font-variation-settings:'opsz' 14}
+.ans p{margin:0 0 .6em}
+.ans ul,.ans ol{margin:.2em 0 .7em;padding-left:1.3em}
+.ans li{margin-bottom:.25em}
+.ans .lead{font-weight:600}
+.ans b{font-weight:650}
+.tw{overflow-x:auto;margin:.3em 0 .8em;-webkit-overflow-scrolling:touch}
+.tbl{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.88rem;line-height:1.45;min-width:420px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:6px 10px 6px 0;border-bottom:1px solid var(--rule)}
+.tbl thead th{font-weight:700;color:var(--haem);border-bottom:1.5px solid var(--haem)}
+.tbl tbody th{font-weight:600}
+.hook,.flag,.link,.beyond{font-family:var(--sans);font-size:.87rem;line-height:1.5;padding:8px 10px;border-radius:6px;margin:.6em 0 .4em}
+.hook span,.flag span,.link span,.beyond span{font-weight:700;margin-right:4px}
+.hook{background:var(--glass);border:1px solid color-mix(in srgb, var(--eosin) 40%, var(--rule))}
+.hook span{color:var(--eosin)}
+.flag{background:var(--warn-wash);border:1px solid color-mix(in srgb, var(--warn) 45%, var(--rule))}
+.flag span{color:var(--warn)}
+.link{background:var(--haem-wash);border:1px solid color-mix(in srgb, var(--haem) 30%, var(--rule))}
+.link span{color:var(--haem)}
+.beyond{background:transparent;border:1px dashed var(--rule);color:var(--muted)}
+.beyond span{color:var(--ink)}
+.beyond-tag{font-family:var(--sans);font-size:.76rem;color:var(--muted);margin:.6em 0 0;display:inline-block;border:1px dashed var(--rule);border-radius:4px;padding:1px 6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.pts-h{font-family:var(--sans);font-size:.84rem;font-weight:700;color:var(--haem);margin:.8em 0 .4em}
+.pts-h:first-child{margin-top:0}
+.pts-plain{font-family:var(--sans);font-size:.9rem}
+
+.grades{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px;font-family:var(--sans)}
+.grades-label{font-size:.84rem;color:var(--muted);margin-right:4px}
+.gbtn{appearance:none;border:1.5px solid var(--rule);background:var(--glass);border-radius:8px;padding:6px 12px;font-weight:600;font-size:.88rem;cursor:pointer}
+.g-missed,.g-again{color:var(--bad)} .g-shaky,.g-hard{color:var(--warn)} .g-got,.g-easy{color:var(--good)} .g-good{color:var(--haem)}
+.g-missed:hover,.g-again:hover,.g-missed[aria-pressed="true"]{border-color:var(--bad);background:var(--bad-wash)}
+.g-shaky:hover,.g-hard:hover,.g-shaky[aria-pressed="true"]{border-color:var(--warn);background:var(--warn-wash)}
+.g-got:hover,.g-easy:hover,.g-got[aria-pressed="true"]{border-color:var(--good);background:var(--good-wash)}
+.g-good:hover{border-color:var(--haem);background:var(--haem-wash)}
+.grades-4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:0}
+.grades-4 .gbtn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 6px}
+.grades-4 small{font-weight:500;color:var(--muted);font-size:.78rem}
+
+/* the glass slide */
+.slide{display:grid;grid-template-columns:118px 1fr;background:var(--glass);border:1px solid var(--rule);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 var(--rule), 0 22px 44px -30px var(--shadow)}
+.slide:focus{outline:none}
+.slide:focus-visible{outline:2px solid var(--haem);outline-offset:3px}
+.slide-label{background-color:var(--frost);background-image:radial-gradient(var(--frost-dot) .8px, transparent .9px);background-size:3px 3px;border-right:1px solid var(--rule);padding:22px 14px;display:flex;flex-direction:column;gap:8px}
+.slide-label .code{font-family:var(--serif);font-weight:650;font-size:2.1rem;line-height:1;color:var(--haem);font-variation-settings:'opsz' 72}
+.slide-label .lname{font-size:.8rem;line-height:1.35;color:var(--muted)}
+.slide-label .pred{font-size:.78rem;margin-top:4px}
+.specimen{position:relative;padding:30px 34px 28px;min-height:280px;min-width:0}
+.specimen::before{content:"";position:absolute;inset:12px;border:1px solid var(--coverslip);border-radius:4px;pointer-events:none}
+.fq{font-family:var(--serif);font-weight:500;font-size:clamp(1.2rem, 2.6vw, 1.45rem);line-height:1.4;margin:6px 0 0;max-width:48ch;font-variation-settings:'opsz' 32}
+.slide-scen .fq{max-width:62ch;font-size:clamp(1.05rem, 2.2vw, 1.2rem)}
+.ans-flash{margin-top:22px;animation:stain .28s ease-out}
+@keyframes stain{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.ans-flash{animation:none}}
+.fs-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px}
+.fs-count{margin:0;color:var(--muted);font-size:.9rem}
+.fs-count b{color:var(--ink)}
+.fs-ctl{margin-top:14px}
+
+/* setup and guide panels */
+.setup,.guide,.mockbox{background:var(--glass);border:1px solid var(--rule);border-radius:10px;padding:22px 24px;margin-bottom:16px}
+.h2{font-family:var(--serif);font-weight:600;font-size:1.3rem;margin:0 0 6px;font-variation-settings:'opsz' 40}
+.note{color:var(--muted);margin:0 0 14px;font-size:.93rem;max-width:66ch}
+.seg-ctl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;max-width:520px}
+.segbtn{appearance:none;text-align:center;border:1.5px solid var(--rule);background:var(--paper);border-radius:8px;padding:10px 12px;cursor:pointer;display:flex;flex-direction:column;gap:2px}
+.segbtn small{color:var(--muted);font-size:.8rem;line-height:1.35}
+.segbtn[aria-pressed="true"]{border-color:var(--haem);background:var(--haem-wash)}
+.setup .check{display:flex;width:max-content;margin-bottom:14px}
+.keys{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:2px 16px;margin-top:18px;padding-top:14px;border-top:1px solid var(--rule);font-size:.85rem;color:var(--muted)}
+.keys p{margin:2px 0}
+.keys kbd{margin:0 6px 0 0}
+.guide-steps{margin:8px 0 0;padding-left:1.3em;font-family:var(--serif);max-width:68ch}
+.guide-steps li{margin-bottom:.35em}
+.setup.mockbox{background:none;border:0;padding:0;margin-bottom:14px}
+.scen-list{margin-top:4px}
+.muted{color:var(--muted);font-weight:400;font-family:var(--sans);font-size:.9rem}
+.scen-list{display:flex;flex-direction:column;gap:8px}
+.scen-item{appearance:none;display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:start;text-align:left;background:var(--glass);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;cursor:pointer}
+.scen-item:hover{border-color:var(--haem)}
+.scen-item .code{font-family:var(--serif);font-weight:650;color:var(--haem)}
+.scen-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.scen-q{font-family:var(--serif);font-size:.96rem;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.best{font-size:.8rem;font-weight:600;color:var(--good);white-space:nowrap}
+.best.muted{color:var(--muted);font-weight:500}
+.scen-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-bottom:10px}
+.scen-pos{color:var(--muted);font-size:.9rem}
+.timer{margin-left:auto;font-weight:700;font-variant-numeric:tabular-nums;font-size:1.05rem;color:var(--haem);background:var(--haem-wash);border-radius:6px;padding:3px 10px}
+.timer.low{color:var(--bad);background:var(--bad-wash)}
+.timer.done{font-size:.88rem;color:var(--good);background:var(--good-wash)}
+.ta-label{display:block;font-weight:600;font-size:.88rem;margin:20px 0 6px}
+.ta{margin-top:18px;width:100%;font-family:var(--serif);font-size:.98rem;line-height:1.55;padding:12px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink);resize:vertical;min-height:180px}
+.wc{margin:4px 0 0;font-size:.8rem;color:var(--muted);text-align:right}
+.mark{margin-top:14px}
+.checklist{margin-top:14px;padding:14px 16px;border:1px solid var(--rule);border-radius:8px;background:var(--paper)}
+.pt{display:flex;gap:10px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--rule);cursor:pointer;font-size:.93rem}
+.pt:last-of-type{border-bottom:0}
+.pt input{accent-color:var(--good);width:17px;height:17px;margin-top:3px;flex:none}
+.score{margin:10px 0 0;font-size:.95rem}
+.score b{font-size:1.2rem;color:var(--good)}
+.scen-nav{justify-content:flex-start}
+.empty{color:var(--muted);padding:20px 0}
+.foot{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);font-size:.82rem;color:var(--muted);max-width:70ch}
+
+@media (max-width: 640px){
+  .wrap{padding:18px 14px 48px}
+  .tab{flex:1 1 auto;padding:10px 6px 9px;font-size:.9rem;text-align:center}
+  .in-session .filters,.in-session .tally{display:none}
+  .tbl{min-width:0}
+  .tbl thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .tbl tr{display:block;padding:8px 0;border-bottom:1px solid var(--rule)}
+  .tbl th,.tbl td{display:block;border:0;padding:2px 0}
+  .tbl tbody th{color:var(--haem)}
+  .tbl td[data-label]:not([data-label=""])::before{content:attr(data-label) ": ";font-weight:600;color:var(--muted)}
+  .slide{grid-template-columns:1fr}
+  .slide-label{flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:4px 10px;border-right:0;border-bottom:1px solid var(--rule);padding:12px 16px}
+  .slide-label .code{font-size:1.5rem}
+  .specimen{padding:22px 20px 20px;min-height:220px}
+  .specimen::before{inset:8px}
+  .item{grid-template-columns:44px 1fr}
+  .grades-4{grid-template-columns:repeat(2,1fr)}
+  .count{margin-left:0;flex-basis:100%}
+  .scen-item{grid-template-columns:40px 1fr}
+  .scen-item .best{grid-column:2}
+  .reset{margin-left:0}
+}
+.tab .short{display:none}
+@media (max-width: 420px){.tab .long{display:none}.tab .short{display:inline}}
+@media print{
+  .tabs,.filters,.tally,.bank-tools,.btn-reveal,.grades{display:none}
+  .ans[hidden]{display:block !important}
+  .item{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div>
+      <a class="hub" href="index.html">Study hub</a>
+      <h1>DOH 233 exam recall</h1>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Study mode">
+      <button class="tab" role="tab" data-tab="bank" aria-controls="view-bank">Question bank</button>
+      <button class="tab" role="tab" data-tab="flash" aria-controls="view-flash">Flashcards</button>
+      <button class="tab" role="tab" data-tab="scen" aria-controls="view-scen"><span class="long">Exam scenarios</span><span class="short">Scenarios</span></button>
+    </div>
+  </header>
+
+  <section class="filters" aria-label="Filters">
+    <div class="row" id="lecRow" role="group" aria-label="Lecture"></div>
+    <div class="row" id="focusRow" role="group" aria-label="Predicted topics"></div>
+    <div class="row search"><input type="search" id="q" placeholder="Search" aria-label="Search"></div>
+  </section>
+
+  <section class="tally" id="tally" aria-label="Progress"></section>
+
+  <main>
+    <section id="view-bank" class="view" role="tabpanel" aria-label="Question bank">
+      <div class="bank-tools">
+        <div class="seg-mini" id="bankType" role="group" aria-label="Question type">
+          <button type="button" data-v="all">Both</button>
+          <button type="button" data-v="cards">Cards</button>
+          <button type="button" data-v="scen">Scenarios</button>
+        </div>
+        <label class="check"><input type="checkbox" id="hideGot"> Hide cards I got</label>
+        <button type="button" class="linkbtn" id="revealAll">Show all answers</button>
+      </div>
+      <div id="bankList"></div>
+    </section>
+    <section id="view-flash" class="view" role="tabpanel" aria-label="Flashcards" hidden>
+      <div id="flashArea"></div>
+    </section>
+    <section id="view-scen" class="view" role="tabpanel" aria-label="Exam scenarios" hidden>
+      <div id="scenArea"></div>
+    </section>
+  </main>
+
+</div>
+<script>
+/* ---------- content helpers ---------- */
+function T(head, rows){
+  var h = '<div class="tw"><table class="tbl"><thead><tr>' + head.map(function(x){return '<th>'+x+'</th>';}).join('') + '</tr></thead><tbody>';
+  rows.forEach(function(r){ h += '<tr>' + r.map(function(c,i){
+    var lab = String(head[i] || '').replace(/<[^>]+>/g,'').replace(/"/g,'&quot;');
+    return i===0 ? '<th scope="row">' + c + '</th>' : '<td data-label="' + lab + '">' + c + '</td>';
+  }).join('') + '</tr>'; });
+  return h + '</tbody></table></div>';
+}
+function HOOK(t){ return '<p class="hook"><span>Memory hook</span> ' + t + '</p>'; }
+function FLAG(t){ return '<p class="flag"><span>Heads up</span> ' + t + '</p>'; }
+function LINK(t){ return '<p class="link"><span>Links to</span> ' + t + '</p>'; }
+function BEYOND(t){ return t ? '<p class="beyond"><span>Beyond the slides</span> ' + t + '</p>' : '<p class="beyond-tag">Beyond the slides</p>'; }
+function UL(a){ return '<ul>' + a.map(function(x){return '<li>'+x+'</li>';}).join('') + '</ul>'; }
+function OL(a){ return '<ol>' + a.map(function(x){return '<li>'+x+'</li>';}).join('') + '</ol>'; }
+function LEAD(t){ return '<p class="lead">' + t + '</p>'; }
+function P(t){ return '<p>' + t + '</p>'; }
+
+var CARDS = [];
+function C(id, l, topic, focus, q, a){ CARDS.push({id:id, l:l, t:topic, f:focus||'', q:q, a:a}); }
+
+/* =================== L1 — Introduction to pathology =================== */
+C('l1-01','L1','Defining disease','',
+ 'Define disease, and name the three ways a disease can vary clinically.',
+ LEAD('Disease is a state of abnormal structure and/or abnormal function affecting cells, tissues, organs or systems of the body.') +
+ P('The lecture gives two further framings: a condition in which normal <b>homeostasis is disturbed</b>, impairing physiological, biochemical or behavioural function; and a <b>recognisable clinical entity</b> with a consistent pattern of symptoms, signs and pathological abnormalities.') +
+ P('Disease varies along three axes:') + UL(['<b>Acute or chronic</b>','<b>Localised or systemic</b>','<b>Reversible or irreversible</b>']) +
+ HOOK('Gingivitis is localised and reversible; periodontitis is chronic and its attachment loss is irreversible. One mouth, both ends of the axes.'));
+
+C('l1-02','L1','Signs and symptoms','',
+ 'A patient says their jaw aches and they feel tired. You see facial swelling and measure a temperature of 38.4 °C. Classify each finding.',
+ LEAD('Jaw ache and tiredness are symptoms; swelling and fever are signs.') +
+ UL(['<b>Symptom</b> = subjective, what the patient experiences and reports (pain, fatigue, nausea).',
+     '<b>Sign</b> = objective, what the clinician observes or measures (swelling, erythema, a recorded temperature).',
+     '<b>Pathological abnormality</b> = what the tissue shows, e.g. pus on aspiration or a histological finding.']));
+
+C('l1-03','L1','The three core questions','',
+ 'What are the three core questions pathology asks? Illustrate them with a periapical abscess.',
+ LEAD('Aetiology (cause), pathogenesis (mechanism), and morphologic and functional change (what changes and what it means clinically).') +
+ T(['Question','Asks','Periapical abscess'],[
+  ['Aetiology','What initiated the disease? Genetic, environmental, lifestyle, immune, multifactorial','Bacteria from a necrotic pulp'],
+  ['Pathogenesis','How does the cause produce disease? Pathways, host response, progression','Acute inflammation, neutrophil emigration, liquefaction of tissue into pus'],
+  ['Morphologic + functional change','What is seen grossly and microscopically, and how function changes','Pus-filled cavity; swelling, pain, tenderness to percussion']]));
+
+C('l1-04','L1','Why pathology matters','',
+ 'Give four reasons pathology matters in clinical practice.',
+ OL(['<b>Accurate diagnosis</b>: turns signs and symptoms into a specific disease entity and reduces misclassification (e.g. benign vs malignant).',
+     '<b>Evidence-based treatment</b>: therapy targets the mechanism; disease is stratified by severity, subtype, stage and risk.',
+     '<b>Prevention and public health</b>: identifies causes and modifiable risks, enables screening, provides registry data.',
+     '<b>Monitoring and prognosis</b>: biomarkers track response; grade and stage predict outcome.']));
+
+C('l1-05','L1','Structure and function','',
+ 'Explain the relationship between structure and function in pathology.',
+ LEAD('Normal structure underpins normal function, so structural change produces predictable functional impairment.') +
+ UL(['Example: loss of periodontal attachment (structure) leads to tooth mobility (function).',
+     'But functional change can come <b>first</b>, before any visible structural change (e.g. a biochemical defect).',
+     'Pathology is the bridge that explains how altered anatomy becomes clinical disease.']));
+
+C('l1-06','L1','Cellular vs molecular pathology','',
+ 'Compare cellular pathology with molecular pathology.',
+ T(['','Cellular pathology','Molecular pathology'],[
+  ['Level','Cells and tissues, seen by microscopy','Genes and proteins'],
+  ['Core idea','Disease begins in cells; Virchow: <i>omnis cellula e cellula</i> (all cells from pre-existing cells)','The primary lesion may be molecular before any structural change is visible'],
+  ['Key events','Cell injury, adaptation, death','DNA sequence change, chromosomal abnormality, epigenetic change, altered gene expression'],
+  ['Consequences','Visible tissue change','Abnormal proteins, enzyme blocks, signalling defects, loss of cell-cycle control (neoplasia)'],
+  ['Use','Histopathological diagnosis','Explains congenital disease and cancer biology; precision diagnosis and targeted therapy']]) +
+ P('Limit of cellular pathology: some diseases show minimal structural change, and functional or biochemical defects can precede visible injury.'));
+
+C('l1-07','L1','Genetic vs environmental causes','',
+ 'What clues suggest a disease is genetic rather than environmental, and which kinds of study separate the two?',
+ P('<b>Clues:</b> age of onset, pattern within families, stability vs reversibility, geographic and temporal distribution, and response to removal of an exposure.') +
+ P('<b>Evidence:</b> family aggregation studies, twin concordance, adoption studies and migrant population studies.') +
+ P('Most common chronic diseases are <b>multifactorial</b>: several genetic variants plus environmental exposures, with threshold effects. The lecture\'s model: genetic factors, then environmental exposure, then host susceptibility, then cellular and molecular injury, then clinical disease.'));
+
+/* =================== L2 — Cellular responses to stress and injury =================== */
+C('l2-01','L2','Regenerative capacity','',
+ 'Classify cells by their regenerative capacity, with examples of each.',
+ T(['Type','Behaviour','Examples'],[
+  ['Labile','Divide throughout life','Epithelia (oral mucosa, epidermis, gut lining), haemopoietic and lymphoid cells'],
+  ['Stable','Normally quiescent; divide when needed','Hepatocytes, kidney tubules, fibroblasts'],
+  ['Permanent','Divide only in fetal life; replaced by scar','Neurons, cardiac muscle, skeletal muscle (limited satellite-cell repair)']]) +
+ FLAG('Smooth muscle is listed as <b>stable</b> in L3A and in Robbins, but the L4 slide calls smooth muscle <b>permanent</b> (with vascular smooth muscle the exception). If asked, give stable and note the L4 wording.') +
+ LINK('L4: the cell type decides whether tissue heals by regeneration or by scar.'));
+
+C('l2-02','L2','Hypertrophy vs hyperplasia','',
+ 'Distinguish hypertrophy from hyperplasia, with an example of each. Why does a hypertensive heart enlarge by only one of these?',
+ T(['','Hypertrophy','Hyperplasia'],[
+  ['Definition','Increase in cell <b>size</b> (more organelles and proteins)','Increase in cell <b>number</b>'],
+  ['Needs','Any cell','Cells that can divide (labile or stable)'],
+  ['Physiological','Skeletal muscle with exercise','Breast and endometrium under hormones'],
+  ['Pathological','Cardiac myocytes in hypertension','Endometrial or benign prostatic hyperplasia']]) +
+ P('Cardiac myocytes are <b>permanent</b> cells and cannot divide, so a heart under pressure load can only enlarge by hypertrophy. The gravid uterus shows both (smooth muscle cells enlarge and multiply).'));
+
+C('l2-03','L2','Atrophy','',
+ 'Define atrophy and give physiological and pathological causes. Why does the residual alveolar ridge atrophy after tooth loss?',
+ LEAD('Atrophy is a decrease in the size and/or number of cells.') +
+ T(['Physiological','Pathological'],[['Development, ageing','Decreased function (disuse), loss of innervation, loss of blood supply, pressure, lack of nutrition, loss of stimulation']]) +
+ P('<b>Residual ridge:</b> once the tooth is gone, the bone loses its functional stimulus (load is no longer transmitted through the periodontal ligament) and resorbs; pressure from a denture adds to it.') +
+ P('Mechanism: reduced protein synthesis and increased protein breakdown, with autophagy, so the cell lowers its demands to match reduced supply or stimulation.'));
+
+C('l2-04','L2','Metaplasia','',
+ 'Define metaplasia. Give two examples and explain why it is an adaptation that comes at a cost.',
+ LEAD('Metaplasia is the transformation of one mature (differentiated) tissue type into another, usually one better able to withstand a chronic stress.') +
+ UL(['<b>Barrett oesophagus:</b> stratified squamous epithelium replaced by intestinal-type columnar epithelium under chronic acid reflux.',
+     '<b>Smoker\'s bronchus:</b> ciliated columnar epithelium replaced by stratified squamous epithelium.']) +
+ P('It arises by <b>reprogramming of stem or reserve cells</b>, not by mature cells changing type. It is in principle reversible if the stimulus is removed.') +
+ P('<b>The cost:</b> the original function is lost (the smoker loses mucociliary clearance), and if the stimulus persists, the metaplastic field can progress to dysplasia and carcinoma (Barrett oesophagus to adenocarcinoma).'));
+
+C('l2-05','L2','Causes of cell injury','',
+ 'List the four causes of cell injury given in the lecture, with an example of each.',
+ OL(['<b>Physicochemical agents:</b> trauma, heat, ionising radiation, chemicals (e.g. aspirin burn on mucosa).',
+     '<b>Biological agents:</b> bacteria, viruses, fungi (e.g. herpes simplex infecting epithelium).',
+     '<b>Loss of hormonal or growth-factor stimulation:</b> target tissue atrophies.',
+     '<b>Oxygen and glucose deprivation:</b> ischaemia (atherosclerosis) or hypoxia (pneumonia).']));
+
+C('l2-06','L2','Targets of cell injury','',
+ 'What are the three cellular targets of injury, and which does ischaemia mainly affect?',
+ LEAD('Cell and organelle membranes; metabolic pathways; DNA and proteins.') +
+ P('These are interdependent, so an insult to one derails the others.') +
+ P('<b>Ischaemia</b> hits <b>membranes and metabolic pathways</b> (Tutorial 2 MCQ answer d): ATP falls, ion pumps fail, the cell swells and membranes are damaged.'));
+
+C('l2-07','L2','Ischaemia vs hypoxia','',
+ 'Why is ischaemia more damaging than hypoxia alone?',
+ UL(['<b>Hypoxia</b> = reduced oxygen supply (pneumonia, anaemia). Glucose still arrives, so cells can make some ATP by anaerobic glycolysis.',
+     '<b>Ischaemia</b> = reduced blood supply (atherosclerosis). It cuts off oxygen <b>and</b> glucose, and toxic metabolites are not washed away.']) +
+ P('So ischaemic injury is faster and more severe.'));
+
+C('l2-08','L2','Reversible injury','',
+ 'Describe the microscopic changes of reversible cell injury.',
+ T(['Change','Cause','Appearance'],[
+  ['Hydropic degeneration (cell swelling)','Failure of ion and fluid homeostasis: ATP falls, the Na+/K+ pump fails, sodium and water enter','Swollen cells; the lecture describes a more eosinophilic appearance'],
+  ['Fatty change','Accumulation of lipid through dissociation of lipid from protein','Clear vacuoles in the cytoplasm (typically liver)']]) +
+ P('Swelling is the first and most common sign of injury. Both changes reverse if the stimulus is removed in time.'));
+
+C('l2-09','L2','Reversible vs irreversible injury','',
+ 'What marks the transition from reversible to irreversible cell injury?',
+ P('Irreversibility follows a persistent or severe stimulus. Two textbook hallmarks mark the "point of no return":') +
+ UL(['<b>Inability to restore mitochondrial function</b>: no ATP generation even after the stimulus is removed.',
+     '<b>Profound membrane damage</b>: plasma and lysosomal membranes rupture, enzymes leak and digest the cell.']) +
+ P('Nuclear signs of cell death: <b>pyknosis</b> (shrinkage), <b>karyorrhexis</b> (fragmentation), <b>karyolysis</b> (fading).') +
+ BEYOND(''));
+
+C('l2-10','L2','Apoptosis vs necrosis','',
+ 'Compare apoptosis with necrosis.',
+ T(['','Apoptosis','Necrosis'],[
+  ['Nature','Programmed cell death','Unprogrammed, unintended cell death'],
+  ['Context','Physiological or pathological','Always pathological'],
+  ['Cell','Shrinks and fragments into apoptotic bodies','Swells and ruptures'],
+  ['Contents','Contained (lysosomal contents do not escape)','Leak into tissue'],
+  ['Inflammation','None','Elicits inflammation']]) +
+ HOOK('Apoptosis is a tidy resignation; necrosis is a messy explosion that calls in the inflammatory clean-up crew.'));
+
+C('l2-11','L2','Regulation of apoptosis','',
+ 'Name the two apoptotic pathways and the key regulatory proteins.',
+ UL(['<b>Intrinsic (mitochondrial)</b>: integrates internal signals such as DNA damage, growth-factor withdrawal and free radicals.',
+     '<b>Extrinsic (death receptor)</b>: ligands bind cell-surface receptors of the TNF family, e.g. Fas.',
+     'Both pathways activate <b>caspases</b> (proteases).']) +
+ T(['Anti-apoptotic','Pro-apoptotic','p53'],[['Bcl-2, Bcl-xL','Bak, Bax','Pauses the cell for DNA repair; triggers apoptosis if repair fails']]) +
+ P('<b>Inhibitors:</b> growth factors, extracellular matrix, sex steroids, some viral proteins. <b>Inducers:</b> growth-factor withdrawal, loss of matrix attachment, glucocorticoids, some viruses, free radicals, ionising radiation, DNA damage, ligand binding at death receptors.'));
+
+C('l2-12','L2','Ionising radiation','',
+ 'How does ionising radiation injure cells? Distinguish deterministic from stochastic effects.',
+ P('Ionising radiation forms ions as it passes through matter: electromagnetic (X-rays, gamma rays) or particulate (alpha particles, beta particles, neutrons).') +
+ P('<b>Mode of action:</b> mainly through reactive oxygen species (radiolysis of water), and also by direct damage to DNA and proteins.') +
+ T(['','Deterministic','Stochastic'],[
+  ['Relation to dose','Predictable: severity rises with dose above a threshold','Only the probability rises with dose'],
+  ['Examples','Mucositis, xerostomia, skin erythema','Cancer, heritable mutation']]) +
+ P('A DNA-damaged cell may die (immediately or at the next attempted mitosis), be repaired with no consequence, or carry a permanent change in genotype. Stochastic risk is why dental radiographs are kept as low as reasonably achievable.'));
+
+C('l2-13','L2','Radiotherapy and mucositis','',
+ 'Why does head and neck radiotherapy cause oral mucositis?',
+ P('Radiotherapy aims to damage rapidly dividing tumour cells, but <b>normal cells that divide rapidly are the most sensitive</b>. Oral epithelium is labile: its basal cells divide constantly to replace surface cells. Killing them stops renewal, so the mucosa thins, reddens and ulcerates.') +
+ LINK('L2 regenerative capacity: labile tissues are the first casualties of radiation and chemotherapy.'));
+
+C('l2-14','L2','Autophagy','',
+ 'What is autophagy?',
+ P('The cell digests its own organelles and uses the products as nutrients, a survival response to stress such as nutrient deprivation. If the cell can no longer cope, it proceeds to apoptosis.'));
+
+/* =================== L3A — Acute inflammation =================== */
+C('l3a-01','L3A','Inflammation defined','',
+ 'Define inflammation and state its purpose.',
+ LEAD('Inflammation is the connective tissue response to injury: a reaction of blood vessels leading to accumulation of fluid and leukocytes in the tissues.') +
+ P('<b>Purpose:</b> destroy, dilute or isolate the injurious agent, then heal or replace the damaged tissue, ridding the organism of the initial cause and its consequences.') +
+ P('It is protective but can be harmful, and it is fundamentally the same reaction whatever the tissue or cause.'));
+
+C('l3a-02','L3A','Five cardinal signs','',
+ 'Name the five cardinal signs of acute inflammation and the tissue change behind each.',
+ T(['Sign','Meaning','Underlying change'],[
+  ['Rubor','Redness','Vasodilation, increased blood flow'],
+  ['Calor','Heat','Increased flow of warm blood'],
+  ['Tumor','Swelling','Increased permeability, so exudate accumulates (oedema)'],
+  ['Dolor','Pain','Prostaglandins and bradykinin sensitise nerve endings; tissue pressure'],
+  ['Functio laesa','Loss of function','Pain, swelling and tissue damage combined']]) +
+ LINK('L3B: gingivitis shows all five.'));
+
+C('l3a-03','L3A','Vascular flow and calibre','',
+ 'Describe, in order, the changes in vascular flow and calibre in acute inflammation.',
+ OL(['<b>Transient vasoconstriction</b> of arterioles: seconds to minutes.',
+     '<b>Vasodilation</b>: first arterioles, then previously closed capillary beds open. Blood flow rises, giving heat and redness.',
+     '<b>Increased permeability</b>: protein-rich fluid leaves the vessels, plasma volume falls and red cells concentrate.',
+     '<b>Stasis</b> (slowing): within minutes for a severe injury, 15 to 30 minutes for a mild one.']) +
+ P('Stasis lets leukocytes move to the vessel wall (margination). The three tissue events of acute inflammation are: flow and calibre change, permeability change, and leukocyte exudation.'));
+
+C('l3a-04','L3A','Mechanisms of vascular leakage','',
+ 'List the mechanisms of increased vascular permeability. Which one causes the immediate transient response?',
+ T(['Mechanism','Features'],[
+  ['Endothelial gaps','Most common; reversible, short-term; <b>the immediate transient response</b>'],
+  ['Cytoskeletal reorganisation','Cytokine-induced; reversible leakage'],
+  ['Direct endothelial injury','Necrotising injuries; immediate leakage lasting several hours (immediate sustained)'],
+  ['Leukocyte-dependent injury','Activated leukocytes damage the vessel wall'],
+  ['Leakage from new vessels','During repair; new capillaries are leaky']]) +
+ P('Tutorial 3 MCQ: the immediate transient response is caused by <b>endothelial gaps</b>.'));
+
+C('l3a-05','L3A','Exudate, transudate, oedema, pus','',
+ 'Distinguish exudate from transudate with an example of each. Define oedema and pus.',
+ T(['','Exudate','Transudate'],[
+  ['Protein','High','Low (an ultrafiltrate of plasma)'],
+  ['Vessel permeability','Significantly increased','Normal'],
+  ['Cause','Inflammation','Hydrostatic imbalance across the endothelium'],
+  ['Example','Inflamed tissue, abscess','Left-sided heart failure (pulmonary oedema)']]) +
+ UL(['<b>Oedema</b>: excess fluid in the interstitial spaces, either exudate or transudate.',
+     '<b>Pus</b>: a purulent exudate rich in leukocytes (mainly neutrophils) and cellular debris.']));
+
+C('l3a-06','L3A','Leukocyte emigration','',
+ 'Describe, in sequence, how neutrophils get from the blood to the site of injury.',
+ OL(['<b>Margination and pavementing</b>: with stasis, white cells move from the central stream to the vessel wall and line it.',
+     '<b>Adhesion</b>: cells attach to activated endothelium. Textbook detail: selectins slow them (rolling), then integrins bind ICAM-1 and VCAM-1 for firm adhesion.',
+     '<b>Diapedesis</b>: amoeboid movement between endothelial cells into the tissue.',
+     '<b>Chemotaxis</b>: unidirectional migration up a chemical gradient (not random), e.g. toward bacterial products, C5a, LTB4.',
+     '<b>Phagocytosis</b> and intracellular degradation.',
+     '<b>Extracellular release</b> of leukocyte products.']) +
+ P('Neutrophils dominate early; macrophages accumulate at about 48 hours.'));
+
+C('l3a-07','L3A','Phagocytosis and self-harm','',
+ 'What are the steps of phagocytosis, and how do phagocytes damage the host\'s own tissue?',
+ P('<b>Steps:</b> recognition, adhesion, engulfment into a phagosome, then fusion with a lysosome (phagolysosome) for killing or degradation.') +
+ P('<b>Self-harm:</b> destructive lysosomal products escape into the extracellular space by:') +
+ UL(['<b>Regurgitation during feeding</b>: the phagocytic vacuole is not completely closed.',
+     '<b>Frustrated phagocytosis</b>: the cell tries to digest non-digestible material such as a flat surface.']) +
+ P('This damages tissue and further stimulates inflammation.') + LINK('L3B: neutrophil enzymes contribute to periodontal destruction.'));
+
+C('l3a-08','L3A','Chemical mediators','',
+ 'Match mediators to effects: vasodilation, increased permeability, chemotaxis, fever, pain, tissue damage.',
+ T(['Effect','Mediators (lecture)'],[
+  ['Vasodilation','Prostaglandins'],
+  ['Increased vascular permeability','Histamine, bradykinin, leukotrienes'],
+  ['Chemotaxis','Complement (C5a), leukotrienes (LTB4)'],
+  ['Fever','Prostaglandins'],
+  ['Pain','Prostaglandins, bradykinin'],
+  ['Tissue damage','Neutrophil and macrophage contents']]) +
+ HOOK('Prostaglandins appear three times: dilation, fever, pain. That is why NSAIDs (COX inhibitors) relieve all three.'));
+
+C('l3a-09','L3A','Outcomes of acute inflammation','',
+ 'What are the four outcomes of acute inflammation, and which is most common?',
+ T(['Outcome','When'],[
+  ['Resolution','Complete restoration; rare; minor injury with labile cells and intact stroma'],
+  ['Suppuration','Pus formation, abscess; pyogenic bacteria'],
+  ['Regeneration and repair','<b>Most common</b>; lost tissue replaced by parenchymal division or by connective tissue (organisation, scar)'],
+  ['Chronic inflammation','The stimulus persists']]) +
+ P('Requirements for resolution: neutralise the agent, decay of mediators, return of normal permeability, end of leukocyte infiltration, neutrophil death by apoptosis, removal of debris by lymphatics.'));
+
+C('l3a-10','L3A','Inflammatory cells','',
+ 'Summarise the roles of neutrophils, eosinophils, basophils, monocytes/macrophages and lymphocytes.',
+ T(['Cell','Role'],[
+  ['Neutrophil','Phagocytic specialist, first-line defender, scavenger; about two-thirds of circulating leukocytes'],
+  ['Eosinophil','Allergic conditions, defence against parasites (worms); red-staining granules'],
+  ['Basophil','Least common; like mast cells, stores histamine and heparin'],
+  ['Monocyte / macrophage','Precursor phagocyte that matures into a macrophage in tissue; survives months to years'],
+  ['Lymphocyte','B cells make antibody; T cells give cell-mediated immunity (virus-infected and tumour cells)']]));
+
+C('l3a-11','L3A','Wound types','',
+ 'Name and define the six wound types from the lecture. Which gives ideal conditions for healing?',
+ T(['Wound','Features'],[
+  ['Contusion','Bruise; blunt injury damaging deep tissues, haemorrhage'],
+  ['Abrasion','Superficial friction injury removing surface epithelium (carpet burn)'],
+  ['Avulsion','Large open wound with extensive loss of tissue volume; includes a tooth dislodged from its socket'],
+  ['Puncture','Small, deep wound from a sharp object (needle-stick, dog bite)'],
+  ['Laceration','Ragged edges, deep, crushed tissue, necrotic debris and clot; contaminated'],
+  ['Incisional / surgical','Clean, aseptic, minimal tissue loss, sharp margins that can be approximated']]) +
+ P('<b>Incisional wounds</b> provide ideal conditions and heal by first intention (L4).'));
+
+/* =================== L3B — Chronic inflammation =================== */
+C('l3b-01','L3B','Acute vs chronic','',
+ 'Distinguish acute from chronic inflammation in terms of onset, duration, cells and tissue damage.',
+ T(['','Acute','Chronic'],[
+  ['Onset','Immediate response to injury','Delayed; may follow acute or arise de novo'],
+  ['Duration','Minutes to a maximum of about 2 days (lecture)','Weeks to months'],
+  ['Main cells','Neutrophils (polymorphs)','Lymphocytes, plasma cells, macrophages, plus fibroblasts'],
+  ['Vascular picture','Vasodilation, exudate, oedema','Angiogenesis'],
+  ['Tissue damage','Usually limited, self-resolving','Ongoing destruction <b>while</b> the body attempts to heal (fibrosis)'],
+  ['Outcome','Resolution, suppuration, repair or chronicity','Fibrosis and scarring']]) +
+ P('There is temporal and cellular overlap, and chronic inflammation can have acute exacerbations.') +
+ P('Tutorial 3B MCQs: chronic inflammation = prolonged duration and tissue damage; <b>neutrophils</b> are NOT a characteristic chronic cell; activated CD4 T cells release <b>cytokines</b>.'));
+
+C('l3b-02','L3B','Causes of chronic inflammation','',
+ 'Give the main causes of chronic inflammation, and examples of chronic inflammation arising de novo.',
+ T(['Cause','Example'],[
+  ['Persistent infection','Tuberculosis (tubercle bacilli), syphilis (<i>Treponema pallidum</i>)'],
+  ['Prolonged exposure to toxic agents','Exogenous: silica, causing silicosis. Endogenous: plasma lipids, causing atherosclerosis'],
+  ['Autoimmunity','Rheumatoid arthritis, lupus erythematosus']]) +
+ P('It persists because the body cannot remove or destroy the stimulus, because of features of the stimulus itself, or because of immune reactions.') +
+ P('<b>De novo (no acute phase):</b> sterile foreign bodies (sutures, implants), asbestos, <i>M. tuberculosis</i>, <i>M. leprae</i>, idiopathic disease (sarcoidosis).'));
+
+C('l3b-03','L3B','Cells of chronic inflammation','',
+ 'Describe the roles of macrophages, lymphocytes and plasma cells in chronic inflammation. Why does it become self-perpetuating?',
+ T(['Cell','Role'],[
+  ['Macrophage','Key player: phagocytoses, presents antigen to T cells, secretes toxic products (oxygen radicals, NO), proteases, cytokines and growth factors for fibrosis and new vessels'],
+  ['Lymphocyte','Activated by antigen; produces lymphokines that stimulate monocytes and macrophages'],
+  ['Plasma cell','Activated B cell that secretes antibody'],
+  ['Fibroblast','Lays down collagen (fibrosis)']]) +
+ P('<b>The loop:</b> activated lymphocytes release lymphokines that activate macrophages; macrophage cytokines (monokines) activate lymphocytes. This reciprocal relationship keeps the reaction going as long as antigen persists.'));
+
+C('l3b-04','L3B','Macrophage kinetics','',
+ 'How do macrophages accumulate in chronic inflammation, and how long do they live?',
+ UL(['Monocytes have a blood half-life of about 1 day; as tissue macrophages they live several months.',
+     'They accumulate about 48 hours after the stimulus.',
+     'In short-lived inflammation they die or leave via lymphatics to the nodes.',
+     'With a long-term stimulus they accumulate by <b>continued recruitment</b> of monocytes, <b>local proliferation</b> and <b>immobilisation</b>.']) +
+ P('Activation (by cytokines, bacterial endotoxin, T cells) makes them larger, richer in lysosomal enzymes and better killers, but unchecked their products cause tissue injury and fibrosis. Tissue residents include Kupffer cells (liver), sinus histiocytes (lymph nodes) and alveolar macrophages (lung).'));
+
+C('l3b-05','L3B','Histological features','',
+ 'What are the three histological hallmarks of chronic inflammation?',
+ OL(['<b>Mononuclear cell infiltrate</b>: macrophages, lymphocytes, plasma cells.',
+     '<b>Tissue destruction</b>, induced by the inflammatory cells themselves.',
+     '<b>Attempts at healing</b> by connective tissue replacement: angiogenesis and fibrosis.']) +
+ HOOK('Destroy and repair at the same time: that simultaneous tug-of-war is the signature of chronic inflammation.'));
+
+C('l3b-06','L3B','Granulomas','',
+ 'What is a granuloma, how does it form, and how does it differ from granulation tissue?',
+ LEAD('A granuloma is a focal aggregate of macrophages transformed into epithelioid cells, surrounded by a collar of lymphocytes and some plasma cells.') +
+ UL(['<b>Epithelioid cells</b>: flat, elongated, oval nucleus, eosinophilic cytoplasm; they cannot phagocytose but release inflammatory and immune mediators.',
+     '<b>Giant cells</b>: very large, multinucleate, formed by fusion of macrophages where particles are hard to destroy. Langhans giant cell: nuclei in a horseshoe. Foreign-body giant cell: nuclei scattered.',
+     'Some have central necrosis, e.g. <b>caseous necrosis in TB</b>. Continued mediator release maintains them; they can coalesce and destroy tissue.']) +
+ T(['Cause','Examples'],[['Infectious','TB, leprosy, fungal, syphilis, parasites'],['Chemical','Talc, asbestos'],['Autoimmune','Rheumatoid nodule, Crohn disease'],['Idiopathic','Sarcoidosis, orofacial granulomatosis']]) +
+ P('<b>Granulation tissue</b> is different: new capillaries and fibroblasts forming the scaffold of repair (L4).'));
+
+C('l3b-07','L3B','Morphological forms','',
+ 'Name the five morphological forms of inflammation, with an example of each.',
+ T(['Form','Features','Example'],[
+  ['Serous','Thin fluid from serum or mesothelial secretions','Burn blister, pleurisy, pericarditis, synovitis'],
+  ['Fibrinous (the lecture\'s "fibrous")','More severe injury; fibrin leaks out. Removed by fibrinolysis (resolution) or organised into scar','Fibrinous pericarditis, adhesions, TMJ ankylosis'],
+  ['Suppurative','Pus: neutrophils, necrotic cells, oedema fluid','Staphylococcal abscess'],
+  ['Ulcerative','Localised loss of epithelium exposing connective tissue','Traumatic oral ulcer, oesophageal ulcer'],
+  ['Granulomatous','Granuloma formation','Tuberculosis']]));
+
+C('l3b-08','L3B','Sinus vs fistula','',
+ 'What is the difference between a sinus and a fistula? Why is a draining dental sinus often painless?',
+ T(['Sinus','Fistula'],[
+  ['A tract leading from an abscess cavity to an epithelial surface (one opening at the surface)','An abnormal tract connecting two epithelial surfaces (e.g. oro-antral fistula)']]) +
+ P('A draining sinus relieves pressure, so it is often <b>painless</b>. The abscess has not resolved; it has found an escape route and still needs treatment.') +
+ FLAG('The slide text reads "Fistula: a non-epithelial lined tract" and "Sinus: an epithelial lined channel joining the abscess cavity to an epithelial surface". Standard texts define them by their openings (sinus: abscess to one surface; fistula: joins two surfaces). If asked, anchor your answer on the openings.'));
+
+C('l3b-09','L3B','CD4 vs CD8 T cells','',
+ 'Compare CD4+ and CD8+ T cells, including the MHC class each recognises.',
+ T(['','CD4+ helper','CD8+ cytotoxic'],[
+  ['Binds','MHC class II (antigen-presenting cells)','MHC class I (all nucleated cells)'],
+  ['Main job','Master regulator: secretes cytokines that direct T cells, B cells, macrophages, NK cells','Kills infected or abnormal cells'],
+  ['Effector tools','Th1: IFN-γ activates macrophages. Th2: IL-4, IL-5, IL-13 drive IgE and eosinophils. Th17: IL-17 recruits neutrophils','Perforin and granulysin form pores so ions and water rush in and the cell lyses; can also induce apoptosis'],
+  ['Clinical','Selectively destroyed by HIV','Key antiviral and antitumour defence']]) +
+ P('T cells can only be activated by antigen presented on a cell surface, not soluble antigen. B cells can recognise soluble antigen.'));
+
+C('l3b-10','L3B','Natural killer cells','',
+ 'What are NK cells and how do they decide which cells to kill?',
+ UL(['Large granular lymphocytes with <b>no T-cell receptor and no surface immunoglobulin</b>.',
+     'Kill tumour cells, virus-infected cells and some normal cells <b>without prior sensitisation</b>.',
+     'Have an Fc receptor for IgG, so they lyse IgG-coated cells (antibody-dependent cytotoxicity).',
+     '<b>MHC class I protects normal cells.</b> Cells that lose MHC class I (common in viral infection and tumours) become targets.']) +
+ FLAG('The slide calls NK cells "a type of T lymphocyte". Current immunology classifies them as innate lymphoid cells, not T cells (they lack a T-cell receptor). In an answer, describe their features rather than calling them T cells.'));
+
+C('l3b-11','L3B','Antibodies and immunoglobulins','',
+ 'Describe antibody structure and name the five immunoglobulin classes with their main role.',
+ P('Two heavy and two light chains. The <b>heavy chain</b> determines the class. <b>Fab</b> (variable region) binds antigen; <b>Fc</b> binds cell receptors, causing opsonisation, cell lysis and mast-cell degranulation. Antibodies are made by plasma cells (activated B cells).') +
+ T(['Class','Role'],[['IgA','Mucosal surfaces (secretory IgA in saliva)'],['IgD','Antigen receptor on B cells'],['IgE','Binds allergens and triggers histamine release from mast cells'],['IgG','Majority of antibody-based immunity against pathogens'],['IgM','Early antibody, secreted before enough IgG is available']]) +
+ FLAG('The slide says IgM has "high affinity". Textbooks describe IgM as <b>low affinity</b> per binding site but <b>high avidity</b>, because it is a pentamer with ten binding sites.'));
+
+C('l3b-12','L3B','Acquired causes of oral lesions','',
+ 'Give the nine categories of acquired causes of oral lesions, with an example of each.',
+ OL(['Physical and chemical agents: biting, burn','Infectious organisms: HSV','Inflammatory processes','Immune diseases: bullous pemphigoid','Nutritional deficiency and metabolic disease: B-vitamin deficiency','Neoplastic disease: squamous cell carcinoma','Psychological factors: self-harm','Iatrogenic factors: numb-lip trauma, dental procedure injury','Idiopathic: Stevens–Johnson syndrome (lecture\'s example)']) +
+ P('Walk through these for any lesion of unclear cause; neoplasia is the one that must never be missed.'));
+
+/* ---------- Periodontal disease (predicted) ---------- */
+C('l3b-p1','L3B','Gingivitis vs periodontitis','perio',
+ 'Define gingivitis and periodontitis. What single finding separates them?',
+ LEAD('Both are inflammatory responses to plaque bacteria at or below the gum line. The dividing line is loss of attachment (and alveolar bone).') +
+ T(['','Gingivitis','Periodontitis'],[
+  ['Tissue','Gingiva only','Supporting tissues: periodontal ligament, cementum, alveolar bone'],
+  ['Inflammation','Acute (lecture framing)','Chronic'],
+  ['Attachment loss','None','Present'],
+  ['Bone loss','None','Present'],
+  ['Reversible?','Yes, with plaque control','Lost attachment and bone do not return; inflammation can be controlled']]) +
+ P('Periodontal disease is the second most common cause of tooth loss; genetic and environmental factors raise risk.') +
+ FLAG('Tutorials say "chronic periodontitis". Since the 2017 World Workshop classification, "chronic" and "aggressive" periodontitis are merged into a single "periodontitis", described by stage (severity) and grade (rate of progression). Using the tutorial term is fine in this exam.'));
+
+C('l3b-p2','L3B','How plaque starts inflammation','perio',
+ 'How does dental plaque initiate gingival inflammation?',
+ OL(['Aerobic and anaerobic plaque bacteria collect at the tooth–gingiva interface.',
+     'They release <b>metabolic acids, extracellular enzymes and lipopolysaccharide (LPS)</b>.',
+     'These damage the sulcular epithelium and underlying connective tissue, directly and indirectly.',
+     'The host releases mediators, activating the vascular events of acute inflammation: vasodilation, increased permeability (more gingival crevicular fluid) and leukocyte migration.']));
+
+C('l3b-p3','L3B','Cardinal signs in gingivitis','perio',
+ 'Map the five cardinal signs of inflammation onto clinical gingivitis.',
+ T(['Cardinal sign','In gingivitis'],[
+  ['Rubor + tumor','Red, swollen gingiva'],
+  ['Calor','Raised intracrevicular temperature'],
+  ['Dolor','Pain on probing'],
+  ['Functio laesa','The papilla no longer deflects food debris']]) +
+ P('Add <b>bleeding on probing</b>: dilated, fragile vessels under a thin, ulcerated sulcular epithelium.'));
+
+C('l3b-p4','L3B','Neutrophils in gingivitis','perio',
+ 'What do neutrophils do in gingivitis, and why can\'t they clear the plaque?',
+ P('Neutrophils migrate into the sulcus and form a <b>barrier between the plaque mass and the crevicular epithelium</b>. They phagocytose some bacteria, but this is <b>not a critical mechanism</b> for controlling plaque: the biofilm is large, organised and sits on a non-shedding tooth surface outside the tissues.') +
+ P('If the neutrophil influx is overwhelmed, a periodontal abscess can form. Their released enzymes also damage host tissue (L3A frustrated phagocytosis).'));
+
+C('l3b-p5','L3B','Why periodontitis is chronic','perio',
+ 'Why does periodontal inflammation become chronic rather than resolving?',
+ LEAD('Resolution requires removal of the stimulus, and the subgingival biofilm cannot be removed by the host.') +
+ UL(['The plaque is attached to the tooth: technically <b>outside the body</b>, with <b>no blood supply directly to the infected site</b>, so immune cells, antibody and antibiotics cannot clear it.',
+     'The stimulus persists, which is the definition of a chronic inflammatory cause (L3B).',
+     'A large infiltrate of macrophages, lymphocytes and plasma cells develops; the lymphocyte–macrophage loop sustains it.',
+     'Bacterial <b>and</b> host products damage the tissues, while fibrosis and repair are attempted at the same time.']));
+
+C('l3b-p6','L3B','Histological stages','perio',
+ 'Describe the histological stages from healthy gingiva to periodontitis.',
+ T(['Stage','Timing','Histology'],[
+  ['Initial lesion','2–4 days of plaque','Acute vasculitis beneath the junctional epithelium; more crevicular fluid; neutrophils migrate into the sulcus; some perivascular collagen loss. Subclinical'],
+  ['Early lesion','About 1 week','Lymphocyte-rich infiltrate (mainly T cells); fibroblast damage; collagen loss in the infiltrated zone; junctional epithelium proliferates. Clinical gingivitis: redness, bleeding on probing'],
+  ['Established lesion','2–3 weeks','Plasma cells (B cells) predominate; continued collagen loss; gingival (false) pocket may form; <b>no bone loss</b>. Can stay stable for years'],
+  ['Advanced lesion = periodontitis','Variable, often years','Lesion extends into PDL and alveolar bone; junctional epithelium migrates apically onto the root, forming a true pocket; attachment and bone loss; plasma cells dominate']]) +
+ BEYOND('Page and Schroeder, 1976.'));
+
+C('l3b-p7','L3B','Histological differences','perio',
+ 'Tabulate the key histological differences between gingivitis and periodontitis.',
+ T(['Feature','Gingivitis','Periodontitis'],[
+  ['Extent','Gingival connective tissue','Periodontal ligament, cementum, alveolar bone'],
+  ['Junctional epithelium','Stays at the cemento-enamel junction','Migrates apically onto the root; pocket lining thin and ulcerated'],
+  ['Pocket','Gingival (false) pocket from swelling','True periodontal pocket'],
+  ['Infiltrate','Neutrophils, then T lymphocytes, then plasma cells','Dense plasma cells, lymphocytes, macrophages'],
+  ['Collagen','Local loss, recoverable','Extensive destruction of gingival and PDL fibres'],
+  ['Alveolar bone','Intact crest','Osteoclastic resorption of the crest'],
+  ['Reversibility','Reversible','Irreversible tissue loss']]));
+
+C('l3b-p8','L3B','Mechanism of tissue destruction','perio',
+ 'By what mechanisms are collagen and alveolar bone destroyed in periodontitis?',
+ LEAD('Bacteria trigger it, but the host response causes most of the destruction.') +
+ UL(['Bacterial products (LPS, proteases) injure tissue directly and stimulate host cells.',
+     'Macrophages, fibroblasts and lymphocytes release <b>IL-1, TNF-α and prostaglandin E2</b>.',
+     '<b>Collagen:</b> matrix metalloproteinases (MMPs, e.g. neutrophil collagenase) degrade gingival and PDL collagen.',
+     '<b>Bone:</b> cytokines increase <b>RANKL</b> relative to its decoy receptor <b>OPG</b>. RANKL binds RANK on osteoclast precursors, driving osteoclast formation and resorption of the alveolar crest.']) +
+ LINK('L3B macrophage products: "toxic to extracellular matrix: proteases".') +
+ BEYOND(''));
+
+C('l3b-p9','L3B','Why only some progress','perio',
+ 'A patient has persistent gingivitis despite regular brushing. Why might it progress to periodontitis in them but not in someone else?',
+ LEAD('Gingivitis always precedes periodontitis, but not every gingivitis progresses; the balance between biofilm and host decides.') +
+ T(['Factor','How it tips the balance'],[
+  ['Subgingival plaque, calculus, overhangs, crowding','Plaque persists where brushing cannot reach'],
+  ['Dysbiosis','Shift toward Gram-negative anaerobes (e.g. <i>Porphyromonas gingivalis</i>, <i>Tannerella forsythia</i>, <i>Treponema denticola</i>)'],
+  ['Smoking','Impairs neutrophils and healing; vasoconstriction masks bleeding'],
+  ['Diabetes','Impaired neutrophils, exaggerated inflammation, advanced glycation end-products'],
+  ['Genetics, stress, immunosuppression','Altered host response; HIV can cause necrotising disease']]));
+
+C('l3b-p10','L3B','Periodontal abscess','perio',
+ 'How does a periodontal abscess form?',
+ UL(['If the neutrophil influx is <b>overwhelmed</b>, many neutrophils degranulate in a confined area, attacking host tissue and causing marked local destruction.',
+     '<b>Blockage of the gingival crevicular orifice</b> stops crevicular fluid flowing from the sulcus to the mouth, trapping the exudate.']) +
+ LINK('L3A: suppuration is an outcome of acute inflammation, here superimposed on chronic periodontitis.'));
+
+/* =================== L4 — Healing and repair =================== */
+C('l4-01','L4','Healing vs repair','',
+ 'Define healing and repair. What terminology trap did the lecturer warn about?',
+ T(['','Healing (regeneration)','Repair (organisation)'],[
+  ['Result','Complete restoration with no, or minimal, residual defect','Restoration with fibrovascular connective tissue (scar)'],
+  ['Follows','Loss of part of a labile cell population','Loss of specialised cell populations'],
+  ['Needs','Cells that can divide and an intact stromal framework','Granulation tissue and collagen']]) +
+ FLAG('Robbins uses "healing" for both regeneration and repair. Underwood\'s uses healing to mean regeneration. The lecture follows Underwood\'s, so define your terms in any answer.'));
+
+C('l4-02','L4','Stem cells','',
+ 'Define totipotent, pluripotent, multipotent and unipotent stem cells. Where are adult epithelial stem cells found?',
+ T(['Potency','Can become'],[
+  ['Totipotent','All cells of the embryo and placenta (a complete organism)'],
+  ['Pluripotent','All cells of the three embryonic layers, but not the supporting tissue of the embryo'],
+  ['Multipotent','A number of cell types'],
+  ['Unipotent','Only one cell type']]) +
+ P('<b>Locations:</b> epidermis, in the basal layer next to the basement membrane; intestinal mucosa, near the bottom of the crypts. Dental stem cells (pulp, PDL) are the basis of periodontal regeneration research.'));
+
+C('l4-03','L4','Healing of an abrasion','',
+ 'Describe how an abrasion heals by regeneration. What stops the epithelial cells from overgrowing?',
+ OL(['An abrasion removes surface epithelium.',
+     'A <b>scab</b> (a layer of fibrin) forms and protects the area while the epidermis grows to cover the defect.',
+     'Epithelial cells proliferate and spread out as a thin sheet beneath the scab until the defect is covered.',
+     'They stop when they form a confluent layer: <b>contact inhibition</b>.',
+     'The epidermis is then rebuilt from the base upwards.']) +
+ P('Contact inhibition is lost in neoplasia, allowing tumour cells to keep proliferating.') +
+ HOOK('Scab over skin, clot in a socket: the fibrin layer is the protective scaffold that epithelium creeps under.'));
+
+C('l4-04','L4','Organisation','',
+ 'List the steps of organisation (repair).',
+ OL(['Fibrin deposition.',
+     'Granulation tissue formation.',
+     'Removal of dead tissue by neutrophils and macrophages.',
+     'Contraction of the granulation tissue.',
+     'Collagen accumulation to form the scar.']) +
+ P('Organisation = repair of specialised tissues by the formation of mature fibrovascular connective tissue. Infection and inflammation increase scarring.'));
+
+C('l4-05','L4','Granulation tissue','',
+ 'What is granulation tissue, why is it called that, and why must it not be confused with a granuloma?',
+ LEAD('Granulation tissue is the hallmark of repair: new thin-walled capillaries plus proliferating fibroblasts and myofibroblasts in a loose, oedematous matrix, with macrophages and other inflammatory cells.') +
+ UL(['Grossly it is pink, soft and granular (the capillary loops look like granules), and it bleeds easily.',
+     'It fills the defect, supplies oxygen and nutrients, contracts, and lays down collagen; it later matures into a relatively avascular scar.',
+     'A <b>granuloma</b> is a chronic inflammatory aggregate of epithelioid macrophages (L3B): an entirely different thing.']) +
+ BEYOND(''));
+
+C('l4-06','L4','Wound contraction and scarring','',
+ 'What causes wound contraction, and what problems can scarring and contraction cause?',
+ P('Contraction results from <b>myofibroblasts</b> in granulation tissue, attached to each other and to adjacent matrix. It aims to reduce the volume of tissue needing repair. Collagen is then secreted and forms a scar replacing the lost specialised tissue.') +
+ T(['Problem','Example'],[
+  ['Stenosis or obstruction','Stricture narrowing a tube lumen (oesophagus, bowel)'],
+  ['Contracture','Tissue distortion with permanent shortening of a muscle'],
+  ['Cosmetic damage, impaired mobility','Contraction after burns to the skin'],
+  ['Abnormal scars','Hypertrophic scar or keloid (TGF-β abnormalities)']]) +
+ P('Tutorial 4 MCQ: wound contraction is mediated by <b>myofibroblasts</b>.'));
+
+C('l4-07','L4','First intention','',
+ 'An incisional biopsy wound is sutured. Describe healing by first intention and its approximate timeline.',
+ LEAD('First intention: a clean incision with very little damage either side and edges closely approximated, so healing is prompt and uneventful with minimal granulation tissue and scar.') +
+ T(['Time','Events'],[
+  ['Immediately','Narrow gap fills with blood clot; surface dries to a scab (eschar)'],
+  ['24 h','Neutrophils at the margins; basal epithelial cells start dividing'],
+  ['24–48 h','Epithelium migrates from both edges and meets beneath the scab: a thin continuous layer'],
+  ['Day 3','Macrophages replace neutrophils; granulation tissue invades'],
+  ['Day 5','New capillaries peak; collagen fibres bridge the incision'],
+  ['Week 2','Collagen accumulates; inflammation and oedema subside; scar blanches'],
+  ['1 month','Cellular connective tissue scar under intact epidermis']]) +
+ P('Lecture points: capillaries proliferate (neovascularisation); fibroblasts migrate into the fibrin network and secrete collagen; the <b>elastic fibre network is not reconstructed</b>.') +
+ BEYOND('Wound strength is about 10% of normal at 1 week (suture removal) and plateaus at about 70–80% by 3 months; it never returns to 100%.'));
+
+C('l4-08','L4','Second intention','',
+ 'Describe healing by second intention and how it differs from first intention.',
+ P('<b>Occurs with:</b> tissue loss, gaping wound margins, haemorrhage and infection (large lacerations, ulcers, burns, extraction sockets).') +
+ P('<b>Process:</b> large fibrin clot; more intense inflammation with phagocytosis of debris; abundant granulation tissue fills the defect from the base; epithelium regenerates from the margins across it; marked contraction by myofibroblasts; collagen forms a larger scar.') +
+ T(['','First intention','Second intention'],[
+  ['Tissue loss','Minimal','Significant'],
+  ['Wound edges','Approximated','Gaping'],
+  ['Inflammation','Mild','Intense'],
+  ['Granulation tissue','Little','Abundant'],
+  ['Contraction','Minimal','Marked (myofibroblasts)'],
+  ['Scar','Thin, linear','Large; may cause contracture'],
+  ['Time and infection risk','Short, low','Longer, higher']]) +
+ BEYOND('Large skin defects can shrink to 5–10% of their original size within about 6 weeks, largely by contraction.'));
+
+C('l4-09','L4','Growth factors','',
+ 'Match the growth factors to their source and action: EGF/KGF, VEGF, PDGF, TGF-β.',
+ P('Healing is a complex interplay of cytokines: one cell can make many, and each has many functions. Initiating signals include <b>hypoxia</b> and <b>growth factors released by platelet degranulation</b>.') +
+ T(['Factor','Main source (lecture)','Action'],[
+  ['EGF, KGF','Platelets, macrophages, fibroblasts','Keratinocyte proliferation and mobility (re-epithelialisation)'],
+  ['VEGF','Keratinocytes, macrophages','Angiogenesis'],
+  ['PDGF','Platelets, macrophages, keratinocytes','Activates macrophages; fibroblast proliferation; matrix production'],
+  ['TGF-β','(Platelets, macrophages)','Controls myofibroblasts and collagen formation; abnormalities contribute to hypertrophic scars and keloids']]) +
+ P('Tutorial 4 MCQ: the growth factor primarily involved in epithelial regeneration is <b>EGF</b>.'));
+
+C('l4-10','L4','Mucosal ulcers','',
+ 'How does a mucosal ulcer heal, and what happens with chronic ulceration?',
+ OL(['Bleeding and covering by fibrin (the yellow-white slough of an oral ulcer).','Removal of necrotic tissue by macrophages.','Granulation tissue formation.','Epithelial regeneration from the ulcer edges.']) +
+ P('<b>Chronic ulceration:</b> alternating ulceration and repair, progressive tissue destruction, fibrous scar replacing muscle, and contraction of the scar (e.g. chronic gastric ulcer).'));
+
+C('l4-11','L4','Bone healing','',
+ 'Describe the stages of fracture healing and the factors that impair it.',
+ OL(['<b>Haematoma</b> from ruptured vessels in the periosteum and marrow cavity.',
+     '<b>Organisation</b> of the haematoma and removal of dead bone.',
+     '<b>Callus</b>, internal and external: a mass of new <b>woven bone</b> (irregular pattern, made fast).',
+     '<b>Lamellar bone</b> replaces woven bone and is <b>remodelled along lines of mechanical stress</b>.']) +
+ T(['Impairing factor','Result'],[
+  ['Mobility','Fibrous union, false joint'],
+  ['Interposed soft tissue','Non-union'],
+  ['Misalignment','Impaired function; osteoarthrosis in adjacent joints'],
+  ['Infection','Delayed healing (e.g. compound fracture)'],
+  ['Pre-existing bone disease','Pathological fracture; poor healing']]) +
+ P('<b>Pathological fracture:</b> through bone weakened by primary or secondary disease. <b>Compound fracture:</b> involves the overlying skin. <b>Distraction osteogenesis:</b> bone is cut and gradually pulled apart so new bone forms in the gap.'));
+
+C('l4-12','L4','Liver, nerve and muscle','',
+ 'How do liver, nervous tissue and muscle respond to injury?',
+ T(['Tissue','Response'],[
+  ['Liver','Regenerates from three sources: hepatocytes, liver progenitor (stem) cells, bone-marrow-derived stem cells'],
+  ['Central nervous system','Does not repair effectively; adult neurons have low replicative capacity; <b>gliosis</b> (glial proliferation) fills the defect'],
+  ['Peripheral nerve','Connective tissue sheaths: epineurium (outer), perineurium (around fascicles), endoneurium (around fibres)'],
+  ['Cardiac and smooth muscle','Permanent per the L4 slide (vascular smooth muscle can form new vessels); damaged muscle replaced by scar'],
+  ['Skeletal muscle','Limited regeneration from satellite cells; if only contractile proteins are lost, new ones form within the old endomysium']]));
+
+C('l4-13','L4','Peripheral nerve injury','',
+ 'Classify peripheral nerve injuries (Seddon). Why does this matter for inferior alveolar or lingual nerve damage?',
+ T(['Injury','What is damaged','Recovery'],[
+  ['Neurapraxia','Conduction block; axon intact','Full, within days to weeks'],
+  ['Axonotmesis','Axon disrupted; connective tissue sheath intact; Wallerian degeneration distally','Usually good but slow, as the axon regrows along its tube (about 1 mm per day)'],
+  ['Neurotmesis','Nerve completely divided','Poor without surgical repair; neuroma may form']]) +
+ BEYOND(''));
+
+C('l4-14','L4','Factors affecting healing','',
+ 'List the factors that impair wound healing, and explain how corticosteroids impair it.',
+ T(['Factor (lecture)','Why it impairs healing'],[
+  ['Age','Reduced capacity and cellular reserves'],
+  ['Nutrition','Protein synthesis impaired (vitamin C is needed for collagen)'],
+  ['Neoplastic disorders','General debility, local tissue destruction'],
+  ['Cushing syndrome, steroid therapy','Immunosuppression makes injury or infection more severe; steroids interfere with granulation tissue formation and so with wound contraction'],
+  ['Diabetes, immunosuppression','Infection, impaired neutrophil function, ischaemia, neuropathy'],
+  ['Vascular disturbance','Poor oxygen and nutrient delivery'],
+  ['Denervation','Unresponsive to repeated minor trauma; no pain from infection or inflammation']]) +
+ P('Local factors also matter: infection, poor blood supply, foreign bodies, mobility or tension, previous irradiation. Smoking impairs healing via vasoconstriction and impaired neutrophil function.'));
+
+C('l4-15','L4','Diabetes and healing','',
+ 'How does diabetes impair wound healing?',
+ UL(['Hypoxia and ischaemia from vascular disease','Dysfunction of fibroblasts and epidermal cells','Impaired angiogenesis','High levels of MMPs (excess matrix breakdown)','Damage from reactive oxygen species and advanced glycation end-products','Decreased host immune resistance (impaired neutrophils, so more infection)','Neuropathy (unnoticed trauma)']) +
+ P('Dental consequence: slower socket healing, more post-operative infection, worse periodontitis.'));
+
+C('l4-16','L4','Stress and healing','',
+ 'How does psychological stress slow wound healing?',
+ P('Stress raises glucocorticoids (cortisol). These suppress the pro-inflammatory cytokines (IL-1β, IL-6, TNF-α) needed early at the wound, blunting the inflammatory phase so the later phases start late. Stress also brings behaviours that impair healing: smoking, poor sleep and diet.') +
+ BEYOND('Palatal wounds in dental students healed about 40% (roughly 3 days) slower during exams than in the summer vacation (Marucha et al. 1998).'));
+
+/* ---------- Tooth socket (predicted) ---------- */
+C('l4-s1','L4','Socket: first hours','socket',
+ 'What happens in the first hours after an extraction, and why is the patient told not to rinse for 24 hours?',
+ OL(['Normal clotting produces a <b>loose clot</b> that fills the bony and soft-tissue socket.',
+     '<b>Platelets retract the clot</b>, expressing fluid so it hardens and shrinks below the level of the adjacent soft tissue, pulling mobile soft tissue inwards to reduce the exposed clot area.',
+     'Clot retraction is usually <b>complete in about 4 hours</b>; the clot surface changes from <b>shiny to matt</b>.',
+     'After retraction the clot keeps stabilising by <b>fibrin cross-linking</b>, so rinsing is avoided for <b>24 hours</b>.']));
+
+C('l4-s2','L4','Socket: day 2','socket',
+ 'What is happening in the socket at 2 days, and why is this the danger point?',
+ UL(['<b>Fibrinolysis has started.</b>','Inflammatory cells have begun to emigrate into the clot.']) +
+ P('The clot is starting to break down but is <b>not yet well anchored</b> to the socket wall (organisation has not begun). The risk of <b>dry socket from clot lysis or loss is highest now</b>.') +
+ HOOK('Day 2 is the gap between the scaffold starting to dissolve and new tissue arriving to hold it.'));
+
+C('l4-s3','L4','Socket: day 4','socket',
+ 'Describe the socket at 4 days after extraction.',
+ UL(['<b>Macrophages</b> remove debris.','<b>Organisation</b> of the clot begins.','Bacterial enzymes lyse the surface fibrin.','<b>Epithelial cells</b> begin to grow beneath the surface debris, over the intact clot.']));
+
+C('l4-s4','L4','Socket: day 8','socket',
+ 'Describe the socket at 8 days after extraction.',
+ UL(['Socket filled with <b>granulation tissue</b>.','Superficial layers contain inflammatory cells.','<b>Lamina dura</b> still intact, but <b>resorption has begun</b>.']));
+
+C('l4-s5','L4','Socket: day 18','socket',
+ 'Describe the socket at 18 days after extraction.',
+ UL(['Collagen deposition.','<b>Woven bone</b> formation.','An <b>osteogenic front</b> advancing into the socket.']));
+
+C('l4-s6','L4','Socket: 6 weeks','socket',
+ 'Describe the socket at 6 weeks after extraction.',
+ UL(['Bone <b>remodelling to lamellar bone</b>.','<b>Lamina dura still visible</b> (the socket outline persists on radiographs).']) +
+ LINK('L4 bone healing: woven bone first because it is made fast, then lamellar bone remodelled to load.'));
+
+C('l4-s7','L4','Socket timeline','socket',
+ 'Put the events of tooth socket healing in order with their timings.',
+ T(['When','Key event'],[
+  ['0–4 hours','Clot forms and is retracted by platelets; surface shiny to matt'],
+  ['First 24 hours','Fibrin cross-linking stabilises the clot: no rinsing'],
+  ['2 days','Fibrinolysis begins; inflammatory cells enter the clot; <b>peak dry-socket risk</b>'],
+  ['4 days','Macrophages clear debris; organisation begins; epithelium grows over the intact clot'],
+  ['8 days','Granulation tissue fills the socket; lamina dura resorption begins'],
+  ['18 days','Collagen, woven bone, osteogenic front'],
+  ['6 weeks','Remodelling to lamellar bone; lamina dura still visible']]) +
+ HOOK('4 hours, 24 hours, 2, 4, 8, 18 days, 6 weeks: "clot, cross-link, crisis, clean-up, granulation, woven, lamellar".'));
+
+C('l4-s8','L4','Socket: type of healing','socket',
+ 'By which type of healing does an extraction socket heal, and which processes are involved?',
+ LEAD('Second intention: there is tissue loss, the margins cannot be closely apposed, and the defect fills from the clot upwards.') +
+ UL(['<b>Soft tissue:</b> gingival epithelium (labile) regenerates from the margins over the clot and granulation tissue.',
+     '<b>Bone:</b> the clot is organised into granulation tissue, then woven bone, then lamellar bone, the same sequence as fracture healing (haematoma, callus, remodelling).',
+     'The clot is the scaffold, just as the scab is in an abrasion; losing it (dry socket) exposes bone and stalls healing.']));
+
+C('l4-s9','L4','Dry socket','socket',
+ 'Three days after a lower third molar extraction a patient has severe throbbing pain radiating to the ear and bad breath. What is it, and what is the pathology?',
+ LEAD('Dry socket (alveolar osteitis): premature loss or lysis of the blood clot, exposing the bony socket wall.') +
+ UL(['<b>Pathology:</b> excess local fibrinolysis dissolves the clot at the stage when fibrinolysis has begun but the clot is not anchored (day 2 onward). Bare bone is exposed to the mouth, the bony wall becomes inflamed and healing stalls.',
+     '<b>Features:</b> severe pain usually starting 2–4 days after extraction, often radiating to the ear; halitosis and bad taste; an empty socket with exposed bone and debris. Swelling and fever are not typical.',
+     '<b>Risk factors:</b> smoking, oral contraceptives, difficult or traumatic extraction, mandibular (especially third) molars, previous dry socket, pre-existing infection, disturbing the clot by rinsing, spitting or sucking.',
+     '<b>Management:</b> local anaesthetic, gentle saline irrigation, an antiseptic and sedative dressing, analgesia and review. The socket then heals by second intention.']) +
+ BEYOND(''));
+
+C('l4-s10','L4','Post-extraction advice','socket',
+ 'Give post-extraction instructions and the pathological reason for each.',
+ T(['Instruction','Reason'],[
+  ['Bite on gauze for about 30 minutes','Pressure aids haemostasis and clot formation'],
+  ['No rinsing for 24 hours','The clot is still stabilising by fibrin cross-linking'],
+  ['No smoking','Suction dislodges the clot; vasoconstriction and impaired neutrophils delay healing; higher dry-socket risk'],
+  ['No sucking through straws or forceful spitting','Negative pressure dislodges the clot'],
+  ['Avoid hot drinks and exercise on day 1','Vasodilation can restart bleeding'],
+  ['From day 2, gentle warm salt-water rinses','Keeps the socket clean once the clot is stable']]));
+
+C('l4-s11','L4','Ridge after extraction','socket',
+ 'What happens to the alveolar ridge after extraction, and how does this link to Lecture 2?',
+ P('The ridge loses width and height as the socket remodels; the thin buccal wall loses more than the lingual. Most of the change happens in the first few months.') +
+ LINK('L2 atrophy: loss of functional stimulus (residual ridge atrophy), with denture pressure adding to it.') +
+ BEYOND('About 50% of ridge width is lost over 12 months, two-thirds of it in the first 3 months (Schropp et al. 2003).'));
+
+/* =================== L5A — Hypersensitivity =================== */
+C('l5a-01','L5A','Definition and causes','',
+ 'Define hypersensitivity and give its three general causes, with examples.',
+ LEAD('Hypersensitivity is incidental tissue injury resulting from an immune response intended to destroy foreign antigens.') +
+ T(['Cause','Examples'],[
+  ['Autoimmunity','SLE, Graves disease'],
+  ['Microbes','Excessive reaction; persistent microbe (<i>M. tuberculosis</i>); cross-reactivity with self (rheumatic heart disease)'],
+  ['Environmental antigens','In genetically susceptible people (about 20% of the population are allergic): pollen, peanuts, penicillin, latex']]) +
+ P('<b>Atopy:</b> an inherited tendency to overproduce IgE to common environmental antigens.') +
+ P('Tutorial 5a MCQ answer: hypersensitivity reactions are <b>immune responses that cause tissue damage</b>.'));
+
+C('l5a-02','L5A','Gell and Coombs types','t1',
+ 'Summarise the four types of hypersensitivity: name, mediator, timing and examples.',
+ T(['Type','Name','Mediated by','Timing','Examples'],[
+  ['I','Immediate','IgE on mast cells and basophils','Minutes (late phase hours later)','Anaphylaxis, asthma, hay fever, food and latex allergy'],
+  ['II','Antibody to cell-bound antigen','IgG or IgM against antigen on a cell or tissue','Variable','Haemolytic anaemia, thrombocytopenic purpura, myasthenia gravis, Graves disease, mucous membrane pemphigoid'],
+  ['III','Immune complex','IgG complexes with soluble antigen, deposited in tissue; complement','Days (post-streptococcal GN 10–12 days)','SLE, post-streptococcal glomerulonephritis'],
+  ['IV','Delayed','T cells (CD4 Th1/Th17, CD8)','24–72 hours','Contact dermatitis, tuberculin reaction, type 1 diabetes, multiple sclerosis']]) +
+ P('Types I–III are antibody-mediated; type IV is cell-mediated.') +
+ HOOK('ACID: Allergic (I), Cytotoxic (II), Immune complex (III), Delayed (IV).'));
+
+C('l5a-t1','L5A','Type I: sensitisation','t1',
+ 'Describe the sensitisation phase of type I hypersensitivity.',
+ OL(['First exposure: an allergen (inhaled, ingested or injected; e.g. pollen, peanut, penicillin) is presented to CD4 T cells, producing a strong <b>Th2</b> response.',
+     'Th2 cytokines: <b>IL-4</b> makes B cells class-switch to <b>IgE</b> (IL-13 also contributes); <b>IL-5</b> activates eosinophils; <b>IL-13</b> stimulates mucus secretion by epithelium.',
+     'Plasma cells secrete allergen-specific IgE.',
+     'IgE binds by its Fc portion (ε heavy chain) to the high-affinity receptor <b>FcεRI</b> on mast cells (also basophils, eosinophils). The mast cell is now <b>"sensitised"</b>.']) +
+ P('No symptoms occur yet. Mast cells sit in all connective tissues, especially beneath epithelia and close to blood vessels.'));
+
+C('l5a-t2','L5A','Type I: re-exposure','t1',
+ 'What happens when a sensitised person meets the allergen again?',
+ OL(['The allergen binds and <b>cross-links two or more IgE</b> molecules on the sensitised mast cell.',
+     'The mast cell <b>degranulates</b>, releasing preformed mediators (histamine, proteases, chemokines).',
+     'It synthesises new <b>lipid mediators</b> (PGD2, leukotrienes) and <b>cytokines</b>.',
+     '<b>Immediate reaction</b> (minutes): vasodilation, increased permeability, smooth muscle contraction, mucus; proteases damage local tissue.',
+     '<b>Late-phase reaction</b> (hours): cytokines recruit leukocytes; eosinophils and neutrophils release proteases that damage tissue.']));
+
+C('l5a-t3','L5A','Type I: preformed mediators','t1',
+ 'Name the preformed mast-cell mediators and their effects.',
+ T(['Mediator','Effect'],[
+  ['Histamine','Vasodilation, increased vascular permeability, smooth muscle contraction, increased mucus secretion'],
+  ['Chemokines','Attract neutrophils and eosinophils'],
+  ['Proteases','Tissue damage, generation of kinins, activation of complement (more chemotaxis and inflammation)']]) +
+ BEYOND('A raised serum mast-cell tryptase (a protease) taken after an event helps confirm anaphylaxis.'));
+
+C('l5a-t4','L5A','Type I: new mediators','t1',
+ 'Which newly synthesised mediators matter in type I hypersensitivity, and why are leukotrienes so important?',
+ T(['Mediator','Effect'],[
+  ['Prostaglandin D2','Most abundant cyclo-oxygenase product in mast cells; intense bronchospasm and mucus secretion'],
+  ['Leukotrienes C4 and D4','The most potent vasoactive and spasmogenic agents known: several thousand times more active than histamine at increasing permeability and contracting bronchial smooth muscle'],
+  ['Leukotriene B4','Highly chemotactic for neutrophils, eosinophils and monocytes']]) +
+ P('This is why an antihistamine alone cannot control anaphylaxis: it blocks histamine but not the leukotrienes or PGD2.'));
+
+C('l5a-t5','L5A','Immediate vs late phase','t1',
+ 'Compare the immediate and late-phase reactions of type I hypersensitivity.',
+ T(['','Immediate','Late phase'],[
+  ['Timing','Within minutes','Hours later (typically 2–24 h), without further exposure; can last days'],
+  ['Driven by','Histamine, proteases, PGD2, LTC4/LTD4','Cytokines and chemokines, LTB4'],
+  ['Cells','Mast cells','Recruited eosinophils, neutrophils, lymphocytes'],
+  ['Effect','Vasodilation, leakage, smooth-muscle spasm','Proteases from eosinophils and neutrophils damage tissue']]) +
+ BEYOND(''));
+
+C('l5a-t6','L5A','Complement in inflammation','t1',
+ 'What are the biological effects of complement, and what do C3a, C4a and C5a do?',
+ UL(['Lysis of antigen, opsonisation and phagocytosis.',
+     'C3a, C4a and C5a (pro-inflammatory mediators): increase vascular permeability, release vasoactive amines from mast cells, induce smooth-muscle spasm.',
+     '<b>C5a</b> is a potent chemoattractant.']) +
+ P('Mast-cell proteases activate complement, so the two systems amplify each other.'));
+
+C('l5a-t7','L5A','Anaphylaxis: features','t1',
+ 'Define anaphylaxis and list its clinical features by system.',
+ LEAD('Anaphylaxis is a severe, systemic type I reaction: sudden hypotension, severe bronchoconstriction and collapse.') +
+ T(['System','Features'],[
+  ['Skin','Urticaria, angioedema, pruritus'],
+  ['Respiratory','Stridor, wheeze, shortness of breath, upper-airway angioedema, persistent cough'],
+  ['Cardiovascular','Hypotension, syncope, arrhythmias, tachycardia'],
+  ['CNS','Unconsciousness, dizziness, confusion, headache'],
+  ['GI','Nausea, vomiting']]) +
+ P('<b>Why:</b> systemic mediator release causes widespread vasodilation and leakage (hypotension, shock, swelling) and bronchoconstriction. Triggers: bee and wasp venom, antimicrobials, peanuts, latex. The name is Greek for "backwards protection".'));
+
+C('l5a-t8','L5A','Anaphylaxis: treatment','t1',
+ 'What is the first-line treatment for anaphylaxis? Give the doses and the other immediate steps.',
+ LEAD('Intramuscular adrenaline into the outer mid-thigh, given immediately.') +
+ T(['Device','Dose'],[
+  ['EpiPen or Anapen 300','300 µg (adults and children over about 5 years)'],
+  ['EpiPen Jr or Anapen 150','150 µg (children under about 5 years)'],
+  ['Anapen 500','500 µg (some patients are prescribed this)'],
+  ['Ampoule 1 mg/mL (1:1000)','0.01 mg/kg, maximum 0.5 mg']]) +
+ UL(['Repeat every <b>5 minutes</b> if symptoms persist.',
+     'Stop the procedure, call for help and an ambulance (000).',
+     'Lay the patient flat (do not let them stand or walk); let them sit if breathing is difficult.',
+     'Give oxygen, monitor, start CPR if needed.',
+     'Antihistamines and steroids are adjuncts only, never a substitute for adrenaline.']) +
+ FLAG('The slides write "300 mg" and "150 mg". The correct unit is micrograms (µg); 300 mg would be a thousand-fold overdose. Write µg in the exam.') +
+ BEYOND(''));
+
+C('l5a-t9','L5A','Why adrenaline works','t1',
+ 'Why is adrenaline the first-line drug? Explain it by receptor.',
+ T(['Receptor','Effect','Reverses'],[
+  ['α1','Vasoconstriction','Hypotension and mucosal or airway oedema'],
+  ['β1','Increased heart rate and contractility','Low cardiac output'],
+  ['β2','Bronchodilation; reduced mediator release from mast cells','Bronchospasm and ongoing degranulation']]) +
+ P('Adrenaline counters every major mechanism at once; antihistamines block only one mediator and act too slowly.') +
+ BEYOND(''));
+
+C('l5a-t10','L5A','Anaphylaxis in the dental setting','t1',
+ 'What causes anaphylaxis in dental practice, how common is it, and what is an anaphylactoid reaction?',
+ UL(['<b>Incidence:</b> 0.004–0.015 cases per dentist per year: rare, but you must be ready.',
+     '<b>Dental triggers (lecture):</b> latex; topical preparations such as povidone-iodine and <b>chlorhexidine</b>; oil of cloves.',
+     'Chlorhexidine irrigation of tooth sockets has caused <b>fatal</b> anaphylaxis.']) +
+ P('<b>Anaphylactoid reaction:</b> the same mast-cell mediators and clinical picture, but release does not depend on IgE. Treat it exactly the same way.'));
+
+C('l5a-t11','L5A','Anaphylaxis vs faint','t1',
+ 'A patient becomes pale and light-headed just after a local anaesthetic injection. How do you tell a vasovagal faint from anaphylaxis?',
+ T(['','Vasovagal syncope','Anaphylaxis'],[
+  ['Pulse','Slow (bradycardia)','Fast, weak (tachycardia)'],
+  ['Skin','Pale, clammy','Urticaria, flushing, angioedema'],
+  ['Airway','Normal','Wheeze, stridor, hoarseness'],
+  ['Lying flat','Recovers quickly','Hypotension persists; worsens']]) +
+ P('If in doubt, treat as anaphylaxis: adrenaline cannot be given too early.') +
+ BEYOND('True IgE allergy to amide local anaesthetics is very rare; most reactions are vasovagal, effects of the adrenaline in the cartridge, or reactions to additives.'));
+
+C('l5a-t12','L5A','Skin tests','t1',
+ 'Which skin test investigates type I and which investigates type IV hypersensitivity, and how is each read?',
+ T(['','Skin-prick test','Patch test'],[
+  ['Type','I (IgE)','IV (T cell)'],
+  ['Method','Allergen pricked into the skin','Suspected contact sensitiser applied to normal skin on the back, covered for 48 hours'],
+  ['Reading','Wheal and flare within about 15–20 minutes','Inspected at 2 and 4 days; positive = inflammation and induration']]) +
+ BEYOND(''));
+
+C('l5a-t13','L5A','Glove reactions','t1',
+ 'A dental nurse reacts to latex gloves. Which hypersensitivity types can latex cause, and how do they differ?',
+ T(['','Type I','Type IV'],[
+  ['Antigen','Natural rubber latex proteins','Chemical accelerators used in glove manufacture'],
+  ['Onset','Minutes','Hours to days (12–48 h)'],
+  ['Picture','Urticaria, rhinitis, asthma, up to anaphylaxis','Eczematous contact dermatitis of the hands'],
+  ['Mediators','IgE, mast cells','Sensitised T cells']]) +
+ P('Latex is on the lecture\'s list of dental anaphylaxis triggers; switch to non-latex products.') +
+ BEYOND(''));
+
+C('l5a-03','L5A','Type II mechanisms','',
+ 'Describe the mechanisms of tissue injury in type II hypersensitivity and give two examples.',
+ LEAD('IgM or IgG antibodies react with antigens that form part of a cell membrane or tissue.') +
+ T(['Mechanism','Example'],[
+  ['Antibody targets tissue antigen, causing complement activation and inflammation','Mucous membrane pemphigoid (the slide\'s "MMP", not matrix metalloproteinase)'],
+  ['Opsonisation, then phagocytosis of the coated cell','Autoimmune haemolytic anaemia'],
+  ['Drug or metabolite binds a red cell or platelet; antibody against it destroys the cell too ("bystander lysis")','Drug-induced haemolytic anaemia, thrombocytopenic purpura'],
+  ['Antibody <b>blocks</b> a receptor','Myasthenia gravis: anti-acetylcholine receptor, so neuromuscular transmission fails (weakness, paralysis)'],
+  ['Antibody <b>stimulates</b> a receptor','Graves disease: anti-TSH receptor drives thyroid hormone without TSH (sometimes called type V)']]));
+
+C('l5a-04','L5A','Type III: immune complexes','',
+ 'Explain type III hypersensitivity and describe post-streptococcal glomerulonephritis.',
+ P('Antibodies against <b>soluble</b> antigen form immune complexes. If these are not cleared, they deposit in <b>blood vessels, joints and glomeruli</b>, fix complement and cause local inflammation: complement activation, platelet aggregation, neutrophil attraction, tissue damage. Damage occurs where complexes lodge, not where the antigen came from.') +
+ P('<b>Post-streptococcal glomerulonephritis:</b> 10–12 days after a streptococcal throat or skin infection; antigen fragments from "nephritogenic" strains bind the glomerular basement membrane; IgG and C3 deposit there. A "one-shot" mechanism that usually resolves.') +
+ P('<b>Chronic deposition</b> needs persistent antigen, an abnormal host response, or local defects such as complement deficiency. Examples: SLE, rheumatoid arthritis (lecture).') +
+ FLAG('Robbins places rheumatoid arthritis mainly under T-cell-mediated (type IV) disease, with immune complexes contributing. Give the lecture\'s answer but know it is debated.'));
+
+C('l5a-05','L5A','SLE','',
+ 'Summarise SLE: hypersensitivity type, epidemiology, clinical features and key antibodies.',
+ UL(['<b>Type III</b>: immune complexes deposit in tissue and activate complement; multisystem inflammation with flares and quiet periods.',
+     '<b>Epidemiology:</b> female predominance, peak in child-bearing years; Australian prevalence 45 per 100,000, higher in Indigenous Australians.',
+     '<b>Aetiology:</b> over 100 genetic loci; 25% concordance in identical twins vs 2–5% in non-identical; triggers include EBV, UV light and smoking.',
+     '<b>Features:</b> butterfly (malar) rash sparing the nasolabial folds, photosensitivity, arthralgia/arthritis, pleuritic pain, pericarditis, anaemia, leukopenia, thrombocytopenia, oral lesions.',
+     '<b>Antibodies:</b> ANA almost always positive (sensitive, not specific); anti-dsDNA and anti-Sm highly specific; anti-C1q tracks activity.',
+     '<b>Four types of lupus:</b> systemic, neonatal, discoid (skin and oral mucosa, scarring; may progress to SLE), drug-induced (resolves when the drug stops).']));
+
+C('l5a-06','L5A','Type IV mechanism','',
+ 'Describe the mechanism of type IV (delayed-type) hypersensitivity. Why is it "delayed"?',
+ OL(['<b>Sensitisation:</b> Langerhans cells take up antigen, travel to the lymph node and present it with MHC II to CD4 T cells, creating memory cells.',
+     '<b>Re-exposure:</b> sensitised CD4 T cells secrete cytokines. Th1 cells release <b>IFN-γ</b>, recruiting and activating macrophages; Th17 cells release <b>IL-17</b>, recruiting neutrophils.',
+     'TNF-α and TNF-β switch on endothelial adhesion molecules (ICAM-1, VCAM-1), letting neutrophils, monocytes and macrophages enter the tissue.',
+     'Increased permeability causes oedema; macrophage enzymes cause tissue damage and necrosis.',
+     'CD8 T cells can also kill antigen-bearing cells directly.']) +
+ P('<b>Delayed</b> because circulating effector T cells take 24–48 hours to migrate to the antigen; the reaction develops over 2–3 days, is most visible at 48–72 hours, then diminishes. Infiltrate: T lymphocytes, macrophages, occasional eosinophils.'));
+
+C('l5a-07','L5A','Contact dermatitis','',
+ 'Explain allergic contact dermatitis, including haptens and the induction and elicitation phases.',
+ P('<b>Haptens:</b> certain occupational and other antigens are not immunogenic alone but are highly reactive molecules that bind skin and tissue proteins; the hapten–carrier complex is immunogenic.') +
+ T(['Phase','Events'],[
+  ['Induction','Langerhans cells present the hapten–carrier complex with MHC II to T lymphocytes (usually months after exposure to small amounts)'],
+  ['Elicitation','On re-exposure, effector T cells migrate to the skin and meet the complex presented by Langerhans cells; cytokine release causes inflammation 12–48 hours after contact']]) +
+ P('<b>Clinical:</b> erythematous papules and plaques, scaling, fissures, poorly defined margins in the area of exposure; hands most often, also face, lips, eyelids. <b>Histology:</b> spongiosis (oedema separating keratinocytes), lymphocyte exocytosis, superficial perivascular infiltrate with eosinophils. <b>Management:</b> avoid allergen, patch test to confirm, emollients, mild topical steroids.'));
+
+C('l5a-08','L5A','Oral contact allergy','',
+ 'A patient has burning, erythema and a white lichenoid patch on the mucosa touching an amalgam. What is the mechanism, which materials commonly cause oral contact allergy, and how is it managed?',
+ LEAD('Type IV oral contact allergy, here presenting as an oral lichenoid reaction.') +
+ P('<b>Symptoms:</b> burning, stinging, tingling, dry mouth, altered taste. <b>Signs:</b> erythema, oedema, desquamation, ulceration of tongue, gingiva or lining mucosa; cheilitis, perioral inflammation.') +
+ T(['Group','Examples'],[
+  ['Restorative materials','Amalgam, mercury, resins, acrylics, metals (gold, nickel, chromium-cobalt, palladium)'],
+  ['Flavourings','Cinnamon, peppermint, spearmint, fragrance mix, balsam of Peru'],
+  ['Toothpaste components','Cocamidopropyl betaine, propylene glycol, parabens, sodium laureth sulphate, triclosan']]) +
+ P('<b>Diagnosis:</b> temporal relationship to exposure, examination, patch testing. <b>Treatment:</b> replace the restoration, change oral hygiene products, topical steroids if needed.'));
+
+C('l5a-09','L5A','Chlorhexidine and toothpaste','',
+ 'Which hypersensitivity types can chlorhexidine cause? What is the commonest presentation of toothpaste allergy, and how is it best confirmed?',
+ P('<b>Chlorhexidine</b> causes both <b>type I</b> (anaphylaxis, with deaths after socket irrigation: adrenaline and an ambulance) and <b>type IV</b> (contact allergy).') +
+ P('<b>Toothpaste allergy</b> is uncommon now. The commonest presentation is <b>cheilitis</b> (dry, red, swollen, cracked lips, angular cheilitis), sometimes without intraoral signs. Flavourings are the commonest allergens. Patch testing supports but may not confirm the diagnosis; the <b>stop–restart method</b> is best.'));
+
+/* =================== L5B — Autoimmunity and transplantation =================== */
+C('l5b-01','L5B','Autoimmunity vs autoimmune disease','',
+ 'Define autoimmunity and autoimmune disease. How can autoimmunity exist without disease?',
+ T(['Autoimmunity','Autoimmune disease'],[['An immune response against a self (auto)-antigen or antigens','Tissue damage or disturbed physiological function resulting from an autoimmune response']]) +
+ P('<b>Autoimmune responses can occur without disease.</b> Some self-reactive lymphocytes escape into the circulation in everyone and are normally held in check (peripheral tolerance); low-level autoantibodies are common and harmless. Disease needs a sustained response strong enough to damage tissue, usually genetic susceptibility plus an environmental trigger.') +
+ P('That is why a positive ANA alone does not diagnose SLE.') +
+ BEYOND(''));
+
+C('l5b-02','L5B','Proof and patterns','',
+ 'How do we show that autoimmunity causes a disease? Distinguish organ-specific from non-organ-specific autoimmune disease.',
+ P('<b>Evidence:</b>') +
+ OL(['Demonstrate immunological reactivity to a self-antigen.','Characterise or isolate the inciting autoantigen.','Induce reactivity against the same antigen by immunising experimental animals.','Show similar pathological changes in the organs of the sensitised animal.']) +
+ T(['Organ-specific','Non-organ-specific'],[
+  ['Single organ, commonly an endocrine gland; autoantibody may target a cell-surface or intracellular molecule','Multiple organs; self-antigen widely distributed, particularly intracellular molecules involved in transcription and translation (e.g. SLE)']]));
+
+C('l5b-03','L5B','Epidemiology and aetiology','',
+ 'Summarise the epidemiology and aetiology of autoimmune disease.',
+ P('<b>Epidemiology:</b> about 3% of the population; chronic disabling examples are multiple sclerosis, rheumatoid arthritis, type 1 diabetes; peak onset 15–65 years; almost all more common in women, except ankylosing spondylitis.') +
+ T(['Factor','Detail'],[
+  ['Genetic','Usually many genes; some single-gene defects of apoptosis; strongest associations with MHC (HLA) alleles'],
+  ['Hormones','Female predominance; onset in reproductive years; removing ovaries in animal models of SLE inhibits onset'],
+  ['Infection','Molecular mimicry (microbial antigen resembles self); infection also up-regulates co-stimulatory molecules and alters antigen presentation'],
+  ['Drugs','Drug–self complex resembles self and bypasses tolerance; some drugs bind the MHC groove directly. HLA-DR2: penicillamine-induced myasthenia; DR3: nephritis. Slow acetylators prone to SLE'],
+  ['UV radiation','Modifies self-antigens; causes apoptosis in skin, exposing normally intracellular autoantigens on the cell surface']]));
+
+C('l5b-04','L5B','Mechanisms and Sjögren syndrome','',
+ 'How do autoimmune diseases damage tissue? Describe Sjögren syndrome and its dental relevance.',
+ P('<b>Mechanisms:</b> antibody or immune complexes; CD4 T-cell activation of macrophages or cytotoxic T cells; or a combination. Autoantibodies can bind functional sites such as hormone receptors, neurotransmitter receptors and plasma proteins.') +
+ P('<b>Sjögren syndrome:</b> CD4 T-cell reactions against unknown antigens in the ductal epithelium of exocrine glands (salivary, lacrimal), so glands are infiltrated and destroyed, causing dry mouth and dry eyes. Most primary cases have autoantibodies to <b>SS-A (Ro)</b> and <b>SS-B (La)</b>.') +
+ P('<b>Treatment of autoimmune disease:</b> replace organ function; immune suppression.') +
+ BEYOND('Xerostomia brings caries (especially root and cervical), candidiasis, denture problems and difficulty swallowing; there is an increased risk of B-cell lymphoma, so new persistent gland swelling needs investigating.'));
+
+C('l5b-05','L5B','Transplant vocabulary and MHC','',
+ 'Define haplotype, allele, allogeneic, autologous and xenogeneic. Where are MHC class I, II and III found?',
+ T(['Term','Meaning'],[
+  ['Haplotype','A group of genes inherited together from a single parent'],
+  ['Allele','A variant form of a gene'],
+  ['Allogeneic','Between genetically dissimilar individuals of the same species'],
+  ['Autologous','From one part of one\'s own body to another'],
+  ['Xenogeneic','Across a species barrier (e.g. pig to human)']]) +
+ P('Human MHC antigens are called <b>HLA</b>; extensive polymorphism and co-dominant expression. <b>Class I:</b> most nucleated cells. <b>Class II:</b> antigen-presenting cells. <b>Class III:</b> complement components C2 and C4.'));
+
+C('l5b-06','L5B','How grafts are rejected','',
+ 'Describe the afferent and effector phases of graft rejection.',
+ T(['Phase','Events'],[
+  ['Afferent (initiation, sensitisation)','Allorecognition: MHC molecules on donor dendritic cells are recognised by the recipient\'s CD4 T cells, in the graft or in recipient lymphoid organs'],
+  ['Effector','CD4 T cells enter the graft and recruit effector cells with IL-2 and IFN-γ: macrophages, CD8 T cells, NK cells, B cells. Targets: endothelium and parenchymal cells']]));
+
+C('l5b-07','L5B','Types of rejection','',
+ 'Compare hyperacute, acute and chronic rejection of a kidney graft.',
+ T(['','Hyperacute','Acute','Chronic'],[
+  ['Timing','Minutes to hours after revascularisation','Days to weeks','Months to years'],
+  ['Mechanism','Circulating cytotoxic antibody against donor MHC class I; complement, platelet aggregation, neutrophils, vessel obstruction','Increased MHC I and II expression; early CD8 T-cell and NK infiltration; mononuclear infiltrate and necrosis of arterial walls','Lecture: not thought to be immunologically mediated'],
+  ['Result','Infarction, anuria; kidney must be removed','Reversed by immunosuppressive treatment','Slowly progressive renal failure and hypertension; no response to immunosuppression']]) +
+ FLAG('Current texts (e.g. Robbins) describe chronic rejection as immune-driven (ongoing T-cell and antibody responses causing graft vessel narrowing and fibrosis). Give the lecture\'s wording in the exam.'));
+
+C('l5b-08','L5B','Immunosuppression complications','',
+ 'What complications of long-term immunosuppression matter for a transplant patient?',
+ T(['Complication','Detail'],[
+  ['Infection','Viral (mainly CMV); opportunistic fungal (e.g. <i>Cryptococcus</i>)'],
+  ['Malignancy','About 40 times higher incidence: Kaposi sarcoma, lymphoma'],
+  ['Acute myocardial infarction','From hypertension, hypertriglyceridaemia, insulin-resistant diabetes aggravated by steroids']]) +
+ BEYOND('Dental: oral candidiasis and viral lesions, post-extraction infection and poor healing, ciclosporin-associated gingival overgrowth, lip cancer; examine the mucosa carefully.'));
+
+C('l5b-09','L5B','HSCT and GvHD','',
+ 'What are the complications of haemopoietic stem-cell transplantation, and how does chronic graft-versus-host disease present in the mouth?',
+ P('<b>HSCT complications:</b> failure of engraftment, infection, graft-versus-host disease. Graft rejection is common.') +
+ P('<b>GvHD:</b> immunocompetent donor T cells recognise the recipient\'s tissues as foreign and attack them (rejection in reverse).') +
+ T(['Oral chronic GvHD','Features'],[['Mucosa','Erythema, lichenoid lesions, ulceration, mucoceles'],['Salivary glands','Dysfunction, dry mouth'],['Sclerosis','Oral fibrosis with limited mouth opening']]));
+
+/* =================== L5C — Immunodeficiency =================== */
+C('l5c-01','L5C','Primary vs secondary','',
+ 'Define immune deficiency and distinguish primary from secondary, with examples. How do these patients present?',
+ T(['','Primary','Secondary'],[
+  ['Cause','Intrinsic defect in the immune system','Due to another underlying condition'],
+  ['Examples','Antibody deficiency, cell-mediated defects, chronic granulomatous disease, complement deficiency','HIV/AIDS, immunosuppressive drugs (transplant, steroids, chemotherapy), leukaemia and lymphoma, malnutrition, diabetes']]) +
+ P('Patients present with infections that are <b>severe, persistent, unusual and recurrent</b>.') +
+ HOOK('SPUR: Severe, Persistent, Unusual, Recurrent.') +
+ P('Tutorial 5c MCQs: immune deficiency = defects in immune system function; primary = an intrinsic defect in the immune system.'));
+
+C('l5c-02','L5C','Four primary categories','',
+ 'Name the four categories of primary immune deficiency and the infections each tends to cause.',
+ T(['Category','Typical infections'],[
+  ['Antibody deficiency','Recurrent pyogenic bacterial infections (sinusitis, otitis, pneumonia)'],
+  ['Cell-mediated (T-cell) defect','Viruses, fungi (<i>Candida</i>), intracellular organisms'],
+  ['Phagocyte defect','Staphylococcal and fungal infections of skin and mucosa, abscesses'],
+  ['Complement deficiency','Pyogenic and <i>Neisseria</i> infections; C1-inhibitor deficiency causes hereditary angioedema']]) +
+ BEYOND(''));
+
+C('l5c-03','L5C','Phagocyte defects and CGD','',
+ 'What are the clinical features of phagocyte defects? Explain chronic granulomatous disease.',
+ P('<b>Phagocyte defects</b> (neutropenia or neutrophil dysfunction): recurrent and persistent infections; severe infection with <b>minimal clinical features</b> (few neutrophils to make pus); poorly responsive to antibiotics; commonly staphylococcal; skin and mucous membranes; complicated by suppurative lymphadenopathy.') +
+ P('<b>Chronic granulomatous disease:</b> failure to produce a functional <b>NADPH oxidase</b>, so phagocytes cannot generate the burst of toxic oxygen radicals needed to kill ingested microbes.') +
+ UL(['Presents in the first 3 months of life: severe skin sepsis (<i>Staphylococcus aureus</i>) or fungal infection (<i>Candida albicans</i>, <i>Aspergillus fumigatus</i>).',
+     'Complications: regional lymphadenopathy, hepatosplenomegaly, hepatic abscesses, osteomyelitis.',
+     'Organs show multiple abscesses and <b>non-caseating giant-cell granulomas</b>.']) +
+ LINK('L3B: granulomas form when macrophages cannot destroy what they have engulfed.'));
+
+C('l5c-04','L5C','Hereditary angioedema','',
+ 'A patient reports episodes of lip and throat swelling without hives, one of them after a dental extraction. Why is this not type I hypersensitivity, and why does it matter to a dentist?',
+ P('This suggests <b>hereditary angioedema</b>, a primary complement deficiency: lack of functional C1-esterase inhibitor lets bradykinin build up, causing non-itchy swelling of face, lips, gut and larynx. It is not IgE- or histamine-mediated, so there is no urticaria and adrenaline and antihistamines work poorly.') +
+ P('Dental trauma (extractions, even long procedures) can trigger laryngeal oedema, so these patients need specialist prophylaxis before treatment.') +
+ BEYOND(''));
+
+/* ---------- HIV (predicted) ---------- */
+C('l5c-h1','L5C','HIV: cause and numbers','hiv',
+ 'What causes AIDS, and what Australian figures did the lecture give?',
+ P('AIDS is caused by the retroviruses <b>HIV-1 and HIV-2</b>.') +
+ UL(['25,313 HIV-positive people in Australia at the end of 2015.','10% were unaware of their status.','29% of new diagnoses were made late.']));
+
+C('l5c-h2','L5C','HIV: transmission','hiv',
+ 'List the modes of HIV transmission. Which is most common, and what is the risk after a needle-stick?',
+ T(['Route','Detail'],[
+  ['Sexual intercourse','<b>Most common</b> (Tutorial 5c MCQ answer)'],
+  ['Shared contaminated needles','Intravenous drug use; therapeutic procedures reusing contaminated equipment'],
+  ['Infected blood and tissue','Blood, blood products, donated organs, semen'],
+  ['Occupational','Needle-stick injury or blood splash: about <b>0.3% seroconversion</b>'],
+  ['Mother to child (vertical)','Before or during birth, or by breastfeeding; almost all new childhood infections']]));
+
+C('l5c-h3','L5C','HIV: entry and replication','hiv',
+ 'How does HIV enter a cell and replicate?',
+ OL(['<b>Binding:</b> the envelope glycoprotein <b>gp120</b> binds mainly the <b>CD4</b> molecule (helper T cells).',
+     '<b>Co-receptor:</b> it also uses chemokine receptors <b>CCR5 and CXCR4</b> (lecture: macrophages, CNS glial cells, gut epithelial cells).',
+     '<b>Fusion:</b> viral and cell membranes fuse; the RNA genome enters.',
+     '<b>Reverse transcription:</b> reverse transcriptase copies viral RNA into DNA. It is error-prone, so mutations accumulate.',
+     '<b>Integration:</b> the viral DNA (provirus) is inserted into the host genome and can lie latent.',
+     '<b>Production:</b> when the cell is activated, new viral proteins are made, cut by viral protease and assembled into virions that bud off.']) +
+ P('HIV makes <b>10<sup>9</sup>–10<sup>10</sup> new virions per day</b>, with up to <b>10<sup>8</sup> new mutants per day</b>.') +
+ BEYOND(''));
+
+C('l5c-h4','L5C','HIV: CD4 loss and its effects','hiv',
+ 'How does HIV deplete CD4 T cells, and why does that cripple the whole immune system?',
+ P('<b>How CD4 cells are lost:</b> direct killing by viral replication and budding; apoptosis of infected and uninfected bystander cells; destruction of infected cells by CD8 cytotoxic T cells; damage to lymphoid tissue.') +
+ P('<b>Why it matters:</b> the CD4 helper cell is the master regulator (L3B). Without it:') +
+ UL(['CD8 cells kill virus-infected cells poorly.','B cells make poor specific antibody.','Macrophages are not activated (no IFN-γ) and cannot kill intracellular organisms.']) +
+ P('Result: opportunistic infections, reactivation of latent viruses (HSV, CMV, EBV) and virus-driven tumours (Kaposi sarcoma, lymphoma). AIDS is usually defined by a CD4 count below 200 cells/µL (normal roughly 500–1500) or an AIDS-defining illness.') +
+ BEYOND(''));
+
+C('l5c-h5','L5C','HIV: clinical stages','hiv',
+ 'Describe the clinical spectrum of HIV infection as taught in the lecture (stages 1–4).',
+ T(['Stage','Features'],[
+  ['1','Transient acute glandular-fever-like illness in 10–20%, within a few weeks of infection; precedes seroconversion'],
+  ['2','Asymptomatic (virus still replicating in lymphoid tissue)'],
+  ['3','Persistent generalised lymphadenopathy: enlarged nodes at 2 or more extra-inguinal sites for at least 3 months'],
+  ['4','AIDS-related complex (unexplained lymphadenopathy, diarrhoea, night sweats, oral candidiasis, weight loss); neurological disease; opportunistic infections; tumours']]) +
+ FLAG('The lecture calls these "WHO stages", but they follow the older Underwood\'s/CDC scheme. Current WHO staging runs from 1 (asymptomatic) to 4 (severe); persistent oral candidiasis and hairy leukoplakia are WHO stage 3. Many texts also put the acute illness at over half of infections, not 10–20%. Use the lecture\'s version in the exam.'));
+
+C('l5c-h6','L5C','HIV: nervous system','hiv',
+ 'Why is HIV described as neurotropic, and what neurological disease does it cause?',
+ P('Neurotropic = localising selectively in nervous tissue.') +
+ UL(['<b>At seroconversion:</b> acute aseptic meningitis, encephalopathy, myelopathy, neuropathy.',
+     '<b>Later:</b> chronic meningitis, cerebral lymphoma, encephalopathy and dementia (in 70% of AIDS patients, per lecture).']) +
+ FLAG('The slide reads "acute septic meningitis". The standard term is <b>aseptic</b> meningitis (no bacteria); it is most likely a typo.'));
+
+C('l5c-h7','L5C','HIV: opportunistic infections and tumours','hiv',
+ 'List the opportunistic infections and tumours of AIDS, with the virus behind each tumour.',
+ T(['Opportunistic infections','Tumours'],[
+  ['<i>Pneumocystis jirovecii</i> pneumonia; cytomegalovirus and herpes simplex; cerebral toxoplasmosis; atypical mycobacteria; systemic fungal infection; gut parasites','<b>Kaposi sarcoma</b>: human herpesvirus 8. <b>Non-Hodgkin lymphoma</b>: Epstein–Barr virus']]));
+
+C('l5c-h8','L5C','HIV: oral manifestations','hiv',
+ 'Name the key oral manifestations of HIV and describe how to recognise each.',
+ T(['Lesion','Recognise it by'],[
+  ['Erythematous candidosis','Red patches, typically palate and dorsum of tongue'],
+  ['Pseudomembranous candidosis','White plaques that wipe off, leaving a red base'],
+  ['Oral hairy leukoplakia','EBV; white, corrugated plaques on the lateral tongue, often both sides; do not wipe off'],
+  ['Herpes simplex','Extensive, persistent or recurrent ulceration'],
+  ['Necrotising ulcerative gingivitis / periodontitis','Punched-out necrotic papillae, pain, bleeding, halitosis; periodontitis adds rapid attachment and bone loss'],
+  ['Kaposi sarcoma','Red-purple patches or nodules, commonly palate or gingiva']]) +
+ P('The lecture\'s four images: erythematous candidosis, hairy leukoplakia, herpes simplex, necrotising ulcerative periodontitis. Any of these unexpectedly in a young, otherwise well patient warrants sensitive discussion and referral for testing.') +
+ BEYOND(''));
+
+C('l5c-h9','L5C','HIV: treatment','hiv',
+ 'How is HIV managed? Why is combination therapy used, and why has a vaccine proved so difficult?',
+ P('<b>Antiretroviral therapy (ART / HAART):</b> a combination of drugs attacking different steps.') +
+ T(['Drug class','Action'],[
+  ['Entry inhibitors','Bind CCR5'],
+  ['Fusion inhibitors','Block HIV–cell membrane fusion'],
+  ['Reverse transcriptase inhibitors','Stop viral RNA being copied into DNA'],
+  ['Protease inhibitors','Prevent assembly of new virions']]) +
+ P('<b>Why combine:</b> with up to 10<sup>8</sup> mutants a day, resistance to a single drug appears fast; the virus would need several simultaneous mutations to escape a combination.') +
+ P('<b>Why no vaccine:</b> the envelope is fragile and a poor immunogen, and the high mutation rate leaves no stable epitope.') +
+ BEYOND('Integrase inhibitors are now central to first-line ART. With sustained undetectable viral load, HIV is not transmitted sexually ("undetectable = untransmittable").'));
+
+C('l5c-h10','L5C','Needle-stick injury','hiv',
+ 'You sustain a needle-stick injury from a patient known to have HIV. What is your risk, and what do you do?',
+ P('<b>Risk</b> about 0.3% per percutaneous exposure; higher with a deep injury, visible blood on the device, a hollow needle that was in a vessel, or a source with high viral load; negligible if the source\'s viral load is undetectable.') +
+ OL(['Wash immediately with soap and running water; do not scrub. Rinse eye or mouth splashes with water.',
+     'Report it and document it.',
+     'Risk-assess the source (status, viral load) and test with consent.',
+     'Baseline blood tests for yourself (HIV, hepatitis B and C).',
+     '<b>Post-exposure prophylaxis</b> (28 days of antiretrovirals) as soon as possible, ideally within hours and no later than 72 hours.',
+     'Follow-up testing.']) +
+ BEYOND(''));
+
+C('l5c-h11','L5C','Candidiasis: differentials','hiv',
+ 'Oral candidiasis in a young adult is not automatically HIV. What else should you consider?',
+ T(['Local','Systemic'],[
+  ['Dentures (especially worn overnight), inhaled steroids without rinsing, dry mouth, broad-spectrum antibiotics, smoking','Diabetes, immunosuppressive drugs, leukaemia and other malignancy, iron/folate/B12 deficiency, HIV']]) +
+ P('Unexplained candidiasis in a young, otherwise healthy person, especially with weight loss, lymphadenopathy or night sweats, raises the question of HIV.') +
+ BEYOND(''));
+
+/* =================== Across lectures =================== */
+C('x-01','Mix','Numbers to know','',
+ 'Rapid fire: give the key numbers from Lectures 2 to 5c.',
+ T(['Fact','Number'],[
+  ['Socket clot retraction complete','About 4 hours'],
+  ['No rinsing after extraction','24 hours'],
+  ['Peak dry-socket risk','2 days'],
+  ['Socket: granulation tissue / woven bone / lamellar bone','8 days / 18 days / 6 weeks'],
+  ['Macrophages accumulate after a stimulus','About 48 hours'],
+  ['Acute inflammation lasts (lecture)','Minutes to 2 days'],
+  ['Population with allergies','About 20%'],
+  ['Adrenaline autoinjector adult / child','300 µg / 150 µg; repeat every 5 min'],
+  ['Dental anaphylaxis','0.004–0.015 per dentist per year'],
+  ['Post-streptococcal GN','10–12 days after infection'],
+  ['Type IV: T-cell migration / clinical / peak','24–48 h / 2–3 days / 48–72 h'],
+  ['Contact dermatitis after contact','12–48 hours'],
+  ['Patch test','Covered 48 h; read at 2 and 4 days'],
+  ['Autoimmune disease prevalence / onset','About 3% / 15–65 years'],
+  ['SLE twin concordance','25% identical vs 2–5% non-identical'],
+  ['Malignancy with transplant immunosuppression','About 40 times higher'],
+  ['HIV needle-stick seroconversion','0.3%'],
+  ['HIV replication','10<sup>9</sup>–10<sup>10</sup> virions per day'],
+  ['Persistent generalised lymphadenopathy','2 or more extra-inguinal sites, at least 3 months'],
+  ['AIDS dementia (lecture)','70% of AIDS patients']]));
+
+C('x-02','Mix','The socket across lectures','',
+ 'Connect the lectures: how does each of L2 to L5c explain something about an extraction socket?',
+ T(['Lecture','Link'],[
+  ['L2','Gingival epithelium is labile so it regenerates; the ridge later atrophies without functional load'],
+  ['L3A','Days 2–4 are acute inflammation: neutrophils then macrophages enter the clot'],
+  ['L3B','Macrophages clear debris and drive granulation tissue and fibrosis'],
+  ['L4','Second-intention healing: clot, organisation, granulation tissue, woven then lamellar bone; steroids and diabetes delay it'],
+  ['L5A','Chlorhexidine irrigation of an open socket can cause fatal type I anaphylaxis'],
+  ['L5B/L5C','Immunosuppressed and HIV patients heal slowly and get opportunistic infections']]));
+
+/* =================== Exam scenarios =================== */
+var SCENS = [];
+function S(id, l, topic, focus, stem, model, pts){ SCENS.push({id:id, l:l, t:topic, f:focus||'', q:stem, a:model, pts:pts, s:true}); }
+
+S('sc-socket1','L4','Socket healing','socket',
+ 'A 52-year-old patient has a lower first molar extracted this morning. Describe the sequence of healing in the socket from the moment of extraction to six weeks. When is the patient most at risk of a dry socket, and why?',
+ LEAD('The socket heals by second intention: the clot is the scaffold, epithelium regenerates over it, and bone forms beneath it.') +
+ T(['When','Events'],[
+  ['0–4 h','Loose clot fills the socket; platelets retract it, expressing fluid so it hardens and shrinks below the soft tissue, pulling soft tissue in; retraction complete at about 4 h, surface shiny to matt'],
+  ['24 h','Fibrin cross-linking stabilises the clot: no rinsing'],
+  ['2 days','Fibrinolysis begins; inflammatory cells (neutrophils) emigrate into the clot'],
+  ['4 days','Macrophages remove debris; organisation begins; bacterial enzymes lyse surface fibrin; epithelium grows under surface debris over the intact clot'],
+  ['8 days','Granulation tissue fills the socket; superficial inflammatory cells; lamina dura intact but resorption begun'],
+  ['18 days','Collagen deposition; woven bone; osteogenic front'],
+  ['6 weeks','Remodelling to lamellar bone; lamina dura still visible']]) +
+ P('<b>Dry socket risk</b> is highest at about <b>2 days</b>: fibrinolysis has started but the clot is not yet anchored to the socket wall, so it can lyse or be lost, exposing bone (alveolar osteitis).') +
+ P('Healing is delayed by smoking, disturbing the clot, infection, diabetes, steroids, poor nutrition and age.'),
+ ['States second-intention healing with the clot as scaffold',
+  'Clot retraction by platelets, complete by about 4 h (shiny to matt)',
+  'Fibrin cross-linking, so no rinsing for 24 h',
+  'Day 2: fibrinolysis begins, inflammatory cells enter the clot',
+  'Day 4: macrophages clear debris, organisation begins, epithelium grows over intact clot',
+  'Day 8: granulation tissue fills socket; lamina dura resorption begins',
+  'Day 18: collagen, woven bone, osteogenic front',
+  '6 weeks: remodelling to lamellar bone; lamina dura still visible',
+  'Dry-socket risk peaks at 2 days, with the correct reason',
+  'Names factors that would impair healing']);
+
+S('sc-socket2','L4','Dry socket','socket',
+ 'Three days after surgical removal of a lower third molar, a 28-year-old who smokes 15 cigarettes a day returns with severe throbbing pain radiating to the ear and a foul taste. The socket looks empty, with exposed bone. Explain the likely diagnosis in terms of normal socket healing, identify the contributing factors, and outline management.',
+ LEAD('Dry socket (alveolar osteitis): the clot has been lost or lysed, leaving the bony wall exposed.') +
+ P('<b>Normal healing:</b> the clot retracts within about 4 h and stabilises over 24 h. At about 2 days fibrinolysis begins and inflammatory cells enter the clot, but organisation (from day 4) has not yet anchored it to the wall. This is the peak-risk window. Here excess fibrinolysis or mechanical loss removed the scaffold, so granulation tissue has nothing to grow into; the exposed bone becomes inflamed, causing intense pain, and healing stalls.') +
+ P('<b>Contributing factors:</b> smoking (suction dislodges the clot; vasoconstriction and impaired neutrophil function); surgical trauma; mandibular third molar site (dense bone, poorer blood supply). Others to ask about: oral contraceptive, previous dry socket, pre-existing infection, early rinsing or spitting.') +
+ P('<b>Management:</b> local anaesthetic, gentle saline irrigation, an antiseptic and sedative dressing, analgesia, review; the socket then heals by second intention. Advise stopping smoking. Next time: minimise trauma, give clear post-operative instructions.'),
+ ['Names dry socket / alveolar osteitis',
+  'Explains premature clot loss or lysis by fibrinolysis',
+  'Links timing to the 2-day window before organisation anchors the clot',
+  'Exposed bone becomes inflamed: pain and delayed healing',
+  'Smoking as a factor, with mechanism',
+  'Surgical trauma and mandibular third molar site as factors',
+  'Other risk factors (oral contraceptive, previous dry socket, infection, rinsing)',
+  'Management: LA, irrigation, dressing, analgesia, review',
+  'Heals by second intention once granulation tissue forms',
+  'Prevention advice']);
+
+S('sc-socket3','L4','Healing with comorbidities','socket',
+ 'A 68-year-old with poorly controlled type 2 diabetes, who takes long-term prednisolone for rheumatoid arthritis, needs two extractions. Explain how her medical history could affect socket healing.',
+ P('<b>Normal requirement:</b> socket healing needs a stable clot, a controlled inflammatory phase, granulation tissue with new vessels, then bone formation and remodelling.') +
+ T(['Factor','Effect on healing'],[
+  ['Diabetes','Impaired neutrophil function, so more infection; microvascular disease, hypoxia and impaired angiogenesis; fibroblast and epithelial dysfunction; high MMPs; damage from reactive oxygen species and glycation end-products; neuropathy'],
+  ['Corticosteroids','Immunosuppression makes infection more severe and can mask its signs; interfere with granulation tissue formation and hence wound contraction'],
+  ['Age','Reduced capacity and cellular reserves'],
+  ['Rheumatoid arthritis','Chronic disease, possible poor nutrition, other immunosuppressive drugs']]) +
+ P('<b>Practical points:</b> liaise to optimise glucose control, atraumatic technique, clear post-operative advice, early review with a low threshold to treat infection.'),
+ ['Outlines what normal socket healing needs',
+  'Diabetes: impaired neutrophils, infection risk',
+  'Diabetes: vascular disease, hypoxia, impaired angiogenesis',
+  'Diabetes: MMPs, glycation end-products, fibroblast dysfunction or neuropathy',
+  'Steroids: immunosuppression, more severe or masked infection',
+  'Steroids: impaired granulation tissue and wound contraction',
+  'Age: reduced cellular reserves',
+  'Practical management points']);
+
+S('sc-perio1','L3B','Gingivitis to periodontitis','perio',
+ 'A 40-year-old has persistent gingivitis despite regular brushing. Explain why this gingivitis might progress to chronic periodontitis, and describe the key histological differences between gingivitis and periodontitis.',
+ P('<b>Gingivitis</b> is plaque-induced inflammation confined to the gingiva. Plaque bacteria at the tooth–gingiva interface release metabolic acids, enzymes and LPS that damage the sulcular epithelium and connective tissue; host mediators trigger vasodilation, increased permeability and neutrophil migration. Neutrophils form a barrier between plaque and epithelium but cannot eliminate the biofilm.') +
+ P('<b>Why it progresses:</b> the subgingival biofilm is attached to the tooth, outside the body with no blood supply, so the stimulus persists. Persistence converts acute into <b>chronic inflammation</b>: macrophages, lymphocytes and plasma cells accumulate and sustain each other. Host cells release IL-1, TNF-α and PGE2; MMPs destroy collagen and PDL; RANKL activates osteoclasts that resorb the alveolar crest. Susceptibility decides whether this happens: smoking, diabetes, genetics, stress, immunosuppression, subgingival plaque and calculus, and a shift toward Gram-negative anaerobes.') +
+ T(['Feature','Gingivitis','Periodontitis'],[
+  ['Extent','Gingiva','PDL, cementum, alveolar bone'],
+  ['Junctional epithelium','At the CEJ','Migrates apically; ulcerated pocket lining'],
+  ['Pocket','False (gingival)','True periodontal pocket'],
+  ['Infiltrate','Neutrophils, T cells, then plasma cells','Dense plasma cells, macrophages, lymphocytes'],
+  ['Bone','Intact','Osteoclastic crestal resorption'],
+  ['Reversibility','Reversible','Irreversible attachment loss']]),
+ ['Defines gingivitis as reversible plaque-induced inflammation of the gingiva',
+  'Plaque products (acids, enzymes, LPS) damage epithelium and connective tissue',
+  'Stimulus persists (biofilm outside the body, no blood supply): acute becomes chronic',
+  'Chronic infiltrate and the lymphocyte–macrophage loop',
+  'Host-mediated collagen destruction (cytokines, MMPs)',
+  'Bone loss via osteoclasts (RANKL)',
+  'Risk factors: smoking, diabetes, genetics, calculus, dysbiosis',
+  'Histology: junctional epithelium position and pocket type',
+  'Histology: infiltrate and bone differences',
+  'Reversibility contrasted']);
+
+S('sc-perio2','L3B','Two patients compared','perio',
+ 'Patient A (22) has red, swollen gingivae that bleed on brushing, with 3–4 mm probing depths and no attachment loss. Patient B (55, smoker) has 6 mm pockets, recession and horizontal bone loss on radiographs. Explain the pathological difference between these conditions, including the cells involved, why the signs arise, and which is reversible.',
+ P('<b>Patient A: gingivitis</b>, an inflammation of the gingiva with the features of acute inflammation.') +
+ UL(['Redness and swelling (rubor, tumor): vasodilation and exudate from increased permeability.',
+     'Bleeding: dilated, fragile vessels under a thin, ulcerated sulcular epithelium.',
+     'The 3–4 mm depths are <b>false pockets</b>: the gingival margin has swollen coronally; the junctional epithelium is still at the CEJ.',
+     'Cells: neutrophils early, then T lymphocytes, then plasma cells, limited to the gingiva.',
+     'Reversible with plaque control.']) +
+ P('<b>Patient B: periodontitis</b>, a chronic inflammation of the supporting tissues.') +
+ UL(['The persistent biofilm cannot be cleared, so macrophages, lymphocytes and plasma cells accumulate.',
+     'Cytokines and MMPs destroy collagen and PDL; the junctional epithelium migrates apically: <b>true pockets</b> and attachment loss.',
+     'RANKL-driven osteoclasts resorb the crest: radiographic bone loss.',
+     'Smoking impairs neutrophils and healing and masks bleeding.',
+     'Tissue loss is irreversible, though inflammation can be controlled.']),
+ ['Identifies A as gingivitis and B as periodontitis',
+  'Explains A\'s signs through acute inflammatory mechanisms',
+  'A\'s depths are false pockets (junctional epithelium at CEJ)',
+  'Bleeding mechanism explained',
+  'A\'s cells: neutrophils, lymphocytes, plasma cells in gingiva',
+  'B: chronic infiltrate of macrophages, lymphocytes, plasma cells',
+  'B: apical migration of junctional epithelium, true pocket, attachment loss',
+  'B: osteoclastic bone loss and MMP collagen destruction',
+  'Role of smoking',
+  'Reversibility: A reversible, B irreversible']);
+
+S('sc-t1a','L5A','Bee-sting anaphylaxis','t1',
+ 'A patient has a severe allergic reaction (anaphylaxis) after a bee sting. Explain the immunological mechanisms underlying this immediate hypersensitivity reaction, including the mediators involved and the resulting clinical manifestations. What is the first-line treatment?',
+ P('<b>Type I (immediate) hypersensitivity</b>, IgE-mediated.') +
+ P('<b>Sensitisation</b> (an earlier sting): venom proteins are presented to CD4 T cells, producing a Th2 response. IL-4 (and IL-13) switch B cells to IgE; IL-5 activates eosinophils; IL-13 increases mucus. IgE binds FcεRI on mast cells and basophils, sensitising them.') +
+ P('<b>This sting:</b> venom cross-links IgE on sensitised mast cells throughout the body, causing degranulation and mediator synthesis:') +
+ T(['Mediator','Effect','Clinical result'],[
+  ['Histamine','Vasodilation, permeability, smooth-muscle contraction, mucus','Hypotension, urticaria, angioedema, wheeze'],
+  ['LTC4, LTD4','Thousands of times more potent than histamine at leakage and bronchoconstriction','Bronchospasm, oedema'],
+  ['PGD2','Bronchospasm, mucus','Wheeze'],
+  ['Proteases, chemokines, LTB4','Tissue damage, complement activation, recruitment of cells','Late-phase reaction hours later']]) +
+ P('Systemic vasodilation and leakage cause distributive shock (hypotension, tachycardia, collapse); airway oedema and bronchospasm cause stridor and wheeze; nausea and vomiting may occur.') +
+ P('<b>First-line treatment:</b> IM adrenaline into the lateral thigh (300 µg autoinjector for an adult, 150 µg for a young child), repeated every 5 minutes if needed; call an ambulance; lay flat; oxygen; CPR if required. Antihistamines and steroids are adjuncts only.'),
+ ['Names type I, IgE-mediated hypersensitivity',
+  'Sensitisation: Th2, IL-4/IL-13 class switch to IgE, IL-5 eosinophils',
+  'IgE on FcεRI of mast cells and basophils',
+  'Re-exposure cross-links IgE, causing degranulation',
+  'Preformed mediators: histamine, proteases, chemokines, with effects',
+  'Newly made mediators: leukotrienes and PGD2, with effects',
+  'Links mediators to shock, urticaria and angioedema, bronchospasm',
+  'Mentions the late-phase reaction',
+  'IM adrenaline, correct dose in µg, repeat every 5 minutes',
+  'Supportive steps: ambulance, positioning, oxygen; antihistamine and steroid adjunct only']);
+
+S('sc-t1b','L5A','Anaphylaxis in the dental chair','t1',
+ 'Five minutes after you irrigate an extraction socket with chlorhexidine, your patient complains of itching, develops facial swelling and wheeze, and becomes pale and dizzy. Pulse 124 bpm, BP 78/40. What is happening, why, and what do you do?',
+ P('<b>Anaphylaxis</b>, a type I hypersensitivity to <b>chlorhexidine</b>. Irrigating an open socket puts the allergen straight into a vascular bed; fatal cases after socket irrigation are documented.') +
+ P('<b>Mechanism:</b> the patient was previously sensitised (chlorhexidine is in many mouthwashes, skin preparations and catheters), so IgE is already bound to mast cells. Chlorhexidine cross-links it, releasing histamine, proteases, leukotrienes and PGD2.') +
+ UL(['Tachycardia and hypotension: systemic vasodilation and leakage (distributive shock).',
+     'Facial swelling: angioedema from increased permeability.',
+     'Wheeze: bronchospasm from leukotrienes, PGD2 and histamine.',
+     'Itching: histamine on sensory nerves.']) +
+ P('<b>Action:</b> stop, call for help and 000; IM adrenaline 300 µg (autoinjector) or 0.5 mg of 1 mg/mL into the lateral thigh; repeat every 5 minutes if no improvement; lay flat (sit up if breathing is hard); oxygen; monitor; CPR if needed. This is not a faint: vasovagal syncope has a slow pulse and no rash or wheeze.') +
+ P('<b>Afterwards:</b> hospital observation; document it; refer for allergy testing; record chlorhexidine allergy prominently and avoid all chlorhexidine products.'),
+ ['Recognises anaphylaxis (type I) to chlorhexidine',
+  'Explains the open socket as a direct vascular route',
+  'Prior sensitisation and IgE cross-linking on mast cells',
+  'Tachycardia and hypotension explained by vasodilation and leakage',
+  'Wheeze and angioedema explained by mediators',
+  'Stop, call for help and ambulance',
+  'IM adrenaline with correct dose and route; repeat every 5 minutes',
+  'Positioning, oxygen, monitoring, CPR readiness',
+  'Distinguishes from vasovagal syncope',
+  'Follow-up: document, allergy referral, avoid chlorhexidine']);
+
+S('sc-hiv1','L5C','HIV presentation','hiv',
+ 'A patient presents with a history of recurrent oral candidiasis, unexplained weight loss and persistent lymphadenopathy. What is a potential diagnosis given this presentation? What are the key steps in its pathogenesis?',
+ P('<b>Likely diagnosis:</b> HIV infection progressing to AIDS. Recurrent oral candidiasis, weight loss and lymphadenopathy are features of the AIDS-related complex (lecture stage 4), after a stage of persistent generalised lymphadenopathy. Confirm with an HIV test, CD4 count and viral load; consider other causes of immunosuppression.') +
+ P('<b>Pathogenesis:</b>') +
+ OL(['Transmission, most often sexual; also shared needles, blood products, vertical.',
+     'gp120 on the viral envelope binds <b>CD4</b> on helper T cells, then the co-receptor <b>CCR5 or CXCR4</b> (also on macrophages, glia, gut epithelium).',
+     'Membranes fuse; <b>reverse transcriptase</b> copies viral RNA into DNA, which is <b>integrated</b> into the host genome as a latent provirus.',
+     'Massive replication (10<sup>9</sup>–10<sup>10</sup> virions per day, up to 10<sup>8</sup> mutants per day) evades immunity.',
+     'Progressive <b>CD4 depletion</b> by direct viral killing, apoptosis, cytotoxic T-cell killing and lymphoid tissue damage.',
+     'Loss of the "master regulator" means CD8, B-cell and macrophage functions fail: cell-mediated immunity collapses.']) +
+ P('<b>Linking to the signs:</b> candidiasis reflects failed cell-mediated control of fungi; lymphadenopathy reflects viral replication in lymphoid tissue; weight loss reflects chronic immune activation and opportunistic infection. Next come opportunistic infections (<i>Pneumocystis</i>, CMV), neurological disease and tumours (Kaposi sarcoma from HHV-8, lymphoma from EBV).') +
+ P('<b>As a dentist:</b> sensitive discussion and referral for testing, treat the candidiasis, standard precautions. Treatment is combination ART.'),
+ ['Suggests HIV infection / AIDS (AIDS-related complex)',
+  'Notes the need to confirm by testing, or considers differentials',
+  'gp120 binds CD4, with CCR5/CXCR4 co-receptors',
+  'Reverse transcription and integration (latent provirus)',
+  'High replication and mutation rate',
+  'Mechanisms of CD4 depletion',
+  'Consequences of losing CD4 help (cell-mediated immunity fails)',
+  'Links candidiasis, weight loss, lymphadenopathy to pathogenesis',
+  'Clinical stages or later complications (opportunistic infections, tumours)',
+  'Management or dental role (referral, ART, treat candida)']);
+
+S('sc-hiv2','L5C','Oral lesions suggesting HIV','hiv',
+ 'A 30-year-old man has white, corrugated patches on both lateral borders of the tongue that cannot be wiped off, and red patches on the palate. He mentions night sweats. What are the lesions, what do they suggest, and what is your approach?',
+ P('<b>Lesions:</b> oral hairy leukoplakia (EBV; bilateral, corrugated, lateral tongue, does not wipe off) and erythematous candidosis (red palatal patches).') +
+ P('<b>Significance:</b> both are strongly associated with HIV and other immunosuppression. With night sweats (part of the AIDS-related complex), advanced HIV is a real possibility. CD4 loss removes the cell-mediated control that normally keeps EBV latent and <i>Candida</i> commensal.') +
+ P('<b>Examine for other lesions:</b> pseudomembranous candidosis, angular cheilitis, herpes simplex, necrotising gingivitis or periodontitis, Kaposi sarcoma, lymphadenopathy.') +
+ P('<b>Approach:</b> take a careful, non-judgemental history (risk factors, weight loss, other infections); consider other causes of immunosuppression (diabetes, steroids, leukaemia); refer sensitively to his GP or a sexual health service for HIV testing; treat the candidiasis with an antifungal; standard precautions apply to every patient, so infection control does not change.'),
+ ['Identifies oral hairy leukoplakia with its features',
+  'Identifies erythematous candidosis',
+  'Links both to HIV / immunosuppression',
+  'Night sweats as a systemic (AIDS-related complex) feature',
+  'Explains via loss of CD4 cell-mediated control (EBV reactivation, fungal overgrowth)',
+  'Looks for other HIV-associated oral lesions',
+  'Considers other causes of immunosuppression',
+  'Sensitive referral for testing',
+  'Treats the candidiasis; standard precautions']);
+
+S('sc-hiv3','L5C','Needle-stick injury','hiv',
+ 'While clearing up after treating a patient with known HIV, you sustain a deep needle-stick injury from a used local anaesthetic needle. Discuss the risk of transmission and your management.',
+ P('<b>Risk:</b> about 0.3% seroconversion per percutaneous exposure. It is higher with a deep injury, visible blood, a hollow needle that was in a vessel, or a source with high viral load, and negligible if the source\'s viral load is undetectable on treatment. Hepatitis B and C carry higher risks than HIV.') +
+ OL(['First aid: wash with soap and running water; do not scrub.',
+     'Report to a supervisor and document the incident.',
+     'Assess the source: viral load, treatment, co-infections (test with consent).',
+     'Baseline tests for yourself: HIV, hepatitis B (and immunity), hepatitis C.',
+     'Post-exposure prophylaxis: 28 days of antiretrovirals, started as soon as possible and no later than 72 hours.',
+     'Follow-up testing and counselling.']) +
+ P('<b>Prevention:</b> standard precautions, no recapping by hand, immediate sharps disposal, hepatitis B vaccination.'),
+ ['Quotes about 0.3% risk',
+  'Factors that increase risk',
+  'Undetectable source viral load means negligible risk',
+  'First aid: soap and water, no scrubbing',
+  'Report and document',
+  'Source assessment',
+  'Baseline tests for the injured person',
+  'PEP started early, within 72 h, for 28 days',
+  'Follow-up testing',
+  'Prevention measures']);
+
+S('sc-first','L4','Biopsy wound (first intention)','',
+ 'A patient has a surgical incision for a biopsy. Describe the expected healing process, including cellular and tissue events. Why does this wound heal by first intention? What factors could impair this healing?',
+ P('<b>Why first intention:</b> a clean surgical incision with very little damage either side, edges closely approximated by sutures, aseptic conditions.') +
+ T(['Time','Events'],[
+  ['Immediately','Clot (fibrin) fills the narrow gap; scab forms'],
+  ['24 h','Neutrophils at margins; basal epithelial cells divide'],
+  ['24–48 h','Epithelium migrates from both edges (EGF, KGF) and meets beneath the scab; contact inhibition stops it'],
+  ['Day 3','Macrophages replace neutrophils; granulation tissue begins'],
+  ['Day 5','Capillaries proliferate (VEGF); fibroblasts migrate into the fibrin network (PDGF) and secrete collagen that bridges the gap'],
+  ['Weeks','Collagen accumulates and remodels (TGF-β); inflammation subsides; thin linear scar; elastic fibres not reconstructed']]) +
+ P('<b>Impairing factors:</b> local (infection, tension or mobility, foreign bodies, poor blood supply, previous irradiation) and systemic (diabetes, steroids, immunosuppression, age, poor nutrition, smoking, stress).'),
+ ['Explains why it is first intention (clean, approximated, minimal loss)',
+  'Clot and scab formation',
+  'Neutrophils then macrophages',
+  'Epithelial migration and bridging in 24–48 h; contact inhibition',
+  'Neovascularisation and fibroblast collagen synthesis',
+  'Growth factors named with roles',
+  'Maturation to a thin scar; elastic fibres not rebuilt',
+  'Local impairing factors',
+  'Systemic impairing factors']);
+
+S('sc-second','L4','Deep laceration (second intention)','',
+ 'A patient suffers a large, deep laceration on the leg with significant tissue loss. Describe how this wound heals. Why does it heal by second intention, and how will the outcome differ from healing by first intention?',
+ P('<b>Why second intention:</b> tissue loss, gaping margins that cannot be approximated, haemorrhage, contamination and infection.') +
+ OL(['Large fibrin clot fills the defect.',
+     'Intense acute inflammation: neutrophils, then macrophages phagocytose debris and dead tissue.',
+     'Abundant granulation tissue grows up from the base: new capillaries (VEGF), fibroblasts (PDGF), macrophages.',
+     'Epithelium regenerates slowly from the margins across the granulation tissue (EGF, KGF).',
+     'Myofibroblasts contract the wound (TGF-β), reducing its size.',
+     'Collagen is deposited and remodelled into a scar.']) +
+ T(['Outcome','Compared with first intention'],[
+  ['Scar','Larger, may be depressed or hypertrophic'],
+  ['Time','Longer'],
+  ['Contraction','Marked; risk of contracture and impaired mobility'],
+  ['Infection','Higher risk'],
+  ['Function','Permanent tissues (skeletal muscle, nerve) replaced by scar, so function may be lost']]),
+ ['Explains why it is second intention',
+  'Large clot and intense inflammation with debris removal',
+  'Abundant granulation tissue from the base',
+  'Slow re-epithelialisation from margins',
+  'Wound contraction by myofibroblasts',
+  'Collagen deposition, larger scar',
+  'Compares outcome: time, scar, contraction or contracture, infection',
+  'Permanent cells replaced by scar']);
+
+S('sc-abscess','L3A','Abscess','',
+ 'A patient presents with a localised collection of pus (abscess). Explain the pathophysiological process leading to abscess formation and what this represents in terms of the outcomes of acute inflammation. What are the potential complications if it is left untreated?',
+ P('<b>Process:</b> pyogenic bacteria (e.g. staphylococci) cause acute inflammation: vasodilation, increased permeability and exudate, then neutrophil emigration (margination, adhesion, diapedesis, chemotaxis). Neutrophils phagocytose bacteria, many die, and their lysosomal enzymes liquefy the surrounding tissue. The result is <b>pus</b>: neutrophils (living and dead), necrotic debris, bacteria and oedema fluid.') +
+ P('The pus is walled off by a zone of neutrophils, then granulation tissue and fibrosis: the body\'s attempt to contain it. Defence cells and antibiotics cannot reach the centre, so drainage is needed.') +
+ P('<b>Represents:</b> <b>suppuration</b>, one of the four outcomes of acute inflammation (with resolution, repair and chronic inflammation). Once drained, it heals by organisation and scarring.') +
+ P('<b>Complications:</b> spread (cellulitis, fascial-space infection), sinus or fistula formation, bacteraemia and sepsis, a chronic abscess, osteomyelitis if bone is involved.'),
+ ['Pyogenic bacteria trigger acute inflammation',
+  'Vascular changes and neutrophil emigration',
+  'Neutrophil death and enzyme release liquefy tissue',
+  'Defines pus',
+  'Walling off by granulation tissue and fibrosis',
+  'Identifies suppuration as an outcome of acute inflammation',
+  'Centre inaccessible, so drainage needed',
+  'Complications: spread, sinus or fistula, sepsis, chronicity, osteomyelitis']);
+
+S('sc-atrophy','L2','Atrophy after bed rest','',
+ 'A patient has significant muscle wasting in the legs after prolonged bed rest following a hip fracture. Explain the process underlying this atrophy. Is it physiological or pathological?',
+ P('<b>Atrophy</b> is a decrease in the size and/or number of cells. Here it is <b>disuse atrophy</b> from decreased function.') +
+ P('<b>Mechanism:</b> reduced workload lowers the demand for contractile protein. Protein synthesis falls and breakdown rises (with autophagy of organelles), so muscle fibres shrink. This is an adaptation: the cell reduces its size and metabolic needs to match lower demand, and survives.') +
+ P('<b>Classification:</b> <b>pathological</b> atrophy (the lecture\'s pathological causes include decreased function, loss of innervation, loss of blood supply, pressure, lack of nutrition, loss of stimulation). Physiological atrophy is part of development and ageing.') +
+ P('<b>Outcome:</b> reversible with remobilisation and physiotherapy if the stimulus is restored in time. Dental parallel: residual ridge atrophy after tooth loss.'),
+ ['Defines atrophy',
+  'Identifies disuse (decreased function) as the cause',
+  'Mechanism: less protein synthesis, more breakdown, autophagy',
+  'Frames it as adaptation to lower demand',
+  'Classifies as pathological, with reasoning',
+  'Contrasts physiological atrophy (development, ageing)',
+  'Reversibility with remobilisation']);
+
+S('sc-barrett','L2','Barrett oesophagus','',
+ 'A patient is diagnosed with Barrett oesophagus, where the normal oesophageal lining is replaced with intestinal-type epithelium (metaplasia). What are the implications of this metaplastic change, and what are the contributing factors?',
+ P('<b>Metaplasia:</b> transformation of one mature tissue type into another, here stratified squamous into intestinal-type columnar epithelium. It arises by reprogramming of stem or reserve cells, not by mature cells changing.') +
+ P('<b>Why it happens:</b> chronic acid (and bile) reflux injures squamous epithelium; columnar mucus-secreting epithelium resists acid better, so the change is adaptive.') +
+ P('<b>Implications:</b> loss of the normal squamous lining; persistent stimulus can lead to <b>dysplasia and oesophageal adenocarcinoma</b>, so patients are placed under endoscopic surveillance. Metaplasia is in principle reversible if the stimulus is removed, but established Barrett oesophagus often persists.') +
+ P('<b>Contributing factors:</b> chronic gastro-oesophageal reflux disease, hiatus hernia, obesity, smoking, male sex, older age.'),
+ ['Defines metaplasia',
+  'Squamous to intestinal-type columnar change',
+  'Arises from stem or reserve cell reprogramming',
+  'Chronic acid reflux as the stimulus; adaptive advantage',
+  'Risk of dysplasia and adenocarcinoma',
+  'Surveillance implication',
+  'Reversibility discussed',
+  'Other contributing factors listed']);
+
+S('sc-contact','L5A','Toothpaste contact allergy','',
+ 'Two days after starting a new cinnamon-flavoured toothpaste, a patient develops dry, cracked, swollen lips with angular cracking and burning of the tongue. What type of reaction is this, what is the mechanism, and how would you confirm and manage it?',
+ P('<b>Type IV (delayed-type) hypersensitivity</b>: allergic contact reaction to a flavouring (cinnamon). Cheilitis is the commonest presentation of toothpaste allergy.') +
+ P('<b>Mechanism:</b> the flavouring acts as a <b>hapten</b>, binding mucosal proteins to form an immunogenic complex.') +
+ UL(['<b>Induction</b> (an earlier exposure, e.g. cinnamon in food): Langerhans cells present the complex with MHC II to T cells in the lymph node, creating sensitised memory T cells.',
+     '<b>Elicitation</b> (now): effector T cells migrate to the site, Th1 cells release IFN-γ to activate macrophages, TNF upregulates adhesion molecules, and inflammation develops over 12–48 hours.']) +
+ P('A reaction within 2 days fits elicitation in someone already sensitised. It differs from type I, which appears within minutes as urticaria or angioedema.') +
+ P('<b>Confirm:</b> temporal relationship; patch testing (48 h under cover, read at 2 and 4 days); the stop–restart method is the most reliable.') +
+ P('<b>Manage:</b> stop the product; use an unflavoured or bland toothpaste; emollient for lips; topical steroid if needed.'),
+ ['Identifies type IV hypersensitivity',
+  'Hapten concept',
+  'Induction phase: Langerhans cells, MHC II, T-cell sensitisation',
+  'Elicitation phase: effector T cells, cytokines, 12–48 h',
+  'Explains the need for prior sensitisation',
+  'Cheilitis as the typical toothpaste presentation; flavourings as common allergens',
+  'Patch test method and reading',
+  'Stop–restart as best confirmation',
+  'Management',
+  'Distinguishes from type I']);
+
+S('sc-transplant','L5B','Transplant patient','',
+ 'A 50-year-old kidney transplant recipient on long-term immunosuppression attends for treatment. Explain how the graft could be rejected and what types of rejection occur. Which complications of immunosuppression matter to you as a dentist?',
+ P('<b>Pathogenesis:</b> afferent phase: allorecognition, where donor MHC on donor dendritic cells is recognised by the recipient\'s CD4 T cells. Effector phase: CD4 cells enter the graft and recruit macrophages, CD8 T cells, NK cells and B cells with IL-2 and IFN-γ; the targets are the endothelium and parenchymal cells.') +
+ T(['Type','Timing','Features'],[
+  ['Hyperacute','Minutes–hours','Pre-formed antibody against donor MHC class I; complement, platelets, vessel obstruction, infarction; graft removed'],
+  ['Acute','Days–weeks','CD8 T cells and NK cells; reversed by immunosuppression'],
+  ['Chronic','Months–years','Slowly progressive failure and hypertension; unresponsive to immunosuppression']]) +
+ P('<b>Complications that matter:</b> infection (CMV, fungal such as <i>Candida</i> and <i>Cryptococcus</i>) and poor healing after extractions; malignancy about 40 times more common (Kaposi sarcoma, lymphoma), so examine the mucosa and lips carefully; cardiovascular risk (MI) from steroid-aggravated hypertension, lipids and diabetes.'),
+ ['Afferent phase: allorecognition by recipient CD4 T cells',
+  'Effector phase: recruited cells and targets',
+  'Hyperacute rejection correctly described',
+  'Acute rejection correctly described',
+  'Chronic rejection correctly described',
+  'Infection risk (CMV, fungal)',
+  'Malignancy risk about 40 times (Kaposi sarcoma, lymphoma)',
+  'Cardiovascular risk',
+  'Dental implications (healing, mucosal examination)']);
+
+</script>
+<script>
+(function(){
+'use strict';
+var LECS = [
+  {k:'L1', n:'Introduction to pathology'},
+  {k:'L2', n:'Cell injury and adaptation'},
+  {k:'L3A', n:'Acute inflammation'},
+  {k:'L3B', n:'Chronic inflammation'},
+  {k:'L4', n:'Healing and repair'},
+  {k:'L5A', n:'Hypersensitivity'},
+  {k:'L5B', n:'Autoimmunity and transplantation'},
+  {k:'L5C', n:'Immunodeficiency and HIV'},
+  {k:'Mix', n:'Across lectures'}
+];
+var LECNAME = {}; LECS.forEach(function(x){ LECNAME[x.k]=x.n; });
+var FOCI = [
+  {k:'socket', n:'Socket healing'},
+  {k:'perio', n:'Gingivitis vs periodontitis'},
+  {k:'t1', n:'Type I hypersensitivity'},
+  {k:'hiv', n:'HIV'}
+];
+var KEY = 'doh233-exam-recall-v1';
+var MOCK_MIN = 60;
+
+var ALL = CARDS.concat(SCENS);
+var BYID = {};
+ALL.forEach(function(it){
+  BYID[it.id] = it;
+  var tmp = document.createElement('div'); tmp.innerHTML = it.a;
+  it.txt = (it.t + ' ' + it.q + ' ' + tmp.textContent + ' ' + (it.pts ? it.pts.join(' ') : '')).toLowerCase();
+});
+
+/* ---------- storage ---------- */
+var store = {c:{}, sc:{}, tab:'bank'};
+try { var raw = localStorage.getItem(KEY); if (raw) { var p = JSON.parse(raw); if (p && typeof p === 'object') { store.c = p.c || {}; store.sc = p.sc || {}; store.tab = p.tab || 'bank'; } } } catch(e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e) {} }
+
+/* ---------- state ---------- */
+var st = { tab: store.tab, lec:'all', focus:'all', q:'', bankType:'all', hideGot:false, revealAll:false,
+  fsSource:'due', fsShuffle:true, fs:null, sv:{mode:'list', ids:[], i:0, mock:null} };
+
+function $(s, r){ return (r||document).querySelector(s); }
+function $$(s, r){ return Array.prototype.slice.call((r||document).querySelectorAll(s)); }
+function el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+function shuffle(a){ for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+
+function matches(it){
+  if (st.lec !== 'all' && it.l !== st.lec) return false;
+  if (st.focus !== 'all' && it.f !== st.focus) return false;
+  if (st.q && it.txt.indexOf(st.q) === -1) return false;
+  return true;
+}
+function statusOf(id){ var r = store.c[id]; return r ? r.s : ''; }
+
+/* ---------- scheduling ---------- */
+function nextIvl(id, g){
+  var r = store.c[id] || {ivl:0};
+  if (g === 'good') return r.ivl > 0 ? Math.max(r.ivl*2.5, 1) : 1/3;
+  if (g === 'easy') return r.ivl > 0 ? Math.max(r.ivl*3.5, 2) : 2;
+  return 0;
+}
+function fmtIvl(d){ if (d < 1) return Math.round(d*24) + ' h'; return Math.round(d) + (Math.round(d) === 1 ? ' day' : ' days'); }
+function applyGrade(id, g){
+  var now = Date.now();
+  var r = store.c[id] || {ivl:0, n:0};
+  r.n = (r.n||0) + 1;
+  if (g === 'again' || g === 'missed'){ r.s='missed'; r.ivl=0; r.due=now; }
+  else if (g === 'hard' || g === 'shaky'){ r.s='shaky'; r.ivl=0; r.due=now + 10*60*1000; }
+  else { var gg = (g === 'got') ? 'good' : g; r.ivl = nextIvl(id, gg); r.s='got'; r.due = now + r.ivl*864e5; }
+  store.c[id] = r; save();
+}
+
+/* ---------- header, tabs, filters ---------- */
+function buildFilters(){
+  var lr = $('#lecRow'); lr.innerHTML = '';
+  var chips = [{k:'all', n:'All lectures'}].concat(LECS);
+  chips.forEach(function(x){
+    var b = el('button', 'chip', x.k === 'all' ? 'All' : esc(x.k));
+    b.type = 'button'; b.dataset.lec = x.k; b.title = x.n || 'All lectures';
+    b.setAttribute('aria-pressed', st.lec === x.k ? 'true' : 'false');
+    b.addEventListener('click', function(){ st.lec = x.k; buildFilters(); refresh(); });
+    lr.appendChild(b);
+  });
+  var fr = $('#focusRow'); fr.innerHTML = '';
+  var lab = el('span', 'rowlabel', 'Predicted'); fr.appendChild(lab);
+  [{k:'all', n:'All'}].concat(FOCI).forEach(function(x){
+    var b = el('button', 'chip' + (x.k !== 'all' ? ' chip-focus' : ''), esc(x.n));
+    b.type = 'button'; b.setAttribute('aria-pressed', st.focus === x.k ? 'true' : 'false');
+    b.addEventListener('click', function(){ st.focus = x.k; buildFilters(); refresh(); });
+    fr.appendChild(b);
+  });
+}
+function setTab(t){
+  st.tab = t; store.tab = t; save();
+  if (t !== 'flash') document.body.classList.remove('in-session');
+  $$('.tab').forEach(function(b){ var on = b.dataset.tab === t; b.setAttribute('aria-selected', on ? 'true' : 'false'); b.tabIndex = on ? 0 : -1; });
+  $$('.view').forEach(function(v){ v.hidden = v.id !== 'view-' + t; });
+  refresh();
+}
+function refresh(){
+  renderTally();
+  if (st.tab === 'bank') renderBank();
+  else if (st.tab === 'flash') renderFlash();
+  else renderScen();
+}
+
+/* ---------- tally ---------- */
+function renderTally(){
+  var items = CARDS.filter(matches);
+  var c = {got:0, shaky:0, missed:0, un:0};
+  items.forEach(function(it){ var s = statusOf(it.id); if (s) c[s]++; else c.un++; });
+  var n = items.length || 1;
+  var t = $('#tally');
+  t.innerHTML = '';
+  var bar = el('div', 'tbar');
+  [['got','Got it'],['shaky','Shaky'],['missed','Missed'],['un','Not yet seen']].forEach(function(p){
+    var seg = el('span', 'seg seg-' + p[0]); seg.style.flexGrow = c[p[0]]; bar.appendChild(seg);
+  });
+  bar.setAttribute('role','img');
+  bar.setAttribute('aria-label', c.got + ' got it, ' + c.shaky + ' shaky, ' + c.missed + ' missed, ' + c.un + ' not yet seen');
+  t.appendChild(bar);
+  var leg = el('p', 'tleg',
+    '<span class="li"><span class="k k-got"></span>Got it <b>' + c.got + '</b></span>' +
+    '<span class="li"><span class="k k-shaky"></span>Shaky <b>' + c.shaky + '</b></span>' +
+    '<span class="li"><span class="k k-missed"></span>Missed <b>' + c.missed + '</b></span>' +
+    '<span class="li"><span class="k k-un"></span>Not yet seen <b>' + c.un + '</b></span>');
+  t.appendChild(leg);
+  var rb = el('button', 'linkbtn reset', 'Reset progress'); rb.type = 'button';
+  var armed = false, tm;
+  rb.addEventListener('click', function(){
+    if (!armed){ armed = true; rb.textContent = 'Click again to erase all progress'; tm = setTimeout(function(){ armed = false; rb.textContent = 'Reset progress'; }, 3500); return; }
+    clearTimeout(tm); store.c = {}; store.sc = {}; save(); st.fs = null; refresh();
+  });
+  t.appendChild(rb);
+}
+
+/* ---------- shared card pieces ---------- */
+function topicLine(it){
+  return '<span class="topic">' + esc(it.t) + '</span>' + (it.f ? '<span class="pred"><i aria-hidden="true"></i>Predicted</span>' : '') + (it.s ? '<span class="stype">Scenario</span>' : '');
+}
+function pointsHTML(it){
+  return '<h4 class="pts-h">Marking points</h4>' + '<ul class="pts-plain">' + it.pts.map(function(p){ return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>';
+}
+
+/* ---------- question bank ---------- */
+function renderBank(){
+  var list = $('#bankList');
+  list.innerHTML = '';
+  var items = ALL.filter(function(it){
+    if (!matches(it)) return false;
+    if (st.bankType === 'cards' && it.s) return false;
+    if (st.bankType === 'scen' && !it.s) return false;
+    if (st.hideGot && statusOf(it.id) === 'got') return false;
+    return true;
+  });
+  $$('#bankType button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.v === st.bankType ? 'true' : 'false'); });
+  $('#hideGot').checked = st.hideGot;
+  $('#revealAll').textContent = st.revealAll ? 'Hide all answers' : 'Show all answers';
+  if (!items.length){
+    list.appendChild(el('p', 'empty', 'No matches.'));
+    return;
+  }
+  var cur = null, grp;
+  items.forEach(function(it){
+    if (it.l !== cur){
+      cur = it.l;
+      grp = el('section', 'grp');
+      grp.appendChild(el('h2', 'grp-h', '<span class="grp-code">' + esc(it.l) + '</span> ' + esc(LECNAME[it.l])));
+      list.appendChild(grp);
+    }
+    grp.appendChild(bankItem(it));
+  });
+}
+function bankItem(it){
+  var art = el('article', 'item');
+  art.dataset.id = it.id;
+  var s = statusOf(it.id); if (s) art.classList.add('is-' + s);
+  var lab = el('div', 'item-label', '<span class="code">' + esc(it.l) + '</span><span class="dot" aria-hidden="true"></span>');
+  var body = el('div', 'item-body');
+  body.appendChild(el('p', 'meta', topicLine(it)));
+  body.appendChild(el('h3', 'q', esc(it.q)));
+  var btn = el('button', 'btn btn-reveal', 'Show answer'); btn.type = 'button';
+  btn.setAttribute('aria-expanded', 'false');
+  var ans = el('div', 'ans');
+  ans.hidden = true;
+  var ansId = 'ans-' + it.id; ans.id = ansId; btn.setAttribute('aria-controls', ansId);
+  ans.innerHTML = (it.s ? '<h4 class="pts-h">Model answer</h4>' : '') + it.a + (it.s ? pointsHTML(it) : '');
+  var gr = el('div', 'grades grades-3');
+  [['missed','Missed it'],['shaky','Shaky'],['got','Got it']].forEach(function(p){
+    var b = el('button', 'gbtn g-' + p[0], p[1]); b.type = 'button';
+    b.setAttribute('aria-pressed', s === p[0] ? 'true' : 'false');
+    b.addEventListener('click', function(){
+      applyGrade(it.id, p[0]);
+      art.classList.remove('is-got','is-shaky','is-missed'); art.classList.add('is-' + p[0]);
+      $$('.gbtn', gr).forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      renderTally();
+    });
+    gr.appendChild(b);
+  });
+  ans.appendChild(gr);
+  function setOpen(open){ ans.hidden = !open; btn.textContent = open ? 'Hide answer' : 'Show answer'; btn.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+  btn.addEventListener('click', function(){ setOpen(ans.hidden); });
+  if (st.revealAll) setOpen(true);
+  body.appendChild(btn); body.appendChild(ans);
+  art.appendChild(lab); art.appendChild(body);
+  return art;
+}
+
+/* ---------- flashcards ---------- */
+function flashPool(){
+  var now = Date.now();
+  return CARDS.filter(matches).filter(function(it){
+    var r = store.c[it.id];
+    if (st.fsSource === 'due') return !r || !r.due || r.due <= now;
+    if (st.fsSource === 'weak') return r && (r.s === 'missed' || r.s === 'shaky');
+    return true;
+  });
+}
+function renderFlash(){
+  var v = $('#flashArea'); v.innerHTML = '';
+  document.body.classList.toggle('in-session', !!(st.tab === 'flash' && st.fs && st.fs.cur));
+  if (st.fs && st.fs.cur) return renderSession(v);
+  if (st.fs && !st.fs.cur) return renderSummary(v);
+  renderSetup(v);
+}
+function renderSetup(v){
+  var pool = flashPool();
+  var box = el('div', 'setup');
+  var seg = el('div', 'seg-ctl'); seg.setAttribute('role','group'); seg.setAttribute('aria-label','Which cards');
+  [['due','Due now'],['all','Everything'],['weak','Weak only']].forEach(function(p){
+    var b = el('button', 'segbtn', '<b>' + p[1] + '</b>'); b.type = 'button';
+    b.setAttribute('aria-pressed', st.fsSource === p[0] ? 'true' : 'false');
+    b.addEventListener('click', function(){ st.fsSource = p[0]; renderFlash(); });
+    seg.appendChild(b);
+  });
+  box.appendChild(seg);
+  var opt = el('label', 'check', '<input type="checkbox" id="fsShuffle"' + (st.fsShuffle ? ' checked' : '') + '> Shuffle');
+  box.appendChild(opt);
+  $('input', opt).addEventListener('change', function(e){ st.fsShuffle = e.target.checked; });
+  var go = el('button', 'btn btn-primary', pool.length ? 'Start ' + pool.length + (pool.length === 1 ? ' card' : ' cards') : 'Nothing due');
+  go.type = 'button'; go.disabled = !pool.length;
+  go.addEventListener('click', function(){ startSession(pool.map(function(x){ return x.id; })); });
+  box.appendChild(go);
+  v.appendChild(box);
+}
+function startSession(ids){
+  if (st.fsShuffle) shuffle(ids);
+  st.fs = {queue: ids, cur: null, revealed: false, done: 0, total: ids.length, tally:{again:0, hard:0, good:0, easy:0}};
+  st.fs.cur = st.fs.queue.shift();
+  renderFlash();
+  var s = $('.slide'); if (s){ s.focus({preventScroll:true}); var top = $('#flashArea').getBoundingClientRect().top; if (top < 0 || top > window.innerHeight * 0.5) $('#flashArea').scrollIntoView({block:'start'}); }
+}
+function renderSession(v){
+  var fs = st.fs, it = BYID[fs.cur];
+  var top = el('div', 'fs-top');
+  top.appendChild(el('p', 'fs-count', '<b>' + (fs.queue.length + 1) + '</b> left, <b>' + fs.done + '</b> done'));
+  var end = el('button', 'linkbtn', 'End session'); end.type = 'button';
+  end.addEventListener('click', function(){ st.fs.cur = null; renderFlash(); renderTally(); });
+  top.appendChild(end);
+  v.appendChild(top);
+  var slide = el('article', 'slide'); slide.tabIndex = -1;
+  slide.setAttribute('aria-label', 'Flashcard, ' + it.l + ', ' + it.t);
+  slide.appendChild(el('div', 'slide-label', '<span class="code">' + esc(it.l) + '</span><span class="lname">' + esc(LECNAME[it.l]) + '</span>' + (it.f ? '<span class="pred"><i aria-hidden="true"></i>Predicted</span>' : '')));
+  var spec = el('div', 'specimen');
+  spec.appendChild(el('p', 'meta', '<span class="topic">' + esc(it.t) + '</span>'));
+  spec.appendChild(el('h3', 'fq', esc(it.q)));
+  if (fs.revealed){
+    var ans = el('div', 'ans ans-flash', it.a);
+    spec.appendChild(ans);
+  }
+  slide.appendChild(spec);
+  v.appendChild(slide);
+  var ctl = el('div', 'fs-ctl');
+  if (!fs.revealed){
+    var rb = el('button', 'btn btn-primary btn-wide', 'Show answer <kbd>Space</kbd>'); rb.type = 'button';
+    rb.addEventListener('click', reveal);
+    ctl.appendChild(rb);
+  } else {
+    var g = el('div', 'grades grades-4');
+    [['again','Again','soon',1],['hard','Hard','later today',2],['good','Good',fmtIvl(nextIvl(it.id,'good')),3],['easy','Easy',fmtIvl(nextIvl(it.id,'easy')),4]].forEach(function(p){
+      var b = el('button', 'gbtn g-' + p[0], '<span>' + p[1] + ' <kbd>' + p[3] + '</kbd></span><small>' + p[2] + '</small>'); b.type = 'button';
+      b.addEventListener('click', function(){ gradeFlash(p[0]); });
+      g.appendChild(b);
+    });
+    ctl.appendChild(g);
+  }
+  v.appendChild(ctl);
+}
+function reveal(){ if (!st.fs || !st.fs.cur || st.fs.revealed) return; st.fs.revealed = true; renderFlash(); var s = $('.slide'); if (s) s.focus({preventScroll:true}); }
+function gradeFlash(g){
+  var fs = st.fs; if (!fs || !fs.cur || !fs.revealed) return;
+  applyGrade(fs.cur, g);
+  fs.tally[g]++;
+  if (g === 'again') fs.queue.splice(Math.min(2, fs.queue.length), 0, fs.cur);
+  else if (g === 'hard') fs.queue.splice(Math.min(6, fs.queue.length), 0, fs.cur);
+  else fs.done++;
+  fs.cur = fs.queue.shift() || null;
+  fs.revealed = false;
+  renderTally();
+  renderFlash();
+  var s = $('.slide'); if (s) s.focus({preventScroll:true});
+  var area = $('#flashArea'); if (area && area.getBoundingClientRect().top < 0) area.scrollIntoView({block:'start'});
+}
+function renderSummary(v){
+  var fs = st.fs;
+  var box = el('div', 'setup');
+  box.appendChild(el('h2', 'h2', 'Done'));
+  box.appendChild(el('p', 'note', 'Again ' + fs.tally.again + ', Hard ' + fs.tally.hard + ', Good ' + fs.tally.good + ', Easy ' + fs.tally.easy));
+  var row = el('div', 'btnrow');
+  var w = el('button', 'btn btn-primary', 'Weak cards'); w.type = 'button';
+  w.addEventListener('click', function(){ st.fsSource = 'weak'; var p = flashPool(); if (p.length) startSession(p.map(function(x){return x.id;})); else { st.fs = null; renderFlash(); } });
+  var b = el('button', 'btn', 'Back'); b.type = 'button';
+  b.addEventListener('click', function(){ st.fs = null; renderFlash(); });
+  row.appendChild(w); row.appendChild(b); box.appendChild(row);
+  v.appendChild(box);
+}
+document.addEventListener('keydown', function(e){
+  if (st.tab !== 'flash' || !st.fs || !st.fs.cur) return;
+  var tg = e.target && e.target.tagName;
+  if (tg === 'INPUT' || tg === 'TEXTAREA' || tg === 'SELECT') return;
+  if (e.altKey || e.ctrlKey || e.metaKey) return;
+  if (!st.fs.revealed && (e.key === ' ' || e.key === 'Enter')){ if (tg === 'BUTTON' && e.key === 'Enter') return; e.preventDefault(); reveal(); return; }
+  if (st.fs.revealed){ var m = {'1':'again','2':'hard','3':'good','4':'easy'}[e.key]; if (m){ e.preventDefault(); gradeFlash(m); } }
+});
+
+/* ---------- scenarios ---------- */
+var timerId = null;
+function scenList(){ return SCENS.filter(matches); }
+function renderScen(){
+  var v = $('#scenArea'); v.innerHTML = '';
+  if (st.sv.mode === 'one') return renderOneScen(v);
+  var mock = el('div', 'setup mockbox');
+  var mb = el('button', 'btn btn-primary', 'Start ' + MOCK_MIN + '-minute mock (5 scenarios)'); mb.type = 'button';
+  mb.addEventListener('click', startMock);
+  mock.appendChild(mb);
+  v.appendChild(mock);
+  var list = scenList();
+  if (!list.length){ v.appendChild(el('p', 'empty', 'No matches.')); return; }
+  var ul = el('div', 'scen-list');
+  list.forEach(function(it, idx){
+    var r = store.sc[it.id];
+    var best = r && r.best != null ? '<span class="best">' + r.best + '/' + it.pts.length + '</span>' : '<span></span>';
+    var b = el('button', 'scen-item', '<span class="code">' + esc(it.l) + '</span><span class="scen-txt"><span class="meta">' + topicLine(it).replace('<span class="stype">Scenario</span>','') + '</span><span class="scen-q">' + esc(it.q) + '</span></span>' + best);
+    b.type = 'button';
+    b.addEventListener('click', function(){ st.sv = {mode:'one', ids:list.map(function(x){return x.id;}), i:idx, mock:null}; renderScen(); window.scrollTo(0, $('#scenArea').offsetTop - 12); });
+    ul.appendChild(b);
+  });
+  v.appendChild(ul);
+}
+function startMock(){
+  var ids = [];
+  FOCI.forEach(function(f){ var c = SCENS.filter(function(s){ return s.f === f.k; }); ids.push(c[Math.floor(Math.random()*c.length)].id); });
+  var other = SCENS.filter(function(s){ return !s.f; });
+  ids.push(other[Math.floor(Math.random()*other.length)].id);
+  shuffle(ids);
+  st.sv = {mode:'one', ids:ids, i:0, mock:{end: Date.now() + MOCK_MIN*60000, finished:false}};
+  ids.forEach(function(id){ var r = store.sc[id] || {}; r.ans = ''; r.ticks = []; r.shown = false; store.sc[id] = r; });
+  save();
+  startTimer();
+  renderScen();
+  window.scrollTo(0, $('#scenArea').offsetTop - 12);
+}
+function startTimer(){
+  if (timerId) clearInterval(timerId);
+  timerId = setInterval(function(){
+    var m = st.sv.mock;
+    if (!m || m.finished){ clearInterval(timerId); timerId = null; return; }
+    var left = m.end - Date.now();
+    var t = $('#mockTimer');
+    if (left <= 0){ finishMock(true); return; }
+    if (t){ t.textContent = fmtClock(left); t.classList.toggle('low', left < 5*60000); }
+  }, 1000);
+}
+function fmtClock(ms){ var s = Math.max(0, Math.round(ms/1000)); var m = Math.floor(s/60); s = s % 60; return m + ':' + (s < 10 ? '0' : '') + s; }
+function finishMock(timeUp){
+  var m = st.sv.mock; if (!m) return;
+  m.finished = true; m.timeUp = !!timeUp; st.sv.i = 0;
+  if (timerId){ clearInterval(timerId); timerId = null; }
+  if (st.tab === 'scen') renderScen();
+}
+function renderOneScen(v){
+  var sv = st.sv, it = BYID[sv.ids[sv.i]];
+  var rec = store.sc[it.id] || {}; store.sc[it.id] = rec;
+  var mock = sv.mock, locked = mock && !mock.finished;
+  var bar = el('div', 'scen-bar');
+  var back = el('button', 'linkbtn', mock ? (mock.finished ? 'Exit mock' : 'Quit mock') : 'Back'); back.type = 'button';
+  back.addEventListener('click', function(){ if (timerId){ clearInterval(timerId); timerId = null; } st.sv = {mode:'list', ids:[], i:0, mock:null}; renderScen(); });
+  bar.appendChild(back);
+  bar.appendChild(el('span', 'scen-pos', (sv.i+1) + ' of ' + sv.ids.length));
+  if (locked){ var tmr = el('span', 'timer', fmtClock(mock.end - Date.now())); tmr.id = 'mockTimer'; bar.appendChild(tmr); }
+  else if (mock && mock.finished){ bar.appendChild(el('span', 'timer done', mock.timeUp ? 'Time up' : 'Finished')); }
+  v.appendChild(bar);
+  var slide = el('article', 'slide slide-scen');
+  slide.appendChild(el('div', 'slide-label', '<span class="code">' + esc(it.l) + '</span><span class="lname">' + esc(LECNAME[it.l]) + '</span>' + (it.f ? '<span class="pred"><i aria-hidden="true"></i>Predicted</span>' : '')));
+  var spec = el('div', 'specimen');
+  spec.appendChild(el('p', 'meta', '<span class="topic">' + esc(it.t) + '</span>'));
+  spec.appendChild(el('h3', 'fq', esc(it.q)));
+  var lab = el('label', 'sr', 'Your answer'); lab.htmlFor = 'ta-' + it.id;
+  var ta = el('textarea', 'ta'); ta.id = 'ta-' + it.id; ta.rows = 10; ta.value = rec.ans || '';
+  ta.placeholder = 'Your answer';
+  var tmo;
+  ta.addEventListener('input', function(){ clearTimeout(tmo); tmo = setTimeout(function(){ rec.ans = ta.value; save(); }, 400); });
+  ta.addEventListener('blur', function(){ rec.ans = ta.value; save(); });
+  spec.appendChild(lab); spec.appendChild(ta);
+  var wc = el('p', 'wc', ''); spec.appendChild(wc);
+  function upd(){ var n = ta.value.trim() ? ta.value.trim().split(/\s+/).length : 0; wc.textContent = n + (n === 1 ? ' word' : ' words'); }
+  ta.addEventListener('input', upd); upd();
+  var markArea = el('div', 'mark');
+  if (!locked){
+    var shown = rec.shown;
+    var mb = el('button', 'btn btn-primary', shown ? 'Hide model answer' : 'Mark'); mb.type = 'button';
+    mb.addEventListener('click', function(){ rec.ans = ta.value; rec.shown = !rec.shown; save(); renderScen(); });
+    markArea.appendChild(mb);
+    if (shown){
+      var model = el('div', 'ans ans-flash', '<h4 class="pts-h">Model answer</h4>' + it.a);
+      markArea.appendChild(model);
+      var ticks = rec.ticks || [];
+      var cl = el('div', 'checklist');
+      var score = el('p', 'score', '');
+      function upScore(){ var n = ticks.filter(Boolean).length; score.innerHTML = '<b>' + n + '</b>/' + it.pts.length; if (rec.best == null || n > rec.best) rec.best = n; save(); }
+      cl.appendChild(el('h4', 'pts-h', 'Marking points'));
+      it.pts.forEach(function(p, i){
+        var id = 'pt-' + it.id + '-' + i;
+        var row = el('label', 'pt', '<input type="checkbox" id="' + id + '"' + (ticks[i] ? ' checked' : '') + '><span>' + esc(p) + '</span>');
+        $('input', row).addEventListener('change', function(e){ ticks[i] = e.target.checked; rec.ticks = ticks; upScore(); });
+        cl.appendChild(row);
+      });
+      cl.appendChild(score);
+      markArea.appendChild(cl);
+      upScore();
+    }
+  }
+  spec.appendChild(markArea);
+  slide.appendChild(spec);
+  v.appendChild(slide);
+  var nav = el('div', 'btnrow scen-nav');
+  var prev = el('button', 'btn', 'Previous'); prev.type = 'button'; prev.disabled = sv.i === 0;
+  prev.addEventListener('click', function(){ rec.ans = ta.value; save(); sv.i--; renderScen(); window.scrollTo(0, $('#scenArea').offsetTop - 12); });
+  var next = el('button', 'btn', 'Next'); next.type = 'button'; next.disabled = sv.i === sv.ids.length - 1;
+  next.addEventListener('click', function(){ rec.ans = ta.value; save(); sv.i++; renderScen(); window.scrollTo(0, $('#scenArea').offsetTop - 12); });
+  nav.appendChild(prev); nav.appendChild(next);
+  if (locked){ var fin = el('button', 'btn btn-primary', 'Finish mock'); fin.type = 'button'; fin.addEventListener('click', function(){ rec.ans = ta.value; save(); finishMock(false); }); nav.appendChild(fin); }
+  v.appendChild(nav);
+}
+
+/* ---------- wiring ---------- */
+function init(){
+  buildFilters();
+  $$('.tab').forEach(function(b){
+    b.addEventListener('click', function(){ setTab(b.dataset.tab); });
+    b.addEventListener('keydown', function(e){
+      var tabs = $$('.tab'), i = tabs.indexOf(b);
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft'){ e.preventDefault(); var j = (i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length; tabs[j].focus(); setTab(tabs[j].dataset.tab); }
+    });
+  });
+  var qt;
+  $('#q').addEventListener('input', function(e){ clearTimeout(qt); qt = setTimeout(function(){ st.q = e.target.value.trim().toLowerCase(); refresh(); }, 180); });
+  $$('#bankType button').forEach(function(b){ b.addEventListener('click', function(){ st.bankType = b.dataset.v; renderBank(); }); });
+  $('#hideGot').addEventListener('change', function(e){ st.hideGot = e.target.checked; renderBank(); });
+  $('#revealAll').addEventListener('click', function(){ st.revealAll = !st.revealAll; renderBank(); });
+  setTab(['bank','flash','scen'].indexOf(st.tab) >= 0 ? st.tab : 'bank');
+}
+init();
+})();
+
+</script>
+</body>
+</html>
