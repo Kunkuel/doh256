@@ -290,6 +290,24 @@
     border-bottom: 1px dotted var(--muted);
   }
   .hubfoot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* High-yield abstract */
+  .abstract{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--accent);
+    border-radius:8px;padding:18px 22px 14px;margin:22px 0 28px;box-shadow:0 1px 0 rgba(0,0,0,.03);}
+  .abstract .ab-lab{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;}
+  .abstract .ab-tl{font-size:16.5px;font-style:italic;color:var(--ink);margin:0 0 12px;
+    padding-bottom:10px;border-bottom:1px dashed var(--rule);}
+  .abstract ul{columns:2;column-gap:30px;margin:0;padding-left:20px;}
+  .abstract li{break-inside:avoid;margin:0 0 7px;font-size:15px;line-height:1.45;}
+  @media (max-width:720px){.abstract ul{columns:1;}}
+  @media print{.abstract{break-inside:avoid;}}
+  .small{font-size:13.5px;color:var(--muted);}
+  .fig{margin:12px 0;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px;}
+  .fig figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45;}
+  .svgfig{max-width:780px;margin:12px auto;}
+  .svgfig svg{display:block;width:100%;height:auto;}
+  @media (max-width:600px){ table{font-size:13.5px;} th,td{padding:7px 8px;} th{letter-spacing:.02em;font-size:11.5px;} }
 </style>
 </head>
 <body>
@@ -302,6 +320,24 @@
     <h1>Risk Factors &amp; Risk Indicators</h1>
     <div class="meta">Lecture by Dr Jake Ball — structured study notes</div>
   </header>
+
+  <aside class="abstract" aria-label="High-yield abstract">
+    <p class="ab-lab">High-yield abstract</p>
+    <p class="ab-tl"><strong>Smoking and diabetes</strong> are the two major modifiable risk factors. Genetics (~50% heritability) sets the background, and <strong>absence of BOP (98% NPV)</strong> is the best sign of stability.</p>
+    <ul>
+      <li><strong>Four categories:</strong> <em>factor</em> = modifiable and confirmed longitudinally; <em>determinant</em> = can't be modified; <em>indicator</em> = cross-sectional evidence only; <em>marker</em> = associated with disease but not causal.</li>
+      <li><strong>Smoking:</strong> OR 2–5 for LOA and 3–7 for RBL; <strong>5.3×</strong> risk of PPD > 3.5 mm; worse response to non-surgical and surgical therapy and to GTR.</li>
+      <li><strong>Smokers bleed less</strong> despite more disease (reduced vascular density), so BOP <strong>under-reads</strong> in smokers.</li>
+      <li><strong>Quitting:</strong> healing matches non-smokers after quitting <strong>≥ 1 year</strong>, but it may take <strong>24 months</strong> to show clinically. Use pack-years and the <strong>5 A's</strong> (Ask, Advise, Assess, Assist, Arrange).</li>
+      <li><strong>Diabetes:</strong> 2× LOA with poor control. Diagnosed at HbA1c ≥ <strong>48 mmol/mol (6.5%)</strong>, fasting BGL ≥ <strong>7.0</strong> or random ≥ <strong>11.1 mmol/L</strong>. The relationship is <strong>bidirectional</strong>: NSPT lowers HbA1c by ~0.3–0.6%.</li>
+      <li><strong>Bacteria:</strong> <em>A.a</em>, <em>P. gingivalis</em> and <em>T. forsythia</em> are the established aetiologic agents. Plaque <strong>quality matters more than quantity</strong> (keystone pathogens drive dysbiosis).</li>
+      <li><strong>Genetics:</strong> ~<strong>50% heritability</strong> <em>(Michalowicz 2000)</em>. Periodontitis is a <strong>complex</strong> disease, not Mendelian. <strong>IL-1 genotype+</strong> carries 2.7× the risk of tooth loss, rising to <strong>OR 7.7 with smoking</strong> <em>(McGuire &amp; Nunn 1999)</em>.</li>
+      <li><strong>Stress:</strong> inadequate coping OR 1.7, financial strain OR 2.24 <em>(Genco 1999)</em>. It acts through the ANS, the HPA axis and substance P.</li>
+      <li><strong>Indicators:</strong> irregular visits (~20% drop out of maintenance), <strong>obesity</strong> (overweight OR 2.56, obese 3.11), and alcohol (OR 1.22 at 5 drinks/week, 1.67 at 20).</li>
+      <li><strong>BOP as a marker:</strong> 30% risk of attachment loss if it bleeds at every recall; <strong>PPV 6%, NPV 98%</strong> <em>(Lang 1986, 1990)</em>.</li>
+    </ul>
+  </aside>
+
 
   <nav class="toc">
     <h2>Contents</h2>
@@ -317,6 +353,7 @@
       <li><a href="#stress">Risk determinant: stress</a></li>
       <li><a href="#indicators">Risk indicators: visits, obesity, alcohol</a></li>
       <li><a href="#markers">Risk markers: past disease &amp; BOP</a></li>
+      <li><a href="#check">Slide errors to know about</a></li>
       <li><a href="#exam">High-yield exam summary</a></li>
       <li><a href="#refs">References</a></li>
     </ol>
@@ -539,6 +576,31 @@
       <p>Hyperglycaemia also increases <strong>ROS and oxidative stress</strong> — directly and indirectly via AGE/RAGE — and <strong>modulates the RANKL/OPG ratio</strong>. All of this is complemented by <strong>ecological shifts in the subgingival biofilm</strong> and <strong>increased adipokines</strong>. End result: <strong>accelerated periodontitis</strong>.</p>
       <p><strong>The relationship is bidirectional.</strong></p>
     </div>
+    <figure class="fig svgfig">
+      <svg viewBox="0 0 760 252" role="img" aria-labelledby="bd-t" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica Neue, Arial, sans-serif">
+        <title id="bd-t">Bidirectional relationship. Hyperglycaemia acts through AGE/RAGE, ROS and RANKL/OPG to accelerate periodontitis; periodontitis worsens glycaemic control and diabetes complications, and treating it lowers HbA1c by about 0.3 to 0.6 percent.</title>
+        <defs><marker id="bda" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker></defs>
+        <rect x="14" y="80" width="190" height="78" rx="12" fill="var(--gold-soft)" stroke="var(--gold)"/>
+        <text x="109" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">Diabetes</text>
+        <text x="109" y="136" text-anchor="middle" font-size="12.5" fill="var(--muted)">hyperglycaemia</text>
+        <rect x="556" y="80" width="190" height="78" rx="12" fill="var(--accent-soft)" stroke="var(--accent)"/>
+        <text x="651" y="114" text-anchor="middle" font-size="16" font-weight="700" fill="var(--ink)">Periodontitis</text>
+        <text x="651" y="136" text-anchor="middle" font-size="12.5" fill="var(--muted)">inflammatory burden</text>
+        <g stroke="var(--accent)" stroke-width="2.5" fill="none">
+          <path d="M204,98 C330,74 430,74 553,98" marker-end="url(#bda)"/>
+          <path d="M556,140 C430,164 330,164 207,140" marker-end="url(#bda)"/>
+        </g>
+        <g text-anchor="middle" font-size="12.5" fill="var(--ink)">
+          <text x="380" y="22" font-weight="700" fill="var(--accent)">accelerates</text>
+          <text x="380" y="40">AGE/RAGE · ROS · ↑ RANKL/OPG · cytokine imbalance</text>
+          <text x="380" y="56">immune dysfunction · biofilm shift · adipokines</text>
+          <text x="380" y="196" font-weight="700" fill="var(--accent)">worsens</text>
+          <text x="380" y="214">glycaemic control · complications · T2DM onset</text>
+          <text x="380" y="234" fill="var(--teal)" font-weight="700">treat perio → HbA1c ↓ ~0.3–0.6%</text>
+        </g>
+      </svg>
+      <figcaption>The diabetes–periodontitis relationship runs both ways <span class="cite">Taylor et al. 2013</span>.</figcaption>
+    </figure>
   </section>
 
   <!-- BACTERIA -->
@@ -598,14 +660,15 @@
     <ul>
       <li><span class="cite">Oliver et al. 1991</span> — greater prevalence in Black populations than White across all age groups.</li>
       <li><span class="cite">Beck et al. 1990</span> — greater extent and severity, <strong>but only when analysed with socio-economic factors</strong>.</li>
-      <li><span class="cite">Eke et al. 2012</span> — differences in prevalence across ethnic groups.</li>
+      <li><span class="cite">Eke et al. 2012</span>: prevalence was <strong>highest in Mexican Americans</strong>, then non-Hispanic Black, and lowest in non-Hispanic White adults. <span class="small">(The slide's order is wrong; see "Slide errors".)</span></li>
       <li>Certain groups may be more susceptible, but <strong>SES and education may contribute to and modulate the results</strong> — the two are confounded.</li>
     </ul>
 
     <h3>Socio-economic status</h3>
+    <p>Prevalence and severity vary with SES <span class="cite">Löe et al. 1978</span>.</p>
     <ul>
       <li><strong>Lower education</strong> — individuals with <strong>less than 12 years of education</strong> were more than <strong>2× at risk</strong> of periodontal pocketing (<strong>26% vs 11%</strong>) <span class="cite">Oliver et al. 1991; Brown et al. 1994; Eke et al. 2012</span>.</li>
-      <li><strong>Poorer financial situation</strong> — increased risk of attachment loss for having 4+ sites with loss of attachment <span class="cite">Beck et al. 1990</span>.</li>
+      <li><strong>Poorer financial situation</strong> — higher odds of having <strong>4+ sites with attachment loss ≥ 5 mm</strong>: <strong>OR 3.6 in White</strong> and <strong>2.0 in Black</strong> participants <span class="cite">Beck et al. 1990</span>.</li>
     </ul>
 
     <div class="box warn">
@@ -626,6 +689,16 @@
       <li><strong>To date, no major disease gene mutation has been identified</strong> which results in periodontitis in otherwise systemically healthy individuals.</li>
     </ul>
 
+    <h3>Simple vs complex genetic disease</h3>
+    <table>
+      <thead><tr><th style="width:22%">&nbsp;</th><th>Simple (Mendelian)</th><th>Complex</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Cause</strong></td><td>Alteration in a <strong>single gene</strong> → disrupted protein → major physiological effect → disease</td><td>Interaction of alleles at <strong>multiple gene loci</strong> → subtle changes in protein function</td></tr>
+        <tr><td><strong>Frequency</strong></td><td><strong>Rare</strong>, &lt; 0.1% of the population</td><td><strong>Common</strong>, &gt; 1% of the population</td></tr>
+        <tr><td><strong>Example</strong></td><td><strong>Papillon–Lefèvre syndrome</strong></td><td><strong>Most periodontitis</strong>, cardiovascular disease, Crohn's disease</td></tr>
+      </tbody>
+    </table>
+
     <h3>Not everyone is equally susceptible</h3>
     <ul>
       <li><strong>Not all individuals will develop periodontitis</strong> <span class="cite">Löe et al. 1986</span>.</li>
@@ -641,15 +714,21 @@
         <li><strong>No evidence for heritability of gingivitis</strong> after adjusting for environmental factors (smoking, OH).</li>
       </ul>
     </div>
-    <p>The <strong>IL-1 genotype</strong> has been proposed as conferring increased risk of progression and severity of chronic periodontitis.</p>
+    <h3>IL-1 genotype</h3>
+    <p>Associated with increased risk of progression and severity of chronic periodontitis <span class="cite">McGuire &amp; Nunn 1999; Laine 2001; Axelsson 2002; Meisel 2003</span>.</p>
+    <div class="box key">
+      <h4>McGuire &amp; Nunn 1999: the number to know</h4>
+      <p>Over <strong>14 years of maintenance</strong>, IL-1-genotype-positive Caucasian patients had <strong>2.7×</strong> the risk of tooth loss. <strong>Combined with smoking, the OR rose to 7.7.</strong> Genes and environment multiply each other's effect.</p>
+    </div>
   </section>
 
   <!-- STRESS -->
   <section id="stress">
     <h2 class="section">9. Risk determinant: stress</h2>
-    <p>The association of psychological stress with periodontal disease was first postulated in early studies of <strong>acute necrotising ulcerative gingivitis</strong>. Psychological stress, distress, <strong>inadequate coping mechanisms</strong> and self-neglect have been linked to greater prevalence and severity of periodontitis.</p>
+    <p>The association of psychological stress with periodontal disease was first postulated in early studies of <strong>acute necrotising ulcerative gingivitis</strong> <span class="cite">Johnson &amp; Engel 1986</span>. Psychological stress, distress, <strong>inadequate coping mechanisms</strong> and self-neglect have been linked to greater prevalence and severity of periodontitis.</p>
 
     <ul>
+      <li>Severe periodontitis is significantly associated with <strong>depression and loneliness</strong> <span class="cite">Monteiro da Silva 1996</span>, even <strong>after controlling for plaque</strong> <span class="cite">Monteiro da Silva 1998</span>.</li>
       <li><strong>Inadequate coping OR 1.7</strong> and <strong>financial strain OR 2.24</strong> associated with greater attachment loss after adjusting for age, gender and cigarette smoking — <strong>adequate coping may decrease risk</strong> <span class="cite">Genco et al. 1999</span>.</li>
       <li>Stress may induce <strong>neglect of oral hygiene and increased plaque accumulation</strong> <span class="cite">Deinzer et al. 2001</span>.</li>
     </ul>
@@ -694,8 +773,8 @@
 
     <h3>Infrequent dental visits</h3>
     <ul>
-      <li>Non-compliant, irregularly maintained patients tend to experience <strong>greater attachment loss, deeper probing depths and more tooth loss</strong>.</li>
-      <li>Only a minority comply with the prescribed regimen — approximately <strong>20% dropout rate</strong> in maintenance.</li>
+      <li>Non-compliant, irregularly maintained patients tend to experience <strong>greater attachment loss, deeper probing depths and more tooth loss</strong> <span class="cite">Becker 1984a/b; Axelsson &amp; Lindhe 1978, 1981; Ismail 1990; Oliver 1991</span>.</li>
+      <li>Only a minority comply with the prescribed regimen: about a <strong>20% dropout rate</strong> in maintenance studies <span class="cite">Becker 1984a/b</span>.</li>
       <li><strong>Recall frequency affects compliance</strong>: <strong>39% compliant</strong> when recommended a <strong>5–7-monthly</strong> recall, compared with <strong>9%</strong> when recommended <strong>2-monthly</strong> recalls <span class="cite">Wilson et al. 1984</span>.</li>
       <li>Factors affecting compliance <span class="cite">Tan et al. 1992</span>: fear, economic factors, indifferent behaviour of the clinician, longer appointment time, change in socio-economic factors, stress, family influence.</li>
       <li>Difficult to exclude the contribution of <strong>confounding variables</strong> in longitudinal studies.</li>
@@ -705,6 +784,7 @@
     <ul>
       <li>Defined as <strong>abnormal or excessive fat accumulation that presents a risk to health</strong> <span class="cite">Linden et al. 2013</span>; obese if <strong>BMI ≥ 30 kg/m²</strong>.</li>
       <li>A <strong>modest positive association</strong> between obesity and prevalent periodontitis has been demonstrated — <strong>OR 1.35–1.81</strong> <span class="cite">Chaffee &amp; Weston 2010; Suvan et al. 2011</span>.</li>
+      <li><strong>Dose-response</strong> between BMI and periodontitis: <strong>overweight OR 2.56</strong>, <strong>obese OR 3.11</strong> <span class="cite">Suvan et al. 2015</span>.</li>
       <li>Suggested <strong>pro-inflammatory link</strong>.</li>
     </ul>
 
@@ -757,6 +837,19 @@
     </div>
   </section>
 
+  <!-- SLIDE CHECK -->
+  <section id="check">
+    <h2 class="section">Slide errors to know about</h2>
+    <ul>
+      <li><strong>Slide 25, Eke 2012 race order</strong> ("Black Americans > Mexican-Americans > Non-Hispanic Blacks") is wrong. Eke found prevalence <strong>highest in Mexican Americans</strong>, and "Black Americans" and "Non-Hispanic Blacks" are the same group. The order is Mexican American &gt; non-Hispanic Black &gt; non-Hispanic White.</li>
+      <li><strong>Slide 24</strong>: "prevalence and severity… increases with gender" doesn't make sense. The point is that they <strong>differ</strong> by gender (M &gt; F for attachment loss, F &gt; M for tooth loss).</li>
+      <li><strong>Slide 17</strong>: "Enrich et al. 1991" should be <strong>Emrich</strong>.</li>
+      <li><strong>Slides 20–21</strong>: "Prophyromonas", "Fusocbacterium" and "atiologic" should be <strong>Porphyromonas</strong>, <strong>Fusobacterium</strong> and <strong>aetiologic</strong>. On slide 19, "ecological shits" should be <strong>shifts</strong>.</li>
+      <li><strong>Slide 30</strong> says "acute necrotizing ulcerative gingivitis", the pre-2017 term. Use <strong>necrotising gingivitis (NG)</strong>.</li>
+    </ul>
+    <p class="small">Checked against the slides and correct: every OR and percentage in these notes, the diabetes thresholds, the HbA1c changes after NSPT, the 5 A's, pack-years, Michalowicz's 50%, and Lang's 30% / 6% / 98%.</p>
+  </section>
+
   <!-- EXAM -->
   <hr class="sep" />
   <section id="exam">
@@ -800,8 +893,11 @@
           <tr><td><strong>0.29–0.6%</strong></td><td>HbA1c improvement after NSPT (range across studies)</td></tr>
           <tr><td><strong>50%</strong></td><td>Heritability of periodontitis (Michalowicz 2000)</td></tr>
           <tr><td><strong>OR 1.7 / 2.24</strong></td><td>Inadequate coping / financial strain (Genco 1999)</td></tr>
-          <tr><td><strong>~20% / 39% vs 9%</strong></td><td>Maintenance dropout / compliance at 5–7-monthly vs 2-monthly recall (Wilson 1984)</td></tr>
+          <tr><td><strong>~20% / 39% vs 9%</strong></td><td>Maintenance dropout (Becker 1984) / compliance at 5–7-monthly vs 2-monthly recall (Wilson 1984)</td></tr>
           <tr><td><strong>BMI ≥ 30 · OR 1.35–1.81</strong></td><td>Obesity threshold and periodontitis odds ratio</td></tr>
+          <tr><td><strong>OR 2.56 / 3.11</strong></td><td>Overweight / obese, dose-response (Suvan 2015)</td></tr>
+          <tr><td><strong>2.7× · OR 7.7</strong></td><td>IL-1+ tooth loss risk · IL-1+ plus smoking (McGuire &amp; Nunn 1999)</td></tr>
+          <tr><td><strong>OR 3.6 / 2.0</strong></td><td>4+ sites LOA ≥ 5 mm with poorer finances, White / Black (Beck 1990)</td></tr>
           <tr><td><strong>OR 1.22 / 1.67</strong></td><td>Alcohol at 5 / 20 standard drinks per week</td></tr>
           <tr><td><strong>26% vs 11%</strong></td><td>Pocketing risk with &lt; 12 years education</td></tr>
           <tr><td><strong>30% · 6% PPV · 98% NPV</strong></td><td>BOP prognostics (Lang 1986, 1990)</td></tr>

@@ -290,6 +290,25 @@
     border-bottom: 1px dotted var(--muted);
   }
   .hubfoot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* High-yield abstract */
+  .abstract{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--accent);
+    border-radius:8px;padding:18px 22px 14px;margin:22px 0 28px;box-shadow:0 1px 0 rgba(0,0,0,.03);}
+  .abstract .ab-lab{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px;}
+  .abstract .ab-tl{font-size:16.5px;font-style:italic;color:var(--ink);margin:0 0 12px;
+    padding-bottom:10px;border-bottom:1px dashed var(--rule);}
+  .abstract ul{columns:2;column-gap:30px;margin:0;padding-left:20px;}
+  .abstract li{break-inside:avoid;margin:0 0 7px;font-size:15px;line-height:1.45;}
+  @media (max-width:720px){.abstract ul{columns:1;}}
+  @media print{.abstract{break-inside:avoid;}}
+  .svgfig{max-width:780px;margin:12px auto;}
+  .svgfig svg{display:block;width:100%;height:auto;}
+  .small{font-size:13.5px;color:var(--muted);}
+  .fig{margin:12px 0;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px;}
+  .fig img{display:block;width:100%;height:auto;border-radius:6px;margin:0 auto;}
+  .fig figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45;}
+  @media (max-width:600px){ table{font-size:13.5px;} th,td{padding:7px 8px;} th{letter-spacing:.02em;font-size:11.5px;} }
 </style>
 </head>
 <body>
@@ -303,6 +322,24 @@
     <div class="meta">Lecture by Dr Jake Ball — structured study notes</div>
   </header>
 
+  <aside class="abstract" aria-label="High-yield abstract">
+    <p class="ab-lab">High-yield abstract</p>
+    <p class="ab-tl">SRD heals by <strong>repair, not regeneration</strong>: a <strong>long junctional epithelium</strong> forms that protects as well as normal JE, and we judge healing clinically with PPD, CAL and BOP at <strong>3 months</strong>.</p>
+    <ul>
+      <li><strong>Healing is measured with PPD, recession, CAL and BOP.</strong> Expect little change at 1–3 mm (CAL −0.34), and more at 4–6 mm (PD −1.29, CAL +0.55) and ≥ 7 mm (PD −2.16, CAL +1.29) <em>(Cobb 1996)</em>.</li>
+      <li><strong>Review at 3 months:</strong> the biggest PPD/CAL change happens within 1–3 months, though maturation continues for 9–12 months <em>(Badersten 1984; Loos 1989)</em>.</li>
+      <li><strong>Probing standard:</strong> tapered probe, 0.5 mm tip, <strong>0.25 N (25 g)</strong>, enough pressure to blanch a fingernail <em>(Bulthuis 1998)</em>.</li>
+      <li><strong>The probe tip moves with inflammation:</strong> it stops 0.39 mm short of the JE in health and 0.10 mm short in gingivitis, but goes <strong>0.24 mm past</strong> it in periodontitis <em>(Armitage 1977, beagle dogs)</em>.</li>
+      <li><strong>Measurement error:</strong> 90% of probing readings are reproducible within <strong>± 1 mm</strong>, so a change of ≤ 1 mm may be noise <em>(Badersten 1985)</em>.</li>
+      <li><strong>Know four terms:</strong> repair, reattachment, new attachment, regeneration. SRD gives <strong>repair</strong>; regeneration is the ultimate goal.</li>
+      <li><strong>Race for the root surface:</strong> fast epithelium beats slow PDL cells → <strong>LJE (~2.5 mm)</strong> instead of new CT attachment <em>(Caton &amp; Zander 1979)</em>.</li>
+      <li><strong>Timeline:</strong> the new dento-epithelial junction forms by <strong>2 weeks</strong>; orientated collagen bundles by <strong>4–8 weeks</strong> <em>(Waerhaug 1978; Biagini 1998)</em>.</li>
+      <li><strong>The LJE is not a weak point:</strong> its barrier function equals normal JE <em>(Magnusson 1983)</em>, and it may <strong>shorten over time</strong>, being replaced by CT <em>(Katayanagi 1992)</em>.</li>
+      <li><strong>Healing needs daily supragingival plaque control</strong>, otherwise subgingival plaque re-forms <em>(Waerhaug 1978)</em>.</li>
+    </ul>
+  </aside>
+
+
   <nav class="toc">
     <h2>Contents</h2>
     <ol>
@@ -314,6 +351,7 @@
       <li><a href="#histo">Histological healing after SRD</a></li>
       <li><a href="#lje">The long junctional epithelium</a></li>
       <li><a href="#transient">Is the LJE permanent?</a></li>
+      <li><a href="#check">Slide errors to know about</a></li>
       <li><a href="#exam">High-yield exam summary</a></li>
       <li><a href="#refs">References</a></li>
     </ol>
@@ -347,6 +385,7 @@
     <ul>
       <li>Periodontal probes assess the health of the periodontium and are used to <strong>evaluate change throughout the treatment process</strong>.</li>
       <li>A <strong>tapered probe, tip diameter 0.5 mm, at a force of 0.25 N (25 g)</strong> may be most suitable for assessment <span class="cite">Bulthuis et al. 1998</span>.</li>
+      <li>The lecture's example is the <strong>Marquis CP11</strong> probe <span class="cite">Oxford 2015</span>.</li>
     </ul>
 
     <div class="box note">
@@ -369,6 +408,7 @@
   <section id="armitage">
     <h2 class="section">3. Armitage et al. 1977 — where does the probe tip actually stop?</h2>
     <p>Investigated the level at which the periodontal probe corresponds to the level of <strong>connective tissue attachment</strong>, at a standardised force of <strong>0.25 N</strong>, in three tissue states.</p>
+    <p><strong>Design:</strong> <strong>9 inbred beagle dogs</strong>, <strong>3 per group</strong> (healthy gingiva, experimental gingivitis, advanced periodontitis). Probes were left in place and the tissue sectioned, so the probe tip could be seen against the junctional epithelium.</p>
     <table>
       <thead><tr><th>Tissue state</th><th>Probe tip relative to JE</th></tr></thead>
       <tbody>
@@ -377,6 +417,7 @@
         <tr><td><strong>Advanced periodontitis</strong></td><td>Went <strong>past</strong> JE by <strong>0.24 mm</strong></td></tr>
       </tbody>
     </table>
+    <p class="small">These are the <strong>group means</strong>. The example sections on the slide vary: in one healthy incisor the tip sat ~0.9 mm coronal to the base of the JE, in gingivitis it reached the JE's apical end, and in one periodontitis molar it passed the JE by ~0.6 mm and touched CT near the crest. Quote the means in exams.</p>
     <div class="box warn">
       <h4>The pattern to remember</h4>
       <p>As inflammation increases, the probe penetrates further. In health it <strong>under-reads</strong>; in disease it <strong>over-reads</strong>. Probing depth is therefore a <strong>clinical approximation</strong>, not a histological measurement.</p>
@@ -473,6 +514,32 @@
       <p><strong>It is the cells that repopulate the root surface that determine the nature of the attachment that forms.</strong> In LJE formation, the <strong>faster-migrating epithelial cells</strong> arrive first, preventing the <strong>slower-migrating PDL cells</strong> from reaching the surface. This <strong>epithelial downgrowth in turn prevents new connective tissue attachment</strong>.</p>
       <p>This single mechanism is also the entire rationale for <strong>guided tissue regeneration</strong> — a membrane exists to exclude epithelium so the PDL cells can win the race.</p>
     </div>
+    <figure class="fig svgfig">
+      <svg viewBox="0 0 760 210" role="img" aria-labelledby="race-t" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica Neue, Arial, sans-serif">
+        <title id="race-t">Race for the root surface after SRD: epithelial cells migrate fast and reach the root first, forming a long junctional epithelium; PDL cells are slower and are excluded, so no new connective tissue attachment forms.</title>
+        <defs>
+          <marker id="raE" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/></marker>
+          <marker id="raP" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="18" markerHeight="18" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--teal)"/></marker>
+        </defs>
+        <rect x="610" y="14" width="140" height="182" rx="10" fill="var(--code)" stroke="var(--rule)"/>
+        <text x="680" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">Root</text>
+        <text x="680" y="118" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">surface</text>
+        <g font-size="14">
+          <text x="14" y="48" font-weight="700" fill="var(--accent)">Epithelial cells</text>
+          <text x="14" y="66" fill="var(--muted)" font-size="12.5">fast · arrive first</text>
+          <line x1="170" y1="52" x2="596" y2="52" stroke="var(--accent)" stroke-width="6" marker-end="url(#raE)"/>
+          <text x="384" y="40" text-anchor="middle" font-size="12.5" font-weight="700" fill="var(--accent)">→ long junctional epithelium (~2.5 mm)</text>
+
+          <text x="14" y="148" font-weight="700" fill="var(--teal)">PDL cells</text>
+          <text x="14" y="166" fill="var(--muted)" font-size="12.5">slow · locked out</text>
+          <line x1="170" y1="152" x2="408" y2="152" stroke="var(--teal)" stroke-width="6" marker-end="url(#raP)"/>
+          <line x1="430" y1="134" x2="430" y2="170" stroke="var(--accent)" stroke-width="4"/>
+          <text x="520" y="148" text-anchor="middle" font-size="12.5" fill="var(--teal)">no new CT</text>
+          <text x="520" y="164" text-anchor="middle" font-size="12.5" fill="var(--teal)">attachment</text>
+        </g>
+      </svg>
+      <figcaption>Whichever cells reach the cleaned root first decide the attachment. Epithelium wins after SRD, so healing is by <strong>repair</strong>. GTR membranes hold epithelium back so PDL cells can get there.</figcaption>
+    </figure>
   </section>
 
   <!-- LJE -->
@@ -489,6 +556,8 @@
       <li><strong>Fewer capillaries</strong> in the connective tissue compared with normal JE.</li>
       <li>Can be <strong>produced rapidly</strong> during wound healing, due to <strong>high proliferative activity</strong> of the epithelium.</li>
     </ul>
+
+    <p class="small">The lecture illustrates LJE healing with histology from <span class="cite">Bosshardt &amp; Sculean 2009</span>.</p>
 
     <h3>Length comparison</h3>
     <table>
@@ -508,6 +577,16 @@
       <li>Epithelial cells of the LJE can <strong>migrate coronally at 4 weeks post-treatment</strong>, resulting in a <strong>shorter LJE over time</strong> <span class="cite">Katayanagi 1992</span>.</li>
       <li>Therefore a rapidly produced LJE <strong>may become shorter over time, being replaced by connective tissue</strong> <span class="cite">Katayanagi 1992</span>.</li>
     </ul>
+  </section>
+
+  <!-- SLIDE CHECK -->
+  <section id="check">
+    <h2 class="section">Slide errors to know about</h2>
+    <ul>
+      <li><strong>Slide 5</strong> says "0.25<strong>g</strong> of force = pressure required to blanch fingernail". The force is <strong>0.25 N</strong>, which is about <strong>25 g</strong>. 0.25 g would barely move the probe.</li>
+      <li><strong>Slide 12</strong>: "dentogngival" is a typo for <strong>dentogingival</strong>.</li>
+    </ul>
+    <p class="small">Checked against the slides and correct: Cobb's table, Armitage's 0.39 / 0.10 / 0.24 mm, Badersten's 90% within ± 1 mm, the 2-week and 4–8-week healing times, LJE length (~2.5 mm vs 0.1–1.4 mm), and the four definitions.</p>
   </section>
 
   <!-- EXAM -->
