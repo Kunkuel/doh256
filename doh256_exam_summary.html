@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex" />
+<title>DOH 256 Exam Summary</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --paper: #ffffff;
+    --ink: #1f2330;
+    --muted: #5b6172;
+    --accent: #8b1e3f;       /* deep maroon */
+    --accent-soft: #f3e0e6;
+    --teal: #1f6f73;
+    --teal-soft: #e0eded;
+    --gold: #b48a2a;
+    --gold-soft: #f5ecd3;
+    --green: #3b6e3a;
+    --green-soft: #e2eddf;
+    --rule: #e2ded5;
+    --code: #f1efe8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+  header.title {
+    border-bottom: 3px double var(--accent);
+    padding-bottom: 18px;
+    margin-bottom: 28px;
+  }
+  header.title .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  h1 {
+    font-size: 34px;
+    margin: 6px 0 4px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  header.title .meta {
+    color: var(--muted);
+    font-size: 14px;
+    font-style: italic;
+  }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    margin: 24px 0 36px;
+    border-radius: 4px;
+  }
+  nav.toc h2 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 10px;
+  }
+  nav.toc ol {
+    margin: 0;
+    padding-left: 22px;
+    columns: 2;
+    column-gap: 28px;
+  }
+  nav.toc li {
+    margin: 4px 0;
+    break-inside: avoid;
+  }
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--muted);
+  }
+  nav.toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  section { margin: 40px 0; }
+  h2.section {
+    font-size: 24px;
+    margin: 0 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--accent);
+    letter-spacing: -0.005em;
+  }
+  h3 {
+    font-size: 18px;
+    margin: 22px 0 8px;
+    color: var(--ink);
+  }
+  h4 {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 16px 0 6px;
+  }
+  p { margin: 8px 0; }
+  ul, ol { margin: 8px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  strong { color: var(--accent); }
+  em.author { color: var(--teal); font-style: italic; }
+
+  /* Callout boxes */
+  .box {
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 14px 0;
+    border-left: 4px solid;
+  }
+  .box.key   { background: var(--accent-soft); border-color: var(--accent); }
+  .box.note  { background: var(--teal-soft);   border-color: var(--teal); }
+  .box.warn  { background: var(--gold-soft);   border-color: var(--gold); }
+  .box.fact  { background: var(--green-soft);  border-color: var(--green); }
+  .box h4 { margin-top: 0; color: inherit; }
+  .box.key   h4 { color: var(--accent); }
+  .box.note  h4 { color: var(--teal); }
+  .box.warn  h4 { color: var(--gold); }
+  .box.fact  h4 { color: var(--green); }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0;
+    font-size: 15px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+  }
+  th, td {
+    text-align: left;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  th {
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #fafaf6; }
+
+  /* Stage cards */
+  .stages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .stage {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 4px;
+  }
+  .stage .label {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stage h5 {
+    margin: 4px 0 8px;
+    font-size: 17px;
+    color: var(--accent);
+  }
+  .stage .time {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .stage ul { padding-left: 18px; margin: 0; font-size: 14px; }
+
+  /* Two column flow */
+  .twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 12px 0;
+  }
+  @media (max-width: 720px) {
+    .twocol { grid-template-columns: 1fr; }
+    nav.toc ol { columns: 1; }
+  }
+
+  /* Refs */
+  .refs {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
+  .refs li { margin: 6px 0; line-height: 1.4; }
+
+  /* Subtle citation tag */
+  .cite {
+    display: inline-block;
+    background: var(--code);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 13px;
+    color: var(--muted);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-style: normal;
+  }
+
+  /* Pill */
+  .pill {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+  .pill.teal { background: var(--teal); }
+  .pill.gold { background: var(--gold); }
+  .pill.green { background: var(--green); }
+
+  hr.sep {
+    border: 0;
+    border-top: 1px dashed var(--rule);
+    margin: 28px 0;
+  }
+  /* Back to hub */
+  .hublink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 8px 15px;
+    margin-bottom: 24px;
+    transition: color .18s ease, border-color .18s ease, transform .18s ease;
+  }
+  .hublink:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateX(-2px);
+  }
+  .hublink .arw { font-size: 14px; line-height: 1; }
+  .hubfoot {
+    margin: 34px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+  }
+  .hubfoot a {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--muted);
+  }
+  .hubfoot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* PRA notes additions */
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 16px;}
+  .fstep{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:7px 11px;font-size:14px;}
+  .fstep.hot{background:var(--accent);color:#fff;border-color:var(--accent);}
+  .fstep.spt{background:var(--green-soft);border-color:var(--green);font-weight:600;}
+  .farr{color:var(--muted);}
+  td.lo,th.lo{background:var(--green-soft);}
+  td.mo,th.mo{background:var(--gold-soft);}
+  td.hi,th.hi{background:var(--accent-soft);}
+  td.na{background:#d9d6cf;}
+  table.risk td:not(:first-child),table.risk th:not(:first-child){text-align:center;}
+  th.lo,th.mo,th.hi{color:var(--ink);}
+  .small{font-size:13.5px;color:var(--muted);}
+  .fig{margin:10px 0;background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:10px;}
+  .fig img{display:block;width:100%;height:auto;border-radius:6px;margin:0 auto;}
+  .fig figcaption{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45;}
+  .fig.centre{max-width:460px;margin-left:auto;margin-right:auto;}
+  .figrow{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  @media (max-width:760px){.figrow{grid-template-columns:1fr;}}
+  .box.calc{background:var(--teal-soft);border-left:4px solid var(--teal);}
+  .tlo{color:var(--green);} .tmo{color:var(--gold);} .thi{color:var(--accent);}
+  .fig.cycle{max-width:720px;margin:10px auto 14px;}
+  .fig.cycle svg{display:block;width:100%;height:auto;}
+  .svgfig svg{display:block;width:100%;height:auto;}
+  .svgfig{max-width:780px;margin-left:auto;margin-right:auto;}
+  ol[type=a]{padding-left:24px;}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .tscroll table{min-width:520px;}
+  @media (max-width:600px){ table{font-size:13.5px;} th,td{padding:7px 8px;} }
+
+  /* High-yield abstract */
+  .abstract{background:var(--paper);border:1px solid var(--rule);border-top:4px solid var(--accent);border-radius:8px;padding:18px 22px 16px;margin:0 0 30px;}
+  .abstract .ablab{font-family:"Helvetica Neue",Arial,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 8px;}
+  .abstract .ablede{font-size:16.5px;line-height:1.55;margin:0 0 10px;}
+  .abstract ul{margin:6px 0 12px;padding-left:20px;}
+  .abstract li{margin:5px 0;}
+  .abstract .one{background:var(--accent-soft);border-radius:6px;padding:10px 14px;margin:6px 0 0;font-size:15px;}
+  .abstract .one b{color:var(--accent);}
+
+  /* ===== Exam summary additions ===== */
+  html { scroll-behavior: smooth; }
+  section, .part { scroll-margin-top: 58px; }
+  section { margin: 34px 0; }
+  .wrap { max-width: 1040px; }
+  .lede { font-size: 17px; color: var(--muted); margin: 6px 0 0; max-width: 760px; }
+  header.title .hublink { margin-bottom: 18px; }
+  .abstract ul.abcols { columns: 2; column-gap: 30px; }
+  .abstract ul.abcols li { break-inside: avoid; font-size: 15px; line-height: 1.45; margin: 0 0 8px; }
+  @media (max-width: 760px) { .abstract ul.abcols { columns: 1; } }
+
+  /* sticky jump bar */
+  nav.partbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    background: rgba(247,245,240,.94); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -28px 8px; padding: 9px 28px;
+    font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12.5px;
+    scrollbar-width: none;
+  }
+  nav.partbar::-webkit-scrollbar { display: none; }
+  nav.partbar a {
+    flex: 0 0 auto; text-decoration: none; color: var(--ink);
+    border: 1px solid var(--rule); background: var(--paper);
+    border-radius: 999px; padding: 5px 11px; white-space: nowrap;
+  }
+  nav.partbar a b { color: var(--accent); margin-right: 4px; }
+  nav.partbar a:hover { border-color: var(--accent); color: var(--accent); }
+  nav.partbar a.hot { background: var(--accent); color: #fff; border-color: var(--accent); }
+  nav.partbar a.hot b { color: #fff; }
+
+  /* contents grid */
+  nav.toc .tocgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 24px; }
+  nav.toc .tocgrid div { break-inside: avoid; }
+  nav.toc .tocgrid h3 { font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin: 8px 0 4px; }
+  nav.toc .tocgrid ul { list-style: none; padding: 0; margin: 0 0 6px; font-size: 14.5px; }
+  nav.toc .tocgrid li { margin: 3px 0; }
+  @media (max-width: 860px) { nav.toc .tocgrid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { nav.toc .tocgrid { grid-template-columns: 1fr; } }
+
+  /* part dividers */
+  .part {
+    display: flex; align-items: center; gap: 12px;
+    margin: 56px 0 8px; padding: 12px 16px;
+    background: var(--accent); color: #fff; border-radius: 8px;
+    font-size: 21px; font-weight: 700; letter-spacing: -.005em;
+  }
+  .part span {
+    font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px; font-weight: 700;
+    letter-spacing: .16em; text-transform: uppercase;
+    background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px;
+  }
+
+  /* stats */
+  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0 16px; }
+  .stat { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
+  .stat b { display: block; font-size: 26px; line-height: 1.1; color: var(--teal); }
+  .stat span { font-size: 13.5px; color: var(--muted); }
+  .stat.hot { border-color: var(--accent); background: var(--accent-soft); }
+  .stat.hot b { color: var(--accent); }
+  @media (max-width: 560px) { .stat-row { grid-template-columns: 1fr; } }
+
+  /* compact tables */
+  table.compact { font-size: 14.5px; margin: 10px 0; }
+  table.compact th, table.compact td { padding: 7px 10px; }
+  th.num, td.num { text-align: center; white-space: nowrap; }
+  tr.hl td { background: var(--accent-soft) !important; }
+  tr.lqrow td { background: var(--gold-soft) !important; font-weight: 600; }
+  table.stage-table td:first-child { text-align: center; font-size: 18px; width: 70px; }
+  .twocol > table { margin-top: 0; }
+  .twocol.tight2 { gap: 12px; margin: 0; }
+  .box .twocol p { margin: 0; }
+
+  .wrap a:not([class]) { color: var(--teal); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  table.compact td a:not([class]) { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
+  table.compact td a:not([class]):hover { color: var(--accent); border-bottom-color: var(--accent); }
+  nav.toc a { color: var(--ink) !important; }
+  /* answer key */
+  table.key td:nth-child(2) a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
+  table.key td:nth-child(2) a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  table.key td:nth-child(3) { font-weight: 700; color: var(--accent); font-size: 16px; }
+  table.key tr.bad td:first-child { box-shadow: inset 4px 0 0 var(--gold); }
+  .xflag {
+    display: inline-block; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px; font-weight: 700;
+    color: #7a5a12; background: var(--gold-soft); border: 1px solid #e6d3a2; border-radius: 4px;
+    padding: 0 5px; margin-left: 4px; white-space: nowrap;
+  }
+  .tscroll table.key, .tscroll.auto table { min-width: 0; }
+  .tscroll.auto { margin: 10px 0; }
+  .tscroll.auto > table { margin: 0; }
+  .twocol > * { min-width: 0; }
+
+  /* lists */
+  ul.tight, ol.tight { margin: 6px 0; }
+  ul.tight li, ol.tight li { margin: 3px 0; }
+  ul.tight ul.tight { margin: 4px 0 2px; }
+  ul.trap { list-style: none; padding-left: 0; }
+  ul.trap li { position: relative; padding-left: 26px; margin: 6px 0; }
+  ul.trap li::before { content: "!"; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: #fff; font: 700 12px/18px "Helvetica Neue", Arial, sans-serif; text-align: center; }
+
+  /* "full note" link */
+  a.more {
+    float: right; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--teal); text-decoration: none;
+    border: 1px solid var(--teal-soft); background: var(--paper); border-radius: 999px; padding: 4px 11px; margin: 4px 0 6px 10px;
+  }
+  a.more:hover { border-color: var(--teal); }
+  h2.section { clear: both; }
+
+  .totop {
+    position: fixed; right: 16px; bottom: 16px; z-index: 30;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent); color: #fff; text-decoration: none;
+    display: flex; align-items: center; justify-content: center;
+    font: 700 18px/1 "Helvetica Neue", Arial, sans-serif; box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 28px 16px 70px; }
+    nav.partbar { margin: 0 -16px 8px; padding: 8px 16px; }
+    h1 { font-size: 28px; }
+    .part { font-size: 18px; margin-top: 44px; }
+    table.compact { font-size: 13.5px; }
+    table.compact th, table.compact td { padding: 6px 7px; }
+    td { overflow-wrap: anywhere; }
+    td.num, th.num { overflow-wrap: normal; }
+    a.more { float: none; display: inline-block; margin: 0 0 6px; }
+  }
+  @media print {
+    nav.partbar, .totop, .hublink, .hubfoot { display: none; }
+    .part { break-after: avoid; }
+    section { break-inside: auto; }
+    tr { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="title" id="top">
+    <a class="hublink" href="index.html"><span class="arw">&#8592;</span> Study Hub</a>
+    <div class="eyebrow">DOH 256 · Foundations of Dental Clinical Practice 2 · Sessions 1 &amp; 2</div>
+    <h1>DOH 256 Exam Summary</h1>
+    <p class="lede">Everything examinable in one place: patient assessment, radiography, cariology, periodontics and endodontics, Dr Ball's Session 2 lectures, and the 20 presentation papers. The depth is set by last year's final paper.</p>
+  </header>
+
+  <nav class="partbar" aria-label="Jump to">
+    <a href="#top"><b>↑</b>Top</a>
+    <a href="#partA"><b>A</b>Patient</a>
+    <a href="#partB"><b>B</b>Radiography</a>
+    <a href="#partC"><b>C</b>Cariology</a>
+    <a href="#partD"><b>D</b>Perio I</a>
+    <a href="#partE"><b>E</b>Perio II · Endo</a>
+    <a href="#partF"><b>F</b>Exam toolkit</a>
+    <a class="hot" href="#pastpaper"><b>★</b>Past-paper key</a>
+  </nav>
+
+  <div class="abstract">
+    <p class="ablab">Abstract · the must-knows</p>
+    <p class="ablede">Last year's paper was <strong>40 one-mark MCQs</strong> (mostly cariology and radiography) plus <strong>two 30-mark long answers</strong> (the periodontium; one caries behaviour change). If you only have an hour, learn these.</p>
+    <ul class="abcols">
+      <li><strong>MRONJ:</strong> antiresorptive/antiangiogenic drug + exposed bone &gt; 8 weeks + no jaw radiotherapy. <strong>Stage 0</strong> no exposed bone · <strong>1</strong> exposed, <em>asymptomatic</em> · <strong>2</strong> + pain/infection · <strong>3</strong> + fracture, extra-oral fistula, oro-antral communication.</li>
+      <li><strong>Medical:</strong> don't stop antithrombotics · IE: amoxicillin 2 g 1 h before · defer elective care 6 months after MI · BP ≥ 180/110 defer · <strong>unconscious hypo: nothing by mouth, call 000</strong>.</li>
+      <li><strong>X-rays:</strong> straight lines, <strong>can't be focused</strong>, ionise gases. <strong>Stochastic</strong> = no threshold, sublethal DNA damage → cancer. ALARA: retake only when criteria aren't met.</li>
+      <li><strong>Technique:</strong> bitewing beam ⟂ through the contacts, tube 5–8° <em>down</em> · paralleling = accurate, reproducible, low cone-cut · <strong>SLOB</strong>: same = lingual.</li>
+      <li><strong>OPG:</strong> posterior = lateral, anterior = AP · read the <strong>periphery first</strong> · ghost = contralateral, <strong>higher, reversed, magnified, blurred</strong>.</li>
+      <li><strong>Occlusion:</strong> key = upper 6 MB cusp in the lower 6 buccal groove · II/2 = retroclined centrals · CR is independent of tooth contact · overbite vertical 1–2 mm · <strong>lateral pterygoid opens</strong>.</li>
+      <li><strong>CRA:</strong> disease indicators (<strong>WREC</strong>) + risk factors (<strong>BAD</strong>) + protective factors (<strong>SAFER</strong>). Any WREC → <strong>high</strong>; high + hyposalivation → extreme.</li>
+      <li><strong>Carious tissue:</strong> NOC vs TPOC by stage + activity · depth decides <strong>soft (deep) vs firm (shallow–moderate)</strong> · endpoint by <strong>hardness</strong> · repair, don't replace.</li>
+      <li><strong>Biofilm in 6 stages:</strong> pellicle → reversible → irreversible (adhesins) → <strong>co-aggregation</strong> → stratification → climax. Calculus crystals = <strong>OCP</strong>. Materia alba washes off with water spray.</li>
+      <li><strong>Periodontium:</strong> gingiva, PDL, cementum, bone · JE (hemidesmosomes, 4–6-day turnover) · biologic width ≈ 2.04 mm · stage = severity/complexity, grade = rate.</li>
+      <li><strong>Endo-perio:</strong> narrow defect + <strong>no pulp response</strong> = endodontic · Abbott: <strong>communication</strong> · treat the canal first · prognosis = periodontal prognosis + OH.</li>
+      <li><strong>DH:</strong> needs <strong>open tubules</strong> · hydrodynamic fluid movement · <strong>occlude</strong> or <strong>desensitise</strong> · arginine and SnF₂ have the best evidence.</li>
+    </ul>
+  </div>
+
+
+  <section id="blueprint">
+    <h2 class="section">Last year's paper: what was actually asked</h2>
+    <div class="stat-row">
+      <div class="stat"><b>40</b><span>MCQs × 1 mark</span></div>
+      <div class="stat hot"><b>2 × 30</b><span>long answers</span></div>
+      <div class="stat hot"><b>60%</b><span>of marks were the two long answers</span></div>
+    </div>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Area</th><th class="num">MCQs</th><th>Topics tested</th></tr></thead>
+      <tbody>
+        <tr><td><a href="#cra">Cariology</a></td><td class="num">11</td><td>CRA disease indicators, WREC, CAMBRA philosophy and objectives, the caries balance, NOC vs TPOC, the ICCMS risk matrix, ICCC caries vs lesion management, removal to soft vs firm, removal endpoint</td></tr>
+        <tr><td><a href="#xray">Radiography</a></td><td class="num">10</td><td>X-ray properties, stochastic effects, ALARA retakes, bitewing technique, paralleling advantages, SLOB, OPG perspective, reading order, ghost images, interpretation challenges</td></tr>
+        <tr><td><a href="#occlusion">Occlusion</a></td><td class="num">5</td><td>Angle's key, Class II div 2, centric relation, overbite, lateral pterygoid</td></tr>
+        <tr><td><a href="#aetiology">Perio aetiology &amp; plaque control</a></td><td class="num">5</td><td>Co-aggregation, calculus crystals, materia alba, CHX side effects, interdental brushes</td></tr>
+        <tr><td><a href="#ncclwear">NCCL &amp; dentine hypersensitivity</a></td><td class="num">4</td><td>Biocorrosion + stress, open tubules, hydrodynamic theory, the two treatment strategies</td></tr>
+        <tr><td><a href="#endoperio">Endo-perio</a></td><td class="num">3</td><td>Narrow defect + non-vital pulp, Abbott's communication criterion, prognosis determinants</td></tr>
+        <tr><td><a href="#redflags">Medical</a></td><td class="num">2</td><td>MRONJ stage 1, unconscious hypoglycaemia</td></tr>
+        <tr class="lqrow"><td><a href="#laq">Long answer Q41</a></td><td class="num">30</td><td>"What is the periodontium and why is it important?"</td></tr>
+        <tr class="lqrow"><td><a href="#laq">Long answer Q42</a></td><td class="num">30</td><td>Multiple active lesions + stress; one behaviour change only: stop sugary snacks <em>or</em> brush 2× daily with fluoride toothpaste. Choose and justify.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">The MCQs test definitions and "which statement is correct" distinctions, not citations. The long answers reward structured reasoning. Every MCQ from last year is answered and explained in <a href="#pastpaper">the answer key</a>.</p>
+  </section>
+
+
+  <nav class="toc" aria-label="Contents">
+    <h2>Contents</h2>
+    <div class="tocgrid">
+      <div><h3>Part A · Patient assessment, medicine &amp; planning</h3><ul>
+        <li><a href="#history">A1 · History taking</a></li>
+        <li><a href="#redflags">A2 · Medical red flags</a></li>
+        <li><a href="#eoio">A3 · Extra- &amp; intra-oral examination</a></li>
+        <li><a href="#txplan">A4 · Treatment planning (Stefanac)</a></li>
+        <li><a href="#endodx">A5 · Special tests &amp; endodontic diagnosis (AAE)</a></li>
+      </ul></div>
+      <div><h3>Part B · Radiography &amp; occlusion</h3><ul>
+        <li><a href="#xray">B1 · X-ray physics &amp; radiation protection</a></li>
+        <li><a href="#intraoral">B2 · Intra-oral techniques</a></li>
+        <li><a href="#opg">B3 · The OPG</a></li>
+        <li><a href="#occlusion">B4 · Occlusion</a></li>
+      </ul></div>
+      <div><h3>Part C · Cariology</h3><ul>
+        <li><a href="#cariesbasics">C1 · What caries is, and how we classify it</a></li>
+        <li><a href="#cra">C2 · Caries risk assessment &amp; CAMBRA</a></li>
+        <li><a href="#removal">C3 · NOC vs TPOC &amp; carious tissue removal</a></li>
+        <li><a href="#prognosis">C4 · Tooth prognosis (presentation papers)</a></li>
+      </ul></div>
+      <div><h3>Part D · Periodontics: foundations (Session 1)</h3><ul>
+        <li><a href="#periodontium">D1 · The periodontium</a></li>
+        <li><a href="#aetiology">D2 · Aetiology: deposits, biofilm, calculus</a></li>
+        <li><a href="#histopath">D3 · Histopathology (Page &amp; Schröder 1976)</a></li>
+        <li><a href="#classification">D4 · 2017 AAP/EFP classification</a></li>
+        <li><a href="#plaquecontrol">D5 · Mechanical &amp; chemical plaque control</a></li>
+      </ul></div>
+      <div><h3>Part E · Periodontics &amp; endodontics: Session 2</h3><ul>
+        <li><a href="#nspt">E1 · Non-surgical periodontal therapy</a></li>
+        <li><a href="#healing">E2 · Healing after SRD</a></li>
+        <li><a href="#risk">E3 · Risk factors &amp; indicators</a></li>
+        <li><a href="#spt">E4 · Maintenance (SPT) &amp; periodontal risk assessment</a></li>
+        <li><a href="#acute">E5 · Acute pain &amp; acute periodontal conditions</a></li>
+        <li><a href="#endoperio">E6 · Endo-periodontal lesions</a></li>
+        <li><a href="#ncclwear">E7 · NCCLs, dentine hypersensitivity, tooth wear</a></li>
+      </ul></div>
+      <div><h3>Part F · Exam toolkit</h3><ul>
+        <li><a href="#pastpaper">F1 · Last year's MCQs: answer key</a></li>
+        <li><a href="#laq">F2 · Long answers (2 × 30 marks)</a></li>
+        <li><a href="#numbers">F3 · Numbers to know</a></li>
+        <li><a href="#traps">F4 · Traps that cost marks last year</a></li>
+      </ul></div>
+    </div>
+  </nav>
+
+  <div class="part" id="partA"><span>Part A</span>Patient assessment, medicine &amp; planning</div>
+
+  <!-- HISTORY -->
+  <section id="history">
+    <h2 class="section">A1 · History taking</h2>
+    <div class="twocol">
+      <div>
+        <h4>Structure (in order)</h4>
+        <ol class="tight">
+          <li><strong>Reason for attending / chief complaint</strong>, in the <strong>patient's own words</strong></li>
+          <li><strong>History of presenting complaint</strong>, using <strong>SOCRATES</strong>: Site · Onset · Character · Radiation · Associations · Time course · Exacerbating/relieving · Severity (0–10)</li>
+          <li><strong>Medical history</strong>: systematic, recording a <strong>YES and NO</strong> for every system</li>
+          <li><strong>Dental history</strong>: attendance, past treatment, attitude ("dental IQ"), home care, expectations</li>
+          <li><strong>Social history</strong> (smoking in pack-years, alcohol, drugs, occupation) and <strong>diet history</strong></li>
+        </ol>
+      </div>
+      <div>
+        <h4>Principles</h4>
+        <ul class="tight">
+          <li>History and exam must be <strong>comprehensive, systematic, reproducible</strong>.</li>
+          <li>For every system, think of <strong>4 critical processes</strong> (Dr Kang): stop <strong>bleeding</strong> · wound <strong>healing</strong> · blood goes "around and around" · air goes "in and out".</li>
+          <li>Record the <strong>generic drug name + dose + frequency</strong>, and cross-check medications against stated conditions.</li>
+          <li><strong>Allergy:</strong> record the drug <em>and</em> the reaction. <strong>Type A ADRs</strong> are predictable (85–90%); <strong>Type B</strong> are hypersensitivity (10–15%: intolerance, allergy, idiosyncrasy).</li>
+          <li>Laws of diagnosis: listen to the patient · hoofbeats → horses, not zebras · a patient can have as many problems as they please.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED FLAGS -->
+  <section id="redflags">
+    <h2 class="section">A2 · Medical red flags</h2>
+
+    <div class="box warn">
+      <h4>MRONJ: definition (AAOMS 2014). All three must be present</h4>
+      <ol class="tight">
+        <li>Current or previous <strong>antiresorptive</strong> (bisphosphonate, denosumab) or <strong>antiangiogenic</strong> therapy</li>
+        <li><strong>Exposed bone</strong>, or bone probeable through an intra-/extra-oral fistula, in the maxillofacial region, persisting <strong>&gt; 8 weeks</strong></li>
+        <li><strong>No</strong> history of radiotherapy to the jaws and no obvious metastatic disease of the jaws</li>
+      </ol>
+    </div>
+
+    <div class="tscroll auto"><table class="stage-table">
+      <thead><tr><th>MRONJ stage</th><th>Necrotic bone</th><th>Symptoms / infection</th></tr></thead>
+      <tbody>
+        <tr><td><strong>0</strong></td><td>No clinical evidence of necrotic bone</td><td>Non-specific findings, radiographic changes, symptoms</td></tr>
+        <tr class="hl"><td><strong>1</strong></td><td>Exposed necrotic bone, or a fistula that probes to bone</td><td><strong>Asymptomatic, no infection</strong></td></tr>
+        <tr><td><strong>2</strong></td><td>Exposed necrotic bone / fistula to bone</td><td><strong>Infection:</strong> pain + erythema ± pus</td></tr>
+        <tr><td><strong>3</strong></td><td>As stage 2 <strong>plus ≥ 1 of:</strong> necrosis beyond the alveolar bone (inferior border/ramus; maxillary sinus/zygoma) → <strong>pathological fracture</strong>, <strong>extra-oral fistula</strong>, <strong>oro-antral/oro-nasal communication</strong>, osteolysis to the inferior border or sinus floor</td><td>Pain + infection</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small"><strong>Exam trap:</strong> last year's paper asked for stage 1. The candidate's highlighted answer, "symptomatic, exposed bone, inflammation/infection", describes <strong>stage 2</strong>. Stage 1 is <strong>asymptomatic</strong>.</p>
+
+    <div class="twocol">
+      <div>
+        <h4>MRONJ risk by drug</h4>
+        <ul class="tight">
+          <li><strong>Oral bisphosphonates</strong> (alendronate) for osteoporosis: low–moderate; risk rises with &gt; 4 years of use, steroids, diabetes, smoking.</li>
+          <li><strong>IV zoledronic acid</strong> (oncology, monthly) and <strong>denosumab 120 mg (Xgeva)</strong>: <strong>high</strong>.</li>
+          <li><strong>Denosumab 60 mg (Prolia)</strong>, 6-monthly: reversible but <strong>never stop it abruptly</strong> (rebound vertebral fractures); liaise with the prescriber.</li>
+          <li><strong>Antiangiogenics / TKIs</strong> (bevacizumab, sunitinib): high, even without bisphosphonates.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>MRONJ management</h4>
+        <ul class="tight">
+          <li><strong>Prevention beats treatment.</strong> Do extractions <strong>before</strong> IV antiresorptives start.</li>
+          <li>Prefer <strong>RCT and keeping the root</strong> over extraction. Avoid implants in high-risk patients.</li>
+          <li>If extraction is unavoidable: atraumatic technique, primary closure, review at 1, 2, 4 and 8 weeks. Oncology patients → refer to oral surgery.</li>
+          <li>Risk persists after the drug is stopped. Read the TG v4 (2025) MRONJ chapter.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Other red flags</h3>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th style="width:24%">Condition / drug</th><th>Key rule</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Antithrombotics</strong></td><td><strong>Thromboembolic risk &gt; bleeding risk.</strong> Never stop them without the prescriber. Use local haemostasis (sutures, tranexamic acid). <strong>Warfarin:</strong> check INR within 24–72 h; INR &lt; 4 is generally OK for simple extractions. <strong>DOACs:</strong> no routine test; for low-risk procedures don't stop, time the procedure to the trough. <strong>Antiplatelets:</strong> never stop (stent thrombosis). Avoid NSAIDs.</td></tr>
+        <tr><td><strong>Infective endocarditis</strong></td><td>Prophylaxis only for the restricted high-risk group: prosthetic valve or valve-repair material, <strong>previous IE</strong>, some congenital heart disease, cardiac transplant with valvulopathy, rheumatic heart disease in some populations. <strong>Amoxicillin 2 g orally 1 h before</strong> (penicillin allergy: clindamycin 600 mg). Applies to procedures that manipulate gingiva or periapical tissue, including scaling. Not needed for joint replacements.</td></tr>
+        <tr><td><strong>Recent MI / stent / CABG</strong></td><td><strong>Defer elective treatment for 6 months</strong>. Emergencies only, and consult the cardiologist.</td></tr>
+        <tr><td><strong>Blood pressure</strong></td><td>Measure at the start of the appointment. <strong>≥ 180/110 → defer elective care</strong> and refer promptly (immediately if symptomatic). A hypertensive <em>crisis</em> is ≥ 180/120 with target-organ damage.</td></tr>
+        <tr><td><strong>Diabetes</strong></td><td>The acute chair risk is <strong>hypoglycaemia</strong>, highest with insulin and sulfonylureas; metformin alone doesn't cause it. Morning appointment, patient has eaten, glucose on hand. HbA1c &lt; 7% = well controlled. The perio link is bidirectional.</td></tr>
+        <tr><td><strong>Corticosteroids</strong></td><td>≥ 7.5 mg prednisolone/day for &gt; 3 weeks → adrenal suppression. Discuss stress dosing for major surgery. Poor healing, candidiasis.</td></tr>
+        <tr><td><strong>Methotrexate</strong></td><td><strong>No NSAIDs</strong> (toxicity, potentially fatal). Use paracetamol.</td></tr>
+        <tr><td><strong>Gingival overgrowth trio</strong></td><td><strong>Calcium-channel blockers</strong> (nifedipine, amlodipine), <strong>cyclosporine</strong>, <strong>phenytoin</strong>. Plaque control limits it.</td></tr>
+        <tr><td><strong>Epilepsy</strong></td><td>Seizure: stop, move instruments away, protect the patient, maintain the airway, call 000.</td></tr>
+        <tr><td><strong>Asthma</strong></td><td>Patient brings their inhaler to every visit. Avoid triggers, including NSAIDs if aspirin-sensitive.</td></tr>
+        <tr><td><strong>ASA III–IV</strong></td><td>Medical consultation first. Ask the GP "is the patient <strong>medically fit</strong> for this treatment?", <em>not</em> "should I treat?". Communicate with <strong>ISBAR</strong>: Identify · Situation · Background · Assessment · Request.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="box key">
+      <h4>Hypoglycaemia in the chair</h4>
+      <div class="twocol tight2">
+        <div><p><strong>Conscious and able to swallow:</strong> stop treatment, give <strong>15–20 g fast-acting glucose</strong> (glucose gel, jelly beans, ~150 mL juice), recheck at <strong>15 min</strong> and repeat if no better, then a longer-acting carbohydrate.</p></div>
+        <div><p><strong>Drowsy, uncooperative or unconscious:</strong> <strong>nothing by mouth</strong> (aspiration risk). <strong>Stop and call 000</strong>, recovery position, airway. Glucagon only if trained; CPR if not breathing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EO IO -->
+  <section id="eoio">
+    <h2 class="section">A3 · Extra- &amp; intra-oral examination</h2>
+    <div class="twocol">
+      <div>
+        <h4>Extra-oral sequence</h4>
+        <p>Gait and asymmetry → skin/hair → <strong>cervical lymph nodes</strong> → TMJ → muscles of mastication. Observe from the moment the patient walks in.</p>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th>Node level</th><th>Location</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>Submental + submandibular triangles</td></tr>
+            <tr><td>II–IV</td><td>Along SCM (anterior triangle), upper → lower</td></tr>
+            <tr><td>V</td><td>Posterior triangle</td></tr>
+            <tr><td>VI</td><td>Below hyoid, anterior central neck</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small"><strong>Inflammatory node:</strong> enlarged, <strong>tender</strong>, soft, mobile. <strong>Neoplastic node:</strong> enlarged, <strong>firm, non-tender, ± fixed</strong>.</p>
+      </div>
+      <div>
+        <h4>Intra-oral</h4>
+        <ul class="tight">
+          <li>Two mirrors + gauze. Check saliva, dentition and mucosa systematically.</li>
+          <li><strong>Mucosa types:</strong> masticatory (keratinised: gingiva, hard palate) · lining (non-keratinised: buccal, floor of mouth, alveolar, ventral tongue) · specialised (dorsal tongue, vermilion).</li>
+          <li><strong>High-risk cancer sites:</strong> lateral and ventral tongue, floor of mouth, retromolar trigone, tonsillar pillar, commissure.</li>
+          <li><strong>Describe a lesion:</strong> colour, shape, size, number, margins, texture, effect on surroundings. <strong>Ulcer</strong> = full-thickness epithelial loss; <strong>erosion</strong> = partial.</li>
+          <li><strong>Oral cavity vs oropharynx:</strong> anterior ⅔ vs posterior ⅓ of the tongue; hard vs soft palate; the border is the palatoglossal folds.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box warn"><h4>Emergency signs</h4><p>Swelling with <strong>dyspnoea, stridor, cyanosis</strong> or spreading infection, or trismus with the patient <strong>unable to keep fluids down</strong>, means a medical emergency.</p></div>
+  </section>
+
+  <!-- TREATMENT PLANNING -->
+  <section id="txplan">
+    <h2 class="section">A4 · Treatment planning (Stefanac)</h2>
+    <div class="box key"><h4>Rule zero</h4><p><strong>Diagnosis dictates treatment.</strong> No diagnosis means <strong>no irreversible treatment</strong>: reassess later or refer.</p></div>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th style="width:20%">Phase</th><th>Purpose / content</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 · Systemic</strong></td><td>Four purposes: (1) recognise undiagnosed systemic disease and refer; (2) limit or modify dental treatment; (3) prevent emergencies in the practice; (4) prevent post-operative complications. ASA class, physician consultation, smoking and diet change.</td></tr>
+        <tr><td><strong>2 · Acute</strong></td><td><strong>Emergency</strong> = incapacitating, potentially life-threatening (severe pain, swelling, bleeding, systemic infection, facial trauma) → now. <strong>Urgent</strong> = patient wants it "soon" (mild pain, broken tooth, lost filling) → palliative care, then schedule.</td></tr>
+        <tr><td><strong>3 · Disease control</strong></td><td>Three purposes: <strong>eradicate active disease and infection</strong> · arrest deterioration · <strong>control causes and risk factors</strong>. Caries control protocol, OHI, SRD, remove overhangs, extract hopeless teeth, direct or provisional restorations only. <strong>Reassess before moving on</strong> (PPD, CAL, BOP, plaque index, pulp tests).</td></tr>
+        <tr><td><strong>4 · Definitive</strong></td><td>Perio surgery (residual PPD <strong>≥ 6 mm</strong>; or 4–5 mm with recurrent BOP/furcations), regeneration (best in deep <strong>3-wall</strong> infrabony defects), orthodontics, crowns and onlays, elective endo, extractions, pre-prosthetic surgery, tooth replacement (implant / bridge / RPD / none).</td></tr>
+        <tr><td><strong>5 · Maintenance</strong></td><td>Gingivitis: prophylaxis every <strong>6–12 months</strong>. Periodontitis: SPT at intervals <strong>usually ≤ 3 months</strong>, set by risk (PRA). Reassess caries risk, restorations, implants and endo every visit.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Dr Ball's Session 2 lectures use a 4-phase version (systemic → disease control → definitive → SPT) and fold the acute phase into disease control. Both come from Stefanac. Exam types: comprehensive · periodic · problem-focused (limited) · post-treatment assessment.</p>
+
+    <div class="twocol">
+      <div>
+        <h4>Basic caries control protocol (disease control)</h4>
+        <ul class="tight">
+          <li>Prophylaxis + OHI</li>
+          <li>Professional F varnish (22,600 ppm) at each visit, most effective at &lt; 6-month intervals</li>
+          <li>Diet: cut the <strong>frequency</strong> of sugar and acid</li>
+          <li>Daily F toothpaste ± rinse; 5,000 ppm for high risk</li>
+          <li>Sealants on at-risk fissures; xylitol gum</li>
+          <li>Restore cavitated lesions with <strong>direct or provisional</strong> restorations (no indirect work yet)</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Records, consent, infection control</h4>
+        <ul class="tight">
+          <li>"Good records = good defence; no records = no defence." Records must be contemporaneous, accurate, legible and secure; keep radiographs 7–10 years.</li>
+          <li><strong>Informed consent</strong> always includes the option of <strong>doing nothing</strong>, with the risks, benefits and costs of each option.</li>
+          <li><strong>Standard precautions</strong> apply to every patient. <strong>Hand hygiene</strong> is the single most effective measure (WHO 5 moments).</li>
+          <li>Spaulding: <strong>critical</strong> instruments (penetrate tissue, e.g. scalers) → sterilise. <strong>Semi-critical</strong> (mucosa, e.g. mirrors) → sterilise or high-level disinfection. <strong>Non-critical</strong> → clean ± disinfect.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIAL TESTS / ENDO DX -->
+  <section id="endodx">
+    <h2 class="section">A5 · Special tests &amp; endodontic diagnosis (AAE)</h2>
+    <p>Diagnosis is a <strong>jigsaw</strong>: never rely on one test. Always give <strong>both a pulpal and a periapical diagnosis</strong>, and test adjacent and contralateral teeth first as a baseline.</p>
+    <div class="twocol">
+      <div class="tscroll auto"><table class="compact">
+        <thead><tr><th>Pulpal</th><th>Key feature</th></tr></thead>
+        <tbody>
+          <tr><td>Normal pulp</td><td>Symptom-free; mild, transient response to cold</td></tr>
+          <tr><td>Reversible pulpitis</td><td>Pain to cold/sweet that <strong>resolves within seconds</strong>; inflammation should resolve</td></tr>
+          <tr><td>Symptomatic irreversible</td><td><strong>Lingering</strong> thermal pain, spontaneous, referred; percussion often normal</td></tr>
+          <tr><td>Asymptomatic irreversible</td><td>No symptoms, but deep caries or exposure → won't heal</td></tr>
+          <tr><td>Pulp necrosis</td><td><strong>No response</strong> to pulp tests</td></tr>
+          <tr><td>Previously treated / initiated</td><td>Root-filled / pulpotomy or pulpectomy</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tscroll auto"><table class="compact">
+        <thead><tr><th>Apical</th><th>Key feature</th></tr></thead>
+        <tbody>
+          <tr><td>Normal apical tissues</td><td>Not tender; intact lamina dura</td></tr>
+          <tr><td>Symptomatic apical periodontitis</td><td><strong>Pain on biting/percussion</strong> ± radiolucency</td></tr>
+          <tr><td>Asymptomatic apical periodontitis</td><td>Radiolucency, no symptoms</td></tr>
+          <tr><td>Acute apical abscess</td><td>Rapid onset, spontaneous pain, pus, swelling</td></tr>
+          <tr><td>Chronic apical abscess</td><td>Little discomfort, intermittent <strong>sinus tract</strong> (trace with a GP cone)</td></tr>
+          <tr><td>Condensing osteitis</td><td>Diffuse apical <strong>radiopacity</strong></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <ul class="tight">
+      <li><strong>Sensibility</strong> tests (cold, heat, EPT) measure nerve response. <strong>Vitality</strong> tests (laser Doppler flowmetry) measure blood flow, the truer measure of pulp health.</li>
+      <li>No response to cold suggests necrosis, <em>unless the canal is calcified</em>. No EPT response = 72% total and 25.7% partial necrosis (Seltzer). Percussion → periapical inflammation. Tenderness over the apex is reliable; its absence doesn't exclude inflammation.</li>
+      <li>Other tests: bite test (Tooth Slooth / FracFinder; pain on release = cracked cusp), transillumination, test cavity (invasive, last resort), selective anaesthesia.</li>
+      <li>Standard example combination: <strong>SIP + normal apical tissues</strong>. Pulp necrosis + symptomatic apical periodontitis + condensing osteitis → RCT, and the osteitis regresses.</li>
+    </ul>
+  </section>
+
+  <div class="part" id="partB"><span>Part B</span>Radiography &amp; occlusion</div>
+
+  <section id="xray">
+    <h2 class="section">B1 · X-ray physics &amp; radiation protection</h2>
+    <div class="twocol">
+      <div>
+        <h4>Properties of X-rays</h4>
+        <ul class="tight">
+          <li>Electromagnetic, <strong>invisible, massless</strong>, very short wavelength</li>
+          <li>Travel in <strong>straight lines</strong> at the speed of light; <strong>cannot be focused</strong></li>
+          <li><strong>Penetrate</strong> matter; <strong>differentially absorbed</strong> (dense tissue → white)</li>
+          <li><strong>Ionise</strong> (they can <strong>ionise gases</strong>); can scatter; cause fluorescence; cause biological change</li>
+        </ul>
+        <h4>The tube</h4>
+        <p>Heated <strong>tungsten filament (cathode)</strong> → thermionic emission → electrons accelerated to the <strong>tungsten target (anode)</strong> in a copper stem. <strong>~99% heat, ~1% X-rays</strong>. Most photons are <strong>bremsstrahlung</strong> ("braking"); a few are <strong>characteristic</strong> radiation.</p>
+      </div>
+      <div>
+        <h4>Exposure factors</h4>
+        <div class="tscroll auto"><table class="compact">
+          <tbody>
+            <tr><td><strong>mA × time</strong></td><td><strong>Quantity</strong> of photons (10 mA × 1 s = 20 mA × 0.5 s); ↑ = darker image, ↑ dose</td></tr>
+            <tr><td><strong>kVp</strong></td><td><strong>Quality / penetration</strong>; ↑ kVp → <strong>lower contrast</strong> (more greys). 70 kVp typical</td></tr>
+            <tr><td><strong>Collimation</strong></td><td>Round beam ~7 cm diameter; <strong>rectangular</strong> cuts dose further</td></tr>
+            <tr><td><strong>Distance</strong></td><td><strong>Inverse square law</strong>: intensity ∝ 1/distance²</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Interactions with tissue: <strong>Compton scatter 57%</strong> · photoelectric absorption 27% · coherent scatter 7% · no interaction 9%. About ⅔ of biological damage is <strong>indirect</strong> (free radicals from water).</p>
+      </div>
+    </div>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Effect</th><th>Mechanism</th><th>Threshold</th><th>Examples · relevance</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Deterministic</strong></td><td>Mass cell killing</td><td><strong>Yes</strong>; severity ↑ with dose</td><td>Burns, cataract, hair loss. Not reached by dental doses</td></tr>
+        <tr class="hl"><td><strong>Stochastic</strong></td><td><strong>Sublethal damage to single cells</strong> (DNA)</td><td><strong>No</strong> (LNT); <em>probability</em> ↑ with dose</td><td><strong>Cancer, heritable mutation</strong>. This is the dental concern and the basis of ALARA</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tight">
+      <li><strong>ALARA / ALADA</strong> (as low as reasonably / diagnostically achievable): every radiograph must be <strong>justified</strong>. <strong>Retake only when the diagnostic criteria are not met</strong>, and log every retake.</li>
+      <li>Dose units: exposure (C/kg, ionisation of air) · absorbed dose (<strong>Gy</strong>) · equivalent dose (Sv) · effective dose (<strong>Sv</strong>, the risk estimate). Radiosensitive: thyroid, salivary glands, bone marrow, brain. Children are more radiosensitive.</li>
+      <li>Geometry: <strong>longer source–object distance</strong> → sharper, less magnified. <strong>Longer object–film distance</strong> → blurrier, more magnified.</li>
+    </ul>
+  </section>
+
+  <section id="intraoral">
+    <h2 class="section">B2 · Intra-oral techniques</h2>
+    <div class="twocol">
+      <div>
+        <h4>Bitewing</h4>
+        <ul class="tight">
+          <li><strong>Best for approximal caries</strong> and crestal bone. Doesn't show apices.</li>
+          <li>Film <strong>horizontal</strong> for posterior, vertical for anterior. Posterior teeth and film <strong>parallel</strong>.</li>
+          <li>Beam at <strong>right angles through the contacts</strong> in the horizontal plane; tube angled <strong>5–8° downward</strong> in the vertical plane.</li>
+          <li>Ideal image: from distal of the lower canine back, minimal overlap, ≥ 2 mm of root below the CEJ.</li>
+          <li><strong>Cervical burn-out ≠ caries.</strong> Confirm clinically.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Periapical</h4>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th></th><th>Paralleling (preferred)</th><th>Bisecting angle</th></tr></thead>
+          <tbody>
+            <tr><td>Set-up</td><td>Holder; film ∥ tooth; beam ⟂ both</td><td>Film against tooth; beam ⟂ the bisector</td></tr>
+            <tr><td>Pros</td><td><strong>Geometrically accurate, reproducible, low cone-cut risk</strong>; bone levels true; zygomatic buttress clear of molar apices</td><td>Comfortable, quick, no holder (gag reflex, shallow palate)</td></tr>
+            <tr><td>Cons</td><td>Gagging; anatomy may prevent it</td><td>Not reproducible; foreshortening/elongation; zygoma over molars; finger dose</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Show <strong>2 mm beyond the apex</strong>. Too steep a vertical angle → <strong>foreshortening</strong>; too shallow → <strong>elongation</strong>; horizontal error → overlapped contacts.</p>
+      </div>
+    </div>
+    <div class="box key">
+      <h4>SLOB rule (tube shift)</h4>
+      <p>Shift the tube (e.g. mesially). If the object's image moves the <strong>Same</strong> way → <strong>Lingual</strong>. If it moves the <strong>Opposite</strong> way → <strong>Buccal</strong>. Used for impacted canines and canal location.</p>
+    </div>
+    <p class="small">Occlusal views: upper standard occlusal 60–70° (unerupted canines, anterior maxilla) · lower true occlusal 90° (submandibular duct calculi, bucco-lingual position) · lower 45°.</p>
+  </section>
+
+  <section id="opg">
+    <h2 class="section">B3 · The OPG</h2>
+    <ul class="tight">
+      <li><strong>Panoramic perspective:</strong> the tube rotates, so the <strong>posterior regions are lateral views</strong> and the <strong>anterior is an AP view</strong>, like a composite of two laterals plus one AP.</li>
+      <li><strong>Challenges:</strong> lower resolution than intra-orals, <strong>multiple superimpositions and distortion, extra-jaw structures</strong>, ghost images, and <strong>no bucco-lingual information</strong> (→ CBCT/CT). Patient positioning is critical. Dose ≈ <strong>0.014 mSv</strong> (chest X-ray 0.02 mSv).</li>
+      <li><strong>Reading order (Perschbacher):</strong> start at the <strong>periphery and corners</strong> (TMJ, styloids, sinuses, hyoid, C-spine) so you don't zone in on the teeth; read <strong>teeth last</strong>. Cosson: count teeth → mandible R→L → sinuses → peripheries. Either way, be <strong>systematic</strong>.</li>
+      <li><strong>Ghost image:</strong> a structure outside the focal trough, e.g. the <strong>contralateral mandible</strong>, appears <strong>higher, reversed, magnified and blurred</strong>. Also the C-spine (patient stands tall) and earrings (remove them).</li>
+      <li><strong>Air spaces:</strong> the tongue–palate gap (tongue to palate) and the "kiss" lip shadow (close lips) can mimic fractures. Mastoid pneumatisation of the articular eminence is a normal variant.</li>
+      <li>Posterior maxilla, <strong>three parallel lines</strong>: sinus posterior wall, zygomatic process, pterygomaxillary fissure. A missing line may mean malignancy.</li>
+      <li><strong>Cyst vs abscess:</strong> cyst is well-defined, often asymptomatic, may not touch a tooth; abscess is painful and <strong>always contacts the tooth</strong>. OKC/ameloblastoma need biopsy; OKC recurs in up to 62%. Mandibular fracture: <strong>angle 32%</strong>, with a second fracture (parasymphysis) in 40%.</li>
+    </ul>
+  </section>
+
+  <section id="occlusion">
+    <h2 class="section">B4 · Occlusion</h2>
+    <div class="twocol">
+      <div>
+        <h4>Angle's classification</h4>
+        <p><strong>Key to occlusion:</strong> the <strong>maxillary first molar</strong>; its <strong>mesiobuccal cusp occludes in the buccal groove</strong> of the lower first molar.</p>
+        <div class="tscroll auto"><table class="compact">
+          <tbody>
+            <tr><td><strong>Class I</strong></td><td>MB cusp of upper 6 in the buccal groove of lower 6</td></tr>
+            <tr><td><strong>Class II</strong></td><td>MB cusp <strong>anterior (mesial)</strong> to the groove; retruded mandible</td></tr>
+            <tr><td>· Div 1</td><td>Upper incisors <strong>proclined</strong></td></tr>
+            <tr><td>· Div 2</td><td>Upper <strong>centrals retroclined</strong>; laterals and canines proclined</td></tr>
+            <tr><td><strong>Class III</strong></td><td>MB cusp <strong>posterior</strong> to the groove; reverse overjet</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Overjet = <strong>horizontal</strong> overlap, normally 2–3 mm (reverse = anterior crossbite). Overbite = <strong>vertical</strong> overlap, normally <strong>1–2 mm</strong>, with lower incisal edges contacting the upper palatal surface at or above the cingulum. Crossbite: maxillary teeth lingual to mandibular (posterior crossbite usually means a narrow maxilla).</p>
+      </div>
+      <div>
+        <h4>Static positions</h4>
+        <ul class="tight">
+          <li><strong>Centric relation (CR):</strong> a jaw relationship <strong>independent of tooth contact</strong>; condyles <strong>anterior-superior against the posterior slopes of the eminences</strong>; purely <strong>rotary</strong> movement; repeatable reference.</li>
+          <li><strong>Centric occlusion (CO):</strong> tooth contact <em>when the mandible is in CR</em>; may or may not equal MI.</li>
+          <li><strong>Maximum intercuspation (MI):</strong> best fit of the teeth regardless of condyle position.</li>
+          <li><strong>Dynamic:</strong> working side = the side the mandible moves towards; non-working side moves to the midline.</li>
+        </ul>
+        <h4>Muscles of mastication</h4>
+        <ul class="tight">
+          <li>Masseter: elevation + protrusion. Temporalis: elevation + <strong>retraction</strong>. Medial pterygoid: elevation + protrusion.</li>
+          <li><strong>Lateral pterygoid:</strong> protraction and forward TMJ movement; the <strong>only muscle that opposes the others and depresses the mandible (opens)</strong>.</li>
+        </ul>
+        <p class="small">Curve of Spee = anteroposterior; curve of Wilson = mediolateral.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="part" id="partC"><span>Part C</span>Cariology</div>
+
+  <section id="cariesbasics">
+    <h2 class="section">C1 · What caries is, and how we classify it</h2>
+    <div class="box key">
+      <h4>Caries vs carious lesion (ICCC)</h4>
+      <p><strong>Dental caries</strong> is the <strong>disease</strong>: a biofilm-mediated, sugar-driven, dynamic ecological shift → net mineral loss. The <strong>carious lesion</strong> is its sign. You can't remove caries, only carious <strong>tissue</strong>. <strong>Caries management</strong> controls the disease at <strong>patient level</strong> by preventive, non-invasive means. <strong>Carious lesion management</strong> treats established, non-cleansable lesions at <strong>tooth level</strong>, sometimes removing tissue.</p>
+    </div>
+    <div class="twocol">
+      <div>
+        <h4>Classifications</h4>
+        <ul class="tight">
+          <li><strong>G.V. Black (1896)</strong>, by surface: I pits/fissures · II posterior proximal · III anterior proximal · IV anterior proximal + incisal edge · V cervical ⅓.</li>
+          <li><strong>Mount &amp; Hume (1997)</strong>, by site: 1 pits/fissures · 2 contact areas · 3 cervical / root.</li>
+          <li><strong>ICDAS (2002)</strong>: stages by visual appearance, matched to <strong>histological depth</strong>. <strong>ICCMS (2013)</strong> wraps ICDAS in risk assessment and management.</li>
+          <li><strong>Detection</strong> = is disease there? · <strong>Assessment</strong> = characterise/monitor it · <strong>Diagnosis</strong> = the clinician's synthesis of all the data, including activity.</li>
+        </ul>
+      </div>
+      <div class="tscroll auto"><table class="compact">
+        <thead><tr><th>ICDAS</th><th>Appearance (clean, <em>dry</em> tooth)</th><th>Stage</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>Sound after 5 s air-drying</td><td>Sound</td></tr>
+          <tr><td>1</td><td>First visual change, <strong>seen only when dry</strong></td><td rowspan="2">A · initial</td></tr>
+          <tr><td>2</td><td>Distinct change, visible <strong>wet</strong></td></tr>
+          <tr><td>3</td><td>Localised enamel breakdown, no dentine visible</td><td rowspan="2">B · moderate</td></tr>
+          <tr><td>4</td><td>Underlying <strong>dark dentine shadow</strong></td></tr>
+          <tr><td>5</td><td>Distinct cavity with dentine, &lt; ½ surface</td><td rowspan="2">C · extensive</td></tr>
+          <tr><td>6</td><td>Extensive cavity, &gt; ½ surface</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <ul class="tight">
+      <li><strong>Non-cavitated enamel lesion (white spot):</strong> matt and chalky when dried; four zones: translucent (1% porosity) · dark (2–4%) · <strong>body (25%)</strong> · relatively intact <strong>surface zone</strong>. <strong>Active</strong> = white, matt, rough, plaque-covered. <strong>Arrested</strong> = brown/black, shiny, hard.</li>
+      <li><strong>Dentine:</strong> outer <strong>infected</strong> dentine (soft, wet, necrotic) over inner <strong>affected</strong> dentine (leathery to hard, remineralisable; sclerotic/reactionary zone).</li>
+      <li><strong>Approximal lesions</strong> are found late, so use <strong>bitewings</strong>. A sharp probe can cavitate an intact lesion; use a <strong>ball-ended probe</strong>. <strong>Root caries:</strong> active = yellow/light, soft, plaque-covered; arrested = dark and hard. <strong>Recurrent caries:</strong> softness at a defective margin.</li>
+      <li><strong>Caries-detector dyes stain less-mineralised organic matrix, not bacteria</strong> → over-removal. Not recommended.</li>
+    </ul>
+  </section>
+
+  <section id="cra">
+    <h2 class="section">C2 · Caries risk assessment &amp; CAMBRA</h2>
+    <div class="box key">
+      <h4>CAMBRA philosophy</h4>
+      <p>A <strong>concept, not a product or form</strong>, for managing caries as a <strong>multifactorial biofilm disease</strong> according to risk: (1) <strong>assess</strong> risk → (2) <strong>reduce pathological</strong> factors → (3) <strong>enhance protective</strong> factors → (4) <strong>minimally invasive</strong> restorative care. <strong>Restorations alone don't control the disease.</strong></p>
+    </div>
+    <p><strong>The caries balance</strong> weighs <strong>disease indicators + risk factors</strong> against <strong>protective factors</strong>, and decides whether caries <strong>progresses, halts or reverses</strong>.</p>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Disease indicators: WREC</th><th>Risk factors: BAD</th><th>Protective factors: SAFER</th></tr></thead>
+      <tbody>
+        <tr><td><strong>W</strong>hite spots on smooth surfaces</td><td><strong>B</strong>ad (cariogenic) bacteria</td><td><strong>S</strong>aliva &amp; sealants</td></tr>
+        <tr><td><strong>R</strong>estorations for caries in the last 3 years</td><td><strong>A</strong>bsence of saliva</td><td><strong>A</strong>ntibacterials</td></tr>
+        <tr><td><strong>E</strong>namel approximal lesions (radiograph)</td><td><strong>D</strong>estructive habits (frequent sugar, drugs, poor OH)</td><td><strong>F</strong>luoride (+ Ca/PO₄)</td></tr>
+        <tr><td><strong>C</strong>avities / dentine lesions</td><td></td><td><strong>E</strong>ffective lifestyle · <strong>R</strong>isk-based reassessment</td></tr>
+      </tbody>
+    </table></div>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Disease indicators</strong> are <strong>clinical observations that confirm past or present caries activity</strong>. They are the strongest predictor of future disease, but don't reveal the cause.</li>
+          <li><strong>Any one WREC → HIGH risk</strong>, unless effective therapy is already in place. <strong>Extreme</strong> = high risk + <strong>hyposalivation</strong> (~5% of patients). Moderate = "when in doubt".</li>
+          <li><strong>Objectives of a CRA:</strong> diagnose current caries, <strong>predict future disease</strong>, and <strong>identify which factors are out of balance</strong>, so prevention and recall are tailored. Repeat it at every new-patient and recall exam.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li><strong>Outcomes (UCSF):</strong> new cavities in <strong>24%</strong> low · ~40% moderate · ~70% high · <strong>88%</strong> extreme risk.</li>
+          <li><strong>RCT:</strong> CHX + fluoride → <strong>24% lower</strong> 2-year increment in high-risk adults. Restorations didn't lower bacteria; ~70% of controls got new cavities.</li>
+          <li><strong>High-risk regimen:</strong> 5,000 ppm F toothpaste twice daily + F varnish + <strong>0.12% CHX daily for 1 week/month</strong> + xylitol. Recall every 3 months for extreme risk, 6 months for low.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="box note">
+      <h4>ICCMS: risk × lesion status → likelihood</h4>
+      <p>ICCMS has <strong>3 principles</strong>: prevention first, surgery last · minimal tissue removal · tissue preservation. It runs as a <strong>4-element cycle</strong>: patient assessment → lesion detection, activity and risk → synthesis and decision → treatment with prevention. It combines <strong>patient risk</strong> with <strong>lesion stage and activity</strong>. <strong>High risk + active moderate/extensive lesions</strong> = high likelihood of new or progressing lesions → <strong>intensive, personalised plan</strong> combining home and clinical non-operative care with operative care, and <strong>short recalls</strong>.</p>
+    </div>
+  </section>
+
+  <section id="removal">
+    <h2 class="section">C3 · NOC vs TPOC &amp; carious tissue removal</h2>
+    <div class="twocol">
+      <div class="box fact">
+        <h4>Non-operative care (NOC)</h4>
+        <p>Fluoride, sealants, diet, OH, antibacterials. For <strong>initial</strong> lesions and <strong>active non-cavitated</strong> lesions, guided by <strong>lesion stage and activity</strong>. Rule: "<em>preserve tooth structure and restore only when indicated</em>".</p>
+      </div>
+      <div class="box warn">
+        <h4>Tooth-preserving operative care (TPOC)</h4>
+        <p>Only when a lesion is <strong>cavitated, non-cleansable</strong> and can't be sealed: extensive lesions, or moderate ones that are cavitated into dentine. Radiographic depth alone doesn't decide it. Cavitation does, because bacteria can't cross intact enamel.</p>
+      </div>
+    </div>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Dentine (by feel)</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Soft</strong></td><td>Deforms under a hard instrument; scoops away easily ("sticky")</td></tr>
+        <tr><td><strong>Leathery</strong></td><td>Doesn't deform, but lifts without much force ("tacky")</td></tr>
+        <tr><td><strong>Firm</strong></td><td>Resists a hand excavator; needs some pressure</td></tr>
+        <tr><td><strong>Hard</strong></td><td>Needs a bur; "cri dentinaire" (scratchy sound)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tight">
+      <li><strong>The primary criterion for the endpoint is hardness</strong>, not colour, dye or fluorescence.</li>
+      <li><strong>Shallow / moderate lesions → selective removal to FIRM</strong> (restoration longevity first). <strong>Deep lesions</strong> (inner ⅓–¼ of dentine) in a vital, symptom-free pulp → <strong>selective removal to SOFT</strong> over the pulp (avoids exposure, protects vitality), with hard/firm peripheral walls for the seal. <strong>Stepwise</strong> removal (re-entry at 6–12 months) is an option in permanent teeth only.</li>
+      <li><strong>Non-selective removal to hard dentine</strong> = over-treatment, <strong>not advocated</strong>. Choose by <strong>lesion depth and pulp-exposure risk</strong>, not by symptoms, tooth type or cost.</li>
+      <li><strong>Evidence:</strong> sealed lesions arrest. Stepwise vs complete removal gives fewer exposures (<strong>15% vs 53%</strong>; 17.5% vs 40%). Mertz-Fairhurst sealed soft dentine stayed arrested at <strong>10 years</strong>. Kidd: the job of a restoration is a <strong>cleanable surface + seal</strong>. Banerjee: "any lesion at any stage can arrest".</li>
+      <li><strong>Existing restorations:</strong> minor defects or radiolucencies under a symptom-free restoration → <strong>monitor, refurbish or repair</strong>. <strong>Replacement is a last resort.</strong> No evidence for cavity disinfection; liners aren't needed to control a sealed lesion. Low-anxiety options: ART, Hall technique, Carisolv.</li>
+    </ul>
+  </section>
+
+  <section id="prognosis">
+    <h2 class="section">C4 · Tooth prognosis (presentation papers)</h2>
+    <div class="twocol">
+      <div>
+        <h4>Samet &amp; Jotkowitz 2009</h4>
+        <ul class="tight">
+          <li>Classes A (80–100% bone support or sound crown) · B (50–80%) · C (30–50%) · D (&lt; 30%) · <strong>X</strong> = non-salvageable (VRF, no supragingival tooth).</li>
+          <li>Criteria: periodontal, restorative, endodontic, occlusal + anatomic and iatrogenic factors.</li>
+          <li>Rules: the <strong>worst criterion sets the class</strong>; an anatomic/iatrogenic factor drops it 1 class; considerable patient-level risk drops <strong>every tooth</strong> 1 class. <strong>Not validated.</strong></li>
+        </ul>
+      </div>
+      <div>
+        <h4>McGuire &amp; Nunn 1996 · Hirschfeld &amp; Wasserman 1978</h4>
+        <ul class="tight">
+          <li>McGuire: <strong>81%</strong> of prognoses correct overall, but only <strong>43% (5 yr) / 35% (8 yr)</strong> for teeth worse than "good", "a coin toss". Smoking: odds of improving 0.418, worsening 1.90. Endo involvement OR 3.87.</li>
+          <li>H&amp;W: 600 patients over 22 years; <strong>7.1%</strong> of teeth lost; 499 well maintained / 76 downhill / 25 extreme downhill. Most "questionable" teeth survived. Loss concentrated in a minority of patients.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="part" id="partD"><span>Part D</span>Periodontics: foundations (Session 1)</div>
+
+  <section id="periodontium">
+    <h2 class="section">D1 · The periodontium</h2>
+    <p>The tissues that <strong>invest and support</strong> the tooth: <strong>gingiva, periodontal ligament, cementum, alveolar bone</strong>. Cementum, PDL and alveolar bone proper come from the <strong>dental follicle</strong>; the gingival epithelium comes from oral epithelium and reduced enamel epithelium.</p>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th style="width:17%">Tissue</th><th>Must-know facts</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Gingiva</strong></td><td>Free, attached and interdental. <strong>Oral epithelium</strong> is orthokeratinised. <strong>Sulcular epithelium</strong> is non-keratinised. <strong>Junctional epithelium (JE):</strong> non-keratinised, 15–30 cells thick coronally to 1–3 apically, attached by <strong>hemidesmosomes + internal basal lamina</strong>, <strong>turnover 4–6 days</strong>, wide intercellular spaces (permeable; lets GCF and neutrophils through). Lamina propria ~60% collagen; no submucosa, so attached gingiva is a mucoperiosteum. Gingival fibres (dentogingival, circular, transseptal…) brace the margin.</td></tr>
+        <tr><td><strong>GCF</strong></td><td>Transudate in health, <strong>exudate in disease</strong>. Flushes the sulcus, carries antibodies and plasma proteins, aids adhesion.</td></tr>
+        <tr><td><strong>Biologic width</strong></td><td>Gargiulo 1961: sulcus 0.69 + JE <strong>0.97</strong> + CT attachment <strong>1.07</strong> → <strong>≈ 2.04 mm</strong> (JE + CT). Margins placed inside it → inflammation and bone loss.</td></tr>
+        <tr><td><strong>PDL</strong></td><td>~<strong>0.2 mm</strong> wide (hourglass, narrowest mid-root). Type I collagen. Principal fibres: alveolar crest · horizontal · <strong>oblique (most numerous)</strong> · apical · inter-radicular; ends embedded = <strong>Sharpey's fibres</strong>. Cells: fibroblasts, osteo- and cementoblasts, <strong>rests of Malassez</strong> (HERS remnants), stem cells. Functions: transmit forces, physiological mobility, proprioception, repair.</td></tr>
+        <tr><td><strong>Cementum</strong></td><td>Avascular, non-innervated, 65% mineral. <strong>Acellular extrinsic fibre</strong> (cervical ⅔, the main attachment cementum) · <strong>cellular intrinsic fibre</strong> (apical ⅓, furcations; repair) · mixed · afibrillar. CEJ: overlaps enamel <strong>60–65%</strong> · butt joint 30% · <strong>gap 5–10%</strong> (exposed dentine → sensitivity).</td></tr>
+        <tr><td><strong>Alveolar bone</strong></td><td><strong>Tooth-dependent</strong> (resorbs after extraction). <strong>Alveolar bone proper / bundle bone</strong> (cribriform plate) = <strong>lamina dura</strong> on radiographs; holds Sharpey's fibres. Plus cortical plates and spongiosa. Crest sits ~<strong>1.5–2 mm</strong> below the CEJ in health.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Development: bud (~8 wk) → cap (~11 wk) → bell (~14 wk). <strong>HERS</strong> shapes the root; the dental papilla gives dentine and pulp; the follicle gives cementum, PDL and bone.</p>
+  </section>
+
+  <section id="aetiology">
+    <h2 class="section">D2 · Aetiology: deposits, biofilm, calculus</h2>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th></th><th>Dental plaque</th><th>Materia alba</th><th>Calculus</th></tr></thead>
+      <tbody>
+        <tr><td>What</td><td>Bacteria in a matrix of <strong>salivary glycoproteins + extracellular polysaccharides</strong></td><td>Salivary proteins, some bacteria, <strong>desquamated epithelial cells</strong>, food debris</td><td><strong>Calcified bacterial biomass</strong> with live plaque on its surface</td></tr>
+        <tr><td>Structure</td><td>Organised biofilm</td><td><strong>No organised structure</strong></td><td>Mineralised</td></tr>
+        <tr><td>Removal</td><td>Not by rinsing; needs mechanical disruption</td><td><strong>Easily displaced by water spray</strong> (unique)</td><td>Instrumentation</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="box key">
+      <h4>Biofilm formation: 6 stages (Marsh &amp; Bradshaw 1995)</h4>
+      <ol class="tight">
+        <li><strong>Conditioning film (acquired pellicle):</strong> forms immediately after cleaning; &lt; 1 µm; plateaus at <strong>90–120 min</strong> (mucins, statherin, PRPs, amylase, lysozyme, sIgA).</li>
+        <li><strong>Non-specific, reversible attachment:</strong> long-range physico-chemical forces between salivary bacteria and the pellicle.</li>
+        <li><strong>Specific, irreversible attachment:</strong> short-range stereo-chemical binding of <strong>primary colonisers</strong> (streptococci, <em>Actinomyces</em>) via <strong>adhesins</strong> (fibrils, fimbriae) to pellicle receptors.</li>
+        <li><strong>Co-aggregation:</strong> <strong>cell-to-cell recognition of genetically distinct partner cells via adhesin–receptor pairs</strong>, so secondary colonisers attach to primary ones. <em>Fusobacterium</em> is the <strong>bridge</strong> between early and late colonisers.</li>
+        <li><strong>Stratification and succession:</strong> horizontal and vertical micro-environments (pH, O₂, nutrients) let otherwise incompatible species coexist.</li>
+        <li><strong>Climax community:</strong> stable composition (~2–3 weeks); obligate anaerobes increase.</li>
+      </ol>
+    </div>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Biofilm</strong> = matrix-enclosed communities on a surface (cells 15–20% of volume, matrix 75–80%, water channels). Three components: a surface, the biofilm, and bulk fluid. Features: altered gene expression, <strong>quorum sensing</strong>, reduced antimicrobial susceptibility (slow penetration, quiescence, stress response, persister cells).</li>
+          <li><strong>Socransky complexes:</strong> early/health = purple, yellow (streptococci), green. <strong>Orange</strong> (<em>F. nucleatum</em>, <em>P. intermedia</em>) is the bridge. <strong>Red</strong> = <em>P. gingivalis, T. forsythia, T. denticola</em>: deep pockets, BOP.</li>
+          <li>Hypotheses: non-specific → specific → ecological → <strong>keystone pathogen</strong> (<em>P. gingivalis</em>) → <strong>polymicrobial synergy &amp; dysbiosis (PSD)</strong>, the current model → IMPEDE (inflammation-driven).</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li><strong>Calculus:</strong> supragingival (creamy/yellow, mineralised by <strong>saliva</strong>, near duct openings: <strong>lingual of lower incisors, buccal of upper 6s</strong>) vs subgingival (dark, hard, mineralised by <strong>GCF/inflammatory exudate</strong>). Mineral by volume: supra 37%, sub 58%.</li>
+          <li><strong>Crystals:</strong> small, thin, needle-shaped: <strong>octacalcium phosphate</strong>, hydroxyapatite, whitlockite, brushite.</li>
+          <li>Calcification starts in 4–8 h; ~50% mineralised at 2 days.</li>
+          <li><strong>Plaque is the primary aetiological agent</strong>. Calculus is <strong>secondary</strong>: a plaque-retentive surface.</li>
+          <li>Gingivitis appears in <strong>10–21 days</strong> without OH and reverses when OH resumes (Löe 1965).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="histopath">
+    <h2 class="section">D3 · Histopathology (Page &amp; Schröder 1976)</h2>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Lesion</th><th>Time</th><th>Dominant cell</th><th>Key changes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Initial</strong></td><td>0–4 days</td><td><strong>Neutrophils</strong></td><td>Vasculitis, ↑ GCF, infiltrate ~5–10% of CT, perivascular collagen loss. Subclinical</td></tr>
+        <tr><td><strong>Early</strong></td><td>4–7 days</td><td><strong>T lymphocytes</strong> (~75% lymphoid)</td><td>Collagen loss 60–70%, fibroblast damage, JE proliferation. Clinical gingivitis; reversible</td></tr>
+        <tr><td><strong>Established</strong></td><td>2–3 weeks</td><td><strong>Plasma cells / B cells</strong></td><td>IgG predominates; JE migrates → <strong>pocket epithelium</strong>. Stable gingivitis or progression</td></tr>
+        <tr><td><strong>Advanced</strong></td><td>Undefined</td><td>Plasma cells</td><td><strong>Attachment and bone loss</strong> (periodontitis); MMPs, osteoclasts. Irreversible</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">Health is not sterile: JE leukocytes are 95–97% neutrophils. IL-1, ELAM-1 and ICAM-1 peak around day 7. Histological stages <strong>don't map neatly onto clinical signs</strong>. Offenbacher's model: same biofilm, different disease, depending on host genetics and modifiers.</p>
+  </section>
+
+  <section id="classification">
+    <h2 class="section">D4 · 2017 AAP/EFP classification</h2>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Gingival health:</strong> BOP <strong>&lt; 10%</strong>, PPD ≤ 3 mm (intact, or reduced periodontium).</li>
+          <li><strong>Gingivitis:</strong> BOP <strong>≥ 10%</strong>; localised 10–30%, generalised &gt; 30%. <strong>BOP is the only objective sign.</strong> Reversible.</li>
+          <li><strong>Periodontitis case:</strong> <strong>interdental CAL ≥ 3 mm at ≥ 2 non-adjacent teeth</strong>, or buccal/oral CAL ≥ 3 mm with PPD &gt; 3 mm at ≥ 2 teeth, not explained by other causes. "Aggressive" no longer exists; it is now Grade C.</li>
+          <li>Extent: localised &lt; 30% of teeth · generalised ≥ 30% · molar–incisor pattern.</li>
+          <li>Status after treatment: <strong>stable</strong> (BOP &lt; 10%, PPD ≤ 4 mm, no BOP at 4 mm) · <strong>remission</strong> · <strong>unstable</strong> (PPD ≥ 5 mm, or 4 mm with BOP).</li>
+          <li>Statement: <em>Generalised periodontitis, stage III, grade B, currently unstable, risk factor: smoker 15/day</em>.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th>Stage</th><th>Interdental CAL</th><th>RBL</th><th>Teeth lost</th><th>Complexity</th></tr></thead>
+          <tbody>
+            <tr><td>I</td><td>1–2 mm</td><td>&lt; 15%</td><td>0</td><td>PPD ≤ 4</td></tr>
+            <tr><td>II</td><td>3–4 mm</td><td>15–33%</td><td>0</td><td>PPD ≤ 5</td></tr>
+            <tr><td>III</td><td>≥ 5 mm</td><td>Middle ⅓+</td><td>≤ 4</td><td>PPD ≥ 6, vertical ≥ 3 mm, furcation II/III</td></tr>
+            <tr><td>IV</td><td>≥ 5 mm</td><td>Middle ⅓+</td><td>≥ 5</td><td>Bite collapse, mobility ≥ 2, &lt; 20 teeth</td></tr>
+          </tbody>
+        </table></div>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th>Grade</th><th>%BL/age</th><th>Smoking</th><th>HbA1c</th></tr></thead>
+          <tbody>
+            <tr><td>A slow</td><td>&lt; 0.25</td><td>Non-smoker</td><td>Normal</td></tr>
+            <tr><td><strong>B (default)</strong></td><td>0.25–1.0</td><td>&lt; 10/day</td><td>&lt; 7.0%</td></tr>
+            <tr><td>C rapid</td><td>&gt; 1.0</td><td>≥ 10/day</td><td>≥ 7.0%</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Start at grade B. Stage never goes down. Smoking and diabetes can only move the grade <strong>up</strong>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="plaquecontrol">
+    <h2 class="section">D5 · Mechanical &amp; chemical plaque control</h2>
+    <div class="twocol">
+      <div>
+        <h4>Mechanical: the gold standard</h4>
+        <ul class="tight">
+          <li>Brush <strong>2×/day for 2 min</strong> (30 s per quadrant), soft brush, modified Bass. Optimal manual force ~400 g. Brushes reach ~0.9 mm subgingivally.</li>
+          <li>Powered: only <strong>rotation-oscillation</strong> beats manual (plaque −11%, gingivitis −6% short term; Deacon 2010 Cochrane), and it is safe.</li>
+          <li>Plaque forms first <strong>interproximally</strong>, where the brush can't reach.</li>
+          <li><strong>Interdental brushes are the aid of choice:</strong> they remove more plaque than floss and give more pocket reduction (Slots 2008). <strong>Floss</strong> only where the papilla fills the space or the gap is too tight.</li>
+          <li>Deep pockets (&gt; 6 mm): supragingival care alone won't change the subgingival flora, so professional instrumentation is needed.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Chemical: an adjunct, never a substitute</h4>
+        <ul class="tight">
+          <li><strong>Chlorhexidine</strong> is the gold standard: a <strong>cationic bisbiguanide</strong> that binds negatively charged bacterial membranes → leakage (bacteriostatic) or precipitation (bactericidal). Strong <strong>substantivity</strong>: antibacterial activity <strong>up to 5 h</strong> after a 60 s rinse with 10 mL of 0.2% (Roberts &amp; Addy). <strong>Optimal quantity 40 mg/day</strong> = <strong>10 mL of 0.2% bd</strong> or 15 mL of 0.15% bd (Jones 1997); less gives less effect.</li>
+          <li><strong>CHX side effects:</strong> extrinsic <strong>staining</strong>, <strong>↑ supragingival calculus</strong> (precipitated salivary proteins/salts), taste disturbance, mucosal erosion, rare parotid swelling. Poorly absorbed (cationic), so <strong>no systemic toxicity</strong>; reduces fibroblast proliferation in vitro (avoid in regenerative surgery). Inactivated by anionic SLS.</li>
+          <li>Essential oils (Listerine): no staining; less plaque reduction than CHX. CPC: substantivity only 3–5 h. Triclosan + copolymer/zinc. <strong>SnF₂</strong>: anti-plaque + anti-caries, but stains.</li>
+          <li>Desensitising pastes: K⁺ (depolarises the nerve) vs tubule occluders (SnF₂, arginine, CSPS, strontium).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="part" id="partE"><span>Part E</span>Periodontics &amp; endodontics: Session 2</div>
+
+  <section id="nspt">
+    <h2 class="section">E1 · Non-surgical periodontal therapy <a class="more" href="nonsurgical_perio_therapy.html">full note →</a></h2>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Goal:</strong> disrupt the biofilm and remove plaque-retentive factors, plus <strong>self-performed plaque control</strong>. In pockets &gt; 5 mm, supragingival care alone doesn't change the subgingival plaque.</li>
+          <li><strong>Debridement / SRD</strong> = disrupt and remove plaque. <strong>SRP</strong> also removes calculus and "contaminated" cementum (Kieser 1994). Endotoxin is <strong>loosely bound</strong> and doesn't penetrate cementum (Smart 1990), so <strong>don't plane away cementum</strong>. Root smoothness doesn't affect healing (Hunter 1984).</li>
+          <li>Not all deposits need removing for healing (Nyman 1988). 90% of teeth keep some deposit (Waerhaug). Calculus-free surfaces: <strong>86% / 43% / 32%</strong> at 1–3 / 4–6 / &gt; 6 mm (Caffesse 1986).</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li><strong>Protocols:</strong> full-mouth vs quadrant SRD = same outcome (Wennström 2005). Full-mouth disinfection (Quirynen 1995) was never replicated. Lasers and PDT lack evidence (Cobb 2017). Hand vs powered instruments give similar outcomes; slim ultrasonic tips are better in pockets.</li>
+          <li><strong>Critical success factors:</strong> thoroughness of debridement · patient's OH · <strong>compliance with SPT</strong>.</li>
+          <li><strong>Microbiology:</strong> a transient fall in red complex (<em>A.a</em> may be eliminated), so supragingival control is needed to prevent recolonisation. <strong>Furcations</strong> respond worse (25% lose attachment vs 7% at non-molars).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Initial PD (Cobb 1996)</th><th>PD change</th><th>CAL change</th></tr></thead>
+      <tbody>
+        <tr><td>1–3 mm</td><td>0.03 (none)</td><td><strong>−0.34 (loss)</strong>, so don't instrument healthy shallow sites</td></tr>
+        <tr><td>4–6 mm</td><td>−1.29</td><td>+0.55</td></tr>
+        <tr><td>≥ 7 mm</td><td>−2.16</td><td>+1.29</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">OH review at <strong>4–6 weeks</strong>; perio reassessment at <strong>3 months</strong> (the biggest change happens in 1–3 months; maturation continues for 9–12 months). Gingivitis resolves in about 2 weeks.</p>
+  </section>
+
+  <section id="healing">
+    <h2 class="section">E2 · Healing after SRD <a class="more" href="healing_after_nspt.html">full note →</a></h2>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Repair</strong> (architecture not restored; <strong>what SRD gives</strong>) · <strong>reattachment</strong> (reunion with a root that still has its attachment) · <strong>new attachment</strong> (onto a root that has lost it) · <strong>regeneration</strong> (reconstitution; the ultimate goal).</li>
+          <li>Healing is by a <strong>long junctional epithelium</strong> (~2.5 mm vs normal JE 0.1–1.4 mm), not new CT attachment (Caton &amp; Zander 1979). <strong>Fast epithelium beats slow PDL cells</strong> to the root. GTR membranes exist to block the epithelium.</li>
+          <li>The LJE's <strong>barrier function equals normal JE</strong> (Magnusson 1983). It may shorten over time and be replaced by CT (Katayanagi).</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li>New dento-epithelial junction by <strong>2 weeks</strong>; orientated collagen by <strong>4–8 weeks</strong>.</li>
+          <li><strong>Probing:</strong> 0.5 mm tip at <strong>0.25 N (25 g)</strong>, about the pressure that blanches a fingernail. The probe stops 0.39 mm short of the JE in health and 0.10 mm short in gingivitis, but goes <strong>0.24 mm past</strong> in periodontitis (Armitage 1977, dogs).</li>
+          <li>90% of readings are reproducible within <strong>± 1 mm</strong> (Badersten 1985), so changes of ≤ 1 mm may be error.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="risk">
+    <h2 class="section">E3 · Risk factors &amp; indicators <a class="more" href="risk_factors_indicators.html">full note →</a></h2>
+    <div class="tscroll auto"><table class="compact">
+      <thead><tr><th>Category</th><th>Definition</th><th>Examples</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Risk factor</strong></td><td>Modifiable; exposure precedes disease; cross-sectional + <strong>longitudinal</strong> evidence</td><td>Smoking · diabetes · pathogenic bacteria</td></tr>
+        <tr><td><strong>Determinant</strong></td><td>Can't be modified</td><td>Age · gender · race · SES · genetics · stress</td></tr>
+        <tr><td><strong>Indicator</strong></td><td>Cross-sectional evidence only</td><td>Infrequent visits · obesity · alcohol</td></tr>
+        <tr><td><strong>Marker</strong></td><td>Associated with disease, not causal</td><td>Previous periodontitis · BOP</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tight">
+      <li><strong>Smoking:</strong> OR 2–5 for LOA, 3–7 for bone loss. <strong>Less BOP despite more disease</strong> (reduced vascular density). Worse response to SRD, surgery and GTR. Healing like a non-smoker <strong>≥ 1 year</strong> after quitting, clinically evident by ~24 months. Pack-years = packs/day × years. Brief intervention: <strong>5 A's</strong> (Ask, Advise, Assess, Assist, Arrange).</li>
+      <li><strong>Diabetes:</strong> 2× LOA with poor control. Diagnosis: HbA1c ≥ <strong>48 mmol/mol (6.5%)</strong> · fasting BGL ≥ <strong>7.0</strong> · random ≥ <strong>11.1 mmol/L</strong>. <strong>Bidirectional</strong> (AGE–RAGE). Perio treatment lowers HbA1c by ~0.3–0.6%.</li>
+      <li><strong>Genetics:</strong> ~50% heritability (twins, Michalowicz 2000). IL-1 genotype + smoking gives tooth-loss OR 7.7. <strong>Stress</strong> acts via the ANS, the HPA axis and substance P.</li>
+      <li><strong>BOP:</strong> <strong>PPV 6%</strong> but <strong>NPV 98%</strong> (Lang 1990), so <em>absence</em> of BOP means stability.</li>
+    </ul>
+  </section>
+
+  <section id="spt">
+    <h2 class="section">E4 · Maintenance (SPT) &amp; periodontal risk assessment <a class="more" href="perio_maintenance_pra.html">full note →</a></h2>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li>Treatment is a <strong>cycle</strong>: reassessment ⇄ corrective therapy → SPT; recurrence → back to initial therapy. <strong>SPT is for life.</strong></li>
+          <li>Teeth lost per patient per year: no treatment <strong>0.36</strong> → treatment only <strong>0.22</strong> → treatment + maintenance <strong>0.11</strong> (Becker).</li>
+          <li>Each SPT visit: examine and re-plan → OHI and debridement → set the recall from risk.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th>PRA vector</th><th>Low</th><th>High</th></tr></thead>
+          <tbody>
+            <tr><td>BOP</td><td>&lt; 10%</td><td>&gt; 25%</td></tr>
+            <tr><td>Residual PD ≥ 5 mm</td><td>≤ 4</td><td>&gt; 8</td></tr>
+            <tr><td>Teeth lost (of 28)</td><td>≤ 4</td><td>&gt; 8</td></tr>
+            <tr><td>BL/age</td><td>&lt; 0.5</td><td>&gt; 1.0</td></tr>
+            <tr><td>Systemic/genetic</td><td>Absent</td><td>Present</td></tr>
+            <tr><td>Smoking</td><td>Non/former</td><td>≥ 20/day</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Low = ≤ 1 moderate · moderate = ≥ 2 moderate, ≤ 1 high · high = ≥ 2 high (Lang &amp; Tonetti 2003). BL/age: worst site, 1 mm on a bitewing ≈ 10%.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="acute">
+    <h2 class="section">E5 · Acute pain &amp; acute periodontal conditions <a class="more" href="acute_pain_periodontal.html">full note →</a></h2>
+    <div class="twocol">
+      <div>
+        <ul class="tight">
+          <li><strong>Short, sharp pain to hot/cold/sweet</strong> → exposed dentine, caries, lost filling. <strong>Sharp pain on biting</strong> → cracked cusp, loose filling, fracture. <strong>Dull, throbbing</strong> → periapical infection, pericoronitis, NUG, dry socket (Wetherell 2001).</li>
+          <li><strong>Periodontal abscess:</strong> pus in the pocket wall; 7.7–14% of emergencies (3rd after dento-alveolar abscess and pericoronitis). <strong>Drain + debride under LA</strong>; antibiotics <strong>only with systemic signs</strong>.</li>
+          <li><strong>Pericoronitis:</strong> inflamed operculum, usually over a lower 8. Debride, irrigate, relieve occlusion; later operculectomy or extraction.</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="tight">
+          <li><strong>Necrotising periodontal diseases:</strong> punched-out necrotic papillae, pain, bleeding, pseudomembrane, halitosis. Spectrum NG → NP → NS → noma. Risk: HIV, malnutrition, stress, smoking. <strong>LA debridement + CHX/H₂O₂ + metronidazole 400 mg 12-hourly for 3–5 days</strong>, review at 48–72 h.</li>
+          <li>Listgarten's zones (surface → deep): bacterial · neutrophil-rich · necrotic · <strong>spirochaetal infiltration</strong>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="endoperio">
+    <h2 class="section">E6 · Endo-periodontal lesions</h2>
+    <div class="twocol">
+      <div>
+        <h4>Telling endo from perio</h4>
+        <div class="tscroll auto"><table class="compact">
+          <thead><tr><th></th><th>Periodontal</th><th>Endodontic</th></tr></thead>
+          <tbody>
+            <tr><td>Pulp</td><td><strong>Vital</strong></td><td><strong>No / altered response</strong></td></tr>
+            <tr><td>Probing</td><td>Wide, generalised pocketing</td><td><strong>Narrow, isolated defect</strong></td></tr>
+            <tr><td>Radiograph</td><td>Crestal / angular bone loss</td><td>Apical radiolucency</td></tr>
+            <tr><td>Response</td><td>Dramatic after debridement</td><td>Poor to perio therapy</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">For a deep narrow defect that mimics a pocket, the <strong>crucial test is pulp sensibility</strong>: no response = endodontic origin.</p>
+      </div>
+      <div>
+        <h4>Abbott &amp; Castro Salgado 2009 · Herrera 2018</h4>
+        <ul class="tight">
+          <li><strong>Abbott's distinguishing factor:</strong> whether the two disease processes <strong>communicate</strong> (concurrent endo + perio disease without or with communication). Not "primary origin" (Simon), which can't be known.</li>
+          <li><strong>Sequence: treat the canal first.</strong> Root planing removes cementum and opens tubules, so canal bacteria reach the PDL. With communication: Ledermix, then at 4 weeks Ledermix/Ca(OH)₂ + start perio; reassess at 3 months; then root-fill.</li>
+          <li><strong>Prognosis</strong> depends mainly on the <strong>periodontal prognosis and the patient's oral hygiene</strong>.</li>
+          <li>Herrera 2018: EPL <strong>with root damage</strong> (fracture, perforation, resorption; poor prognosis) vs <strong>without</strong>, graded 1–3 (narrow / wide pocket on 1 surface / &gt; 1 surface).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="ncclwear">
+    <h2 class="section">E7 · NCCLs, dentine hypersensitivity, tooth wear</h2>
+    <div class="twocol">
+      <div>
+        <h4>NCCLs (Grippo · Goodacre)</h4>
+        <ul class="tight">
+          <li>Multifactorial: <strong>stress</strong> (abfraction) + <strong>friction</strong> (wear) + <strong>biocorrosion</strong> (acids, enzymes). Stress concentrates at the cervix and <strong>accelerates biocorrosion</strong> ("stress corrosion").</li>
+          <li>Saucer (progresses in height) vs wedge (height + depth). Mostly <strong>facial surfaces of maxillary premolars</strong>; rare lingually (5× more saliva).</li>
+          <li>Abfraction is <strong>unproven clinically</strong>. Don't adjust the occlusion to treat NCCLs. Delay restoration, then bond carefully to sclerotic dentine.</li>
+        </ul>
+        <h4>Tooth wear (Mehta · Loomans)</h4>
+        <ul class="tight">
+          <li>Physiological enamel wear ~20–38 µm/year (Lambrechts). <strong>Severe</strong> = an amount (dentine exposed, ≥ ⅓ crown lost). <strong>Pathological</strong> = atypical for age and causing problems.</li>
+          <li><strong>Prevent and monitor first</strong> (BEWE). No definitive restorations while wear is active. Additive, minimally invasive work (Dahl). Avoid the restorative death spiral.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Dentine hypersensitivity (Bartold · West)</h4>
+        <ul class="tight">
+          <li>Short, sharp pain from <strong>exposed dentine</strong> to thermal, tactile, osmotic or chemical stimuli. It needs <strong>exposure</strong> (localisation) <strong>and open, patent tubules</strong> linking the outside to the pulp (initiation).</li>
+          <li><strong>Hydrodynamic theory</strong> (Brännström): stimuli <strong>disturb tubular fluid</strong>, and the fluid movement <strong>mechanically activates pulpal nerve receptors</strong> (Aδ fibres).</li>
+          <li><strong>Two strategies:</strong> <strong>occlude the tubules</strong> (SnF₂, arginine, CSPS, strontium, oxalates, resins) or <strong>desensitise the nerve</strong> (K⁺).</li>
+          <li>West 2015 (systematic review): <strong>arginine and SnF₂</strong> (high-quality evidence) &gt; strontium acetate &gt; CSPS. <strong>Potassium not recommended.</strong> Prevalence usually 10–30%, peak at the end of the 3rd decade; upper premolars.</li>
+          <li>DH ladder: remove the cause → desensitising toothpaste → topical occluders → resin, restoration or graft.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="part" id="partF"><span>Part F</span>Exam toolkit</div>
+
+  <section id="pastpaper">
+    <h2 class="section">F1 · Last year's MCQs: answer key</h2>
+    <p class="small">The shading on the paper shows one candidate's picks, not the answer key. <strong>10 of the 18 shaded answers were wrong</strong> (marked <span class="xflag">✗ shaded</span>). The answers below come from the lecture slides and set papers. Click a topic to jump to its section.</p>
+    <div class="tscroll">
+    <table class="compact key">
+      <thead><tr><th class="num">Q</th><th>Topic</th><th class="num">Ans</th><th>Why (and the trap)</th></tr></thead>
+      <tbody>
+        <tr class="bad"><td class="num">1</td><td><a href="#cra">CRA disease indicators</a></td><td class="num">b</td><td>Clinical observations that <strong>confirm past or current caries activity</strong> (WREC). They don't guide surgery. <span class="xflag">✗ shaded a</span></td></tr>
+        <tr><td class="num">2</td><td><a href="#plaquecontrol">CHX side effect</a></td><td class="num">a</td><td><strong>↑ supragingival calculus</strong> (precipitation of salivary proteins). Staining and taste disturbance are the others.</td></tr>
+        <tr><td class="num">3</td><td><a href="#removal">NOC vs TPOC</a></td><td class="num">a</td><td><strong>Lesion stage + activity</strong>. NOC for initial active lesions; "preserve tooth structure, restore only when indicated".</td></tr>
+        <tr class="bad"><td class="num">4</td><td><a href="#redflags">MRONJ stage 1</a></td><td class="num">c</td><td><strong>Asymptomatic exposed bone, no infection</strong>. Option a is stage 2; option b is stage 3. <span class="xflag">✗ shaded a</span></td></tr>
+        <tr><td class="num">5</td><td><a href="#intraoral">Bitewing technique</a></td><td class="num">b</td><td>Posterior teeth ∥ film; beam ⟂ in the horizontal plane. The tube is angled <strong>down</strong> 5–8° (not up). Posterior film is horizontal.</td></tr>
+        <tr><td class="num">6</td><td><a href="#opg">OPG perspective</a></td><td class="num">b</td><td><strong>Posterior = lateral views, anterior = AP</strong>; a composite.</td></tr>
+        <tr><td class="num">7</td><td><a href="#occlusion">Angle's key</a></td><td class="num">b</td><td>Upper 6 MB cusp in the buccal groove of the lower 6.</td></tr>
+        <tr class="bad"><td class="num">8</td><td><a href="#endoperio">Deep narrow defect</a></td><td class="num">c</td><td><strong>No response to sensibility tests</strong> = endodontic origin. A furcation radiolucency doesn't discriminate. <span class="xflag">✗ shaded a</span></td></tr>
+        <tr><td class="num">9</td><td><a href="#opg">OPG reading order</a></td><td class="num">c</td><td><strong>Periphery and corners first</strong> so you don't fixate on the teeth.</td></tr>
+        <tr class="bad"><td class="num">10</td><td><a href="#aetiology">Materia alba</a></td><td class="num">d</td><td><strong>Easily displaced by water spray</strong> (unique). Option c describes plaque; desquamated cells are present but not "predominant". <span class="xflag">✗ shaded c</span></td></tr>
+        <tr class="bad"><td class="num">11</td><td><a href="#removal">Soft vs firm (ICCC)</a></td><td class="num">a</td><td><strong>Lesion depth / pulp-exposure risk</strong>: deep → soft; shallow–moderate → firm. Not symptoms. <span class="xflag">✗ shaded b</span></td></tr>
+        <tr class="bad"><td class="num">12</td><td><a href="#intraoral">Paralleling advantage</a></td><td class="num">a</td><td><strong>Low cone-cut risk + reproducible</strong>. Not universally feasible (gagging, anatomy); the zygoma is <em>clear of</em> the molar apices. <span class="xflag">✗ shaded d</span></td></tr>
+        <tr><td class="num">13</td><td><a href="#ncclwear">NCCL stress</a></td><td class="num">a</td><td>Stress <strong>accelerates biocorrosion</strong> at stress concentrations.</td></tr>
+        <tr><td class="num">14</td><td><a href="#occlusion">Class II div 2</a></td><td class="num">d</td><td>MB cusp anterior to the groove; <strong>centrals retroclined</strong>, laterals and canines proclined.</td></tr>
+        <tr><td class="num">15</td><td><a href="#opg">OPG challenge</a></td><td class="num">a</td><td><strong>Superimpositions, distortion, extra-jaw structures</strong>. Magnification isn't uniform.</td></tr>
+        <tr><td class="num">16</td><td><a href="#ncclwear">DH essential feature</a></td><td class="num">d</td><td><strong>Open, patent tubules</strong> linking the outside to the pulp.</td></tr>
+        <tr><td class="num">17</td><td><a href="#aetiology">Biofilm phase</a></td><td class="num">a</td><td><strong>Co-aggregation</strong>: cell-to-cell recognition via adhesin–receptor pairs.</td></tr>
+        <tr class="bad"><td class="num">18</td><td><a href="#endoperio">Abbott's classification</a></td><td class="num">d</td><td><strong>Whether the processes communicate.</strong> "Primary origin" is the old Simon idea. <span class="xflag">✗ shaded a</span></td></tr>
+        <tr><td class="num">19</td><td><a href="#removal">Removal endpoint</a></td><td class="num">a</td><td><strong>Hardness</strong>; repair rather than replace defective restorations.</td></tr>
+        <tr><td class="num">20</td><td><a href="#endoperio">Endo-perio prognosis</a></td><td class="num">b</td><td><strong>Periodontal prognosis + the patient's OH.</strong></td></tr>
+        <tr><td class="num">21</td><td><a href="#cra">Any WREC positive</a></td><td class="num">b</td><td><strong>High risk</strong>. Extreme = high + hyposalivation.</td></tr>
+        <tr><td class="num">22</td><td><a href="#cariesbasics">Caries vs lesion mgmt</a></td><td class="num">c</td><td>Caries mgmt = <strong>patient level, non-invasive</strong>; lesion mgmt = <strong>tooth level</strong>, may remove tissue.</td></tr>
+        <tr class="bad"><td class="num">23</td><td><a href="#xray">X-ray property</a></td><td class="num">d</td><td><strong>They ionise gases.</strong> X-rays <em>cannot</em> be focused. <span class="xflag">✗ shaded c</span></td></tr>
+        <tr><td class="num">24</td><td><a href="#occlusion">Opening muscle</a></td><td class="num">b</td><td><strong>Lateral pterygoid</strong>.</td></tr>
+        <tr><td class="num">25</td><td><a href="#cra">ICCMS high risk + active lesions</a></td><td class="num">b</td><td>High likelihood → <strong>intensive personalised plan</strong> (home + clinic, NOC + TPOC), <strong>frequent recalls</strong>.</td></tr>
+        <tr><td class="num">26</td><td><a href="#removal">Deep lesion, healthy pulp</a></td><td class="num">d</td><td><strong>Selective removal to soft</strong> pulpally; firm/hard periphery for the seal.</td></tr>
+        <tr><td class="num">27</td><td><a href="#ncclwear">Hydrodynamic theory</a></td><td class="num">d</td><td>Tubular <strong>fluid movement mechanically activates</strong> pulpal receptors.</td></tr>
+        <tr><td class="num">28</td><td><a href="#aetiology">Calculus crystals</a></td><td class="num">c</td><td><strong>Octacalcium phosphate</strong> (with HA, whitlockite, brushite).</td></tr>
+        <tr><td class="num">29</td><td><a href="#redflags">Unconscious hypo</a></td><td class="num">b</td><td><strong>Stop and call 000</strong>. Nothing by mouth.</td></tr>
+        <tr><td class="num">30</td><td><a href="#cra">CAMBRA philosophy</a></td><td class="num">c</td><td>Caries = <strong>multifactorial</strong> disease; minimally invasive care.</td></tr>
+        <tr><td class="num">31</td><td><a href="#occlusion">CR definition</a></td><td class="num">a</td><td>Centric relation: <strong>independent of tooth contact</strong>, purely rotary.</td></tr>
+        <tr><td class="num">32</td><td><a href="#occlusion">Overbite</a></td><td class="num">a</td><td><strong>Vertical</strong> overlap, normally 1–2 mm. Option c is overjet.</td></tr>
+        <tr class="bad"><td class="num">33</td><td><a href="#opg">Ghost image</a></td><td class="num">b</td><td>Contralateral mandible outside the focal trough → <strong>higher, reversed, magnified, blurred</strong>. <span class="xflag">✗ shaded a</span></td></tr>
+        <tr><td class="num">34</td><td><a href="#cra">Caries balance</a></td><td class="num">d</td><td><strong>Disease indicators, risk factors, protective factors.</strong></td></tr>
+        <tr><td class="num">35</td><td><a href="#plaquecontrol">Interdental cleaning</a></td><td class="num">c</td><td><strong>Daily interdental brushes</strong>; floss only where spaces are too tight.</td></tr>
+        <tr><td class="num">36</td><td><a href="#xray">Stochastic effect</a></td><td class="num">d</td><td><strong>Sublethal damage to single cells</strong> → cancer or heritable mutation. b/c are deterministic.</td></tr>
+        <tr><td class="num">37</td><td><a href="#ncclwear">DH strategies</a></td><td class="num">d</td><td><strong>Occlude tubules and/or desensitise the nerve</strong>.</td></tr>
+        <tr><td class="num">38</td><td><a href="#intraoral">SLOB</a></td><td class="num">a</td><td>Tube mesial, image mesial = <strong>Same → Lingual</strong>. (Option c is Opposite → Buccal.)</td></tr>
+        <tr><td class="num">39</td><td><a href="#xray">ALARA retake</a></td><td class="num">d</td><td><strong>Only when diagnostic criteria are not met</strong>.</td></tr>
+        <tr class="bad"><td class="num">40</td><td><a href="#cra">CRA objectives</a></td><td class="num">c</td><td><strong>Diagnose current caries, predict future disease, identify imbalanced factors.</strong> <span class="xflag">✗ shaded b</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section id="laq">
+    <h2 class="section">F2 · Long answers (2 × 30 marks)</h2>
+    <p class="small">Each long answer was worth as much as 30 MCQs. Use headings, define terms first, give structure <em>and</em> function, then answer the "why". Name the evidence where you can.</p>
+
+    <div class="box key">
+      <h4>Q41 · "What is the periodontium and why is it important?"</h4>
+      <ol class="tight">
+        <li><strong>Define:</strong> the tissues that <strong>invest and support</strong> the tooth: <strong>gingiva, PDL, cementum, alveolar bone</strong> (Lang &amp; Lindhe). Gingiva = protective; PDL + cementum + bone = attachment apparatus.</li>
+        <li><strong>Gingiva:</strong> free/attached/interdental; oral (keratinised), sulcular and <strong>junctional epithelium</strong> (hemidesmosomes, internal basal lamina, 4–6 day turnover, permeable, neutrophils); gingival fibres; GCF (transudate → exudate). JE + fibres = the <strong>dentogingival unit</strong>.</li>
+        <li><strong>Biologic width</strong> ≈ 2.04 mm (JE 0.97 + CT 1.07, Gargiulo). Margins must respect it.</li>
+        <li><strong>PDL:</strong> ~0.2 mm, hourglass; principal fibre groups (oblique most numerous), Sharpey's fibres; fibroblasts, osteo-/cementoblasts, rests of Malassez, stem cells.</li>
+        <li><strong>Cementum:</strong> acellular extrinsic (cervical, attachment) vs cellular intrinsic (apical, repair); avascular; CEJ 60–65 / 30 / 5–10%.</li>
+        <li><strong>Alveolar bone:</strong> bundle bone = lamina dura; tooth-dependent; crest ~1.5–2 mm below the CEJ.</li>
+        <li><strong>Why it matters:</strong>
+          <ul class="tight">
+            <li>Retains the tooth; transmits and cushions occlusal load; physiological mobility</li>
+            <li><strong>Barrier and defence</strong> against the biofilm (JE, GCF, neutrophils, rapid turnover)</li>
+            <li>Proprioception; nutrition; repair and remodelling (eruption, orthodontic movement)</li>
+            <li>Aesthetics (papillae, contour)</li>
+            <li><strong>Clinically:</strong> plaque → gingivitis → periodontitis destroys these tissues → tooth loss. Health/disease is judged by probing, BOP, CAL and radiographs (lamina dura, PDL space). Restorations must respect biologic width. Systemic links (diabetes, CVD). Normal anatomy is the baseline for diagnosis, staging and treatment.</li>
+          </ul>
+        </li>
+      </ol>
+      <p class="small">Detail: <a href="#periodontium">D1</a> · disease: <a href="#histopath">D3</a>, <a href="#classification">D4</a>.</p>
+    </div>
+
+    <div class="box key">
+      <h4>Q42 · Multiple active lesions + stress: "stop sugary snacks" <em>or</em> "brush 2× a day with fluoride toothpaste"?</h4>
+      <p>Either answer can score if it is <strong>justified</strong>. The stronger case is <strong>brushing twice daily with fluoride toothpaste</strong> (high-fluoride 5000 ppm for this high-risk adult):</p>
+      <ul class="tight">
+        <li><strong>Caries balance:</strong> it acts on <em>both</em> sides. It disrupts the biofilm and adds fluoride (remineralisation, acid-resistant fluorapatite, antibacterial), so the balance tips toward repair even if diet is unchanged.</li>
+        <li><strong>Evidence in the set papers:</strong> on the CAMBRA form, twice-daily is significantly better than once; fluoride toothpaste lowered the odds of cavities in the UCSF CRA data (OR 0.67). Banerjee 2017: if the biofilm is regularly disturbed, "any lesion at any stage of its progression can arrest". The ICCC (Schwendicke 2016) says caries is managed behaviourally.</li>
+        <li><strong>Behaviour change under stress:</strong> adding one simple, routine habit is more achievable than removing a habitual (often stress-driven) sugar habit. Early success builds self-efficacy for the next change.</li>
+        <li><strong>Extra benefits:</strong> plaque control also helps the gingiva and periodontium.</li>
+      </ul>
+      <p><strong>Then say what you'd do next:</strong> acknowledge that diet is the <strong>root cause</strong> (frequent fermentable carbohydrate = BAD "destructive lifestyle habits"). Introduce sugar reduction next using <strong>motivational interviewing</strong> (frequency, keep to mealtimes, xylitol/sugar-free alternatives). Re-run the CRA, add clinic fluoride varnish and CHX by risk, 3-month recall. Seal or restore the cavitated lesions; NOC for non-cavitated ones.</p>
+      <p class="small">If you choose diet instead: argue it removes the substrate (cause, not symptom) and also helps general health. But concede it's harder to change under stress and that the lesions still need fluoride.</p>
+    </div>
+
+    <h3>Other likely long answers (from the presentation papers)</h3>
+    <div class="twocol">
+      <div class="box note">
+        <h4>"One thing to change about a patient?"</h4>
+        <p><strong>Stop smoking.</strong> McGuire &amp; Nunn: smoking OR 0.418 for improving, OR 1.90 for worsening. PRA: ≥ 20/day = high on its own; a former smoker of &gt; 5 years scores low. Samet step 3: patient-level risk drops <em>every</em> tooth one class. Close second: frequency of sugary/acidic intake (caries, erosion, NCCL, DH).</p>
+      </div>
+      <div class="box note">
+        <h4>"Endo + perio + caries: what first?"</h4>
+        <p><strong>Systemic → acute (endo first: pulpectomy, Ledermix; seal cavities) → disease control</strong> (with communication: Ledermix/Ca(OH)₂ at 4 weeks + NSPT; selective caries removal, GIC seal; CAMBRA chemical therapy) → <strong>reassess at 3 months</strong> → definitive (Samet re-grade; coronal seal; repair over replace) → <strong>maintenance</strong> (PRA/CAMBRA recall; root filling review at 6–12 months).</p>
+      </div>
+    </div>
+    <div class="box note">
+      <h4>"Five concepts the papers change"</h4>
+      <ol class="tight">
+        <li>Treat the <strong>patient's risk</strong>, not just the tooth (CAMBRA RCT: restorations didn't lower bacteria; CHX + F cut new caries by 24%).</li>
+        <li><strong>Remove less, rely on the seal</strong> (stepwise 15 vs 53% exposures; Mertz-Fairhurst arrested at 10 years).</li>
+        <li><strong>Monitor first; restore late and additively</strong> (Loomans, Goodacre; BEWE; Dahl).</li>
+        <li><strong>Hold prognoses loosely</strong> (McGuire: below "good" only 35–43% accurate; H&amp;W: most questionable teeth survived a mean 22-year follow-up).</li>
+        <li><strong>Endo before perio</strong> when both are present, and judge the outcome by the periodontium (Abbott).</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="numbers">
+    <h2 class="section">F3 · Numbers to know</h2>
+    <div class="twocol">
+      <div class="tscroll auto"><table class="compact">
+        <thead><tr><th>Patient &amp; radiography</th><th class="num">Value</th></tr></thead>
+        <tbody>
+          <tr><td>MRONJ: exposed bone persisting</td><td class="num">&gt; 8 wk</td></tr>
+          <tr><td>Defer elective care after MI/stent</td><td class="num">6 months</td></tr>
+          <tr><td>BP: defer elective care</td><td class="num">≥ 180/110</td></tr>
+          <tr><td>Warfarin INR OK for simple extraction</td><td class="num">&lt; 4</td></tr>
+          <tr><td>IE prophylaxis: amoxicillin / clindamycin</td><td class="num">2 g / 600 mg, 1 h</td></tr>
+          <tr><td>Hypo (conscious): glucose, recheck</td><td class="num">15–20 g, recheck 15 min</td></tr>
+          <tr><td>Steroids → adrenal suppression</td><td class="num">≥ 7.5 mg/day &gt; 3 wk</td></tr>
+          <tr><td>X-ray tube: heat vs X-rays</td><td class="num">99% / 1%</td></tr>
+          <tr><td>Compton / photoelectric</td><td class="num">57% / 27%</td></tr>
+          <tr><td>Bitewing tube angle</td><td class="num">5–8° down</td></tr>
+          <tr><td>PA: beyond the apex</td><td class="num">2 mm</td></tr>
+          <tr><td>OPG dose</td><td class="num">≈ 0.014 mSv</td></tr>
+          <tr><td>Overjet / overbite</td><td class="num">2–3 / 1–2 mm</td></tr>
+        </tbody>
+      </table></div>
+      <div class="tscroll auto"><table class="compact">
+        <thead><tr><th>Caries &amp; perio</th><th class="num">Value</th></tr></thead>
+        <tbody>
+          <tr><td>New cavities by risk (low → extreme)</td><td class="num">24 / 40 / 70 / 88%</td></tr>
+          <tr><td>CAMBRA RCT: CHX + F increment ↓</td><td class="num">24%</td></tr>
+          <tr><td>Pulp exposure: stepwise vs direct</td><td class="num">15 vs 53%</td></tr>
+          <tr><td>Mertz-Fairhurst sealed lesions arrested</td><td class="num">10 yr</td></tr>
+          <tr><td>Biologic width (JE + CT)</td><td class="num">≈ 2.04 mm</td></tr>
+          <tr><td>PDL width</td><td class="num">~0.2 mm</td></tr>
+          <tr><td>JE turnover</td><td class="num">4–6 days</td></tr>
+          <tr><td>CEJ overlap / butt / gap</td><td class="num">60–65 / 30 / 5–10%</td></tr>
+          <tr><td>Pellicle plateau</td><td class="num">90–120 min</td></tr>
+          <tr><td>Gingivitis without OH (Löe)</td><td class="num">10–21 days</td></tr>
+          <tr><td>Calculus mineral: supra / sub</td><td class="num">37 / 58%</td></tr>
+          <tr><td>CHX optimal dose</td><td class="num">40 mg/day (10 mL 0.2% bd)</td></tr>
+          <tr><td>McGuire: smoking OR improve / worsen</td><td class="num">0.418 / 1.90</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section id="traps">
+    <h2 class="section">F4 · Traps that cost marks last year</h2>
+    <ul class="tight trap">
+      <li><strong>MRONJ stage 1 is asymptomatic.</strong> Pain or infection = stage 2.</li>
+      <li><strong>X-rays can't be focused</strong>; they <em>can</em> ionise gases.</li>
+      <li><strong>Paralleling</strong> is not universally feasible. Its advantages are accuracy, reproducibility and low cone-cut risk.</li>
+      <li><strong>Materia alba</strong> is unique because a water spray removes it. "Bacteria in glycoprotein + EPS matrix" is plaque.</li>
+      <li><strong>Soft vs firm</strong> removal is decided by <strong>depth / pulp risk</strong>, not by symptoms.</li>
+      <li><strong>Endo vs perio:</strong> a pulp sensibility test separates them. Abbott classifies by <strong>communication</strong>, not origin.</li>
+      <li><strong>CRA</strong> objectives = diagnose + predict + find imbalanced factors. Disease indicators = observations of caries activity.</li>
+      <li><strong>Ghost image</strong> = contralateral structure: higher, reversed, magnified, blurred. Not mastoid pneumatisation.</li>
+      <li><strong>Bitewing</strong> tube angles <strong>down</strong>, not up. Posterior films are horizontal.</li>
+      <li><strong>Unconscious hypoglycaemia:</strong> nothing by mouth; stop and call 000.</li>
+    </ul>
+  </section>
+
+
+  <div class="hubfoot"><a href="index.html">&#8592; Back to the Year 2 Study Hub</a></div>
+</div>
+<a class="totop" href="#top" aria-label="Back to top">↑</a>
+</body>
+</html>
