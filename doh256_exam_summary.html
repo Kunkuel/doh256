@@ -385,21 +385,11 @@
     background: rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px;
   }
 
-  /* stats */
-  .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0 16px; }
-  .stat { background: var(--paper); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; }
-  .stat b { display: block; font-size: 26px; line-height: 1.1; color: var(--teal); }
-  .stat span { font-size: 13.5px; color: var(--muted); }
-  .stat.hot { border-color: var(--accent); background: var(--accent-soft); }
-  .stat.hot b { color: var(--accent); }
-  @media (max-width: 560px) { .stat-row { grid-template-columns: 1fr; } }
-
   /* compact tables */
   table.compact { font-size: 14.5px; margin: 10px 0; }
   table.compact th, table.compact td { padding: 7px 10px; }
   th.num, td.num { text-align: center; white-space: nowrap; }
   tr.hl td { background: var(--accent-soft) !important; }
-  tr.lqrow td { background: var(--gold-soft) !important; font-weight: 600; }
   table.stage-table td:first-child { text-align: center; font-size: 18px; width: 70px; }
   .twocol > table { margin-top: 0; }
   .twocol.tight2 { gap: 12px; margin: 0; }
@@ -409,17 +399,7 @@
   table.compact td a:not([class]) { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
   table.compact td a:not([class]):hover { color: var(--accent); border-bottom-color: var(--accent); }
   nav.toc a { color: var(--ink) !important; }
-  /* answer key */
-  table.key td:nth-child(2) a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--muted); }
-  table.key td:nth-child(2) a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-  table.key td:nth-child(3) { font-weight: 700; color: var(--accent); font-size: 16px; }
-  table.key tr.bad td:first-child { box-shadow: inset 4px 0 0 var(--gold); }
-  .xflag {
-    display: inline-block; font-family: "Helvetica Neue", Arial, sans-serif; font-size: 11px; font-weight: 700;
-    color: #7a5a12; background: var(--gold-soft); border: 1px solid #e6d3a2; border-radius: 4px;
-    padding: 0 5px; margin-left: 4px; white-space: nowrap;
-  }
-  .tscroll table.key, .tscroll.auto table { min-width: 0; }
+  .tscroll.auto table { min-width: 0; }
   .tscroll.auto { margin: 10px 0; }
   .tscroll.auto > table { margin: 0; }
   .twocol > * { min-width: 0; }
@@ -428,9 +408,6 @@
   ul.tight, ol.tight { margin: 6px 0; }
   ul.tight li, ol.tight li { margin: 3px 0; }
   ul.tight ul.tight { margin: 4px 0 2px; }
-  ul.trap { list-style: none; padding-left: 0; }
-  ul.trap li { position: relative; padding-left: 26px; margin: 6px 0; }
-  ul.trap li::before { content: "!"; position: absolute; left: 0; top: 2px; width: 18px; height: 18px; border-radius: 50%; background: var(--gold); color: #fff; font: 700 12px/18px "Helvetica Neue", Arial, sans-serif; text-align: center; }
 
   /* "full note" link */
   a.more {
@@ -474,7 +451,7 @@
     <a class="hublink" href="index.html"><span class="arw">&#8592;</span> Study Hub</a>
     <div class="eyebrow">DOH 256 · Foundations of Dental Clinical Practice 2 · Sessions 1 &amp; 2</div>
     <h1>DOH 256 Exam Summary</h1>
-    <p class="lede">Everything examinable in one place: patient assessment, radiography, cariology, periodontics and endodontics, Dr Ball's Session 2 lectures, and the 20 presentation papers. The depth is set by last year's final paper.</p>
+    <p class="lede">Everything examinable in one place: patient assessment, radiography, cariology, periodontics and endodontics, Dr Ball's Session 2 lectures, and the 20 presentation papers. Concise, organised and cross-checked against the lecture slides.</p>
   </header>
 
   <nav class="partbar" aria-label="Jump to">
@@ -484,13 +461,12 @@
     <a href="#partC"><b>C</b>Cariology</a>
     <a href="#partD"><b>D</b>Perio I</a>
     <a href="#partE"><b>E</b>Perio II · Endo</a>
-    <a href="#partF"><b>F</b>Exam toolkit</a>
-    <a class="hot" href="#pastpaper"><b>★</b>Past-paper key</a>
+    <a href="#partF"><b>F</b>Long answers</a>
   </nav>
 
   <div class="abstract">
     <p class="ablab">Abstract · the must-knows</p>
-    <p class="ablede">Last year's paper was <strong>40 one-mark MCQs</strong> (mostly cariology and radiography) plus <strong>two 30-mark long answers</strong> (the periodontium; one caries behaviour change). If you only have an hour, learn these.</p>
+    <p class="ablede">The core facts across both sessions, one line per topic. If you only have an hour, learn these.</p>
     <ul class="abcols">
       <li><strong>MRONJ:</strong> antiresorptive/antiangiogenic drug + exposed bone &gt; 8 weeks + no jaw radiotherapy. <strong>Stage 0</strong> no exposed bone · <strong>1</strong> exposed, <em>asymptomatic</em> · <strong>2</strong> + pain/infection · <strong>3</strong> + fracture, extra-oral fistula, oro-antral communication.</li>
       <li><strong>Medical:</strong> don't stop antithrombotics · IE: amoxicillin 2 g 1 h before · defer elective care 6 months after MI · BP ≥ 180/110 defer · <strong>unconscious hypo: nothing by mouth, call 000</strong>.</li>
@@ -507,30 +483,6 @@
     </ul>
   </div>
 
-
-  <section id="blueprint">
-    <h2 class="section">Last year's paper: what was actually asked</h2>
-    <div class="stat-row">
-      <div class="stat"><b>40</b><span>MCQs × 1 mark</span></div>
-      <div class="stat hot"><b>2 × 30</b><span>long answers</span></div>
-      <div class="stat hot"><b>60%</b><span>of marks were the two long answers</span></div>
-    </div>
-    <div class="tscroll auto"><table class="compact">
-      <thead><tr><th>Area</th><th class="num">MCQs</th><th>Topics tested</th></tr></thead>
-      <tbody>
-        <tr><td><a href="#cra">Cariology</a></td><td class="num">11</td><td>CRA disease indicators, WREC, CAMBRA philosophy and objectives, the caries balance, NOC vs TPOC, the ICCMS risk matrix, ICCC caries vs lesion management, removal to soft vs firm, removal endpoint</td></tr>
-        <tr><td><a href="#xray">Radiography</a></td><td class="num">10</td><td>X-ray properties, stochastic effects, ALARA retakes, bitewing technique, paralleling advantages, SLOB, OPG perspective, reading order, ghost images, interpretation challenges</td></tr>
-        <tr><td><a href="#occlusion">Occlusion</a></td><td class="num">5</td><td>Angle's key, Class II div 2, centric relation, overbite, lateral pterygoid</td></tr>
-        <tr><td><a href="#aetiology">Perio aetiology &amp; plaque control</a></td><td class="num">5</td><td>Co-aggregation, calculus crystals, materia alba, CHX side effects, interdental brushes</td></tr>
-        <tr><td><a href="#ncclwear">NCCL &amp; dentine hypersensitivity</a></td><td class="num">4</td><td>Biocorrosion + stress, open tubules, hydrodynamic theory, the two treatment strategies</td></tr>
-        <tr><td><a href="#endoperio">Endo-perio</a></td><td class="num">3</td><td>Narrow defect + non-vital pulp, Abbott's communication criterion, prognosis determinants</td></tr>
-        <tr><td><a href="#redflags">Medical</a></td><td class="num">2</td><td>MRONJ stage 1, unconscious hypoglycaemia</td></tr>
-        <tr class="lqrow"><td><a href="#laq">Long answer Q41</a></td><td class="num">30</td><td>"What is the periodontium and why is it important?"</td></tr>
-        <tr class="lqrow"><td><a href="#laq">Long answer Q42</a></td><td class="num">30</td><td>Multiple active lesions + stress; one behaviour change only: stop sugary snacks <em>or</em> brush 2× daily with fluoride toothpaste. Choose and justify.</td></tr>
-      </tbody>
-    </table></div>
-    <p class="small">The MCQs test definitions and "which statement is correct" distinctions, not citations. The long answers reward structured reasoning. Every MCQ from last year is answered and explained in <a href="#pastpaper">the answer key</a>.</p>
-  </section>
 
 
   <nav class="toc" aria-label="Contents">
@@ -571,11 +523,9 @@
         <li><a href="#endoperio">E6 · Endo-periodontal lesions</a></li>
         <li><a href="#ncclwear">E7 · NCCLs, dentine hypersensitivity, tooth wear</a></li>
       </ul></div>
-      <div><h3>Part F · Exam toolkit</h3><ul>
-        <li><a href="#pastpaper">F1 · Last year's MCQs: answer key</a></li>
-        <li><a href="#laq">F2 · Long answers (2 × 30 marks)</a></li>
-        <li><a href="#numbers">F3 · Numbers to know</a></li>
-        <li><a href="#traps">F4 · Traps that cost marks last year</a></li>
+      <div><h3>Part F · Long answers &amp; numbers</h3><ul>
+        <li><a href="#laq">F1 · Long-answer practice</a></li>
+        <li><a href="#numbers">F2 · Numbers to know</a></li>
       </ul></div>
     </div>
   </nav>
@@ -631,7 +581,7 @@
         <tr><td><strong>3</strong></td><td>As stage 2 <strong>plus ≥ 1 of:</strong> necrosis beyond the alveolar bone (inferior border/ramus; maxillary sinus/zygoma) → <strong>pathological fracture</strong>, <strong>extra-oral fistula</strong>, <strong>oro-antral/oro-nasal communication</strong>, osteolysis to the inferior border or sinus floor</td><td>Pain + infection</td></tr>
       </tbody>
     </table></div>
-    <p class="small"><strong>Exam trap:</strong> last year's paper asked for stage 1. The candidate's highlighted answer, "symptomatic, exposed bone, inflammation/infection", describes <strong>stage 2</strong>. Stage 1 is <strong>asymptomatic</strong>.</p>
+    <p class="small"><strong>Don't confuse stages 1 and 2:</strong> pain, inflammation or infection makes it <strong>stage 2</strong>. Stage 1 is exposed bone that is <strong>asymptomatic</strong>.</p>
 
     <div class="twocol">
       <div>
@@ -1350,66 +1300,14 @@
     </div>
   </section>
 
-  <div class="part" id="partF"><span>Part F</span>Exam toolkit</div>
-
-  <section id="pastpaper">
-    <h2 class="section">F1 · Last year's MCQs: answer key</h2>
-    <p class="small">The shading on the paper shows one candidate's picks, not the answer key. <strong>10 of the 18 shaded answers were wrong</strong> (marked <span class="xflag">✗ shaded</span>). The answers below come from the lecture slides and set papers. Click a topic to jump to its section.</p>
-    <div class="tscroll">
-    <table class="compact key">
-      <thead><tr><th class="num">Q</th><th>Topic</th><th class="num">Ans</th><th>Why (and the trap)</th></tr></thead>
-      <tbody>
-        <tr class="bad"><td class="num">1</td><td><a href="#cra">CRA disease indicators</a></td><td class="num">b</td><td>Clinical observations that <strong>confirm past or current caries activity</strong> (WREC). They don't guide surgery. <span class="xflag">✗ shaded a</span></td></tr>
-        <tr><td class="num">2</td><td><a href="#plaquecontrol">CHX side effect</a></td><td class="num">a</td><td><strong>↑ supragingival calculus</strong> (precipitation of salivary proteins). Staining and taste disturbance are the others.</td></tr>
-        <tr><td class="num">3</td><td><a href="#removal">NOC vs TPOC</a></td><td class="num">a</td><td><strong>Lesion stage + activity</strong>. NOC for initial active lesions; "preserve tooth structure, restore only when indicated".</td></tr>
-        <tr class="bad"><td class="num">4</td><td><a href="#redflags">MRONJ stage 1</a></td><td class="num">c</td><td><strong>Asymptomatic exposed bone, no infection</strong>. Option a is stage 2; option b is stage 3. <span class="xflag">✗ shaded a</span></td></tr>
-        <tr><td class="num">5</td><td><a href="#intraoral">Bitewing technique</a></td><td class="num">b</td><td>Posterior teeth ∥ film; beam ⟂ in the horizontal plane. The tube is angled <strong>down</strong> 5–8° (not up). Posterior film is horizontal.</td></tr>
-        <tr><td class="num">6</td><td><a href="#opg">OPG perspective</a></td><td class="num">b</td><td><strong>Posterior = lateral views, anterior = AP</strong>; a composite.</td></tr>
-        <tr><td class="num">7</td><td><a href="#occlusion">Angle's key</a></td><td class="num">b</td><td>Upper 6 MB cusp in the buccal groove of the lower 6.</td></tr>
-        <tr class="bad"><td class="num">8</td><td><a href="#endoperio">Deep narrow defect</a></td><td class="num">c</td><td><strong>No response to sensibility tests</strong> = endodontic origin. A furcation radiolucency doesn't discriminate. <span class="xflag">✗ shaded a</span></td></tr>
-        <tr><td class="num">9</td><td><a href="#opg">OPG reading order</a></td><td class="num">c</td><td><strong>Periphery and corners first</strong> so you don't fixate on the teeth.</td></tr>
-        <tr class="bad"><td class="num">10</td><td><a href="#aetiology">Materia alba</a></td><td class="num">d</td><td><strong>Easily displaced by water spray</strong> (unique). Option c describes plaque; desquamated cells are present but not "predominant". <span class="xflag">✗ shaded c</span></td></tr>
-        <tr class="bad"><td class="num">11</td><td><a href="#removal">Soft vs firm (ICCC)</a></td><td class="num">a</td><td><strong>Lesion depth / pulp-exposure risk</strong>: deep → soft; shallow–moderate → firm. Not symptoms. <span class="xflag">✗ shaded b</span></td></tr>
-        <tr class="bad"><td class="num">12</td><td><a href="#intraoral">Paralleling advantage</a></td><td class="num">a</td><td><strong>Low cone-cut risk + reproducible</strong>. Not universally feasible (gagging, anatomy); the zygoma is <em>clear of</em> the molar apices. <span class="xflag">✗ shaded d</span></td></tr>
-        <tr><td class="num">13</td><td><a href="#ncclwear">NCCL stress</a></td><td class="num">a</td><td>Stress <strong>accelerates biocorrosion</strong> at stress concentrations.</td></tr>
-        <tr><td class="num">14</td><td><a href="#occlusion">Class II div 2</a></td><td class="num">d</td><td>MB cusp anterior to the groove; <strong>centrals retroclined</strong>, laterals and canines proclined.</td></tr>
-        <tr><td class="num">15</td><td><a href="#opg">OPG challenge</a></td><td class="num">a</td><td><strong>Superimpositions, distortion, extra-jaw structures</strong>. Magnification isn't uniform.</td></tr>
-        <tr><td class="num">16</td><td><a href="#ncclwear">DH essential feature</a></td><td class="num">d</td><td><strong>Open, patent tubules</strong> linking the outside to the pulp.</td></tr>
-        <tr><td class="num">17</td><td><a href="#aetiology">Biofilm phase</a></td><td class="num">a</td><td><strong>Co-aggregation</strong>: cell-to-cell recognition via adhesin–receptor pairs.</td></tr>
-        <tr class="bad"><td class="num">18</td><td><a href="#endoperio">Abbott's classification</a></td><td class="num">d</td><td><strong>Whether the processes communicate.</strong> "Primary origin" is the old Simon idea. <span class="xflag">✗ shaded a</span></td></tr>
-        <tr><td class="num">19</td><td><a href="#removal">Removal endpoint</a></td><td class="num">a</td><td><strong>Hardness</strong>; repair rather than replace defective restorations.</td></tr>
-        <tr><td class="num">20</td><td><a href="#endoperio">Endo-perio prognosis</a></td><td class="num">b</td><td><strong>Periodontal prognosis + the patient's OH.</strong></td></tr>
-        <tr><td class="num">21</td><td><a href="#cra">Any WREC positive</a></td><td class="num">b</td><td><strong>High risk</strong>. Extreme = high + hyposalivation.</td></tr>
-        <tr><td class="num">22</td><td><a href="#cariesbasics">Caries vs lesion mgmt</a></td><td class="num">c</td><td>Caries mgmt = <strong>patient level, non-invasive</strong>; lesion mgmt = <strong>tooth level</strong>, may remove tissue.</td></tr>
-        <tr class="bad"><td class="num">23</td><td><a href="#xray">X-ray property</a></td><td class="num">d</td><td><strong>They ionise gases.</strong> X-rays <em>cannot</em> be focused. <span class="xflag">✗ shaded c</span></td></tr>
-        <tr><td class="num">24</td><td><a href="#occlusion">Opening muscle</a></td><td class="num">b</td><td><strong>Lateral pterygoid</strong>.</td></tr>
-        <tr><td class="num">25</td><td><a href="#cra">ICCMS high risk + active lesions</a></td><td class="num">b</td><td>High likelihood → <strong>intensive personalised plan</strong> (home + clinic, NOC + TPOC), <strong>frequent recalls</strong>.</td></tr>
-        <tr><td class="num">26</td><td><a href="#removal">Deep lesion, healthy pulp</a></td><td class="num">d</td><td><strong>Selective removal to soft</strong> pulpally; firm/hard periphery for the seal.</td></tr>
-        <tr><td class="num">27</td><td><a href="#ncclwear">Hydrodynamic theory</a></td><td class="num">d</td><td>Tubular <strong>fluid movement mechanically activates</strong> pulpal receptors.</td></tr>
-        <tr><td class="num">28</td><td><a href="#aetiology">Calculus crystals</a></td><td class="num">c</td><td><strong>Octacalcium phosphate</strong> (with HA, whitlockite, brushite).</td></tr>
-        <tr><td class="num">29</td><td><a href="#redflags">Unconscious hypo</a></td><td class="num">b</td><td><strong>Stop and call 000</strong>. Nothing by mouth.</td></tr>
-        <tr><td class="num">30</td><td><a href="#cra">CAMBRA philosophy</a></td><td class="num">c</td><td>Caries = <strong>multifactorial</strong> disease; minimally invasive care.</td></tr>
-        <tr><td class="num">31</td><td><a href="#occlusion">CR definition</a></td><td class="num">a</td><td>Centric relation: <strong>independent of tooth contact</strong>, purely rotary.</td></tr>
-        <tr><td class="num">32</td><td><a href="#occlusion">Overbite</a></td><td class="num">a</td><td><strong>Vertical</strong> overlap, normally 1–2 mm. Option c is overjet.</td></tr>
-        <tr class="bad"><td class="num">33</td><td><a href="#opg">Ghost image</a></td><td class="num">b</td><td>Contralateral mandible outside the focal trough → <strong>higher, reversed, magnified, blurred</strong>. <span class="xflag">✗ shaded a</span></td></tr>
-        <tr><td class="num">34</td><td><a href="#cra">Caries balance</a></td><td class="num">d</td><td><strong>Disease indicators, risk factors, protective factors.</strong></td></tr>
-        <tr><td class="num">35</td><td><a href="#plaquecontrol">Interdental cleaning</a></td><td class="num">c</td><td><strong>Daily interdental brushes</strong>; floss only where spaces are too tight.</td></tr>
-        <tr><td class="num">36</td><td><a href="#xray">Stochastic effect</a></td><td class="num">d</td><td><strong>Sublethal damage to single cells</strong> → cancer or heritable mutation. b/c are deterministic.</td></tr>
-        <tr><td class="num">37</td><td><a href="#ncclwear">DH strategies</a></td><td class="num">d</td><td><strong>Occlude tubules and/or desensitise the nerve</strong>.</td></tr>
-        <tr><td class="num">38</td><td><a href="#intraoral">SLOB</a></td><td class="num">a</td><td>Tube mesial, image mesial = <strong>Same → Lingual</strong>. (Option c is Opposite → Buccal.)</td></tr>
-        <tr><td class="num">39</td><td><a href="#xray">ALARA retake</a></td><td class="num">d</td><td><strong>Only when diagnostic criteria are not met</strong>.</td></tr>
-        <tr class="bad"><td class="num">40</td><td><a href="#cra">CRA objectives</a></td><td class="num">c</td><td><strong>Diagnose current caries, predict future disease, identify imbalanced factors.</strong> <span class="xflag">✗ shaded b</span></td></tr>
-      </tbody>
-    </table>
-    </div>
-  </section>
+  <div class="part" id="partF"><span>Part F</span>Long answers &amp; numbers</div>
 
   <section id="laq">
-    <h2 class="section">F2 · Long answers (2 × 30 marks)</h2>
-    <p class="small">Each long answer was worth as much as 30 MCQs. Use headings, define terms first, give structure <em>and</em> function, then answer the "why". Name the evidence where you can.</p>
+    <h2 class="section">F1 · Long-answer practice</h2>
+    <p class="small">Use headings, define terms first, give structure <em>and</em> function, then answer the "why". Name the evidence where you can.</p>
 
     <div class="box key">
-      <h4>Q41 · "What is the periodontium and why is it important?"</h4>
+      <h4>"What is the periodontium and why is it important?"</h4>
       <ol class="tight">
         <li><strong>Define:</strong> the tissues that <strong>invest and support</strong> the tooth: <strong>gingiva, PDL, cementum, alveolar bone</strong> (Lang &amp; Lindhe). Gingiva = protective; PDL + cementum + bone = attachment apparatus.</li>
         <li><strong>Gingiva:</strong> free/attached/interdental; oral (keratinised), sulcular and <strong>junctional epithelium</strong> (hemidesmosomes, internal basal lamina, 4–6 day turnover, permeable, neutrophils); gingival fibres; GCF (transudate → exudate). JE + fibres = the <strong>dentogingival unit</strong>.</li>
@@ -1431,7 +1329,7 @@
     </div>
 
     <div class="box key">
-      <h4>Q42 · Multiple active lesions + stress: "stop sugary snacks" <em>or</em> "brush 2× a day with fluoride toothpaste"?</h4>
+      <h4>Multiple active lesions + a stressed patient who can manage one change: "stop sugary snacks" <em>or</em> "brush 2× a day with fluoride toothpaste"?</h4>
       <p>Either answer can score if it is <strong>justified</strong>. The stronger case is <strong>brushing twice daily with fluoride toothpaste</strong> (high-fluoride 5000 ppm for this high-risk adult):</p>
       <ul class="tight">
         <li><strong>Caries balance:</strong> it acts on <em>both</em> sides. It disrupts the biofilm and adds fluoride (remineralisation, acid-resistant fluorapatite, antibacterial), so the balance tips toward repair even if diet is unchanged.</li>
@@ -1443,7 +1341,7 @@
       <p class="small">If you choose diet instead: argue it removes the substrate (cause, not symptom) and also helps general health. But concede it's harder to change under stress and that the lesions still need fluoride.</p>
     </div>
 
-    <h3>Other likely long answers (from the presentation papers)</h3>
+    <h3>More long-answer practice (from the presentation papers)</h3>
     <div class="twocol">
       <div class="box note">
         <h4>"One thing to change about a patient?"</h4>
@@ -1467,7 +1365,7 @@
   </section>
 
   <section id="numbers">
-    <h2 class="section">F3 · Numbers to know</h2>
+    <h2 class="section">F2 · Numbers to know</h2>
     <div class="twocol">
       <div class="tscroll auto"><table class="compact">
         <thead><tr><th>Patient &amp; radiography</th><th class="num">Value</th></tr></thead>
@@ -1506,22 +1404,6 @@
         </tbody>
       </table></div>
     </div>
-  </section>
-
-  <section id="traps">
-    <h2 class="section">F4 · Traps that cost marks last year</h2>
-    <ul class="tight trap">
-      <li><strong>MRONJ stage 1 is asymptomatic.</strong> Pain or infection = stage 2.</li>
-      <li><strong>X-rays can't be focused</strong>; they <em>can</em> ionise gases.</li>
-      <li><strong>Paralleling</strong> is not universally feasible. Its advantages are accuracy, reproducibility and low cone-cut risk.</li>
-      <li><strong>Materia alba</strong> is unique because a water spray removes it. "Bacteria in glycoprotein + EPS matrix" is plaque.</li>
-      <li><strong>Soft vs firm</strong> removal is decided by <strong>depth / pulp risk</strong>, not by symptoms.</li>
-      <li><strong>Endo vs perio:</strong> a pulp sensibility test separates them. Abbott classifies by <strong>communication</strong>, not origin.</li>
-      <li><strong>CRA</strong> objectives = diagnose + predict + find imbalanced factors. Disease indicators = observations of caries activity.</li>
-      <li><strong>Ghost image</strong> = contralateral structure: higher, reversed, magnified, blurred. Not mastoid pneumatisation.</li>
-      <li><strong>Bitewing</strong> tube angles <strong>down</strong>, not up. Posterior films are horizontal.</li>
-      <li><strong>Unconscious hypoglycaemia:</strong> nothing by mouth; stop and call 000.</li>
-    </ul>
   </section>
 
 
