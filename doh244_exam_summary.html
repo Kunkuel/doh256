@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DOH 244 Exam Summary</title>
+<style>
+:root{
+  --bg:#0f141c; --panel:#161d28; --panel2:#1c2533; --line:#2a3546;
+  --ink:#e7ecf3; --muted:#9aa8bb; --soft:#c5cfdc;
+  --accent:#4fd1c5; --accent2:#7aa7ff; --warn:#f6b85a; --bad:#ff7b7b; --good:#6ee7a0;
+  --chip:#22303f;
+}
+:root[data-theme="light"]{
+  --bg:#f6f7f9; --panel:#ffffff; --panel2:#f0f3f7; --line:#dde3ea;
+  --ink:#18202b; --muted:#5d6b7d; --soft:#334155;
+  --accent:#0f9488; --accent2:#2f62d6; --warn:#b56a00; --bad:#c62828; --good:#15803d;
+  --chip:#e8eef5;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px 80px}
+header.top{padding:28px 0 8px}
+header.top h1{margin:0 0 4px;font-size:26px;letter-spacing:-.01em}
+header.top p{margin:0;color:var(--muted)}
+nav.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin:0 -16px;padding:8px 16px;display:flex;gap:6px;overflow-x:auto;align-items:center}
+nav.bar a{flex:0 0 auto;color:var(--soft);text-decoration:none;font-size:13px;padding:5px 10px;border-radius:999px;background:var(--chip)}
+nav.bar a:hover{color:var(--ink)}
+nav.bar .sp{flex:1 0 8px}
+nav.bar button{flex:0 0 auto;font:inherit;font-size:13px;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:5px 11px;cursor:pointer}
+nav.bar button[aria-pressed="true"]{background:var(--accent);color:#06201d;border-color:var(--accent)}
+section{margin-top:34px}
+h2{font-size:20px;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+h2 .n{font-size:12px;font-weight:700;color:var(--bg);background:var(--accent);border-radius:6px;padding:2px 7px}
+h3{font-size:16px;margin:20px 0 8px}
+p{margin:6px 0}
+a{color:var(--accent2)}
+nav.bar a{color:var(--soft)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:720px){.grid2{grid-template-columns:1fr}}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:5px;background:var(--chip);color:var(--soft);margin-right:6px;vertical-align:1px}
+.tag.hot{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
+.tag.ok{background:color-mix(in srgb,var(--good) 20%,transparent);color:var(--good)}
+.note{border-left:3px solid var(--accent2);background:var(--panel2);padding:9px 12px;border-radius:0 8px 8px 0;margin:10px 0}
+.trap{border-left:3px solid var(--bad);background:color-mix(in srgb,var(--bad) 9%,var(--panel));padding:9px 12px;border-radius:0 8px 8px 0;margin:10px 0}
+.trap b:first-child{color:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+.tbl{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:12px 0}
+.tbl table td:first-child{font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chips span{background:var(--chip);border-radius:7px;padding:4px 9px;font-size:13px}
+.chips span b{color:var(--accent)}
+/* steps */
+ol.steps{list-style:none;counter-reset:s;margin:8px 0 0;padding:0}
+ol.steps>li{counter-increment:s;position:relative;padding:7px 0 7px 38px;border-top:1px dashed var(--line)}
+ol.steps>li:first-child{border-top:0}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:7px;width:26px;height:26px;border-radius:50%;background:var(--panel2);border:1px solid var(--accent);color:var(--accent);font-size:13px;font-weight:700;display:grid;place-items:center}
+ol.steps .do{font-weight:600}
+ol.steps .why{display:block;color:var(--muted);font-size:13.5px;margin-top:1px}
+ol.steps .why::before{content:"why → ";color:var(--accent2);font-weight:600}
+body.recall .why{filter:blur(5px);cursor:pointer;transition:filter .15s}
+body.recall .why:hover,body.recall .why.show{filter:none}
+.sys{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+.sys>.hd{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;padding:11px 16px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.sys>.hd h3{margin:0;font-size:16px}
+.sys>.hd .g{font-size:12px;color:var(--muted)}
+.sys>.bd{padding:6px 16px 12px}
+.sys .use{font-size:13.5px;color:var(--soft);margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
+.ans{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.ans b{color:var(--accent)}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}
+details>summary{cursor:pointer;padding:12px 0;font-weight:600;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸ ";color:var(--accent)}
+details[open]>summary::before{content:"▾ "}
+details>div{padding-bottom:12px}
+ul{margin:6px 0;padding-left:20px}
+li{margin:2px 0}
+.num{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.num div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.num b{display:block;font-size:17px;color:var(--accent)}
+.num span{font-size:13px;color:var(--muted)}
+footer{margin-top:40px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--line);padding-top:12px}
+@media print{nav.bar{display:none}body{background:#fff;color:#000}.card,.sys,.tbl,details{break-inside:avoid}}
+
+figure.dg{margin:14px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 14px 10px}
+figure.dg svg{display:block;width:100%;height:auto;color:var(--ink);font-family:inherit}
+@media (max-width:640px){figure.dg{overflow-x:auto}figure.dg svg{min-width:600px}}
+figure.dg figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>DOH 244 Exam Summary</h1>
+  <p>Foundations of Restorative Dentistry, Sessions 1 & 2. Built around last year's paper: ordered steps, each with a one-line reason.</p>
+</header>
+
+<nav class="bar">
+  <a href="index.html" style="background:transparent;border:1px solid var(--line)">← Hub</a>
+  <a href="#exam">Exam</a>
+  <a href="#bond">Etch &amp; bond</a>
+  <a href="#cr">Composite</a>
+  <a href="#vpt">VPT</a>
+  <a href="#amalgam">Amalgam</a>
+  <a href="#repair">Repair</a>
+  <a href="#bleach">Whitening + ADA</a>
+  <a href="#anterior">Anterior</a>
+  <a href="#quick">Quick hits</a>
+  <a href="#numbers">Numbers</a>
+  <span class="sp"></span>
+  <button id="recallBtn" aria-pressed="false" title="Blur every 'why' line. Hover or tap one to reveal it.">Recall mode</button>
+  <button id="themeBtn" title="Switch light/dark">◐</button>
+</nav>
+
+<!-- ================= EXAM ================= -->
+<section id="exam">
+  <h2><span class="n">0</span>Last year's paper</h2>
+  <div class="tbl"><table>
+    <tr><th>Q</th><th>Type · marks</th><th>Topic</th><th>Answer / where</th></tr>
+    <tr><td>1</td><td>Single choice · 5</td><td>Class II MO amalgam with marginal degradation + secondary caries</td><td><b>Replace</b> the restoration (see <a href="#repair">Repair</a>). No official key; this follows the repair lecture</td></tr>
+    <tr><td>2</td><td>Select all · 10</td><td>ADA Policy 2.2.8: what causes pulpal damage or irreversible injury</td><td><b>a, b, d</b>. c is a protective step (see <a href="#bleach">Whitening</a>)</td></tr>
+    <tr><td>3</td><td>Single choice · 5</td><td>Why use incremental technique</td><td><b>a</b>: maximum polymerisation, less shrinkage effect. b is wrong (5 mm), c and d state the opposite</td></tr>
+    <tr><td>4</td><td>Written · 10</td><td>Class II ready for amalgam: steps before restoring, and why</td><td><a href="#amalgam">Amalgam</a></td></tr>
+    <tr><td>5</td><td>Written · 10</td><td>Very deep caries ("RB5" in the paper; ICCMS scores an inner-⅓ cavitated lesion as RC5) in a young patient: IPC, then composite</td><td><a href="#vpt">VPT</a></td></tr>
+    <tr><td>6</td><td>Written · 10</td><td>Class I, RB4, dam on: composite including the adhesive system</td><td><a href="#cr">Composite</a></td></tr>
+  </table></div>
+  <div class="note"><b>Written format:</b> "a) list the steps in order, b) briefly explain the reasoning for each." Use numbered steps with one reason each, and <b>name the adhesive system</b> you're using. Start from where the stem says you are (for example, "rubber dam already placed"). The revision guide reports this year as <b>6 selection + 2 written</b>, but go by the instructions on the day.</div>
+  <p class="muted">Tip: switch on <b>Recall mode</b> (top bar). It blurs every "why" line, so you can test yourself on the reasons, then hover or tap to check.</p>
+</section>
+
+<!-- ================= ETCH & BOND ================= -->
+<section id="bond">
+  <h2><span class="n">1</span>Etch &amp; bond: the four systems</h2>
+
+  <div class="grid2">
+    <div class="card"><span class="tag">Enamel</span> ~96% mineral by weight (Week 9 lecture slide says 90%), no water
+      <ul>
+        <li>37% H₃PO₄ <b>30 s</b> dissolves prism peripheries → micro-porosity → resin tags (micromechanical)</li>
+        <li>Rinse off the "sludge"; dry fully (frosty)</li>
+        <li>Strongest, most durable bond → <b>keep margins on enamel</b></li>
+      </ul></div>
+    <div class="card"><span class="tag">Dentine</span> collagen + water + tubules + smear layer
+      <ul>
+        <li>Etch <b>15 s</b> only: removes smear layer, exposes collagen mesh</li>
+        <li>Keep <b>moist/shiny</b>. Over-drying collapses collagen ("wet spaghetti"). Blot with absorbent paper, not cotton.</li>
+        <li><b>Hybrid layer</b> = resin interdiffused with collagen (main bond); resin tags seal tubules → less post-op sensitivity</li>
+      </ul></div>
+  </div>
+
+<figure class="dg"><svg viewBox="0 0 660 230" role="img" aria-label="Cross-section of a bonded dentine interface: composite on a hydrophobic bond layer, on a hybrid layer of resin infiltrated into collagen, with resin tags plugging the dentinal tubules.">
+<rect x="20" y="10" width="320" height="50" style="fill:currentColor;fill-opacity:.09"/><circle cx="40" cy="25" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="75" cy="42" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="110" cy="22" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="150" cy="38" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="190" cy="26" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="225" cy="46" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="265" cy="24" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="300" cy="40" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="330" cy="28" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="60" cy="50" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="175" cy="50" r="3.2" style="fill:currentColor;fill-opacity:.22"/><circle cx="285" cy="52" r="3.2" style="fill:currentColor;fill-opacity:.22"/>
+<rect x="20" y="60" width="320" height="16" style="fill:var(--accent);fill-opacity:.45"/>
+<rect x="20" y="76" width="320" height="26" style="fill:var(--accent);fill-opacity:.18"/><polyline points="20,80 30,88 40,80 50,88 60,80 70,88 80,80 90,88 100,80 110,88 120,80 130,88 140,80 150,88 160,80 170,88 180,80 190,88 200,80 210,88 220,80 230,88 240,80 250,88 260,80 270,88 280,80 290,88 300,80 310,88 320,80 330,88 340,80" style="fill:none;stroke:currentColor;stroke-opacity:.45"/><polyline points="20,90 30,98 40,90 50,98 60,90 70,98 80,90 90,98 100,90 110,98 120,90 130,98 140,90 150,98 160,90 170,98 180,90 190,98 200,90 210,98 220,90 230,98 240,90 250,98 260,90 270,98 280,90 290,98 300,90 310,98 320,90 330,98 340,90" style="fill:none;stroke:currentColor;stroke-opacity:.45"/>
+<rect x="20" y="102" width="320" height="118" style="fill:var(--warn);fill-opacity:.13"/><rect x="56" y="102" width="8" height="118" style="fill:var(--panel);stroke:currentColor;stroke-opacity:.35"/><rect x="56" y="102" width="8" height="46" rx="3" style="fill:var(--accent);fill-opacity:.75"/><rect x="116" y="102" width="8" height="118" style="fill:var(--panel);stroke:currentColor;stroke-opacity:.35"/><rect x="116" y="102" width="8" height="46" rx="3" style="fill:var(--accent);fill-opacity:.75"/><rect x="176" y="102" width="8" height="118" style="fill:var(--panel);stroke:currentColor;stroke-opacity:.35"/><rect x="176" y="102" width="8" height="46" rx="3" style="fill:var(--accent);fill-opacity:.75"/><rect x="236" y="102" width="8" height="118" style="fill:var(--panel);stroke:currentColor;stroke-opacity:.35"/><rect x="236" y="102" width="8" height="46" rx="3" style="fill:var(--accent);fill-opacity:.75"/><rect x="296" y="102" width="8" height="118" style="fill:var(--panel);stroke:currentColor;stroke-opacity:.35"/><rect x="296" y="102" width="8" height="46" rx="3" style="fill:var(--accent);fill-opacity:.75"/>
+<line x1="342" y1="35" x2="364" y2="26" style="stroke:currentColor;stroke-opacity:.5"/><text x="370" y="30" font-size="12.5" fill="currentColor">Composite</text><text x="370" y="45" font-size="11.5" fill="currentColor" fill-opacity=".65">co-polymerises with the bond</text>
+<line x1="342" y1="68" x2="364" y2="62" style="stroke:currentColor;stroke-opacity:.5"/><text x="370" y="66" font-size="12.5" fill="currentColor">Bond (hydrophobic)</text><text x="370" y="81" font-size="11.5" fill="currentColor" fill-opacity=".65">passive 10 s, then cured</text>
+<line x1="342" y1="89" x2="364" y2="100" style="stroke:currentColor;stroke-opacity:.5"/><text x="370" y="104" font-size="12.5" fill="currentColor">Hybrid layer = resin + collagen</text><text x="370" y="119" font-size="11.5" fill="currentColor" fill-opacity=".65">the main dentine bond (primer builds it)</text>
+<line x1="342" y1="130" x2="364" y2="142" style="stroke:currentColor;stroke-opacity:.5"/><text x="370" y="146" font-size="12.5" fill="currentColor">Resin tags in tubules</text><text x="370" y="161" font-size="11.5" fill="currentColor" fill-opacity=".65">seal tubules → less post-op sensitivity</text>
+<line x1="342" y1="190" x2="364" y2="192" style="stroke:currentColor;stroke-opacity:.5"/><text x="370" y="196" font-size="12.5" fill="currentColor">Dentine</text><text x="370" y="211" font-size="11.5" fill="currentColor" fill-opacity=".65">collagen + water + tubules</text>
+</svg><figcaption>Etching exposes the collagen mesh. The primer wets it (if the dentine was over-dried the mesh collapses and nothing infiltrates). The cured resin–collagen zone is the hybrid layer. Tags help seal but aren't the main bond.</figcaption></figure>
+  <div class="chips">
+    <span>H₃PO₄ <b>37%</b></span><span>Enamel <b>30 s</b></span><span>Dentine <b>15 s</b> (etch enamel first)</span><span>Rinse <b>30 s</b></span>
+    <span>Primer <b>active 20 s</b></span><span>Bond <b>passive 10 s</b></span><span>Combined bottle <b>2 × 20 s active</b></span><span>Adhesive cure <b>10–20 s</b></span>
+  </div>
+
+  <div class="tbl"><table>
+    <tr><th>System</th><th>Gen</th><th>Bottles</th><th>Smear layer</th><th>Best for</th></tr>
+    <tr><td>3-step etch-and-rinse</td><td>4th</td><td>Etch · Primer · Bond</td><td>Removed</td><td>Gold standard, <b>enamel</b>; most durable</td></tr>
+    <tr><td>2-step etch-and-rinse</td><td>5th</td><td>Etch · (Primer+Bond)</td><td>Removed</td><td>Simpler; a notch less durable</td></tr>
+    <tr><td>2-step self-etch</td><td>6th</td><td>SE primer · Bond</td><td>Modified</td><td><b>Dentine</b> (mild, chemical bond via 10-MDP)</td></tr>
+    <tr><td>1-step self-etch</td><td>7th</td><td>All-in-one</td><td>Modified</td><td>Fastest; least durable (hydrolysis)</td></tr>
+    <tr><td>Universal</td><td>8th*</td><td>One bottle, any mode</td><td>Either</td><td>Versatile; CSU uses it with selective enamel etch</td></tr>
+  </table></div>
+  <figure class="dg"><svg viewBox="0 0 770 280" role="img" aria-label="Step map of the five adhesive systems: etch-and-rinse systems phosphoric-etch both enamel and dentine, self-etch systems etch enamel only and leave dentine to the acidic primer."><text x="225" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Etch enamel</text><text x="225" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">30 s</text><text x="323" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Etch dentine</text><text x="323" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">last 15 s</text><text x="421" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Rinse</text><text x="421" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">30 s</text><text x="519" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Primer</text><text x="519" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">active 20 s</text><text x="617" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Bond</text><text x="617" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">passive 10 s</text><text x="715" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Cure</text><text x="715" y="36" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">10–20 s</text><text x="8" y="69.5" font-size="12.5" font-weight="600" fill="currentColor">3-step etch-and-rinse</text><rect x="180" y="50" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="225.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="278" y="50" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="323.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="376" y="50" width="90" height="30" rx="6" style="fill:currentColor;fill-opacity:.07;stroke:currentColor;stroke-opacity:.35"/><text x="421.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">rinse</text><rect x="474" y="50" width="90" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--accent)"/><text x="519.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">primer</text><rect x="572" y="50" width="90" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--accent)"/><text x="617.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">bond</text><rect x="670" y="50" width="90" height="30" rx="6" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="715.0" y="69.5" text-anchor="middle" font-size="11.5" fill="currentColor">cure</text><text x="8" y="109.5" font-size="12.5" font-weight="600" fill="currentColor">2-step etch-and-rinse</text><rect x="180" y="90" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="225.0" y="109.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="278" y="90" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="323.0" y="109.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="376" y="90" width="90" height="30" rx="6" style="fill:currentColor;fill-opacity:.07;stroke:currentColor;stroke-opacity:.35"/><text x="421.0" y="109.5" text-anchor="middle" font-size="11.5" fill="currentColor">rinse</text><rect x="474" y="90" width="188" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--accent)"/><text x="568.0" y="109.5" text-anchor="middle" font-size="11.5" fill="currentColor">primer + bond · 2 coats</text><rect x="670" y="90" width="90" height="30" rx="6" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="715.0" y="109.5" text-anchor="middle" font-size="11.5" fill="currentColor">cure</text><text x="8" y="149.5" font-size="12.5" font-weight="600" fill="currentColor">2-step self-etch</text><rect x="180" y="130" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="225.0" y="149.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="278" y="130" width="90" height="30" rx="6" style="fill:none;stroke:currentColor;stroke-opacity:.3;stroke-dasharray:3 3"/><text x="323.0" y="149.5" text-anchor="middle" font-size="11" fill="currentColor">no acid</text><rect x="376" y="130" width="90" height="30" rx="6" style="fill:currentColor;fill-opacity:.07;stroke:currentColor;stroke-opacity:.35"/><text x="421.0" y="149.5" text-anchor="middle" font-size="11.5" fill="currentColor">rinse</text><rect x="474" y="130" width="90" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--warn);stroke-width:1.6;stroke-dasharray:5 3"/><text x="519.0" y="149.5" text-anchor="middle" font-size="11.5" fill="currentColor">acidic primer</text><rect x="572" y="130" width="90" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--accent)"/><text x="617.0" y="149.5" text-anchor="middle" font-size="11.5" fill="currentColor">bond</text><rect x="670" y="130" width="90" height="30" rx="6" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="715.0" y="149.5" text-anchor="middle" font-size="11.5" fill="currentColor">cure</text><text x="8" y="189.5" font-size="12.5" font-weight="600" fill="currentColor">1-step self-etch</text><rect x="180" y="170" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="225.0" y="189.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="278" y="170" width="90" height="30" rx="6" style="fill:none;stroke:currentColor;stroke-opacity:.3;stroke-dasharray:3 3"/><text x="323.0" y="189.5" text-anchor="middle" font-size="11" fill="currentColor">no acid</text><rect x="376" y="170" width="90" height="30" rx="6" style="fill:currentColor;fill-opacity:.07;stroke:currentColor;stroke-opacity:.35"/><text x="421.0" y="189.5" text-anchor="middle" font-size="11.5" fill="currentColor">rinse</text><rect x="474" y="170" width="188" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--warn);stroke-width:1.6;stroke-dasharray:5 3"/><text x="568.0" y="189.5" text-anchor="middle" font-size="11.5" fill="currentColor">all-in-one · 2 coats</text><rect x="670" y="170" width="90" height="30" rx="6" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="715.0" y="189.5" text-anchor="middle" font-size="11.5" fill="currentColor">cure</text><text x="8" y="229.5" font-size="12.5" font-weight="600" fill="currentColor">Universal (SE mode)</text><rect x="180" y="210" width="90" height="30" rx="6" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="225.0" y="229.5" text-anchor="middle" font-size="11.5" fill="currentColor">H₃PO₄</text><rect x="278" y="210" width="90" height="30" rx="6" style="fill:none;stroke:currentColor;stroke-opacity:.3;stroke-dasharray:3 3"/><text x="323.0" y="229.5" text-anchor="middle" font-size="11" fill="currentColor">no acid</text><rect x="376" y="210" width="90" height="30" rx="6" style="fill:currentColor;fill-opacity:.07;stroke:currentColor;stroke-opacity:.35"/><text x="421.0" y="229.5" text-anchor="middle" font-size="11.5" fill="currentColor">rinse</text><rect x="474" y="210" width="188" height="30" rx="6" style="fill:var(--accent);fill-opacity:.22;stroke:var(--warn);stroke-width:1.6;stroke-dasharray:5 3"/><text x="568.0" y="229.5" text-anchor="middle" font-size="11.5" fill="currentColor">universal · 2 coats</text><rect x="670" y="210" width="90" height="30" rx="6" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="715.0" y="229.5" text-anchor="middle" font-size="11.5" fill="currentColor">cure</text><rect x="274" y="126" width="98" height="118" rx="9" style="fill:none;stroke:var(--warn);stroke-width:1.5"/><rect x="8" y="258" width="18" height="12" rx="3" style="fill:var(--warn);fill-opacity:.28;stroke:var(--warn)"/><text x="32" y="268.5" font-size="11.5" fill="currentColor">phosphoric acid 37%</text><rect x="190" y="258" width="18" height="12" rx="3" style="fill:var(--accent);fill-opacity:.22;stroke:var(--accent)"/><text x="214" y="268.5" font-size="11.5" fill="currentColor">resin (primer / bond)</text><rect x="380" y="258" width="18" height="12" rx="3" style="fill:var(--accent);fill-opacity:.22;stroke:var(--warn);stroke-width:1.6;stroke-dasharray:5 3"/><text x="404" y="268.5" font-size="11.5" fill="currentColor">acidic self-etch resin</text><rect x="575" y="258" width="18" height="12" rx="3" style="fill:var(--accent2);fill-opacity:.22;stroke:var(--accent2)"/><text x="599" y="268.5" font-size="11.5" fill="currentColor">light cure</text></svg>
+<figcaption>Read across a row for the steps. The boxed dentine column is the real difference: etch-and-rinse puts phosphoric acid on dentine; self-etch systems don't, because their own acidic resin conditions it. Merged boxes mark combined bottles, which is why they get 2 active coats.</figcaption></figure>
+<p class="muted">*The clinic materials sheet labels Scotchbond Universal "6th gen" (and calls CSU's selective-etch method "modified 6th gen"). Generation labels vary between sources. In written answers, describe the <b>strategy and number of steps</b> (for example "two-step self-etch").</p>
+
+  <div class="sys"><div class="hd"><h3>① Three-step etch-and-rinse</h3><span class="g">4th gen · etch → primer → bond (separate)</span></div><div class="bd">
+    <ol class="steps">
+      <li><span class="do">Etch 37% H₃PO₄: enamel 30 s, then dentine for the last 15 s</span><span class="why">Micro-porosity in enamel; strip smear layer and expose collagen. Dentine gets less time so demineralisation isn't deeper than resin can infiltrate</span></li>
+      <li><span class="do">Rinse 30 s</span><span class="why">Remove acid and dissolved-mineral sludge so adhesive can flow in</span></li>
+      <li><span class="do">Dry selectively: enamel frosty, dentine moist (blot)</span><span class="why">Enamel has no water; over-dried dentine collagen collapses → no infiltration → lost bond</span></li>
+      <li><span class="do">Primer: active (rub) 20 s → gentle air-dry</span><span class="why">Bifunctional primer: hydrophilic end wets collagen, hydrophobic end links to bond. Solvent chases water and is evaporated → builds the hybrid layer</span></li>
+      <li><span class="do">Bond: passive 10 s → remove excess</span><span class="why">Hydrophobic resin co-polymerises with primer; passive so no air bubbles; even film without pooling</span></li>
+      <li><span class="do">Light-cure 10–20 s</span><span class="why">Locks the hybrid layer and gives the surface the composite bonds to</span></li>
+    </ol>
+    <div class="use"><b>Why choose it:</b> best enamel bond. The separate hydrophobic bond layer makes it the most durable. <b>Cost:</b> most steps, most technique-sensitive.</div>
+  </div></div>
+
+  <div class="sys"><div class="hd"><h3>② Two-step etch-and-rinse</h3><span class="g">5th gen · etch → (primer + bond)</span></div><div class="bd">
+    <ol class="steps">
+      <li><span class="do">Etch enamel 30 s + dentine 15 s → rinse 30 s → enamel dry, dentine moist</span><span class="why">Same reasoning as the 3-step</span></li>
+      <li><span class="do">Combined adhesive: coat 1 active 20 s, coat 2 active 20 s</span><span class="why">Primer and bond are pre-mixed. Two scrubbed coats give full collagen infiltration and enough film thickness (one coat is too thin)</span></li>
+      <li><span class="do">Gentle air-dry → light-cure 10–20 s</span><span class="why">Evaporate solvent (no bubbles or porosity), then polymerise</span></li>
+    </ol>
+    <div class="use"><b>Trade-off:</b> combined bottle is more hydrophilic → absorbs water → slightly less durable than the 3-step.</div>
+  </div></div>
+
+  <div class="sys"><div class="hd"><h3>③ Two-step self-etch</h3><span class="g">6th gen · selective enamel etch → SE primer → bond</span></div><div class="bd">
+    <ol class="steps">
+      <li><span class="do">Selective enamel etch: 37% on enamel only, 30 s → rinse → dry</span><span class="why">Self-etch acid is too mild for enamel. Phosphoric acid gives a reliable enamel margin while dentine is left untouched</span></li>
+      <li><span class="do">Self-etch primer (acidic monomers): active 20 s → gentle air-dry. <i>Do not rinse.</i></span><span class="why">Etches and primes in one step. Modifies (doesn't remove) the smear layer, and demineralises only as deep as it infiltrates → no exposed, unprotected collagen</span></li>
+      <li><span class="do">Bond: passive 10 s → remove excess → cure 10–20 s</span><span class="why">Separate hydrophobic bond seals the primed surface and stays durable</span></li>
+    </ol>
+    <div class="use"><b>Why choose it:</b> best for dentine. Mild pH (≈2) + 10-MDP gives a chemical bond to hydroxyapatite; no rinsing or over-drying, so collagen can't collapse; low post-op sensitivity. <b>Use it for deep cavities and IPC.</b></div>
+  </div></div>
+
+  <div class="sys"><div class="hd"><h3>④ One-step self-etch</h3><span class="g">7th gen · selective enamel etch → all-in-one</span></div><div class="bd">
+    <ol class="steps">
+      <li><span class="do">Selective enamel etch 30 s → rinse → dry</span><span class="why">All-in-one acid is weak on enamel</span></li>
+      <li><span class="do">All-in-one adhesive: coat 1 active 20 s, coat 2 active 20 s</span><span class="why">Etch, prime and bond from one bottle, no rinse. Two coats for infiltration and thickness</span></li>
+      <li><span class="do">Gentle air-dry → remove excess → cure 10–20 s</span><span class="why">Remove solvent, leave a thin even film, polymerise</span></li>
+    </ol>
+    <div class="use"><b>Trade-off:</b> fastest, but all hydrophilic components stay together → water uptake → hydrolytic degradation and a thinner, weaker hybrid layer. Least durable.</div>
+  </div></div>
+
+  <div class="sys"><div class="hd"><h3>⑤ Universal + selective enamel etch</h3><span class="g">CSU preferred ("modified 6th gen"), also used when replacing amalgam</span></div><div class="bd">
+    <ol class="steps">
+      <li><span class="do">Selective enamel etch 35–37%, 30 s → rinse → dry</span><span class="why">Best enamel bond without phosphoric acid on dentine</span></li>
+      <li><span class="do">Universal adhesive: active 20 s × 2 coats (course handbook). The clinic sheet for Scotchbond Universal says one 20 s scrub → 5 s gentle dry → 10 s cure, so follow the product</span><span class="why">Self-etch mode on dentine; active scrubbing improves infiltration</span></li>
+      <li><span class="do">Air-dry to remove solvent → light-cure 10–20 s</span><span class="why">Solvent left behind weakens the interface</span></li>
+    </ol>
+  </div></div>
+
+  <div class="trap"><b>Traps:</b> 1-step self-etch is <i>not</i> "one-step etch-and-rinse". Never rinse a self-etch primer. Never phosphoric-etch dentine in a self-etch protocol. Durability falls because of <b>hydrolysis</b> (trapped water) and <b>MMPs</b> (enzymes released on etching that digest exposed, uninfiltrated collagen).</div>
+</section>
+
+<!-- ================= COMPOSITE ================= -->
+<section id="cr">
+  <h2><span class="n">2</span>Composite placement (Q6 model)</h2>
+
+  <div class="grid2">
+    <div class="card"><span class="tag hot">Incremental technique</span>
+      <ul>
+        <li>Increments <b>≤ 2 mm</b>, oblique, touching <b>≤ 2 walls</b>; cure each one (time per manufacturer, typically 20–40 s)</li>
+        <li><b>Why:</b> full cure through each layer (light penetration) + lowers the C-factor per layer → less <b>polymerisation stress</b> → better marginal adaptation, fewer gaps and less cusp deflection or sensitivity. Also lets you build anatomy layer by layer.</li>
+        <li>Bulk-fill (4–5 mm) only for products made for it</li>
+      </ul></div>
+    <div class="card"><span class="tag">C-factor</span> = bonded ÷ unbonded surfaces
+      <ul>
+        <li>Class I box: 5 bonded : 1 free → <b>C = 5</b> (worst)</li>
+        <li>Class IV is open → low C-factor</li>
+        <li>Shrinkage is a material property; increments reduce the <b>stress</b>, not the total shrinkage</li>
+      </ul></div>
+  </div>
+
+<figure class="dg"><svg viewBox="0 0 640 235" role="img" aria-label="Class I cavity: bulk placement is bonded on five walls with one free surface (C-factor 5); oblique increments each touch at most two walls and keep a free surface."><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="currentColor"/></marker></defs>
+<text x="150" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Bulk placement</text>
+<text x="470" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Oblique increments</text>
+<rect x="50" y="40" width="200" height="130" style="fill:currentColor;fill-opacity:.1"/>
+<path d="M50,40 L50,170 L250,170 L250,40" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linejoin:round"/><line x1="50" y1="40" x2="250" y2="40" style="stroke:currentColor;stroke-opacity:.6;stroke-dasharray:6 4;stroke-width:1.5"/>
+<line x1="56" y1="105" x2="92" y2="105" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="244" y1="105" x2="208" y2="105" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/>
+<line x1="150" y1="164" x2="150" y2="130" stroke="currentColor" stroke-width="1.6" marker-end="url(#ah)"/>
+<text x="150" y="100" text-anchor="middle" font-size="11.5" fill="currentColor" fill-opacity=".75">shrinkage pulls</text><text x="150" y="114" text-anchor="middle" font-size="11.5" fill="currentColor" fill-opacity=".75">on every wall</text>
+<polygon points="370,170 370,100 470,170" style="fill:var(--accent);fill-opacity:.16;stroke:currentColor;stroke-opacity:.5"/>
+<polygon points="470,170 570,170 570,100" style="fill:var(--accent2);fill-opacity:.16;stroke:currentColor;stroke-opacity:.5"/>
+<polygon points="370,100 470,170 570,100 570,40 370,40" style="fill:currentColor;fill-opacity:.08;stroke:currentColor;stroke-opacity:.5"/>
+<path d="M370,40 L370,170 L570,170 L570,40" style="fill:none;stroke:var(--accent);stroke-width:4;stroke-linejoin:round"/><line x1="370" y1="40" x2="570" y2="40" style="stroke:currentColor;stroke-opacity:.6;stroke-dasharray:6 4;stroke-width:1.5"/>
+<text x="392" y="158" font-size="13" font-weight="700" fill="currentColor">1</text><text x="540" y="158" font-size="13" font-weight="700" fill="currentColor">2</text><text x="466" y="90" font-size="13" font-weight="700" fill="currentColor">3</text>
+<text x="150" y="198" text-anchor="middle" font-size="12.5" fill="currentColor">5 bonded : 1 free → C = 5 → high stress</text>
+<text x="150" y="216" text-anchor="middle" font-size="11.5" fill="currentColor" fill-opacity=".65">gaps, debonding, cusp deflection, sensitivity</text>
+<text x="470" y="198" text-anchor="middle" font-size="12.5" fill="currentColor">each ≤ 2 mm, ≤ 2 walls, cured separately</text>
+<text x="470" y="216" text-anchor="middle" font-size="11.5" fill="currentColor" fill-opacity=".65">free surface can flow → lower stress + full cure</text>
+<line x1="270" y1="232" x2="290" y2="232" style="stroke:var(--accent);stroke-width:4"/><text x="296" y="235" font-size="11" fill="currentColor" fill-opacity=".7">bonded wall</text>
+<line x1="372" y1="232" x2="392" y2="232" style="stroke:currentColor;stroke-opacity:.6;stroke-dasharray:6 4;stroke-width:1.5"/><text x="398" y="235" font-size="11" fill="currentColor" fill-opacity=".7">free surface</text>
+</svg><figcaption>Total shrinkage is fixed by the material. Increments lower the <b>stress</b> by limiting how many bonded walls each layer pulls against, and keep every layer within depth of cure.</figcaption></figure>
+  <div class="card">
+    <span class="tag ok">Model answer</span><b>Q6: Class I on 26, RB4 (mid-depth), rubber dam on</b>
+    <ol class="steps">
+      <li><span class="do">Shade chosen earlier on the hydrated tooth; confirm the dam seals and clean the cavity (rinse, dry)</span><span class="why">Dehydrated teeth look lighter. Saliva or blood contamination ruins the bond</span></li>
+      <li><span class="do">Pulp protection: none routinely for RB4. RMGI (Vitrebond) only over the deepest dentine if it's close to the pulp, never on enamel margins. <b>No CaOH, no ZOE/IRM</b></span><span class="why">Mid-depth doesn't need a cap. Lining wastes bonding area. Eugenol inhibits resin polymerisation</span></li>
+      <li><span class="do">Name the system: 3-step etch-and-rinse. 37% H₃PO₄: enamel 30 s, then dentine 15 s</span><span class="why">Enamel micro-porosity; expose dentine collagen; shorter on dentine to avoid over-demineralising</span></li>
+      <li><span class="do">Rinse 30 s; enamel dry and frosty, dentine moist (blot)</span><span class="why">Remove sludge; prevent collagen collapse</span></li>
+      <li><span class="do">Primer active 20 s → air-dry → bond passive 10 s → thin → cure 10–20 s</span><span class="why">Forms the hybrid layer; solvent evaporated; even bond film</span></li>
+      <li><span class="do">Composite in oblique increments ≤ 2 mm, ≤ 2 walls each, cure each per manufacturer (typically 20–40 s)</span><span class="why">Complete cure; lower C-factor and stress (Class I C = 5); better margins</span></li>
+      <li><span class="do">Shape the final occlusal increment (cusps, fissures) before curing</span><span class="why">Less finishing later; correct anatomy</span></li>
+      <li><span class="do">Remove dam → check centric and excursive occlusion with articulating paper → adjust</span><span class="why">High spots cause fracture, pain and wear</span></li>
+      <li><span class="do">Finish (fine diamond or multi-fluted bur), then polish with rubber points or brushes (course: 24–48 h)</span><span class="why">Smooth surface means less plaque and stain, and longer life</span></li>
+      <li><span class="do">OHI, diet and fluoride; recall</span><span class="why">The restoration treats the lesion, not the disease</span></li>
+    </ol>
+  </div>
+  <p class="muted">Also defensible: 2-step self-etch with selective enamel etch. Name one system and stick to it; don't mix the steps.</p>
+</section>
+
+<!-- ================= VPT ================= -->
+<section id="vpt">
+  <h2><span class="n">3</span>Vital pulp therapy</h2>
+  <p><b>Aim:</b> keep the pulp alive by sealing the lesion off from the mouth ("<b>vital &amp; seal</b>") so the pulp heals and lays down tertiary dentine. Less invasive than RCT.</p>
+
+  <div class="tbl"><table>
+    <tr><th>Depth</th><th>Definition</th><th>Protection</th></tr>
+    <tr><td>Superficial</td><td>At the DEJ</td><td rowspan="3">Adhesive + composite; RMGI liner (Fuji Bond LC) under amalgam</td></tr>
+    <tr><td>Shallow</td><td>0.5–1 mm below the DEJ</td></tr>
+    <tr><td>Medium</td><td>About half-way through dentine</td></tr>
+    <tr><td>Deep</td><td>More than half-way, <b>RDT &gt; 0.5 mm</b></td><td rowspan="2"><b>VPT</b> (pulp capping)</td></tr>
+    <tr><td>Very deep</td><td><b>RDT &lt; 0.5 mm</b></td></tr>
+  </table></div>
+
+  <div class="grid2">
+    <div class="card"><span class="tag ok">Indications</span>
+      <ul><li>Deep or very deep caries, vital and restorable tooth</li><li>Reversible pulpitis (provoked, short-lived pain, e.g. to sweets or cold)</li><li>No radicular pathology on the radiograph</li><li>Immature or deciduous teeth (root development continues)</li></ul></div>
+    <div class="card"><span class="tag hot">Contraindications</span>
+      <ul><li>Spontaneous or lingering pain (irreversible pulpitis)</li><li>Necrosis, pus, sinus tract, apical lesion</li><li>Uncontrolled bleeding from an exposure</li></ul></div>
+  </div>
+
+  <div class="tbl"><table>
+    <tr><th>Procedure</th><th>What it is</th></tr>
+    <tr><td>Indirect pulp cap</td><td>Selective caries removal, <b>no exposure</b>; deep caries left over the pulp and sealed</td></tr>
+    <tr><td>Direct pulp cap</td><td>Exposure with controlled bleeding → calcium silicate (MTA or Biodentine) directly on the pulp → seal</td></tr>
+    <tr><td>Partial or full pulpotomy</td><td>Remove part or all of the coronal pulp; the rest stays vital</td></tr>
+    <tr><td>Pulpectomy</td><td>Whole pulp removed. <b>Not</b> VPT</td></tr>
+  </table></div>
+
+<figure class="dg"><svg viewBox="0 0 760 330" role="img" aria-label="Cross-section of an indirect pulp cap restoration: peripheral caries removed, affected dentine left over the pulp horn, calcium hydroxide on the deepest point, GIC base over it, adhesive on all walls, composite in oblique increments.">
+<g transform="translate(0,28)">
+<rect x="60" y="20" width="300" height="270" rx="24" style="fill:var(--warn);fill-opacity:.12;stroke:currentColor;stroke-opacity:.45"/>
+<path d="M60,150 L60,44 Q60,20 84,20 L336,20 Q360,20 360,44 L360,150 L344,150 L344,46 Q344,36 334,36 L86,36 Q76,36 76,46 L76,150 Z" style="fill:var(--accent2);fill-opacity:.28"/>
+<path d="M120,290 L120,222 Q120,196 150,198 Q185,200 198,174 Q210,160 222,174 Q235,200 270,198 Q300,196 300,222 L300,290 Z" style="fill:var(--bad);fill-opacity:.28;stroke:var(--bad);stroke-opacity:.7"/>
+<rect x="180" y="150" width="60" height="12" rx="3" style="fill:var(--warn);fill-opacity:.55"/>
+<rect x="150" y="17" width="120" height="133" style="fill:var(--panel)"/>
+<path d="M152,20 L152,148 L168,148 L168,136 Q210,120 252,136 L252,148 L268,148 L268,20 Z" style="fill:currentColor;fill-opacity:.1"/>
+<path d="M168,150 L168,136 Q210,120 252,136 L252,150 Z" style="fill:var(--accent2);fill-opacity:.6"/>
+<path d="M182,150 Q210,137 238,150 Z" style="fill:var(--good);fill-opacity:.9"/>
+<path d="M152,20 L152,148 L168,148 L168,136 Q210,120 252,136 L252,148 L268,148 L268,20" style="fill:none;stroke:var(--accent);stroke-width:3"/>
+<line x1="154" y1="96" x2="214" y2="128" style="stroke:currentColor;stroke-opacity:.55;stroke-dasharray:4 3"/>
+<line x1="266" y1="100" x2="154" y2="52" style="stroke:currentColor;stroke-opacity:.55;stroke-dasharray:4 3"/>
+<text x="158" y="130" font-size="12" font-weight="700" fill="currentColor">1</text><text x="232" y="112" font-size="12" font-weight="700" fill="currentColor">2</text><text x="196" y="44" font-size="12" font-weight="700" fill="currentColor">3</text>
+<text x="210" y="272" text-anchor="middle" font-size="12" fill="currentColor">pulp</text>
+<line x1="272" y1="22" x2="402" y2="-10" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="272" cy="22" r="2.2" fill="currentColor"/><text x="408" y="-6" font-size="12.5" fill="currentColor">Margins: ALL peripheral caries removed → sound seal</text>
+<line x1="262" y1="46" x2="402" y2="26" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="262" cy="46" r="2.2" fill="currentColor"/><text x="408" y="30" font-size="12.5" fill="currentColor">Composite: oblique increments ≤ 2 mm, cure each</text>
+<line x1="268" y1="84" x2="402" y2="62" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="268" cy="84" r="2.2" fill="currentColor"/><text x="408" y="66" font-size="12.5" fill="currentColor">Adhesive: selective enamel etch + 2-step self-etch</text>
+<line x1="246" y1="140" x2="402" y2="98" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="246" cy="140" r="2.2" fill="currentColor"/><text x="408" y="102" font-size="12.5" fill="currentColor">GIC base: covers CaOH, seals, F⁻, shields from acid</text>
+<line x1="226" y1="147" x2="402" y2="134" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="226" cy="147" r="2.2" fill="currentColor"/><text x="408" y="138" font-size="12.5" fill="currentColor">CaOH (Life/Dycal): deepest pulpal/axial point only</text>
+<line x1="236" y1="158" x2="402" y2="170" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="236" cy="158" r="2.2" fill="currentColor"/><text x="408" y="174" font-size="12.5" fill="currentColor">Affected dentine left over the pulp → no exposure</text>
+<line x1="268" y1="212" x2="402" y2="210" style="stroke:currentColor;stroke-opacity:.45"/><circle cx="268" cy="212" r="2.2" fill="currentColor"/><text x="408" y="214" font-size="12.5" fill="currentColor">Pulp: vital, reversible pulpitis (RDT &lt; 0.5 mm)</text>
+</g></svg><figcaption>Q5 as one picture, bottom-up: sound periphery → leave deep affected dentine → CaOH only where the pulp is closest → GIC over it → bond → layered composite. Calcium silicate pathway: MTA/Biodentine + RMGI lining in place of CaOH + GIC.</figcaption></figure>
+  <div class="card">
+    <span class="tag ok">Model answer</span><b>Q5: very deep caries, young patient, IPC then composite</b>
+    <ol class="steps">
+      <li><span class="do">Confirm reversible pulpitis (provoked, non-lingering), positive sensibility, no periapical pathology → IPC indicated. Give LA</span><span class="why">VPT only works on a pulp that can heal</span></li>
+      <li><span class="do">Rubber dam: always</span><span class="why">Asepsis and moisture control. Success depends on the coronal seal</span></li>
+      <li><span class="do">Remove unsupported enamel (high-speed diamond)</span><span class="why">Access, and sound margins that will seal</span></li>
+      <li><span class="do">Remove <b>all peripheral caries</b> (slow-speed round carbide or spoon) down to hard dentine</span><span class="why">A sound periphery gives a bacteria-tight seal</span></li>
+      <li><span class="do">On the pulpal and axial walls, remove only soft infected dentine with a spoon, <b>no pressure</b>; leave deep caries over the pulp</span><span class="why">Avoids exposure; sealed residual bacteria become inactive</span></li>
+      <li><span class="do">Clean with water or saline (CHX optional); dry gently, don't desiccate</span><span class="why">Remove debris without damaging deep dentine</span></li>
+      <li><span class="do">CaOH (Life/Dycal): thin layer on the <b>deepest pulpal/axial</b> point only, not the gingival wall</span><span class="why">pH 11–13 is antibacterial and stimulates tertiary dentine. There's no pulp under the gingival wall, so keep that area for bonding</span></li>
+      <li><span class="do">Cover with a conventional GIC base (don't condition over the CaOH). The VPT lecture says conventional GIC; the clinic sheet for Life says "seal with RMGI", so either is defensible if you justify it</span><span class="why">CaOH dissolves and is weak. GIC protects it, seals, releases F⁻ and shields the pulp from acid in later steps</span></li>
+      <li><span class="do">2-step self-etch: selective enamel etch 30 s → rinse → dry → SE primer active 20 s → air → bond passive 10 s → cure 10–20 s</span><span class="why">No phosphoric acid near the pulp. Mild self-etch is best on dentine (chemical bond); the enamel etch keeps the margins strong</span></li>
+      <li><span class="do">Incremental composite ≤ 2 mm, cure each</span><span class="why">Full cure; lower C-factor and stress → margins stay sealed</span></li>
+      <li><span class="do">Remove dam, check occlusion, finish and polish. Restore definitively the <b>same visit</b> (if out of time, at least seal)</span><span class="why">The coronal seal decides success</span></li>
+      <li><span class="do">Review at 6 and 12 months, then yearly up to 4 years: symptoms, sensibility, radiograph</span><span class="why">Confirm the pulp is vital and healthy, with no apical change</span></li>
+    </ol>
+    <p class="muted" style="margin-top:8px">Alternative pathway: MTA or Biodentine on the deepest point + RMGI (light-cure GI) lining. Apply the conditioner <b>last</b> to keep its contact with the bioceramic short.</p>
+  </div>
+
+  <div class="tbl"><table>
+    <tr><th></th><th>Calcium hydroxide (Life / Dycal)</th><th>Calcium silicate (MTA / Biodentine)</th></tr>
+    <tr><td>Good</td><td>High pH: antibacterial, stimulates fibroblasts and tertiary dentine</td><td>Biocompatible, bioactive (mineral deposition), good seal, dimensionally stable, strong</td></tr>
+    <tr><td>Bad</td><td>Bridge has <b>tunnel defects</b>; dissolves → microleakage; ~70% success at 5 y; <b>must be covered</b></td><td>MTA can <b>discolour</b> tooth (radiopacifier); cost and handling</td></tr>
+    <tr><td>Notes</td><td>Fine for IPC (non-exposed deep lesions do about as well as with CSC or GIC)</td><td>Biodentine = 80% tricalcium silicate + 15% CaCO₃ + zirconia. <b>Preferred for exposed pulps</b></td></tr>
+  </table></div>
+  <div class="trap"><b>Traps:</b> CaOH on an RB4 (mid-depth) lesion is over-treatment. <b>Ledermix</b> is not indicated (no RCT evidence). Resin or bonding agent directly on an exposed pulp is <b>contraindicated</b> (cytotoxic, no dentine bridge). Brown, hard tertiary dentine is not caries.</div>
+</section>
+
+<!-- ================= AMALGAM ================= -->
+<section id="amalgam">
+  <h2><span class="n">4</span>Amalgam (Q4 model)</h2>
+  <div class="card">
+    <span class="tag ok">Model answer</span><b>Q4: Class II ready; dam, matrix and wedge on; capsule, mixer and dappen dish available</b>
+    <ol class="steps">
+      <li><span class="do">Check the field: matrix tight and stable, wedge seals the gingival margin, cavity clean and dry (RMGI liner such as Fuji Bond LC if indicated)</span><span class="why">Once mixed, working time is short. A loose matrix or wedge gives an overhang or open contact</span></li>
+      <li><span class="do">Select the capsule (SDI Permite, 2-spill) for cavity size; check expiry and that it's intact</span><span class="why">Pre-dosed capsules give the correct alloy-to-mercury ratio (Minamata: capsules only)</span></li>
+      <li><span class="do">Activate: press the capsule on a hard surface until the plunger is flush with the body</span><span class="why">Breaks the seal between alloy powder and mercury so they can mix</span></li>
+      <li><span class="do">Triturate in the amalgamator for <b>~6 s</b> (lecture value; SDI's instructions give 8 ± 1 s for 1–3 spill on the Ultramat 2)</span><span class="why">Mechanically coats the alloy particles with Hg to make a homogeneous, plastic mass</span></li>
+      <li><span class="do">Check the mix: shake the capsule and feel a single "pebble" (lecture), meaning one cohesive, plastic ball (not dry and crumbly, not wet and runny)</span><span class="why">A bad mix gives a weak, poorly adapted, porous, corrosion-prone restoration. Discard it rather than guessing a new time</span></li>
+      <li><span class="do">Open the capsule, dispense into the dappen dish; used capsule goes to <b>amalgam waste</b></span><span class="why">Mercury hygiene and safe disposal</span></li>
+      <li><span class="do">Load the carrier and start <b>immediately</b>, condensing from the deepest point (proximal box first) in small increments</span><span class="why">Amalgam sets fast and fresh material won't bond to set material. Condensing adapts it to the walls and removes voids</span></li>
+    </ol>
+    <p class="muted" style="margin-top:8px">If asked to finish the restoration: overpack → burnish → carve (marginal ridge, anatomy) → remove matrix carefully → check occlusion → finish and polish <b>after 24 h</b> or more.</p>
+  </div>
+  <div class="trap"><b>Trap:</b> amalgam does <b>not bond or adhere</b>. Retention is mechanical: slight occlusal convergence of the walls plus small retentive undercuts (OSCE notes: bur angled ≤ 20°). Never write that trituration makes it "wet enough to adhere".</div>
+  <div class="grid2">
+    <div class="card"><span class="tag">Prep principles</span>
+      <ul><li>Butt-joint margins about 90°, <b>no bevels</b> (thin amalgam fractures)</li><li>Bulk at least 1.5–2 mm; flat floor; rounded internal angles</li><li>High-copper alloy removes the weak, corrosion-prone γ2 phase</li></ul></div>
+    <div class="card"><span class="tag">ADA Policy 6.18 / Minamata</span>
+      <ul><li>Safe and effective. Capsules only; bulk mercury prohibited</li><li>Phase-<b>down</b>, not a ban. <b>ADA:</b> minimise in children, pregnant or breastfeeding women, kidney disease. <b>Minamata:</b> strongly discourages it in deciduous teeth, under 15s and pregnancy</li><li>Capsules must meet ISO 24234 (now the 2021 edition; your lecture notes say 2015)</li><li>Don't remove sound amalgam for vague health complaints</li></ul></div>
+  </div>
+</section>
+
+<!-- ================= REPAIR ================= -->
+<section id="repair">
+  <h2><span class="n">5</span>Repair vs replace</h2>
+  <p>"If in doubt, take it out" has become "<b>take it out only as a last resort</b>". Choose the least invasive option that fixes the diagnosed problem.</p>
+  <div class="tbl"><table>
+    <tr><th>Option</th><th>When</th></tr>
+    <tr><td>Do nothing / monitor</td><td>Very small deficiency, marginal stain with no clinical effect, patient not bothered</td></tr>
+    <tr><td>Repolish</td><td>Roughness, dullness, small excess; margins intact</td></tr>
+    <tr><td>Repair</td><td>Partial replacement of no more than 50% of the restoration. <b>One</b> localised defect: marginal stain the patient dislikes, small gap or food trap, small chip or fracture, colour correction</td></tr>
+    <tr><td>Replace</td><td>Generalised failure, bulk fracture, <b>caries recurring</b> under a large part, deep interface staining, failed previous repairs, <b>2 or more repair indications on the same restoration</b></td></tr>
+  </table></div>
+
+  <div class="card"><span class="tag hot">Amalgam (Q1)</span>
+    <ul>
+      <li>You <b>can't repair amalgam with amalgam</b>: no chemical bond between old and new, and you'd need bulk and retention, which isn't conservative. Repair it with <b>composite</b> instead.</li>
+      <li>Marginal degradation <b>and</b> secondary caries = two problems → <b>replace</b>. Lecturer favours composite, because amalgam causes cracks over time (molars OR 8.79; amalgam-restored OR 4.81) and secondary caries is easier to treat than a crack.</li>
+      <li><b>Repolish</b> amalgam only when margins are intact and the surface is rough.</li>
+    </ul>
+  </div>
+
+  <div class="grid2">
+    <div class="sys"><div class="hd"><h3>Replacing amalgam with composite</h3></div><div class="bd">
+      <ol class="steps">
+        <li><span class="do">Rubber dam</span><span class="why">Moisture control and protection from amalgam particles</span></li>
+        <li><span class="do">Remove with a high-speed diamond and plenty of water (plus suction)</span><span class="why">Less heat and mercury vapour</span></li>
+        <li><span class="do">Clean off amalgam residue; leave the pigmented (hard) dentine and mask it</span><span class="why">Stain isn't caries, so don't over-cut</span></li>
+        <li><span class="do">Selective enamel etch 35–37%</span><span class="why">Strong enamel bond</span></li>
+        <li><span class="do">Universal adhesive, active application → air → cure</span><span class="why">Self-etch mode on dentine</span></li>
+        <li><span class="do">Incremental composite</span><span class="why">Cure and stress control</span></li>
+      </ol></div></div>
+    <div class="sys"><div class="hd"><h3>Composite repair</h3></div><div class="bd">
+      <ol class="steps">
+        <li><span class="do">Isolate (rubber dam)</span><span class="why">Clean interface</span></li>
+        <li><span class="do">Roughen the old composite (diamond bur or air abrasion)</span><span class="why">Removes the aged surface; micromechanical retention; raises surface energy and wettability</span></li>
+        <li><span class="do">37% H₃PO₄ (enamel 30 s, dentine 15 s) → rinse → dry</span><span class="why">On old composite it only <b>cleans</b>; it etches the tooth</span></li>
+        <li><span class="do">Silane on the old composite, <b>60 s</b> → air-dry</span><span class="why">Chemically couples to exposed filler particles</span></li>
+        <li><span class="do">Adhesive: bond on the resin, enamel and dentine (primer only if dentine is exposed) → cure 20 s</span><span class="why">Bonds to the resin matrix and the tooth; intermediate layer</span></li>
+        <li><span class="do">Incremental composite → occlusion → finish and polish</span><span class="why">Restore form and function</span></li>
+      </ol>
+      <p class="muted" style="margin-top:6px">Fresh, uncontaminated composite bonds through the oxygen-inhibited layer, so it needs no surface treatment.</p></div></div>
+  </div>
+</section>
+
+<!-- ================= BLEACHING ================= -->
+<section id="bleach">
+  <h2><span class="n">6</span>Whitening + ADA Policy 2.2.8</h2>
+
+  <div class="card"><span class="tag hot">Q2 answer</span> Risks of pulpal damage or irreversible injury (policy §3.4):
+    <ul>
+      <li>✅ <b>a</b> Incorrect heat or other energy (plasma arc light, Class 4 laser) → pulpal (nerve) injury</li>
+      <li>✅ <b>b</b> Incorrect use → <b>burns to adjacent soft tissues</b></li>
+      <li>❌ <b>c</b> Protective gel and rinsing <i>prevent</i> injury</li>
+      <li>✅ <b>d</b> No protective eyewear with intense light or lasers → <b>irreversible eye injury</b></li>
+    </ul></div>
+
+  <h3>Policy 2.2.8: what to know</h3>
+<figure class="dg"><svg viewBox="0 0 720 196" role="img" aria-label="Hydrogen peroxide concentration scale: up to 3 percent mouthwash, 3 to 6 percent Schedule 5 over the counter, above 6 percent Schedule 10 dentists only; above 5 percent is a hazardous substance; home products 4 to 10 percent, in-office 30 to 35 percent."><rect x="40" y="70" width="110.001" height="30" style="fill:currentColor;fill-opacity:.08;stroke:currentColor;stroke-opacity:.3"/><text x="95.0005" y="84" text-anchor="middle" font-size="11" fill="currentColor">mouthwash /</text><text x="95.0005" y="96" text-anchor="middle" font-size="11" fill="currentColor">toothpaste</text><rect x="150.001" y="70" width="110.001" height="30" style="fill:var(--good);fill-opacity:.22;stroke:var(--good)"/><text x="205.00150000000002" y="84" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">Schedule 5</text><text x="205.00150000000002" y="96" text-anchor="middle" font-size="11" fill="currentColor">OTC "Caution"</text><rect x="260.002" y="70" width="219.998" height="30" style="fill:var(--bad);fill-opacity:.2;stroke:var(--bad)"/><rect x="520" y="70" width="180" height="30" style="fill:var(--bad);fill-opacity:.2;stroke:var(--bad)"/><text x="370.001" y="84" text-anchor="middle" font-size="11.5" font-weight="700" fill="currentColor">Schedule 10</text><text x="370.001" y="96" text-anchor="middle" font-size="11" fill="currentColor">registered dental practitioners only</text><text x="610" y="90" text-anchor="middle" font-size="11" fill="currentColor">dentists only</text><polyline points="484,66 492,78 500,62 508,76 516,64" style="fill:none;stroke:currentColor;stroke-opacity:.5"/><polyline points="484,104 492,116 500,100 508,114 516,102" style="fill:none;stroke:currentColor;stroke-opacity:.5"/><line x1="40" y1="112" x2="480" y2="112" stroke="currentColor" stroke-opacity=".5"/><line x1="520" y1="112" x2="700" y2="112" stroke="currentColor" stroke-opacity=".5"/><line x1="40.0" y1="108" x2="40.0" y2="116" stroke="currentColor"/><text x="40.0" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">0%</text><line x1="150.001" y1="108" x2="150.001" y2="116" stroke="currentColor"/><text x="150.001" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">3%</text><line x1="260.002" y1="108" x2="260.002" y2="116" stroke="currentColor"/><text x="260.002" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">6%</text><line x1="406.67" y1="108" x2="406.67" y2="116" stroke="currentColor"/><text x="406.67" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">10%</text><line x1="565.0" y1="108" x2="565.0" y2="116" stroke="currentColor"/><text x="565.0" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">30%</text><line x1="677.5" y1="108" x2="677.5" y2="116" stroke="currentColor"/><text x="677.5" y="129" text-anchor="middle" font-size="11.5" fill="currentColor">35%</text><text x="700" y="143" text-anchor="end" font-size="11" fill="currentColor" fill-opacity=".65">% hydrogen peroxide (HP)</text><text x="150.001" y="62" text-anchor="middle" font-size="11.5" font-weight="700" style="fill:var(--accent2)">CP 9%</text><text x="260.002" y="62" text-anchor="middle" font-size="11.5" font-weight="700" style="fill:var(--accent2)">CP 18%</text><text x="40" y="18" font-size="11.5" fill="currentColor" fill-opacity=".75">carbamide peroxide ≈ ⅓ as strong:  CP ÷ 3 ≈ HP</text><line x1="223.335" y1="32" x2="223.335" y2="104" style="stroke:var(--warn);stroke-width:1.5;stroke-dasharray:4 3"/><text x="229.335" y="40" font-size="11.5" style="fill:var(--warn)">&gt; 5% HP = hazardous substance (WorkSafe)</text><rect x="186.668" y="152" width="220.002" height="12" rx="6" style="fill:var(--accent);fill-opacity:.55"/><text x="414.67" y="162" font-size="11.5" fill="currentColor" text-anchor="start">home HP 4–10%</text><rect x="162.22333333333336" y="174" width="122.22333333333336" height="12" rx="6" style="fill:var(--accent);fill-opacity:.55"/><text x="292.4466666666667" y="184" font-size="11.5" fill="currentColor" text-anchor="start">home CP 10–20% (≈ HP 3.3–6.7%)</text><rect x="565.0" y="152" width="112.5" height="12" rx="6" style="fill:var(--accent);fill-opacity:.55"/><text x="621.25" y="184" text-anchor="middle" font-size="11.5" fill="currentColor">in-office HP 30–35%</text></svg>
+<figcaption>Policy 2.2.8 on one axis (scale broken between 12% and 28%). The policy line is 6% HP = 18% CP. Note that home HP 4–10% from the lecture straddles that line, so above 6% it's dentist-supplied only.</figcaption></figure>
+  <div class="tbl"><table>
+    <tr><th>Point</th><th>Content</th></tr>
+    <tr><td>Position summary</td><td>For public safety, only <b>registered dental practitioners</b> trained and competent in whitening should use or supply products with <b>&gt; 6% hydrogen peroxide</b> (or equivalent)</td></tr>
+    <tr><td>Thresholds</td><td>Only dentists may supply <b>HP &gt; 6%</b> or <b>CP &gt; 18%</b>. CP ≈ <b>⅓</b> its strength as HP, so 18% CP ≈ 6% HP</td></tr>
+    <tr><td>Poisons Standard</td><td><b>Schedule 5</b> ("Caution"): HP 3–6% or CP 9–18% can be sold OTC with warnings. <b>Schedule 10</b>: HP &gt; 6% or CP &gt; 18% is prohibited except for use by dental practitioners</td></tr>
+    <tr><td>Before treatment</td><td>Comprehensive exam by a dentist; treatment must be <b>justified</b>; risks and costs explained; <b>documented informed consent</b>; realistic expectations</td></tr>
+    <tr><td>Hazards (§3.3)</td><td>HP &gt; 5% is a hazardous substance (WorkSafe). Skin, eye or mucosa contact → irritation or burns. Ingestion → oesophagus or stomach irritation, bleeding. Percolation into the pulp (faster through <b>exposed dentine or enamel cracks</b>) → pulpal inflammation</td></tr>
+    <tr><td>Energy (§3.4–3.5)</td><td>Heat or light misuse → pulp damage and soft-tissue burns; no eyewear → irreversible eye injury (AS/NZS 4173:2018). Class 4 lasers need a state licence in WA, Qld, Vic and Tas</td></tr>
+    <tr><td>Safety (§3.9)</td><td>Safe and effective under a dentist. Most common side effects: <b>transient sensitivity</b> and <b>soft-tissue irritation</b></td></tr>
+    <tr><td>Why not salons</td><td>Non-dentists (salons, kiosks, mobile services) can't assess whether it's safe, choose a technique, or meet regulated standards. Online products can exceed legal limits; marketing drives unrealistic expectations and overuse. <b>ACCC</b> monitors advertising and supply; regulators should educate the public</td></tr>
+  </table></div>
+
+  <h3>Bleaching basics (Dr Weber)</h3>
+  <div class="grid2">
+    <div class="card"><span class="tag">Mechanism</span> HP or CP penetrates enamel and dentine and <b>oxidises</b> organic pigment molecules.
+      <ul><li><b>Extrinsic</b> stain → cleaning or paste. <b>Intrinsic</b> → bleaching</li>
+      <li><b>Indications:</b> ageing, trauma (still vital), medication, calcific metamorphosis, brown fluorosis (white fluorosis responds poorly); also before or after restorations to match shades</li>
+      <li><b>Contraindications:</b> heavy tobacco or alcohol use; caries or open cavities</li>
+      <li>Restorations don't bleach, so do restorative shade work after bleaching</li></ul></div>
+    <div class="card"><span class="tag">Agents</span>
+      <ul><li><b>Home:</b> 10–20% CP (10–15% recommended) or 4–10% HP</li><li><b>In-office:</b> 30–35% HP</li></ul>
+      <span class="tag">In-office</span> prophy → initial shade → gingival barrier → bleach → monitor → final shade.<br>
+      <span class="muted">Fully dentist-controlled and fast, but costly, unpredictable, risk of soft-tissue damage and sensitivity.</span><br>
+      <span class="tag" style="margin-top:6px">Home</span> initial shade → impression or scan → custom trays (vacuum-formed), fit and instructions → monitor → final shade.<br>
+      <span class="muted">Low concentration, cheap, few side effects, but relies on compliance and takes longer. Wipe off excess gel; no drinking or rinsing during wear; remove trays for meals and hygiene.</span></div>
+  </div>
+</section>
+
+<!-- ================= ANTERIOR ================= -->
+<section id="anterior">
+  <h2><span class="n">7</span>Anterior & S2 topics (compressed)</h2>
+
+  <details open><summary>Shade, aesthetics and Class III / IV</summary><div>
+    <ul>
+      <li><b>Shade:</b> clean, <b>hydrated</b> tooth, <b>before the dam</b> (dehydration makes it look lighter and more opaque). Judge <b>value</b> first, then chroma, then hue. Test with a cured, unbonded composite button.</li>
+      <li><b>Six aesthetic elements:</b> shape, symmetry and proportion (golden 1.618 : 1 : 0.618), position and alignment, surface texture, colour, translucency (incisal edge is most translucent).</li>
+      <li><b>Illusions:</b> line angles closer together look narrower; further apart look wider. Horizontal texture makes a tooth look shorter.</li>
+      <li><b>Class III</b> = anterior proximal, incisal angle intact. Palatal access is preferred (keeps facial enamel) but isn't mandatory. <b>Class IV</b> adds the incisal angle or edge.</li>
+      <li><b>Bevel:</b> facial enamel only, <b>45°, 0.5–2 mm</b>: more enamel bonding area and a blended margin. Don't bevel dentine or cementum.</li>
+      <li><b>Isolation:</b> rubber dam, pre-wedge, clear polyester strip and wedge to protect the neighbour; silicone index for the palatal shell in Class IV.</li>
+      <li><b>Layering:</b> palatal enamel shell → proximal wall and contact → opaque dentine/body core → (effects) → translucent facial enamel. Cure each layer.</li>
+      <li><b>Finish vs polish:</b> finishing fixes contour, margins and occlusion; polishing removes scratches (coarse to fine). Course rule: finish immediately, polish at 24–48 h.</li>
+    </ul></div></details>
+
+  <details><summary>Direct composite veneers and diastema</summary><div>
+    <ul>
+      <li><b>Veneer indications:</b> shape or colour change, closing diastemas, patient wants conservative treatment. <b>Pros:</b> cheaper, immediate, minimally invasive, repairable.</li>
+      <li><b>Limits:</b> weakened tooth, <b>parafunction</b>, periodontal disease, excessive buccal inclination, <b>severe discolouration</b> (composite can't mask it).</li>
+      <li><b>Prep depth:</b> 0.5–0.75 mm mid-facial, tapering to 0.3–0.5 mm at the cervical; margin about 0.3 mm subgingival (not in sim clinic); keep contacts; facial only.</li>
+      <li><b>Prep steps:</b> cervical groove at 45° → vertical depth grooves → central cervico-incisal groove (3 planes) → connect grooves → extend into the proximals → cervical margin → finish.</li>
+      <li><b>Sequence:</b> Dx/Tx plan → LA → material → rubber dam → prep → restore (etch and bond per manufacturer) → finish and polish.</li>
+      <li><b>Diastema causes:</b> frenum, missing teeth, small teeth, Bolton discrepancy, supernumeraries, heredity, tongue thrust, perio disease, posterior bite collapse. <b>Don't close it without knowing the cause</b>; check ortho needs first.</li>
+    </ul></div></details>
+
+  <details><summary>Failure, longevity and clinical decision-making</summary><div>
+    <ul>
+      <li><b>Anterior failures:</b> mainly <b>aesthetic</b> (colour mismatch, marginal stain), debonding, fracture. <b>Posterior:</b> <b>secondary caries and fracture</b>.</li>
+      <li><b>AFR</b> (Demarco 2017): anterior 1–5%, posterior 1–3%. Collares 2017: 72,196 anterior composites, AFR about 4.6% at 5 years, varies by dentist (2–11%).</li>
+      <li><b>Causes:</b> trauma, poor prep, wrong material, patient risk. <b>Prevention:</b> correct technique (increments), material choice, rubber dam, evidence-based practice.</li>
+      <li><b>Marginal stain ≠ secondary caries.</b> Stain alone doesn't justify replacing a restoration.</li>
+      <li><b>Decision-making</b> = clinical factors (disease, symptoms, risk) + non-clinical factors (SES, insurance, patient and clinician characteristics). Watch for bias. Complete the <b>systemic phase first</b> (perio, OH) before aesthetic work. Shared decisions build a better relationship.</li>
+    </ul></div></details>
+</section>
+
+<!-- ================= QUICK HITS ================= -->
+<section id="quick">
+  <h2><span class="n">8</span>Quick hits</h2>
+  <div class="tbl"><table>
+    <tr><th>Topic</th><th>Remember</th></tr>
+    <tr><td>Radiographic scores</td><td>RA1–2 enamel · RA3 outer ⅓ dentine (the "grey zone": NOC or TPOC) · <b>RB4 middle ⅓</b> · RC5 inner ⅓ · RC6 pulp</td></tr>
+    <tr><td>Cavitation</td><td>Cavitated → TPOC. ICDAS 3 (enamel micro-cavity) on an active fissure → ICCMS allows resin sealant <i>or</i> TPOC; last year's OSCE expected sealant + prevention first</td></tr>
+    <tr><td>Activity</td><td>Active: matte, rough, plaque, soft. Inactive: shiny, hard, smooth. Colour ≠ activity</td></tr>
+    <tr><td>Dentine types</td><td>Infected (soft, bacteria) → remove · Affected (firm) → can stay · Tertiary (brown, hard) → not caries</td></tr>
+    <tr><td>Eugenol</td><td>ZOE or IRM <b>never under composite</b> (inhibits free-radical cure)</td></tr>
+    <tr><td>Liners</td><td>Vitrebond (thick RMGI) under composite · Fuji Bond LC (thin) under amalgam · Life/Dycal → GIC cover</td></tr>
+    <tr><td>Conditioner</td><td>10% polyacrylic acid before GIC: removes smear layer, leaves smear plugs</td></tr>
+    <tr><td>Sensitivity</td><td>Hydrodynamic theory: fluid moves in open tubules. Exclude caries, cracks and pulpitis first</td></tr>
+    <tr><td>NCCL</td><td>Erosion, abrasion, attrition, abfraction (a hypothesis). Control the cause before restoring; GIC/RMGI or composite</td></tr>
+  </table></div>
+</section>
+
+<!-- ================= NUMBERS ================= -->
+<section id="numbers">
+  <h2><span class="n">9</span>Numbers to memorise</h2>
+  <div class="num">
+    <div><b>30 s / 15 s / 30 s</b><span>Etch enamel / dentine / rinse (37%)</span></div>
+    <div><b>20 s active · 10 s passive</b><span>Primer · bond</span></div>
+    <div><b>2 × 20 s</b><span>Combined or universal adhesive coats</span></div>
+    <div><b>10–20 s</b><span>Adhesive cure · composite 20–40 s</span></div>
+    <div><b>≤ 2 mm · ≤ 2 walls</b><span>Increment · C-factor Class I = 5</span></div>
+    <div><b>0.5 mm RDT</b><span>Deep (&gt;) vs very deep (&lt;) → VPT</span></div>
+    <div><b>6 &amp; 12 mo → yearly to 4 y</b><span>VPT review</span></div>
+    <div><b>pH 11–13 · ~70% / 5 y</b><span>Calcium hydroxide</span></div>
+    <div><b>~6 s</b><span>Amalgam trituration · polish after 24 h</span></div>
+    <div><b>≥ 1.5–2 mm · 90°</b><span>Amalgam bulk · butt joint</span></div>
+    <div><b>60 s</b><span>Silane in composite repair</span></div>
+    <div><b>&gt; 6% HP / &gt; 18% CP</b><span>Dentist-only whitening (Schedule 10)</span></div>
+    <div><b>3–6% HP / 9–18% CP</b><span>Schedule 5 OTC "Caution"</span></div>
+    <div><b>CP ÷ 3 ≈ HP</b><span>&gt; 5% HP is hazardous (WorkSafe)</span></div>
+    <div><b>10–15% CP · 30–35% HP</b><span>Home · in-office bleach</span></div>
+    <div><b>45° · 0.5–2 mm</b><span>Anterior facial enamel bevel</span></div>
+    <div><b>0.5–0.75 / 0.3–0.5 mm</b><span>Veneer prep: mid-facial / cervical</span></div>
+    <div><b>1–5% · 1–3%</b><span>AFR anterior · posterior</span></div>
+  </div>
+</section>
+
+<footer>
+  Built from: last year's restorative paper; Dr Weber's adhesion guide and Week 9 notes; VPT, Repair, Anterior, Veneers/Diastema and Decision-making notes; Tooth Bleaching lecture; ADA Policy 2.2.8 (amended April 2026); OSCE study guide; S2 summary; clinic materials list. Taught times are course protocol; in the clinic, follow the manufacturer's instructions.
+</footer>
+</div>
+
+<script>
+(function(){
+  var b=document.body, r=document.getElementById('recallBtn'), t=document.getElementById('themeBtn'), root=document.documentElement;
+  function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  if(get('doh244-theme')==='light') root.setAttribute('data-theme','light');
+  r.addEventListener('click',function(){var on=b.classList.toggle('recall');r.setAttribute('aria-pressed',on);document.querySelectorAll('.why.show').forEach(function(x){x.classList.remove('show')});});
+  t.addEventListener('click',function(){var l=root.getAttribute('data-theme')==='light';if(l){root.removeAttribute('data-theme');set('doh244-theme','dark')}else{root.setAttribute('data-theme','light');set('doh244-theme','light')}});
+  document.addEventListener('click',function(e){if(b.classList.contains('recall')&&e.target.classList.contains('why'))e.target.classList.toggle('show')});
+})();
+</script>
+</body>
+</html>
